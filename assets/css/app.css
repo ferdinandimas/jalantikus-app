@@ -93,7 +93,36 @@ html, body
 	color: #454545;
 	position: relative;
 	font-size: 15px;
+	line-height: 18px;
+	max-height: 54px;
+	-webkit-line-clamp : 3;
 	font-weight: bold;
+	display            : block;
+	display            : -webkit-box;
+	-webkit-box-orient : vertical;
+	position           : relative;
+	overflow           : hidden;
+	text-overflow      : ellipsis;
+	padding            : 0 !important;
+}
+.app-index-card .card-description .card-title:after
+{
+	content    : '...';
+	text-align : right;
+	bottom     : 0;
+	right      : 0;
+	width      : 25%;
+	display    : block;
+	position   : absolute;
+	height     : 18px;
+	background : linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 75%);
+}
+@supports (-webkit-line-clamp: 1)
+{
+	.app-index-card .card-description .card-title:after
+	{
+		display : none !important;
+	}
 }
 .app-index-card .card-image
 {
@@ -483,7 +512,7 @@ html, body
 	color: #fff;
 	line-height: 60px;
 	font-size: 20px;
-	font-weight: 300;
+	font-weight: 500;
 	padding-left: 60px;
 	padding-right: 20px;
 	display: inline-block;
