@@ -10,14 +10,14 @@ define(
                 var that = this;
 
                 $.ajax({
-                    url     : _config.jtAPI + "getArticles/limit/10/page/" + _page + "/order/latest",
+                    url     : _config.jtAPI + "getArticles/limit/10/page/" + _page + "/order/latest/detail/id,title,image,user,published",
                     dataType: "json",
                     async   : false,
                     success : function (result) {
                         ajaxResult = result.response;
 
                         that.reset();
-                        
+
                         _.each(ajaxResult, function (value) {
                             that.add(value);
                         });
