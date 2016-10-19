@@ -9,6 +9,7 @@ require.config({
         "jquery.mobile-config": './app/config/jquery.mobile',
         "jquery.mobile"       : './lib/jquery.mobile-1.4.5.min',
         "jquery.mobile"       : './lib/jquery.mobile-1.4.5.min',
+        isInViewport          : './lib/isInViewport.min',
         jt                    : './lib/jt-lib',
         "jt-config"           : './app/config/jt',
         text                  : './lib/require/text',
@@ -25,6 +26,7 @@ require.config({
         },
         "jquery.mobile-config": [ "jt", "jquery" ],
         "jquery.mobile"       : [ "jt", "jquery", "jquery.mobile-config" ],
+        isInViewport          : [ "jquery" ],
         backbone              : {
             deps   : [ "jt", "underscore", "jquery" ],
             exports: "Backbone"
@@ -37,9 +39,9 @@ require.config({
 });
 
 require(
-    [ "app/main", "backbone", "jquery", "jquery.mobile", "lib/isInViewport.min" ],
+    [ "app/main", "backbone", "jquery", "jquery.mobile", "isInViewport" ],
     function (Router) {
-        $(function() {
+        $(function () {
             window.BackboneRouter = new Router();
             Backbone.history.start({ pushState: false });
 
@@ -58,23 +60,6 @@ require(
                     currUI.addClass("active");
                 }
             });
-
-            $(document).on("click", ".card-link", function (e) {
-                var currItem = $(this);
-                var ripple   = $(currItem.children()[ 0 ]);
-                var rX       = e.offsetX - 225, rY = e.offsetY - 225;
-                if (!currItem.hasClass("active")) {
-                    ripple.css('top', rY);
-                    ripple.css('left', rX);
-                    currItem.addClass("active");
-                    var fdCurr = setTimeout(function () {
-                        currItem.removeClass("active");
-                        clearTimeout(fdCurr);
-                    }, 500)
-                }
-            });
-
-
         });
     }
 );
