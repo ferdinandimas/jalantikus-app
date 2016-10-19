@@ -46,7 +46,7 @@ html, body
 	right: 0;
 	height: 60px;
 	width: 100%;
-	background-color: #f44336;
+	background-color: #b71c1c;
 	z-index: 4;
 	-webkit-transition: 0.3s;
     transition: 0.3s;
@@ -249,7 +249,7 @@ html, body
 	margin: 20px auto 20px;
 	height: 45px;
 	width: 45px;
-	background-color: #f44336;
+	background-color: #b71c1c;
 	border-radius: 50%;
 }
 .app-load
@@ -516,6 +516,7 @@ html, body
 	padding-left: 60px;
 	padding-right: 20px;
 	display: inline-block;
+	text-shadow:0px 0px 0px;
 }
 .app-header .header-menu
 {
