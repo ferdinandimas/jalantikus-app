@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.jalantikus.app" versionCode="1" version="1.0.0">
-    <name>SAMOCA</name>
+    <name>JalanTikus</name>
     <description>
         Situs Download Software dan Games Gratis, Aplikasi Android APK dan Games APK Gratis, Tips dan Trik, Berita Gadget dan Informasi Teknologi Dunia Terbaru Hanya di JalanTikus.com
     </description>
-    <author href="https://jalantikus.com" email="cs@jalantikus.com">
+    <author href="https://jalantikus.com" email="info@jalantikus.com">
         JalanTikus
     </author>
 
