@@ -1,0 +1,85 @@
+<style>
+    * {
+        font-size : 15px;
+        color     : #56636a;
+    }
+
+    .ui-overlay-a, .ui-page-theme-a, .ui-page-theme-a .ui-panel-wrapper, body {
+        background : #e6e6e6 !important;
+    }
+
+    .article {
+        position      : relative;
+        overflow      : hidden;
+        margin-bottom : 5px;
+        background    : #f9f9f9 !important;
+    }
+
+    .content-frame {
+        position : relative;
+        overflow : hidden;
+        float    : left;
+        width    : calc(100% - 140px);
+        height   : 110px;
+        padding  : 5px;
+        padding-right: 10px;
+    }
+
+    .tags {
+        position : absolute;
+        left     : 5px;
+        bottom   : 5px;
+    }
+
+    .image-frame {
+        position : relative;
+        overflow : hidden;
+        float    : right;
+        width    : 120px;
+        height   : 120px;
+    }
+</style>
+
+<div id="content-frame">HOME</div>
+
+<script type="application/javascript">
+    $(document).on('pagebeforeshow', function(e, data){
+        $.ajax({
+            url     : _configuration.jtAPI + "getArticles/limit/10/page/1/order/latest/detail/id,title,links,image,user,category,tags",
+            dataType: "json",
+            async   : true,
+            success : function (result) {
+                result = result.response;
+
+                $.each(result, function (key, value) {
+                    if (key + 1 == result.length) var isLast = true;
+
+                    _item = '' +
+                        '<a href="javascript:void(0)">' +
+                            '<div class="article ' + (isLast ? "last-item" : "") + '">' +
+                                '<div class="content-frame">' +
+                                    '<div class="title">' +
+                                        value.title +
+                                    '</div>' +
+                                    '<div class="tags">' +
+                                        value.tags.primary.title +
+                                    '</div>' +
+                                '</div>' +
+                                '<div class="image-frame">' +
+                                    '<img src="' + value.image.baseUrl + '120/120' + value.image.file + '" alt="' + value.title + '" />' +
+                                '</div>' +
+                            '</div>' +
+                        '</a>';
+
+                    $("#content-frame").append(_item);
+                });
+            }
+        });
+    });
+
+    $(document).on('pageshow', function(e, data){
+        $(document).on("scrollstop",function(){
+            console.log("Scroll stoped!");
+        });
+    });
+</script>
