@@ -10,9 +10,11 @@ define(
         var homeView = Backbone.View.extend({
             template: _.template(timelineTemplate),
             model   : new homeCollection(),
+            page    : 1,
             initialize: function () {
-                this.model.renderTimeline();
+                this.model.renderTimeline(this.page);
 
+                var that = this;
                 _data = this.model.toJSON();
 
                 $("#app-body .app-content-container").empty();
@@ -36,24 +38,35 @@ define(
                 });
 
                 var _movement = 0;
-                $("#app-body .app-content-container").scroll(function() {
-                    _movement = 0;
-                    autoload();
+                $("#app-body .app-content-container").scroll(function () {
+                    clearTimeout($.data(this, 'scrollTimer'));
+                    $.data(this, 'scrollTimer', setTimeout(function () {
+                        _movement = 0;
+                        autoload();
+                    }, 250));
                 });
-                $(document).on("touchmove", "#app-body .app-content-container", function() {
+                $(document).on("touchmove", "#app-body .app-content-container", function () {
                     if (_movement++ >= 50) {
                         _movement = 0;
                         autoload();
                     }
                 });
-                $(document).on("touchend", "#app-body .app-content-container", function() {
+                $(document).on("touchend", "#app-body .app-content-container", function () {
                     _movement = 0;
                     autoload();
                 });
 
                 function autoload() {
                     if ($(".app-content-container .app-loader").is(":in-viewport")) {
-                        console.log("HERE");
+                        that.page = that.page + 1;
+                        that.model.renderTimeline(that.page);
+
+                        _data = that.model.toJSON();
+
+                        $(".app-content-container .app-loader").remove();
+                        $("#app-body .app-content-container").append(that.template({
+                            timelineArticle: _data
+                        })).append('<div class="app-loader"><div class="app-load"></div></div>');
                     }
                 }
             }

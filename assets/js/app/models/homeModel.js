@@ -16,6 +16,8 @@ define(
                     success : function (result) {
                         ajaxResult = result.response;
 
+                        that.reset();
+                        
                         _.each(ajaxResult, function (value) {
                             that.add(value);
                         });
