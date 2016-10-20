@@ -41,7 +41,7 @@ require.config({
 });
 
 require(
-    [ "app/main", "backbone", "jquery", "jquery.mobile", "isInViewport", "fastclick" ],
+    [ "app/main", "backbone", "jquery", "jquery.mobile", "isInViewport" ],
     function (Router) {
         $(function () {
             window.BackboneRouter = new Router();
@@ -62,9 +62,6 @@ require(
                     currUI.addClass("active");
                 }
             });
-
-            var attachFastClick = Origami.fastclick;
-            attachFastClick($(".usermenu-item"));
         });
     }
 );
