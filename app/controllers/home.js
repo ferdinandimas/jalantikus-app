@@ -4,9 +4,11 @@ define(
         "backbone",
         "jquery",
         "text!views/timeline_template.html",
-        "models/homeModel"
+        "models/homeModel",
+        "fastclick"
     ],
     function (_, Backbone, $, timelineTemplate, homeCollection) {
+        var attachFastClick = Origami.fastclick;
         var homeView = Backbone.View.extend({
             template: _.template(timelineTemplate),
             model   : new homeCollection(),
@@ -67,6 +69,7 @@ define(
                         $("#app-body .app-content-container").append(that.template({
                             timelineArticle: _data
                         })).append('<div class="app-loader"><div class="app-load"></div></div>');
+                        attachFastClick($('.card-link'));
                     }
                 }
             }

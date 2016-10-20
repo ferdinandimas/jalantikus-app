@@ -46,7 +46,7 @@ html, body
 	right: 0;
 	height: 60px;
 	width: 100%;
-	background-color: #f44336;
+	background-color: #b71c1c;
 	z-index: 4;
 	-webkit-transition: 0.3s;
     transition: 0.3s;
@@ -59,7 +59,7 @@ html, body
 	right: 0;
 	height: 0;
 	width: 100%;
-	background-color: #f44336;
+	background-color: #b71c1c;
 	z-index: 4;
 }
 .app-toolbar-placeholder
@@ -246,7 +246,7 @@ html, body
 }
 .app-loader
 {
-	margin: 15px auto 30px;
+	margin: 20px auto 20px;
 	height: 45px;
 	width: 45px;
 	background-color: #f44336;
@@ -510,14 +510,25 @@ html, body
 .app-header .header-description
 {
 	color: #fff;
+	position: absolute;
+	left: 60px;
+	top: 0px;
 	line-height: 60px;
+	height: 60px;
 	font-size: 20px;
 	font-weight: 500;
-	padding-left: 60px;
-	padding-right: 20px;
-	display: inline-block;
+	display: block;
+	text-shadow: 0px 0px 0px;
 }
-.app-header .header-description:after
+.app-header .header-menu
+{
+	height: 60px;
+	width: 60px;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+.app-header .header-menu:after
 {
 	content: "";
 	position: absolute;
@@ -527,12 +538,12 @@ html, body
     bottom: 0;
     left: 0;
 }
-.app-header .header-description.index:after
+.app-header .header-menu.index:after
 {
     background: url(../images/menu-icon.svg) center center no-repeat;
     background-size: 24px 24px;
 }
-.app-header .header-description.back:after
+.app-header .header-menu.back:after
 {
 	-webkit-mask-image: url(../images/arrow-back-icon.svg);
 	mask-image: url(../images/arrow-back-icon.svg);
