@@ -1,24 +1,23 @@
 define(
     [
-        'underscore',
         'backbone',
         'jquery'
     ],
-    function (_, Backbone, $) {
+    function (Backbone, $) {
         var homeCollection = Backbone.Collection.extend({
-            renderTimeline: function (_page = 1) {
+            renderTimeline: function (_page) {
                 this.reset();
 
                 var that = this;
 
                 $.ajax({
-                    url: _config.jtAPI + "getArticles/limit/10/page/" + _page + "/order/published/detail/id,title,image,user,published",
+                    url: _config.jtAPI + "getArticles/limit/10/page/" + _page + "/order/published/detail/id,title,slug,image,user,published",
                     dataType: "json",
                     async: false,
                     success: function (result) {
                         ajaxResult = result.response;
 
-                        _.each(ajaxResult, function (value) {
+                        $.each(ajaxResult, function (value) {
                             that.add(value);
                         });
                     }

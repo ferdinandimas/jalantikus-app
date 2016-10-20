@@ -15,6 +15,8 @@
     <preference name="orientation" value="portrait"/>
     <preference name="fullscreen" value="false"/>
 
+    <preference name="StatusBarBackgroundColor" value="#B71C1C" />
+
     <!-- Android only -->
     <preference name="android-minSdkVersion" value="21"/>
     <preference name="android-targetSdkVersion" value="21"/>
@@ -83,32 +85,28 @@
         <splash src="res/screen/android/drawable-port-xxxhdpi-screen" qualifier="xxxhdpi"/>
     </platform>
 
-    <plugin name="cordova-plugin-camera" spec="~2.1.1" source="npm"/>
-    <plugin name="cordova-plugin-device" spec="~1.1.1" source="npm"/>
+    <!--<plugin name="cordova-plugin-camera" spec="~2.1.1" source="npm"/>-->
+    <!--<plugin name="cordova-plugin-device" spec="~1.1.1" source="npm"/>-->
     <plugin name="cordova-plugin-dialogs" spec="~1.2.0" source="npm"/>
-    <plugin name="cordova-plugin-geolocation" spec="~2.1.0" source="npm"/>
-    <plugin name="cordova-plugin-inappbrowser" spec="~1.3.0" source="npm"/>
+    <!--<plugin name="cordova-plugin-geolocation" spec="~2.1.0" source="npm"/>-->
+    <!--<plugin name="cordova-plugin-inappbrowser" spec="~1.3.0" source="npm"/>-->
     <plugin name="cordova-plugin-network-information" spec="1.2.0" source="npm"/>
     <plugin name="cordova-plugin-splashscreen" spec="~3.2.1" source="npm"/>
     <plugin name="cordova-plugin-statusbar" spec="~2.1.2" source="npm"/>
-    <plugin name="cordova-plugin-whitelist" spec="~1.2.1" source="npm"/>
-    <plugin name="phonegap-plugin-barcodescanner" spec="4.1.0" source="npm"/>
+    <!--<plugin name="cordova-plugin-whitelist" spec="~1.2.1" source="npm"/>-->
+    <!--<plugin name="phonegap-plugin-barcodescanner" spec="4.1.0" source="npm"/>-->
 
     <access origin="*" subdomains="true"/>
 
     <allow-intent href="http://*/*"/>
     <allow-intent href="https://*/*"/>
-    <allow-intent href="tel:*"/>
-    <allow-intent href="sms:*"/>
-    <allow-intent href="mailto:*"/>
-    <allow-intent href="geo:*"/>
 
-    <platform name="android">
-        <allow-intent href="market:*"/>
-    </platform>
+    <!--<platform name="android">-->
+        <!--<allow-intent href="market:*"/>-->
+    <!--</platform>-->
 
-    <platform name="ios">
-        <allow-intent href="itms:*"/>
-        <allow-intent href="itms-apps:*"/>
-    </platform>
+    <!--<platform name="ios">-->
+        <!--<allow-intent href="itms:*"/>-->
+        <!--<allow-intent href="itms-apps:*"/>-->
+    <!--</platform>-->
 </widget>

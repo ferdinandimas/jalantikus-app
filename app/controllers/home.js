@@ -3,24 +3,31 @@ define(
         "underscore",
         "backbone",
         "jquery",
-        "text!views/timeline_template.html",
+        "text!views/home_layout.html",
+        "text!views/header_layout.html",
+        "text!views/template/timeline.html",
         "models/homeModel",
         "fastclick"
     ],
-    function (_, Backbone, $, timelineTemplate, homeCollection) {
+    function (_, Backbone, $, homeLayout, headerLayout, timelineTemplate, homeCollection) {
         var attachFastClick = Origami.fastclick;
-        var homeView = Backbone.View.extend({
-            template: _.template(timelineTemplate),
-            model   : new homeCollection(),
-            page    : 1,
-            initialize: function () {
-                this.model.renderTimeline(this.page);
+        var homeView        = Backbone.View.extend({
+            timelineTemplate: _.template(timelineTemplate),
+            layout          : _.template(homeLayout),
+            collection      : new homeCollection(),
+            page            : 1,
+            initialize      : function () {
+                $("#app-toolbar").removeClass("detail").empty().append((_.template(headerLayout))());
+
+                this.collection.renderTimeline(this.page);
 
                 var that = this;
-                _data = this.model.toJSON();
+                _data    = this.collection.toJSON();
+
+                $("#app-body").empty().append(this.layout());
 
                 $("#app-body .app-content-container").empty();
-                $("#app-body .app-content-container").append(this.template({
+                $("#app-body .app-content-container").append(this.timelineTemplate({
                     timelineArticle: _data
                 })).append('<div class="app-loader"><div class="app-load"></div></div>');
 
@@ -61,12 +68,12 @@ define(
                 function autoload() {
                     if ($(".app-content-container .app-loader").is(":in-viewport")) {
                         that.page = that.page + 1;
-                        that.model.renderTimeline(that.page);
+                        that.collection.renderTimeline(that.page);
 
-                        _data = that.model.toJSON();
+                        _data = that.collection.toJSON();
 
                         $(".app-content-container .app-loader").remove();
-                        $("#app-body .app-content-container").append(that.template({
+                        $("#app-body .app-content-container").append(that.timelineTemplate({
                             timelineArticle: _data
                         })).append('<div class="app-loader"><div class="app-load"></div></div>');
                         attachFastClick($('.card-link'));

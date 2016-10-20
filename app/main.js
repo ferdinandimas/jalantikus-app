@@ -8,6 +8,7 @@ define(
         var Router = Backbone.Router.extend({
             routes: {
                 '': 'home',
+                'article/:id': 'articleDetail',
             },
 
             initialize: function () {
@@ -19,6 +20,15 @@ define(
                     [ 'controllers/home' ],
                     function (Home) {
                         new Home();
+                    }
+                );
+            },
+
+            articleDetail: function (_articleSlug) {
+                require(
+                    [ 'controllers/articleDetail' ],
+                    function (ArticleDetail) {
+                        new ArticleDetail(_articleSlug);
                     }
                 );
             },
