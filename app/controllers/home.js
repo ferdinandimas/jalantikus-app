@@ -14,15 +14,17 @@ define(
         var homeView        = Backbone.View.extend({
             timelineTemplate: _.template(timelineTemplate),
             layout          : _.template(homeLayout),
-            collection      : new homeCollection(),
+            model           : new homeCollection(),
             page            : 1,
             initialize      : function () {
                 $("#app-toolbar").removeClass("detail").empty().append((_.template(headerLayout))());
 
-                this.collection.renderTimeline(this.page);
+                this.model.renderTimeline(this.page);
 
                 var that = this;
-                _data    = this.collection.toJSON();
+                _data    = this.model.toJSON();
+
+                console.log('here 2', _data);
 
                 $("#app-body").empty().append(this.layout());
 
@@ -68,9 +70,9 @@ define(
                 function autoload() {
                     if ($(".app-content-container .app-loader").is(":in-viewport")) {
                         that.page = that.page + 1;
-                        that.collection.renderTimeline(that.page);
+                        that.model.renderTimeline(that.page);
 
-                        _data = that.collection.toJSON();
+                        _data = that.model.toJSON();
 
                         $(".app-content-container .app-loader").remove();
                         $("#app-body .app-content-container").append(that.timelineTemplate({

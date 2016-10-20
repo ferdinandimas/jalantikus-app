@@ -62,6 +62,12 @@ require(
                     currUI.addClass("active");
                 }
             });
+
+            $(document).on("click", ".app-header .app-toggle-back", function(e) {
+                e.preventDefault();
+
+                window.history.back();
+            });
         });
     }
 );
