@@ -52,7 +52,7 @@ require(
             $(".app-toggle-searchpanel").on("click", function (e) {
                 var focus = setTimeout(function () {
                     $(".searchbar").focus();
-                }, 100)
+                }, 350)
             });
 
             $(".usermenu-item").on("click", function (e) {
