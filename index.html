@@ -3,15 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="theme-color" content="#b71c1c" />
-    
+
     <title>JalanTikus App</title>
 
     <link rel="stylesheet" href="assets/css/lib/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" href="assets/css/app.css">
 
     <script src="phonegap.js"></script>
-    <script data-main="app/app" src="assets/js/lib/require.min.js"></script>
+    <script data-main="app" src="app/lib/require.min.js"></script>
 </head>
 <body>
 <div class="app-root" id="app-root" data-role="page">
@@ -83,12 +82,10 @@
     <div class="app-toolbar shadow-l2" id="app-toolbar">
         <div class="app-header">
             <a href="#app-userpanel" class="app-toggle-userpanel">
-                <div class="header-menu index">
+                <div class="header-description index">
+                    Beranda
                 </div>
             </a>
-            <div class="header-description">
-                Beranda
-            </div>
             <a href="#app-searchpanel" class="app-toggle-searchpanel">
                 <div class="header-search">
                 </div>

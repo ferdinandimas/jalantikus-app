@@ -16,7 +16,7 @@ define(
 
             home: function () {
                 require(
-                    [ 'app/controllers/home' ],
+                    [ 'controllers/home' ],
                     function (Home) {
                         new Home();
                     }

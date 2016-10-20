@@ -1,18 +1,17 @@
 require.config({
-    baseUrl: 'assets/js',
+    baseUrl: 'app',
     paths  : {
-        app                   : './app',
+        app                   : './',
         lib                   : './lib',
         underscore            : './lib/underscore-min',
         backbone              : './lib/backbone-min',
         jquery                : './lib/jquery-2.x.min',
-        "jquery.mobile-config": './app/config/jquery.mobile',
+        "jquery.mobile-config": './config/jquery.mobile',
         "jquery.mobile"       : './lib/jquery.mobile-1.4.5.min',
         "jquery.mobile"       : './lib/jquery.mobile-1.4.5.min',
         isInViewport          : './lib/isInViewport.min',
-        fastclick             : './lib/fastclick-min',
         jt                    : './lib/jt-lib',
-        "jt-config"           : './app/config/jt',
+        "jt-config"           : './config/jt',
         text                  : './lib/require/text',
     },
     shim   : {
@@ -28,7 +27,6 @@ require.config({
         "jquery.mobile-config": [ "jt", "jquery" ],
         "jquery.mobile"       : [ "jt", "jquery", "jquery.mobile-config" ],
         isInViewport          : [ "jquery" ],
-        fastclick          : [ "jquery" ],
         backbone              : {
             deps   : [ "jt", "underscore", "jquery" ],
             exports: "Backbone"
@@ -41,7 +39,7 @@ require.config({
 });
 
 require(
-    [ "app/main", "backbone", "jquery", "jquery.mobile", "isInViewport" ],
+    [ "main", "backbone", "jquery", "jquery.mobile", "isInViewport" ],
     function (Router) {
         $(function () {
             window.BackboneRouter = new Router();
@@ -52,7 +50,7 @@ require(
             $(".app-toggle-searchpanel").on("click", function (e) {
                 var focus = setTimeout(function () {
                     $(".searchbar").focus();
-                }, 350)
+                }, 100)
             });
 
             $(".usermenu-item").on("click", function (e) {

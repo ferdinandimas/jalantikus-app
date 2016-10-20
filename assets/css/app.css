@@ -46,7 +46,7 @@ html, body
 	right: 0;
 	height: 60px;
 	width: 100%;
-	background-color: #b71c1c;
+	background-color: #f44336;
 	z-index: 4;
 	-webkit-transition: 0.3s;
     transition: 0.3s;
@@ -246,10 +246,10 @@ html, body
 }
 .app-loader
 {
-	margin: 20px auto 20px;
+	margin: 15px auto 30px;
 	height: 45px;
 	width: 45px;
-	background-color: #b71c1c;
+	background-color: #f44336;
 	border-radius: 50%;
 }
 .app-load
@@ -509,26 +509,15 @@ html, body
 }
 .app-header .header-description
 {
-	position: absolute;
-	left: 60px;
-	top: 0;
-	height: 60px;
 	color: #fff;
 	line-height: 60px;
 	font-size: 20px;
 	font-weight: 500;
-	display: block;
-	text-shadow:0px 0px 0px;
+	padding-left: 60px;
+	padding-right: 20px;
+	display: inline-block;
 }
-.app-header .header-menu
-{
-	height: 60px;
-	width: 60px;
-	position: absolute;
-	left: 0;
-	top: 0;
-}
-.app-header .header-menu:after
+.app-header .header-description:after
 {
 	content: "";
 	position: absolute;
@@ -538,12 +527,12 @@ html, body
     bottom: 0;
     left: 0;
 }
-.app-header .header-menu.index:after
+.app-header .header-description.index:after
 {
     background: url(../images/menu-icon.svg) center center no-repeat;
     background-size: 24px 24px;
 }
-.app-header .header-menu.back:after
+.app-header .header-description.back:after
 {
 	-webkit-mask-image: url(../images/arrow-back-icon.svg);
 	mask-image: url(../images/arrow-back-icon.svg);
