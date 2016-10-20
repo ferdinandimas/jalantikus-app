@@ -10,6 +10,7 @@ require.config({
         "jquery.mobile"       : './lib/jquery.mobile-1.4.5.min',
         "jquery.mobile"       : './lib/jquery.mobile-1.4.5.min',
         isInViewport          : './lib/isInViewport.min',
+        fastclick             : './lib/fastclick-min',
         jt                    : './lib/jt-lib',
         "jt-config"           : './app/config/jt',
         text                  : './lib/require/text',
@@ -27,6 +28,7 @@ require.config({
         "jquery.mobile-config": [ "jt", "jquery" ],
         "jquery.mobile"       : [ "jt", "jquery", "jquery.mobile-config" ],
         isInViewport          : [ "jquery" ],
+        fastclick          : [ "jquery" ],
         backbone              : {
             deps   : [ "jt", "underscore", "jquery" ],
             exports: "Backbone"
@@ -39,7 +41,7 @@ require.config({
 });
 
 require(
-    [ "app/main", "backbone", "jquery", "jquery.mobile", "isInViewport" ],
+    [ "app/main", "backbone", "jquery", "jquery.mobile", "isInViewport", "fastclick" ],
     function (Router) {
         $(function () {
             window.BackboneRouter = new Router();
@@ -60,6 +62,9 @@ require(
                     currUI.addClass("active");
                 }
             });
+
+            var attachFastClick = Origami.fastclick;
+            attachFastClick(document.body);
         });
     }
 );
