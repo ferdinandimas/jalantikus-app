@@ -19,6 +19,10 @@
 	text-decoration: none;
 	font-family: "Roboto";
 }
+a[href], button {
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+}
 html, body
 {
 	margin: 0;
@@ -202,54 +206,43 @@ html, body
 	bottom: 0;
 	overflow: hidden;
 }
-.app-index-card .card-link.active .ripple
+.app-index-card .card-link .ripple
 {
 	width: 450px;
 	height: 450px;
 	position: absolute;
+	left: -225px;
+	top: -225px;
 	border-radius: 50%;
 	background-color: rgba(0,0,0,0.44);
 	-webkit-transform-origin: center;
 	transform-origin: center;
 	-webkit-transform: scale(0);
 	transform: scale(0);
-	-webkit-animation: ripple 500ms linear 1;
-	animation: ripple 500ms linear 1;
+	opacity: 0;
 }
-@-webkit-keyframes ripple
+.app-index-card .card-link.active .ripple
 {
-	0% {
-		transform: scale(0);
-		opacity: 0;
-	}
-	66.6% {
-		opacity: 0.74
-	}
-	100% {
-		transform: scale(1);
-		opacity: 0
-	}
+	-webkit-transition: opacity 300ms linear, -webkit-transform 300ms linear;
+    transition: opacity 300ms linear, transform 300ms linear;
+	-webkit-transform: scale(0.75);
+	transform: scale(0.75);
+	opacity: 0.7;
 }
-@keyframes ripple
+.app-index-card .card-link.active.faded .ripple
 {
-	0% {
-		transform: scale(0);
-		opacity: 0;
-	}
-	66.6% {
-		opacity: 0.74
-	}
-	100% {
-		transform: scale(1);
-		opacity: 0
-	}
+	-webkit-transition: opacity 100ms linear, -webkit-transform 100ms linear;
+    transition: opacity 100ms linear, transform 100ms linear;
+	opacity: 0;
+	-webkit-transform: scale(1);
+	transform: scale(1);
 }
 .app-loader
 {
 	margin: 20px auto 20px;
 	height: 45px;
 	width: 45px;
-	background-color: #f44336;
+	background-color: #b71c1c;
 	border-radius: 50%;
 }
 .app-load
