@@ -24,6 +24,10 @@ define(
                             alert(value);
                             that.add(value);
                         });
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                        alert(errorThrown);
                     }
                 });
             },
