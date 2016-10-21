@@ -151,15 +151,27 @@ html, body
 }
 .app-index-card .card-image img
 {
-	height: 100%;
-	border-radius: 0 2px 2px 0
+	height: 110px;
+	width: 110px;
+	border-radius: 0 2px 2px 0;
+	background-image: url(../images/placeholder.png);
+    background-color: #eee;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 .app-index-card.multi-image .card-image img
 {
 	height: auto;
 	margin-right: 10px;
 	border-radius: 0;
-	width: calc((100% - 20px) / 3)
+	width: calc((100% - 20px) / 3);
+	background-image: url(../images/placeholder.png);
+    background-color: #eee;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
 }
 .app-index-card.multi-image .card-image img:nth-child(3)
 {
@@ -400,8 +412,15 @@ html, body
 }
 .app-detail-body .share-container li
 {
-	margin-right: 10px;
+	margin-right: calc((100% - 250px) / 4);
 }
+@media(min-width: 360px){
+	.app-detail-body .share-container li
+	{
+		margin-right: 20px;
+	}
+}
+
 .app-detail-body .share-container li:last-child
 {
 	margin: 0;
