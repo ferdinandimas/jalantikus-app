@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.jalantikus.app" versionCode="1" version="1.0.0">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.jalantikus.app"
+        versionCode="1" version="1.0.0">
     <name>JalanTikus</name>
     <description>
-        Situs Download Software dan Games Gratis, Aplikasi Android APK dan Games APK Gratis, Tips dan Trik, Berita Gadget dan Informasi Teknologi Dunia Terbaru Hanya di JalanTikus.com
+        Situs Download Software dan Games Gratis, Aplikasi Android APK dan Games APK Gratis, Tips dan Trik, Berita
+        Gadget dan Informasi Teknologi Dunia Terbaru Hanya di JalanTikus.com
     </description>
     <author href="https://jalantikus.com" email="info@jalantikus.com">
         JalanTikus
@@ -15,7 +17,7 @@
     <preference name="orientation" value="portrait"/>
     <preference name="fullscreen" value="false"/>
 
-    <preference name="StatusBarBackgroundColor" value="#B71C1C" />
+    <preference name="StatusBarBackgroundColor" value="#B71C1C"/>
 
     <!-- Android only -->
     <preference name="android-minSdkVersion" value="21"/>
@@ -38,28 +40,22 @@
     <preference name="StatusBarStyle" value="default"/>
     <preference name="permissions" value="none"/>
 
-    <preference name="ShowSplashScreen" value="true" />
-    <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="3000" />
-    <preference name="SplashMaintainAspectRatio" value="true" />
-    <preference name="SplashShowOnlyFirstTime" value="true" />
+    <preference name="SplashScreen" value="screen"/>
+    <preference name="SplashScreenDelay" value="5000"/>
+    <preference name="AutoHideSplashScreen" value="true"/>
 
     <platform name="android">
-        <icon src="res/icon/android/drawable-hdpi-icon"/>
-        <icon src="res/icon/android/drawable-ldpi-icon" qualifier="ldpi"/>
-        <icon src="res/icon/android/drawable-mdpi-icon" qualifier="mdpi"/>
-        <icon src="res/icon/android/drawable-hdpi-icon" qualifier="hdpi"/>
-        <icon src="res/icon/android/drawable-xhdpi-icon" qualifier="xhdpi"/>
-        <icon src="res/icon/android/drawable-xxhdpi-icon" qualifier="xxhdpi"/>
-        <icon src="res/icon/android/drawable-xxxhdpi-icon" qualifier="xxxhdpi"/>
+        <icon src="res/icon/android/drawable-xhdpi-icon.png"/>
+        <icon src="res/icon/android/drawable-ldpi-icon.png" density="ldpi"/>
+        <icon src="res/icon/android/drawable-mdpi-icon.png" density="mdpi"/>
+        <icon src="res/icon/android/drawable-hdpi-icon.png" density="hdpi"/>
+        <icon src="res/icon/android/drawable-xhdpi-icon.png" density="xhdpi"/>
 
-        <splash src="res/splash/android/drawable-port-hdpi-screen"/>
-        <splash src="res/splash/android/drawable-port-ldpi-screen" qualifier="ldpi"/>
-        <splash src="res/splash/android/drawable-port-mdpi-screen" qualifier="mdpi"/>
-        <splash src="res/splash/android/drawable-port-hdpi-screen" qualifier="hdpi"/>
-        <splash src="res/splash/android/drawable-port-xhdpi-screen" qualifier="xhdpi"/>
-        <splash src="res/splash/android/drawable-port-xxhdpi-screen" qualifier="xxhdpi"/>
-        <splash src="res/splash/android/drawable-port-xxxhdpi-screen" qualifier="xxxhdpi"/>
+        <splash src="res/screen/android/drawable-port-hdpi-screen.png"/>
+        <splash src="res/screen/android/drawable-port-ldpi-screen.png" density="ldpi"/>
+        <splash src="res/screen/android/drawable-port-mdpi-screen.png" density="mdpi"/>
+        <splash src="res/screen/android/drawable-port-hdpi-screen.png" density="hdpi"/>
+        <splash src="res/screen/android/drawable-port-xhdpi-screen.png" density="xhdpi"/>
     </platform>
 
     <!--<plugin name="cordova-plugin-camera" spec="~2.1.1" source="npm"/>-->
