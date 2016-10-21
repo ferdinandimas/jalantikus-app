@@ -150,6 +150,14 @@ html, body
 	height: 110px;
 	width: 110px;
 }
+.app-index-card.card-placeholder .card-image
+{
+	background-image: url(../images/placeholder.png);
+    background-color: #eee;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
 .app-index-card.multi-image 
 {
 	height: auto;
@@ -222,6 +230,14 @@ html, body
 	background: url(../images/time-icon.svg) no-repeat;
 	background-size: 11px 11px;
 	opacity: 0.3;
+}
+.app-index-card.card-placeholder .card-description .card-published
+{
+	padding: 0;
+}
+.app-index-card.card-placeholder .card-description .card-published:after
+{
+	display: none;
 }
 .app-index-card .card-link
 {
