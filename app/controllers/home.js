@@ -5,29 +5,37 @@ define(
         "jquery",
         "text!views/home_layout.html",
         "text!views/header_layout.html",
-        "text!views/template/timeline.html",
-        "models/homeModel"
+        "text!views/template/timeline.html"
     ],
-    function (_, Backbone, $, homeLayout, headerLayout, timelineTemplate, homeCollection) {
+    function (_, Backbone, $, homeLayout, headerLayout, timelineTemplate) {
         var homeView = Backbone.View.extend({
             timelineTemplate: _.template(timelineTemplate),
             layout          : _.template(homeLayout),
-            model           : new homeCollection(),
             page            : 1,
             initialize      : function () {
-                $("#app-toolbar").removeClass("detail").empty().append((_.template(headerLayout))());
-
-                this.model.renderTimeline(this.page);
-
                 var that = this;
-                _data    = this.model.toJSON();
 
+                $("#app-toolbar").removeClass("detail").empty().append((_.template(headerLayout))());
                 $("#app-body").empty().append(this.layout());
 
-                $("#app-body .app-content-container").empty();
-                $("#app-body .app-content-container").append(this.timelineTemplate({
-                    timelineArticle: _data
-                })).append('<div class="app-loader"><div class="app-load"></div></div>');
+                $.ajax({
+                    url: _config.jtAPI + "getArticles/limit/10/page/" + that.page + "/order/published/detail/id,title,slug,image,user,published",
+                    dataType: "json",
+                    async: false,
+                    success: function (result) {
+                        ajaxResult = result.response;
+
+                        $("#app-body .app-content-container").empty();
+                        $("#app-body .app-content-container").append(that.timelineTemplate({
+                            timelineArticle: ajaxResult
+                        })).append('<div class="app-loader"><div class="app-load"></div></div>');
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        jt.log("Ajax home error",
+                            errorThrown,
+                            _config.jtAPI + "getArticles/limit/10/page/" + that.page + "/order/published/detail/id,title,slug,image,user,published");
+                    }
+                });
 
                 var _movement = 0;
                 $("#app-body .app-content-container").scroll(function () {
