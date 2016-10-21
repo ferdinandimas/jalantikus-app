@@ -5,37 +5,29 @@ define(
         "jquery",
         "text!views/home_layout.html",
         "text!views/header_layout.html",
-        "text!views/template/timeline.html"
+        "text!views/template/timeline.html",
+        "models/homeModel"
     ],
-    function (_, Backbone, $, homeLayout, headerLayout, timelineTemplate) {
+    function (_, Backbone, $, homeLayout, headerLayout, timelineTemplate, homeCollection) {
         var homeView = Backbone.View.extend({
             timelineTemplate: _.template(timelineTemplate),
             layout          : _.template(homeLayout),
+            model           : new homeCollection(),
             page            : 1,
             initialize      : function () {
-                var that = this;
-
                 $("#app-toolbar").removeClass("detail").empty().append((_.template(headerLayout))());
+
+                this.model.renderTimeline(this.page);
+
+                var that = this;
+                _data    = this.model.toJSON();
+
                 $("#app-body").empty().append(this.layout());
 
-                $.ajax({
-                    url: _config.jtAPI + "getArticles/limit/10/page/" + that.page + "/order/published/detail/id,title,slug,image,user,published",
-                    dataType: "json",
-                    async: false,
-                    success: function (result) {
-                        ajaxResult = result.response;
-
-                        $("#app-body .app-content-container").empty();
-                        $("#app-body .app-content-container").append(that.timelineTemplate({
-                            timelineArticle: ajaxResult
-                        })).append('<div class="app-loader"><div class="app-load"></div></div>');
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        jt.log("Ajax home error",
-                            errorThrown,
-                            _config.jtAPI + "getArticles/limit/10/page/" + that.page + "/order/published/detail/id,title,slug,image,user,published");
-                    }
-                });
+                $("#app-body .app-content-container").empty();
+                $("#app-body .app-content-container").append(this.timelineTemplate({
+                    timelineArticle: _data
+                })).append('<div class="app-loader"><div class="app-load"></div></div>');
 
                 var _movement = 0;
                 $("#app-body .app-content-container").scroll(function () {
