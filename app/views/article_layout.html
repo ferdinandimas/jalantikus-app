@@ -2,15 +2,17 @@
     <div class="app-detail-header">
         <div class="header-image">
             <img src="<%= detail.image.baseUrl %>480/0<%= detail.image.file %>" alt="<%= detail.title %>" />
+        </div>
+        <div class="header-detail">
+            <div class="header-title shadow-l2">
+                <%= detail.title %>
+            </div>
             <div class="header-author">
                 Ditulis oleh <strong><%= detail.user.name %></strong>
             </div>
             <div class="header-published">
                 <strong><%= detail.published %></strong> yang lalu
             </div>
-        </div>
-        <div class="header-title shadow-l2">
-            <%= detail.title %>
         </div>
     </div>
     <div class="app-detail-body">

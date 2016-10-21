@@ -27,7 +27,7 @@ define(
                 $("#app-body .app-content-container").empty();
                 $("#app-body .app-content-container").append(this.timelineTemplate({
                     timelineArticle: _data
-                })).append('<div class="app-loader"><div class="app-load"></div></div>');
+                })).append('<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>');
 
                 var _movement = 0;
                 $("#app-body .app-content-container").scroll(function () {
@@ -40,25 +40,36 @@ define(
                 $(document).on("touchmove", "#app-body .app-content-container", function () {
                     if (_movement++ >= 50) {
                         _movement = 0;
-                        autoload();
+                        // autoload();
                     }
                 });
-                $(document).on("touchend", "#app-body .app-content-container", function () {
-                    _movement = 0;
-                    autoload();
-                });
+                // $(document).on("touchend", "#app-body .app-content-container", function () {
+                //     _movement = 0;
+                //     autoload();
+                // });
+
+                $(document).on("touchend", ".app-retry", function()
+                {
+                    $(".app-load").css("display", "block");
+                    $(".app-retry").css("display", "none");
+                    // autoload();
+                })
 
                 function autoload() {
+
                     if ($(".app-content-container .app-loader").is(":in-viewport")) {
                         that.page = that.page + 1;
                         that.model.renderTimeline(that.page);
 
                         _data = that.model.toJSON();
 
-                        $(".app-content-container .app-loader").remove();
-                        $("#app-body .app-content-container").append(that.timelineTemplate({
-                            timelineArticle: _data
-                        })).append('<div class="app-loader"><div class="app-load"></div></div>');
+                        if(_data.length > 0)
+                        {
+                            $(".app-content-container .app-loader").remove();
+                            $("#app-body .app-content-container").append(that.timelineTemplate({
+                                timelineArticle: _data
+                            })).append('<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>');
+                        }
                     }
                 }
             }
