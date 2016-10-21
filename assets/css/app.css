@@ -61,7 +61,7 @@ html, body
 }
 .app-toolbar.scroll ~ .app-body .app-toolbar-placeholder
 {
-	margin-top: -61px;
+	height: 0px;
 }
 .app-toolbar.scroll ~ .app-body .app-content-container
 {
@@ -82,6 +82,8 @@ html, body
 {
 	height: 60px;
     width: 100%;
+    -webkit-transition: 0.1s;
+    transition: 0.1s;
 }
 .app-body
 {
@@ -475,12 +477,14 @@ html, body
 }
 .share-container
 {
-	display: inline-block;
+    display: inline-block;
     list-style: none;
     padding: 15px;
-    height: 25px;
+    height: 55px;
+    width: 100%;
     margin: 0;
     border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
 }
 .share-container li, .share-container li a
 {
@@ -489,7 +493,7 @@ html, body
 	display: inline-block;
 	border-radius: 2px;
 }
-..share-container li
+.share-container li
 {
 	margin-right: calc((100% - 250px) / 4);
 }

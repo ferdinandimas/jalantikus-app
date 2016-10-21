@@ -33,6 +33,9 @@ define(
                         '<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>');
 
                 var _movement = 0;
+                var _top = 0;
+                var _nTop = 0;
+                var _flag = 0;
                 $("#app-body .app-content-container").scroll(function () {
                     clearTimeout($.data(this, 'scrollTimer'));
                     $.data(this, 'scrollTimer', setTimeout(function () {
@@ -45,6 +48,30 @@ define(
                         _movement = 0;
                         // autoload();
                     }
+                    _top = $(this).scrollTop();
+                    if(_flag == 0)
+                    {
+                        if(_top > _nTop + 10)
+                        {
+                            if(!$("#app-toolbar").hasClass("scroll"))
+                            {
+                                _flag = 1;
+                                $("#app-toolbar").addClass("scroll")
+                            };
+                        }
+                    }
+                    else if (_flag == 1)
+                    {
+                        if(_top <= _nTop - 10)
+                        {
+                            if($("#app-toolbar").hasClass("scroll"))
+                            {
+                                $("#app-toolbar").removeClass("scroll")
+                                _flag = 0;
+                            };
+                        }
+                    }
+                    _nTop = _top;
                 });
                 $(document).on("touchend", "#app-body .app-content-container", function () {
                     _movement = 0;
