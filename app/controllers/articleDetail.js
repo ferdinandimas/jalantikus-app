@@ -32,6 +32,9 @@ define(
                                 $("#app-toolbar").addClass("detail");
                             }
                         });
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        jt.log("Ajax article detail error", errorThrown, _config.jtAPI + "getArticle/" + _articleSlug);
                     }
                 });
             }

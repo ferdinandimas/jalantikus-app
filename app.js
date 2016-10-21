@@ -49,12 +49,8 @@ require(
         $(function () {
             $.mobile.loading().hide();
 
-            alert(1);
-
             window.BackboneRouter = new Router();
             Backbone.history.start({ pushState: false });
-
-            alert(2);
 
             $(document).on("click", ".app-toggle-searchpanel", function (e) {
                 var focus = setTimeout(function () {
