@@ -19,16 +19,19 @@ define(
                         ajaxResult = result.response;
 
                         var _buff = 0;
+                        var reservedSlot = false;
                         _.each(ajaxResult, function (value) {
                             _buff++;
 
                             console.log(value.title, value.description_images.length, _buff);
-                            if (_buff >= 3) {
+                            if (_buff >= 3 || (_buff == 2 && reservedSlot == false)) {
                                 _buff = 0;
 
                                 if (value.description_images.length >= 3) {
                                     value.multiple_images = true;
                                 }
+
+                                reservedSlot = true;
                             }
 
                             console.log(value);

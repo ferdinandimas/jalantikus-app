@@ -25,9 +25,12 @@ define(
                 $("#app-body").empty().append(this.layout());
 
                 $("#app-body .app-content-container").empty();
-                $("#app-body .app-content-container").append(this.timelineTemplate({
-                    timelineArticle: _data
-                })).append('<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>');
+                $("#app-body .app-content-container")
+                    .append(this.timelineTemplate({
+                        timelineArticle: _data
+                    }))
+                    .append(
+                        '<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>');
 
                 var _movement = 0;
                 $("#app-body .app-content-container").scroll(function () {
@@ -43,32 +46,37 @@ define(
                         // autoload();
                     }
                 });
-                // $(document).on("touchend", "#app-body .app-content-container", function () {
-                //     _movement = 0;
-                //     autoload();
-                // });
+                $(document).on("touchend", "#app-body .app-content-container", function () {
+                    _movement = 0;
+                    autoload();
+                });
 
-                $(document).on("touchend", ".app-retry", function()
-                {
+                $(document).on("touchend", ".app-retry", function () {
                     $(".app-load").css("display", "block");
                     $(".app-retry").css("display", "none");
-                    // autoload();
+                    autoload();
+                })
+                $(document).on("click", ".app-retry", function () {
+                    $(".app-load").css("display", "block");
+                    $(".app-retry").css("display", "none");
+                    autoload();
                 })
 
                 function autoload() {
-
-                    if ($(".app-content-container .app-loader").is(":in-viewport")) {
+                    if ($(".app-content-container .app-load").is(":in-viewport")) {
                         that.page = that.page + 1;
                         that.model.renderTimeline(that.page);
 
                         _data = that.model.toJSON();
 
-                        if(_data.length > 0)
-                        {
+                        if (_data.length > 0) {
                             $(".app-content-container .app-loader").remove();
-                            $("#app-body .app-content-container").append(that.timelineTemplate({
-                                timelineArticle: _data
-                            })).append('<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>');
+                            $("#app-body .app-content-container")
+                                .append(that.timelineTemplate({
+                                    timelineArticle: _data
+                                }))
+                                .append(
+                                    '<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>');
                         }
                     }
                 }
