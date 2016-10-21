@@ -360,7 +360,7 @@ html, body
 }
 .app-detail-body
 {
-	padding: 15px 15px 5px 15px;
+	padding: 0px 15px 5px 15px;
 	color: #454545;
 	font-size: 15px;
 	line-height: 26px;
@@ -461,56 +461,56 @@ html, body
 	line-height: 30px;
 	text-shadow: 2px 2px 2px #121212
 }
-.app-detail-body .share-container
+.share-container
 {
 	display: inline-block;
-	list-style: none;
-	padding: 0;
-	width: 100%;
-	height: 25px;
-	margin: 0;
+    list-style: none;
+    padding: 15px;
+    height: 25px;
+    margin: 0;
+    border-bottom: 1px solid #ddd;
 }
-.app-detail-body .share-container li, .app-detail-body .share-container li a
+.share-container li, .share-container li a
 {
 	width: 50px;
 	height: 25px;
 	display: inline-block;
 	border-radius: 2px;
 }
-.app-detail-body .share-container li
+..share-container li
 {
 	margin-right: calc((100% - 250px) / 4);
 }
 @media(min-width: 360px){
-	.app-detail-body .share-container li
+	.share-container li
 	{
 		margin-right: 20px;
 	}
 }
 
-.app-detail-body .share-container li:last-child
+.share-container li:last-child
 {
 	margin: 0;
 }
-.app-detail-body .share-container li a
+.share-container li a
 {
 	background-size: 16px 16px;
     background-repeat: no-repeat;
     background-position: center center;
 }
-.app-detail-body .share-container li.wa-share 
+.share-container li.wa-share 
 {
     background-color: #43d854;
 }
-.app-detail-body .share-container li.wa-share a
+.share-container li.wa-share a
 {
 	background-image: url(../images/wa-icon.svg);
 }
-.app-detail-body .share-container li.bbm-share 
+.share-container li.bbm-share 
 {
     background-color: #373737;
 }
-.app-detail-body .share-container li.bbm-share a
+.share-container li.bbm-share a
 {
 	-webkit-mask-image: url(../images/bbm-icon.svg);
 	mask-image: url(../images/bbm-icon.svg);
@@ -522,22 +522,22 @@ html, body
 	mask-size: 16px 16px;
     background: #fff;
 }
-.app-detail-body .share-container li.line-share 
+.share-container li.line-share 
 {
     background-color: #00c300;
 }
-.app-detail-body .share-container li.line-share a
+.share-container li.line-share a
 {
 	background-image: url(../images/line-icon.png);
 	background-size: 24px auto;
     background-repeat: no-repeat;
     background-position: center center;
 }
-.app-detail-body .share-container li.fb-share
+.share-container li.fb-share
 {
 	background-color: #3b5998;
 }
-.app-detail-body .share-container li.fb-share a
+.share-container li.fb-share a
 {
 	-webkit-mask-image: url(../images/fb-icon.svg);
 	mask-image: url(../images/fb-icon.svg);
@@ -549,11 +549,11 @@ html, body
 	mask-size: 16px 16px;
     background: #fff;
 }
-.app-detail-body .share-container li.link-share
+.share-container li.link-share
 {
 	background-color: #c30053;
 }
-.app-detail-body .share-container li.link-share a
+.share-container li.link-share a
 {
 	-webkit-mask-image: url(../images/link-icon.svg);
 	mask-image: url(../images/link-icon.svg);
@@ -565,11 +565,11 @@ html, body
 	mask-size: 16px 16px;
     background: #fff;
 }
-.app-detail-body .share-container li.more-share
+.share-container li.more-share
 {
 	background-color: #8c8c8c;
 }
-.app-detail-body .share-container li.more-share a
+.share-container li.more-share a
 {
 	-webkit-mask-image: url(../images/more-icon.svg);
 	mask-image: url(../images/more-icon.svg);
