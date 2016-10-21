@@ -59,6 +59,7 @@
     </platform>
 
     <splash src="res/splash/android/drawable-port-hdpi-screen"/>
+    <icon src="res/icon/android/drawable-hdpi-icon"/>
 
     <!--<plugin name="cordova-plugin-camera" spec="~2.1.1" source="npm"/>-->
     <!--<plugin name="cordova-plugin-device" spec="~1.1.1" source="npm"/>-->
