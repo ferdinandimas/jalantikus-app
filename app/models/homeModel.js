@@ -7,6 +7,7 @@ define(
     function (_, Backbone, $) {
         var homeCollection = Backbone.Collection.extend({
             renderTimeline: function (_page) {
+                alert(7);
                 this.reset();
 
                 var that = this;
@@ -16,6 +17,7 @@ define(
                     dataType: "json",
                     async: false,
                     success: function (result) {
+                        alert(8);
                         ajaxResult = result.response;
 
                         _.each(ajaxResult, function (value) {

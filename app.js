@@ -47,18 +47,22 @@ require(
     [ "main", "backbone", "jquery", "jquery.mobile", "isInViewport" ],
     function (Router) {
         $(function () {
+            $.mobile.loading().hide();
+
+            alert(1);
+
             window.BackboneRouter = new Router();
             Backbone.history.start({ pushState: false });
 
-            $.mobile.loading().hide();
+            alert(2);
 
-            $(".app-toggle-searchpanel").on("click", function (e) {
+            $(document).on("click", ".app-toggle-searchpanel", function (e) {
                 var focus = setTimeout(function () {
                     $(".searchbar").focus();
                 }, 500)
             });
 
-            $(".usermenu-item").on("click", function (e) {
+            $(document).on("click", ".usermenu-item", function (e) {
                 var currUI = $(this);
                 if (!currUI.hasClass("active")) {
                     $('.usermenu-item').not(currUI).removeClass("active");
@@ -70,6 +74,10 @@ require(
                 e.preventDefault();
 
                 window.history.back();
+            });
+
+            $(document).on("click", ".card-link", function (e) {
+                jt.ripple($(this), e)
             });
         });
     }

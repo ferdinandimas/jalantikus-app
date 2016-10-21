@@ -15,6 +15,7 @@ define(
             model           : new homeCollection(),
             page            : 1,
             initialize      : function () {
+                alert(5);
                 $("#app-toolbar").removeClass("detail").empty().append((_.template(headerLayout))());
 
                 this.model.renderTimeline(this.page);
@@ -29,9 +30,7 @@ define(
                     timelineArticle: _data
                 })).append('<div class="app-loader"><div class="app-load"></div></div>');
 
-                $(document).on("click", ".card-link", function (e) {
-                    jt.ripple($(this), e)
-                });
+                alert(6);
 
                 var _movement = 0;
                 $("#app-body .app-content-container").scroll(function () {

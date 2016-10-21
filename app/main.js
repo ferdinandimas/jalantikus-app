@@ -14,9 +14,11 @@ define(
             },
 
             home: function () {
+                alert(3);
                 require(
                     [ 'controllers/home' ],
                     function (Home) {
+                        alert(4);
                         new Home();
                     }
                 );
