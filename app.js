@@ -16,7 +16,10 @@ require.config({
         text                  : './lib/require/text',
     },
     shim   : {
-        jt                    : [ "jt-config" ],
+        jt                    : {
+            deps   : [ "jt-config" ],
+            exports: "jt",
+        },
         underscore            : {
             deps   : [ "jt" ],
             exports: "_",
@@ -28,7 +31,7 @@ require.config({
         "jquery.mobile-config": [ "jt", "jquery" ],
         "jquery.mobile"       : [ "jt", "jquery", "jquery.mobile-config" ],
         isInViewport          : [ "jquery" ],
-        fastclick          : [ "jquery" ],
+        fastclick             : [ "jquery" ],
         backbone              : {
             deps   : [ "jt", "underscore", "jquery" ],
             exports: "Backbone"
@@ -63,7 +66,7 @@ require(
                 }
             });
 
-            $(document).on("click", ".app-header .app-toggle-back", function(e) {
+            $(document).on("click", ".app-header .app-toggle-back", function (e) {
                 e.preventDefault();
 
                 window.history.back();

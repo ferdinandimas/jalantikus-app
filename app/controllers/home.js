@@ -6,12 +6,10 @@ define(
         "text!views/home_layout.html",
         "text!views/header_layout.html",
         "text!views/template/timeline.html",
-        "models/homeModel",
-        "fastclick"
+        "models/homeModel"
     ],
     function (_, Backbone, $, homeLayout, headerLayout, timelineTemplate, homeCollection) {
-        var attachFastClick = Origami.fastclick;
-        var homeView        = Backbone.View.extend({
+        var homeView = Backbone.View.extend({
             timelineTemplate: _.template(timelineTemplate),
             layout          : _.template(homeLayout),
             model           : new homeCollection(),
@@ -24,8 +22,6 @@ define(
                 var that = this;
                 _data    = this.model.toJSON();
 
-                console.log('here 2', _data);
-
                 $("#app-body").empty().append(this.layout());
 
                 $("#app-body .app-content-container").empty();
@@ -34,7 +30,7 @@ define(
                 })).append('<div class="app-loader"><div class="app-load"></div></div>');
 
                 $(document).on("click", ".card-link", function (e) {
-                    ripple($(this), e)
+                    jt.ripple($(this), e)
                 });
 
                 var _movement = 0;
@@ -56,27 +52,6 @@ define(
                     autoload();
                 });
 
-                function ripple(t, e)
-                {
-                    var currItem = t;
-                    var ripple   = $(currItem.children()[ 0 ]);
-                    var rX       = e.offsetX - 225, rY = e.offsetY - 225;
-                    if (!currItem.hasClass("active") && !currItem.hasClass("faded")) {
-                        ripple.css('top', rY);
-                        ripple.css('left', rX);
-                        currItem.addClass("active");
-                        var fdCurr = setTimeout(function () {
-                            currItem.addClass("faded");
-                            clearTimeout(fdCurr);
-                            var fdFd = setTimeout(function () {
-                                currItem.removeClass("active");
-                                currItem.removeClass("faded");
-                                clearTimeout(fdFd);
-                            }, 100)
-                        }, 300)
-                    }
-                }
-
                 function autoload() {
                     if ($(".app-content-container .app-loader").is(":in-viewport")) {
                         that.page = that.page + 1;
@@ -88,7 +63,6 @@ define(
                         $("#app-body .app-content-container").append(that.timelineTemplate({
                             timelineArticle: _data
                         })).append('<div class="app-loader"><div class="app-load"></div></div>');
-                        attachFastClick($('.card-link'));
                     }
                 }
             }

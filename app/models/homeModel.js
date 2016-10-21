@@ -1,9 +1,10 @@
 define(
     [
+        "underscore",
         'backbone',
         'jquery'
     ],
-    function (Backbone, $) {
+    function (_, Backbone, $) {
         var homeCollection = Backbone.Collection.extend({
             renderTimeline: function (_page) {
                 this.reset();
@@ -17,10 +18,7 @@ define(
                     success: function (result) {
                         ajaxResult = result.response;
 
-                        console.log('HERE 1', ajaxResult);
-
                         _.each(ajaxResult, function (value) {
-                            console.log('HERE', value);
                             that.add(value);
                         });
                     }

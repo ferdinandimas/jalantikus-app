@@ -1,10 +1,8 @@
 define(
     [
-        'underscore',
-        'backbone',
-        'jquery'
+        'backbone'
     ],
-    function (_, Backbone, $) {
+    function (Backbone) {
         var Router = Backbone.Router.extend({
             routes: {
                 '': 'home',
