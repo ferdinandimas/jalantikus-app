@@ -26,6 +26,7 @@ define(
                         });
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        alert(_config.jtAPI + "getArticles/limit/10/page/" + _page + "/order/published/detail/id,title,slug,image,user,published");
                         alert(textStatus);
                         alert(errorThrown);
                     }
