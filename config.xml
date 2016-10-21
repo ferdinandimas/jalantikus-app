@@ -50,6 +50,9 @@
         <preference name="ShowSplashScreen" value="true" />
     </platform>
 
+    <splash src="res/splash/android/drawable-port-hdpi-screen"/>
+    <icon src="res/icon/android/drawable-hdpi-icon"/>
+
     <platform name="android">
         <icon src="res/icon/android/drawable-ldpi-icon" qualifier="ldpi"/>
         <icon src="res/icon/android/drawable-mdpi-icon" qualifier="mdpi"/>
@@ -57,9 +60,7 @@
         <icon src="res/icon/android/drawable-xhdpi-icon" qualifier="xhdpi"/>
         <icon src="res/icon/android/drawable-xxhdpi-icon" qualifier="xxhdpi"/>
         <icon src="res/icon/android/drawable-xxxhdpi-icon" qualifier="xxxhdpi"/>
-    </platform>
 
-    <platform name="android">
         <splash src="res/splash/android/drawable-port-ldpi-screen" qualifier="ldpi"/>
         <splash src="res/splash/android/drawable-port-mdpi-screen" qualifier="mdpi"/>
         <splash src="res/splash/android/drawable-port-hdpi-screen" qualifier="hdpi"/>
@@ -67,9 +68,6 @@
         <splash src="res/splash/android/drawable-port-xxhdpi-screen" qualifier="xxhdpi"/>
         <splash src="res/splash/android/drawable-port-xxxhdpi-screen" qualifier="xxxhdpi"/>
     </platform>
-
-    <splash src="res/splash/android/drawable-port-hdpi-screen"/>
-    <icon src="res/icon/android/drawable-hdpi-icon"/>
 
     <!--<plugin name="cordova-plugin-camera" spec="~2.1.1" source="npm"/>-->
     <!--<plugin name="cordova-plugin-device" spec="~1.1.1" source="npm"/>-->
@@ -86,13 +84,4 @@
 
     <allow-intent href="http://*/*"/>
     <allow-intent href="https://*/*"/>
-
-    <!--<platform name="android">-->
-        <!--<allow-intent href="market:*"/>-->
-    <!--</platform>-->
-
-    <!--<platform name="ios">-->
-        <!--<allow-intent href="itms:*"/>-->
-        <!--<allow-intent href="itms-apps:*"/>-->
-    <!--</platform>-->
 </widget>

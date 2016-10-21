@@ -23,7 +23,6 @@ define(
                         _.each(ajaxResult, function (value) {
                             _buff++;
 
-                            console.log(value.title, value.description_images.length, _buff);
                             if (_buff >= 3 || (_buff == 2 && reservedSlot == false && _page == 1)) {
                                 _buff = 0;
 
@@ -34,14 +33,12 @@ define(
                                 reservedSlot = true;
                             }
 
-                            console.log(value);
-
                             that.add(value);
                         });
                     },
                     timeout: 10000,
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        console.log("Ajax home error", errorThrown, _config.jtAPI + "live/getArticles/limit/10/page/" + _page + "/order/published/detail/id,title,slug,image,user,published");
+                        jt.log("Ajax home error", errorThrown, _config.jtAPI + "live/getArticles/limit/10/page/" + _page + "/order/published/detail/id,title,slug,image,user,published");
 
                         $(".app-load").css("display", "none");
                         $(".app-retry").css("display", "block");
