@@ -14,7 +14,7 @@ define(
             },
 
             home: function () {
-                StatusBar.backgroundColorByHexString("#B71C1C");
+                statusbar.backgroundColorByHexString("#B71C1C");
 
                 require(
                     [ 'controllers/home' ],
@@ -25,7 +25,7 @@ define(
             },
 
             articleDetail: function (_articleSlug) {
-                StatusBar.backgroundColorByHexString("#00C000");
+                statusbar.backgroundColorByHexString("#00C000");
 
                 require(
                     [ 'controllers/articleDetail' ],
