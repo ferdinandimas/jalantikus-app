@@ -21,6 +21,7 @@ define(
                         ajaxResult = result.response;
 
                         _.each(ajaxResult, function (value) {
+                            alert(value);
                             that.add(value);
                         });
                     }
