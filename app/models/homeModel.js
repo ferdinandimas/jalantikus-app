@@ -24,7 +24,7 @@ define(
                             _buff++;
 
                             console.log(value.title, value.description_images.length, _buff);
-                            if (_buff >= 3 || (_buff == 2 && reservedSlot == false)) {
+                            if (_buff >= 3 || (_buff == 2 && reservedSlot == false && _page == 1)) {
                                 _buff = 0;
 
                                 if (value.description_images.length >= 2) {
