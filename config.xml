@@ -37,6 +37,8 @@
     <preference name="StatusBarOverlaysWebView" value="false"/>
     <preference name="StatusBarStyle" value="default"/>
     <preference name="permissions" value="none"/>
+    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreenDelay" value="5000" />
 
     <platform name="android">
         <icon src="res/icon/android/drawable-ldpi-icon" qualifier="ldpi"/>
@@ -55,6 +57,8 @@
         <splash src="res/splash/android/drawable-port-xxhdpi-screen" qualifier="xxhdpi"/>
         <splash src="res/splash/android/drawable-port-xxxhdpi-screen" qualifier="xxxhdpi"/>
     </platform>
+
+    <splash src="res/splash/android/drawable-port-hdpi-screen"/>
 
     <!--<plugin name="cordova-plugin-camera" spec="~2.1.1" source="npm"/>-->
     <!--<plugin name="cordova-plugin-device" spec="~1.1.1" source="npm"/>-->
