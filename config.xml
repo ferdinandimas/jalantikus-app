@@ -45,7 +45,7 @@
     <preference name="AutoHideSplashScreen" value="true"/>
 
     <platform name="android">
-        <icon src="res/icon/android/drawable-hdpi-icon.png"/>
+        <icon src="res/icon/android/drawable-xhdpi-icon.png"/>
         <icon src="res/icon/android/drawable-ldpi-icon.png" density="ldpi"/>
         <icon src="res/icon/android/drawable-mdpi-icon.png" density="mdpi"/>
         <icon src="res/icon/android/drawable-hdpi-icon.png" density="hdpi"/>
