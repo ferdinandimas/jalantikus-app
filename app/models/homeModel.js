@@ -12,7 +12,7 @@ define(
                 var that = this;
 
                 $.ajax({
-                    url: _config.jtAPI + "live/getArticles/limit/9/page/" + _page + "/order/published/detail/id,title,slug,image,user,published,description_images",
+                    url: _config.jtAPI + "live/getArticles/limit/11/page/" + _page + "/order/published/detail/id,title,slug,image,user,published,description_images",
                     dataType: "json",
                     async: false,
                     success: function (result) {
@@ -27,7 +27,7 @@ define(
                             if (_buff >= 3 || (_buff == 2 && reservedSlot == false)) {
                                 _buff = 0;
 
-                                if (value.description_images.length >= 3) {
+                                if (value.description_images.length >= 2) {
                                     value.multiple_images = true;
                                 }
 
