@@ -12,12 +12,10 @@ require.config({
         isInViewport          : './lib/isInViewport.min',
         fastclick             : './lib/fastclick-min',
         jt                    : './lib/jt-lib',
-        "jt-config"           : './config/jt',
         text                  : './lib/require/text',
     },
     shim   : {
         jt                    : {
-            deps   : [ "jt-config" ],
             exports: "jt",
         },
         underscore            : {
