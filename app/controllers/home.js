@@ -14,11 +14,45 @@ define(
             layout          : _.template(homeLayout),
             collection      : new Timeline(),
             page            : 1,
-            initialize: function () {
+            initialize      : function () {
                 var that = this;
 
                 $("#app-toolbar").removeClass("detail").empty().append((_.template(headerLayout))());
                 $("#app-body").empty().append(this.layout());
+
+                this.collection.fetch({
+                    timeout: 5000,
+                    success: function () {
+                        that.page = that.page + 1;
+
+                        $("#app-body .app-content-container").empty();
+
+                        that.render();
+                    },
+                    error  : function () {
+                        $("#app-body .app-content-container").empty().append(
+                            '<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
+                        );
+
+                        $(".app-load").css("display", "none");
+                        $(".app-retry").css("display", "block");
+                    }
+                });
+            },
+            render          : function () {
+                var that = this;
+                var _data = this.collection.toJSON();
+
+                if (_data.length > 0) {
+                    $("#app-body .app-content-container")
+                        .append(this.timelineTemplate({
+                            timelineArticle: _data
+                        }));
+                }
+
+                $("#app-body .app-content-container").append(
+                    '<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
+                );
 
                 var _movement = 0;
                 var _top      = 0;
@@ -31,7 +65,7 @@ define(
                         that.autoload();
                     }, 250));
                 });
-                $(document).on("touchmove", "#app-body .app-content-container", function () {
+                $("#app-body .app-content-container").on("touchmove", function () {
                     if (_movement++ >= 50) {
                         _movement = 0;
                         //that.autoload();
@@ -60,60 +94,29 @@ define(
 
                     _nTop = _top;
                 });
-                $(document).on("touchend", "#app-body .app-content-container", function () {
+                $("#app-body .app-content-container").on("touchend", function () {
                     _movement = 0;
                     that.autoload();
                 });
-                $(document).on("touchend click", ".app-retry", function () {
+                $(".app-retry").on("click touchend", function () {
                     $(".app-load").css("display", "block");
                     $(".app-retry").css("display", "none");
                     that.autoload();
                 });
-
-                this.collection.fetch({
-                    timeout: 5000,
-                    success: function () {
-                        $("#app-body .app-content-container").empty();
-
-                        that.render();
-                    },
-                    error  : function () {
-                        $("#app-body .app-content-container").empty().append(
-                            '<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
-                        );
-
-                        $(".app-load").css("display", "none");
-                        $(".app-retry").css("display", "block");
-                    }
-                });
             },
-            render: function () {
-                _data = this.collection.toJSON();
-
-                if (_data.length > 0) {
-                    $("#app-body .app-content-container")
-                        .append(this.timelineTemplate({
-                            timelineArticle: _data
-                        }));
-                }
-
-                $("#app-body .app-content-container").append(
-                    '<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
-                );
-            },
-            autoload: function () {
+            autoload        : function () {
                 var that = this;
 
-                if ($(".app-content-container .app-load").is(":in-viewport")) {
-                    this.page = this.page + 1;
-
+                if ($(".app-content-container .app-load").is(":in-viewport") && !jt.isOffline()) {
                     this.collection = new Timeline({
                         page: this.page
                     });
 
                     this.collection.fetch({
-                        timeout: 5000,
+                        timeout: 10000,
                         success: function () {
+                            that.page = that.page + 1;
+
                             $(".app-content-container .app-loader").remove();
 
                             that.render();
@@ -123,6 +126,12 @@ define(
                             $(".app-retry").css("display", "block");
                         }
                     });
+                }
+                else if (jt.isOffline()) {
+                    setTimeout(function () {
+                        $(".app-load").css("display", "none");
+                        $(".app-retry").css("display", "block");
+                    }, 2000);
                 }
             }
         });

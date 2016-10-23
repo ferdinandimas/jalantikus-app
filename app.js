@@ -40,7 +40,7 @@ require.config({
     },
 
     // Disable script caching on development mode
-    urlArgs: "develop=" + (new Date()).getTime()
+    //urlArgs: "develop=" + (new Date()).getTime()
 });
 
 require(
@@ -74,6 +74,40 @@ require(
 
             $(document).on("click", ".card-link", function (e) {
                 jt.ripple($(this), e)
+            });
+
+            var isOnline, lastFragment;
+            setInterval(function () {
+                if (isOnline != !jt.isOffline()) {
+                    isOnline     = !jt.isOffline();
+
+                    if (jt.isOffline()) {
+                        $(".app-index-card img").css("filter", "grayscale(100%)");
+                        $(".app-index-card .ripple")
+                            .removeClass("ripple")
+                            .addClass("ripple-disabled")
+                            .parent()
+                            .addClass("disabled");
+
+                        lastFragment = Backbone.history.getFragment();
+                    }
+                    else {
+                        $(".app-index-card img").css("filter", "none");
+                        $(".app-index-card .ripple-disabled")
+                            .removeClass("ripple-disabled")
+                            .addClass("ripple")
+                            .parent()
+                            .removeClass("disabled");
+
+                        if (lastFragment != Backbone.history.getFragment()) {
+                            Backbone.history.loadUrl();
+                        }
+                    }
+                }
+            }, 250);
+
+            $(document).on("touchend click", ".app-index-card a.disabled", function (e) {
+                e.preventDefault();
             });
         });
     }

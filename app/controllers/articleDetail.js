@@ -23,28 +23,29 @@ define(
                     slug: _articleSlug
                 });
 
-                $(document).on("touchend click", ".app-retry", function () {
-                    $(".app-load").css("display", "block");
-                    $(".app-retry").css("display", "none");
-
-                    that.fetch();
-                });
-
                 this.fetch();
             },
-            fetch: function() {
+            fetch: function(options) {
                 var that = this;
 
-                this.model.fetch({
-                    timeout: 5000,
-                    success: function () {
-                        that.render();
-                    },
-                    error  : function () {
+                if (!jt.isOffline()) {
+                    this.model.fetch({
+                        timeout: typeof options != "undefined" && typeof options.timeout != "undefined" ? options.timeout : 5000,
+                        success: function () {
+                            that.render();
+                        },
+                        error  : function () {
+                            $(".app-load").css("display", "none");
+                            $(".app-retry").css("display", "block");
+                        }
+                    });
+                }
+                else {
+                    setTimeout(function() {
                         $(".app-load").css("display", "none");
                         $(".app-retry").css("display", "block");
-                    }
-                });
+                    }, 2000);
+                }
             },
             render: function () {
                 $("#app-toolbar").addClass("detail");
@@ -61,6 +62,13 @@ define(
                     else {
                         $("#app-toolbar").addClass("detail");
                     }
+                });
+
+                $(".app-retry").on("touchend click", function () {
+                    $(".app-load").css("display", "block");
+                    $(".app-retry").css("display", "none");
+
+                    that.fetch({timeout: 10000});
                 });
             }
         });

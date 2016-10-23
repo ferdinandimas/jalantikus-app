@@ -11,7 +11,6 @@ define(
                 return _config.jtAPI + "getArticle/" + this.slug;
             },
             parse     : function (result) {
-                console.log(result);
                 return result.response;
             }
         });
