@@ -40,7 +40,7 @@ require.config({
     },
 
     // Disable script caching on development mode
-    //urlArgs: "develop=" + (new Date()).getTime()
+    urlArgs: "develop=" + (new Date()).getTime()
 });
 
 require(
@@ -79,7 +79,7 @@ require(
             var isOnline, lastFragment;
             setInterval(function () {
                 if (isOnline != !jt.isOffline()) {
-                    isOnline     = !jt.isOffline();
+                    isOnline = !jt.isOffline();
 
                     if (jt.isOffline()) {
                         $(".app-index-card img").css("filter", "grayscale(100%)");
