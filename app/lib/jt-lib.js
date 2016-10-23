@@ -28,7 +28,8 @@ var jt = function () {
             }
         },
         isOffline : function () {
-            return 'onLine' in navigator && !navigator.onLine;
+            //return 'onLine' in navigator && !navigator.onLine;
+            return false;
         },
         timeSince: function (date) {
             if (typeof date !== 'object') {
