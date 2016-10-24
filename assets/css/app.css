@@ -471,10 +471,10 @@ html, body
 	background: #37474f;
 	padding: 15px 15px 40px;
 	color: #fff;
-	font-size: 18px;
+	font-size: 20px;
 	font-weight: 700;
 	line-height: 30px;
-	text-shadow: 2px 2px 2px #121212
+	text-shadow: 1px 1px 1px #121212
 }
 .share-container
 {
@@ -1089,7 +1089,6 @@ ol.linenums
     margin-top: 0;
     margin-bottom: 0;
     padding-left: 40px;
-    width: 100%;
 }
 .prettyprint {
 }
