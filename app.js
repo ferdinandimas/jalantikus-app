@@ -53,23 +53,25 @@ require(
             Backbone.history.start({ pushState: false });
 
             $(document).on("click", ".app-toggle-searchpanel", function (e) {
-                var focus = setTimeout(function () {
+                var _focus = setTimeout(function () {
                     $(".searchbar").focus();
                 }, 500)
             });
 
             $(document).on("click", ".usermenu-item", function (e) {
-                var currUI = $(this);
-                if (!currUI.hasClass("active")) {
-                    $('.usermenu-item').not(currUI).removeClass("active");
-                    currUI.addClass("active");
+                var _currUI = $(this);
+                if (!_currUI.hasClass("active")) {
+                    $('.usermenu-item').not(_currUI).removeClass("active");
+                    _currUI.addClass("active");
                 }
             });
 
             $(document).on("click", ".app-header .app-toggle-back", function (e) {
                 e.preventDefault();
-
-                window.history.back();
+                $(this).addClass("active");
+                var _history = setTimeout(function () {
+                    window.history.back(); 
+                }, 150)
             });
 
             $(document).on("click", ".card-link", function (e) {
