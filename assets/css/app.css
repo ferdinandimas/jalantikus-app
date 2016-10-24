@@ -13,7 +13,7 @@
 	font-weight: 700;
     src: url('../fonts/Roboto-Bold.ttf') format('truetype');
 }
-*
+body
 {
 	outline: none;
 	text-decoration: none;
@@ -406,6 +406,7 @@ html, body
 	font-weight: 500;
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
+	text-decoration: none;
 }
 .app-detail-body a:active
 {
@@ -712,6 +713,28 @@ html, body
     left: 0;
     background: url(../images/search-icon.svg) center center no-repeat;
     background-size: 24px 24px;
+}
+.app-header .app-toggle-back
+{
+	position: relative;
+}
+.app-toggle-back:after
+{
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	content: "";
+	display: block;
+	left: 10px;
+	top: 10px;
+	border-radius: 50%;
+	background: rgba(255,255,255, 0.16);
+	opacity: 0;
+	transition: 0.15s linear;
+}
+.app-toggle-back.active:after
+{
+	opacity: 1
 }
 .app-panel .searchpanel 
 {
@@ -1091,20 +1114,20 @@ code
 }
 
 /* Prettify script */
-.str { color: #080 }  /* string content */
-.kwd { color: #678CB1 }  /* a keyword */
-.com { color: #800 }  /* a comment */
-.typ { color: #c10e0e }  /* a type name */
-.lit { color: #0086cf }  /* a literal value */
+.app-detail-body .str { color: #080 }  /* string content */
+.app-detail-body .kwd { color: #678CB1 }  /* a keyword */
+.app-detail-body .com { color: #800 }  /* a comment */
+.app-detail-body .typ { color: #c10e0e }  /* a type name */
+.app-detail-body .lit { color: #0086cf }  /* a literal value */
 /* punctuation, lisp open bracket, lisp close bracket */
-.pun, .opn, .clo { color: #660 }
-.tag { color: #008 }  /* a markup tag name */
-.atn { color: #606 }  /* a markup attribute name */
-.atv { color: #080 }  /* a markup attribute value */
-.dec, .var { color: #606 }  /* a declaration; a variable name */
-.fun { color: red }  /* a function name */
-.color-tag>span { color: inherit!important; font-weight: inherit!important;}
-pre.prettyprint
+.app-detail-body .pun, .app-detail-body .opn, .app-detail-body .clo { color: #660 }
+.app-detail-body .tag { color: #008 }  /* a markup tag name */
+.app-detail-body .atn { color: #606 }  /* a markup attribute name */
+.app-detail-body .atv { color: #080 }  /* a markup attribute value */
+.app-detail-body .dec, .var { color: #606 }  /* a declaration; a variable name */
+.app-detail-body .fun { color: red }  /* a function name */
+.app-detail-body .color-tag>span { color: inherit!important; font-weight: inherit!important;}
+.app-detail-body pre.prettyprint
 {
     border: 0px solid #888;
     clear: both;
@@ -1117,9 +1140,9 @@ ol.linenums
     margin-bottom: 0;
     padding-left: 40px;
 }
-.prettyprint {
+.app-detail-body .prettyprint {
 }
-.prettyprint li{
+.app-detail-body .prettyprint li{
     font-family: monospace!important;
     font-size: 12px!important;
     line-height: 16px!important;
@@ -1134,7 +1157,7 @@ li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
 li.L1, li.L3, li.L5, li.L7, li.L9 {
     background: #f2f2f2;
 }
-.prettyprint li:hover{
+.app-detail-body .prettyprint li:hover{
     background: #dfdfdf;
 }
 @media print
@@ -1184,13 +1207,13 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
         color: #060;
     }
 }
-.prettify-function{
+.app-detail-body .prettify-function{
     float: right;
     right: 10px;
     clear: both;
     margin: 10px 0 4px;
 } 
-.prettify-function a{
+.app-detail-body .prettify-function a{
     display: inline-block;
     line-height: 11px;
     border: 1px solid #eee!important;
@@ -1200,13 +1223,13 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     font-size: 11px;
     position: relative;
 }
-.prettify-function a:hover
+.app-detail-body .prettify-function a:hover
 {
     background: #008efa;
     border: 1px solid transparent;
     color: #fff!important;
 }
-.prettify-tooltip
+.app-detail-body .prettify-tooltip
 {
     display:none;
     position:absolute;
@@ -1222,9 +1245,12 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     z-index: 9999;
     white-space: nowrap;
     width: 100px;
+    font-weight: 100;
+    text-shadow: 0 0 0;
     text-align: center;
+    box-sizing: border-box;
 }
-.prettify-tooltip:after
+.app-detail-body .prettify-tooltip:after
 {
     content: "";
     display: block;
@@ -1236,4 +1262,132 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     border-top: 8px solid #555; 
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
+    box-sizing: border-box;
+}
+
+/*Baca juga special*/
+.app-detail-body .bacajuga-special {
+	padding: 10px 20px;
+	clear: both;
+	background-color: #fff;
+}
+.app-detail-body .bacajuga-special .content {
+	height: 80px;
+	padding-left: 140px;
+	padding-right: 170px;
+	box-shadow: 0 0 10px -2px #999;
+	position: relative
+}
+.app-detail-body .bacajuga-special .cover {
+	width: 140px;
+	height: 80px;
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	top: 0
+}
+.app-detail-body .bacajuga-special .cover img {
+	width: 100%;
+	height: 100%;
+	margin: 0
+}
+.app-detail-body .bacajuga-special .special-content {
+	display: block;
+	height: 80px;
+	vertical-align: top;
+	width: 100%;
+	padding: 10px 0px 10px 20px;
+	position: relative;
+	box-sizing: border-box;
+}
+.app-detail-body .bacajuga-special .special-content:after {
+	content: "";
+	display: block;
+	position: absolute;
+	right: 0;
+	height: 100%;
+	width: 20px;
+	top: 0;
+	background: -webkit-linear-gradient(right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+	background: -o-linear-gradient(left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+	background: -moz-linear-gradient(left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+	background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))
+}
+.app-detail-body .bacajuga-special .special-content .short-title {
+	font-size: 17px;
+	font-weight: bold;
+	font-family: "Roboto Slab";
+	white-space: nowrap;
+	overflow: hidden;
+	display: inline-block;
+	max-width: 100%;
+	vertical-align: top
+}
+.app-detail-body .bacajuga-special .special-content .long-title {
+	white-space: nowrap;
+	overflow: hidden;
+	font-size: 14px;
+	color: #616161
+}
+.app-detail-body .bacajuga-special .baca-special {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	width: 130px;
+	height: 40px;
+	text-align: left;
+	border-radius: 3px;
+	color: #fff !important;
+	box-sizing: border-box;
+	line-height: 40px;
+	padding-left: 60px;
+	background: url("https://assets.jalantikus.com/includes/v5/link-symbol.png") top 10px left 20px no-repeat, #009de4;
+	background-size: 20px 20px;
+	-webkit-transition: 0.3s;
+	transition: 0.32s;
+	font-weight: 700
+}
+.app-detail-body .bacajuga-special .baca-special:hover {
+	background: url("https://assets.jalantikus.com/includes/v5/link-symbol.png") top 10px left 20px no-repeat, #1bb1f5;
+	background-size: 20px 20px
+}
+.app-detail-body .bacajuga-special .baca-special:hover {
+	border-bottom: 1px solid transparent
+}
+.app-detail-body .tips-title, .gokil-title, .news-title, .games-title, .apps-title, .gadgets-title {
+	color: #00a8ff !important
+}
+@media (max-width:480px) {
+	.app-detail-body .bacajuga-special {
+		padding: 0
+	}
+	.app-detail-body .bacajuga-special .content {
+		padding-left: 0;
+		padding-right: 150px;
+		min-height: 160px
+	}
+	.app-detail-body .bacajuga-special .cover {
+		width: 100px;
+		height: 58px;
+		display: inline-block;
+		position: absolute;
+		left: initial;
+		top: 20px;
+		right: 20px
+	}
+	.app-detail-body .bacajuga-special .special-content {
+		display: inline-block;
+		height: auto;
+		width: 100%;
+		padding: 20px 0 20px 20px;
+		position: relative
+	}
+	.app-detail-body .bacajuga-special .special-content .long-title {
+		line-height: 20px;
+		margin-top: 5px;
+		white-space: normal
+	}
+	.app-detail-body .bacajuga-special .baca-special {
+		top: 100px
+	}
 }
