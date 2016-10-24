@@ -411,6 +411,33 @@ html, body
 {
 	text-decoration: underline;
 }
+.app-detail-body table
+{
+    width: 100%;
+    margin-bottom: 15px;
+    border-top: 2px solid #dddddd;
+    border-bottom: 2px solid #dddddd;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.app-detail-body table th 
+{
+    background: #f8f8f8;
+    border-bottom: 2px solid #dddddd;
+    font-weight: 700;
+    text-align: left;
+}
+.app-detail-body table td
+{
+    border-bottom: 1px solid #dddddd;
+}
+.app-detail-body table th, .app-detail-body table td
+{
+    padding: 4px 6px;
+	font-size: 14px;
+	line-height: 18px;
+	word-break: break-word;
+}
 .app-detail-header
 {
 	width: 100%;
