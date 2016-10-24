@@ -25,7 +25,16 @@
     <preference name="android-installLocation" value="auto"/>
     <preference name="android-build-tool" value="gradle"/>
 
-    <activity android:theme="@android:style/Theme.NoTitleBar.Fullscreen" ></activity>
+    <gap:config-file platform="android" parent="/manifest">
+        <supports-screens
+                android:xlargeScreens="true"
+                android:largeScreens="true"
+                android:smallScreens="true" />
+        <application android:theme="@android:style/Theme.NoTitleBar" >
+            <activity android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            </activity>
+        </application>
+    </gap:config-file>
 
     <!-- iOS only -->
     <preference name="target-device" value="universal"/>
