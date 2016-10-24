@@ -9,20 +9,24 @@ var jt = function () {
             }
         },
         ripple   : function (t, e) {
-            var currItem = t;
-            var ripple   = $(currItem.children()[ 0 ]);
+            e.preventDefault();
+            var _currItem = t;
+            var _href     = t.attr("href");
+            var _ripple   = $(_currItem.children()[ 0 ]);
             var rX       = e.offsetX - 225, rY = e.offsetY - 225;
-            if (!currItem.hasClass("active") && !currItem.hasClass("faded")) {
-                ripple.css('top', rY);
-                ripple.css('left', rX);
-                currItem.addClass("active");
+            if (!_currItem.hasClass("active") && !_currItem.hasClass("faded")) {
+                _ripple.css('top', rY);
+                _ripple.css('left', rX);
+                _currItem.addClass("active");
                 var fdCurr = setTimeout(function () {
-                    currItem.addClass("faded");
+                    _currItem.addClass("faded");
                     clearTimeout(fdCurr);
                     var fdFd = setTimeout(function () {
-                        currItem.removeClass("active");
-                        currItem.removeClass("faded");
+                        _currItem.removeClass("active");
+                        _currItem.removeClass("faded");
                         clearTimeout(fdFd);
+                        $(_currItem).data("complete", true);
+                        window.location.href += _href;
                     }, 100)
                 }, 300)
             }
