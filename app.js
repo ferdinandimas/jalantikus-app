@@ -71,7 +71,23 @@ require(
                 $(this).addClass("active");
                 var _history = setTimeout(function () {
                     window.history.back(); 
-                }, 150)
+                }, 250)
+            });
+
+            $(document).on("click", ".app-header .app-toggle-searchpanel", function (e) {
+                var _this = $(this);
+                _this.addClass("active");
+                var _searchpanel = setTimeout(function () {
+                    _this.removeClass("active");
+                }, 300)
+            });
+
+            $(document).on("click", ".app-header .app-toggle-userpanel", function (e) {
+                var _this = $(this);
+                _this.addClass("active");
+                var _userpanel = setTimeout(function () {
+                    _this.removeClass("active");
+                }, 300)
             });
 
             $(document).on("click", ".card-link", function (e) {

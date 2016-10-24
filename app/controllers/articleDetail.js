@@ -160,8 +160,8 @@ define(
                     if (!tooltip) {
                         tooltip  = true;
                         var q   = "<div class='prettify-tooltip'>Berhasil disalin</div>"
-                        var posX = e.clientX;
-                        var posY = e.clientY;
+                        var posX = e.target.clientX;
+                        var posY = e.target.clientY;
                         $(e.target).append(q);
                         $('.prettify-tooltip').slideDown(300, function () {
                         });
