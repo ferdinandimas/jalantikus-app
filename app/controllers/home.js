@@ -65,35 +65,35 @@ define(
                         that.autoload();
                     }, 250));
                 });
-                $("#app-body .app-content-container").on("touchmove", function () {
-                    if (_movement++ >= 50) {
-                        _movement = 0;
-                        //that.autoload();
-                    }
+                // $("#app-body .app-content-container").on("touchmove", function () {
+                //     if (_movement++ >= 50) {
+                //         _movement = 0;
+                //         //that.autoload();
+                //     }
 
-                    _top = $(this).scrollTop();
+                //     _top = $(this).scrollTop();
 
-                    if (_flag == 0) {
-                        if (_top > _nTop + 10) {
-                            if (!$("#app-toolbar").hasClass("scroll")) {
-                                _flag = 1;
-                                $("#app-toolbar").addClass("scroll")
-                            }
-                            ;
-                        }
-                    }
-                    else if (_flag == 1) {
-                        if (_top <= _nTop - 10) {
-                            if ($("#app-toolbar").hasClass("scroll")) {
-                                $("#app-toolbar").removeClass("scroll")
-                                _flag = 0;
-                            }
-                            ;
-                        }
-                    }
+                //     if (_flag == 0) {
+                //         if (_top > _nTop + 10) {
+                //             if (!$("#app-toolbar").hasClass("scroll")) {
+                //                 _flag = 1;
+                //                 $("#app-toolbar").addClass("scroll")
+                //             }
+                //             ;
+                //         }
+                //     }
+                //     else if (_flag == 1) {
+                //         if (_top <= _nTop - 10) {
+                //             if ($("#app-toolbar").hasClass("scroll")) {
+                //                 $("#app-toolbar").removeClass("scroll")
+                //                 _flag = 0;
+                //             }
+                //             ;
+                //         }
+                //     }
 
-                    _nTop = _top;
-                });
+                //     _nTop = _top;
+                // });
                 $("#app-body .app-content-container").on("touchend", function () {
                     _movement = 0;
                     that.autoload();
