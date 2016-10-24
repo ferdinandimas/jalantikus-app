@@ -17,18 +17,21 @@ define(
                 var reservedSlot = false;
                 var buffResult   = [];
                 var _buff        = 0;
+                var that         = this;
 
                 _.each(result.response, function (value) {
                     _buff++;
 
-                    if (_buff >= 3 || (_buff == 2 && reservedSlot == false && this.page == 1)) {
+                    if (_buff >= 3 || (_buff == 2 && reservedSlot == false && that.page == 1)) {
+                        if (_buff == 2) {
+                            reservedSlot = true;
+                        }
+
                         _buff = 0;
 
                         if (value.description_images.length >= 2) {
                             value.multiple_images = true;
                         }
-
-                        reservedSlot = true;
                     }
 
                     buffResult.push(value);
