@@ -17,7 +17,7 @@
     <preference name="orientation" value="portrait"/>
     <preference name="fullscreen" value="false"/>
 
-    <preference name="StatusBarBackgroundColor" value="#B71C1C"/>
+    <preference name="StatusBarBackgroundColor" value="#981010"/>
 
     <!-- Android only -->
     <preference name="android-minSdkVersion" value="21"/>
@@ -52,6 +52,7 @@
     <preference name="SplashScreenBackgroundColor" value="#B71C1C"/>
 
     <platform name="android">
+        <icon src="res/icon/android/drawable-xhdpi-icon.png"/>
         <icon src="res/icon/android/drawable-ldpi-icon.png" density="ldpi"/>
         <icon src="res/icon/android/drawable-mdpi-icon.png" density="mdpi"/>
         <icon src="res/icon/android/drawable-hdpi-icon.png" density="hdpi"/>
