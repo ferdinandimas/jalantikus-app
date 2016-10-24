@@ -48,6 +48,8 @@ define(
                 }
             },
             render: function () {
+                var tooltip=false;
+                
                 $("#app-toolbar").addClass("detail");
                 $(".app-content-container .app-loader").remove();
 
@@ -81,6 +83,57 @@ define(
 
                     that.fetch({ timeout: 10000 });
                 });
+                $(".prettify-copy-selected").on("touchend click", function(e) {
+                    document.execCommand('copy');
+                    validateTooltip(e)
+                })
+
+                $(".prettify-copy-all").on("touchend click", function(e) {
+                    _el     = $(this).parent().parent();
+                    _result = "";
+                    $(_el).find("li").each(function(obj, val) {
+                        _result += $(val).text() + "\n";
+                    });
+
+                    var dummy = document.createElement("textarea");
+                    document.body.appendChild(dummy);
+                    dummy.setAttribute("id", "dummy_id");
+                    document.getElementById("dummy_id").value = _result;
+                    $(dummy).select();
+                    document.execCommand("copy");
+                    document.body.removeChild(dummy);
+                    validateTooltip(e)
+                })
+
+                function validateTooltip(e)
+                {
+                    if(!tooltip)
+                    {
+                        tooltip=true;
+                        var q = "<div class='prettify-tooltip'>Berhasil disalin</div>"
+                        var posX = e.clientX;
+                        var posY = e.clientY;
+                        $(e.target).append(q);
+                        $('.prettify-tooltip').slideDown(300,function(){});
+                        var w = $(e.target).innerWidth();
+                        var fw = (100-w)/2
+                        if(fw>0)
+                        {
+                            $('.prettify-tooltip').css('left',(fw*-1));
+                        }
+                        else
+                        {
+                            $('.prettify-tooltip').css('left',fw);
+                        }
+                        var td = setInterval(function(){
+                            tooltip=false;
+                            clearInterval(td);
+                            $('.prettify-tooltip').slideUp(300,function(){
+                                $(this).remove();
+                            })
+                        }, 2000)
+                    }
+                }
             }
         });
 

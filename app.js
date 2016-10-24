@@ -11,6 +11,7 @@ require.config({
         "jquery.mobile"       : './lib/jquery.mobile-1.4.5.min',
         isInViewport          : './lib/isInViewport.min',
         fastclick             : './lib/fastclick-min',
+        prettify              : './lib/prettify',
         jt                    : './lib/jt-lib',
         text                  : './lib/require/text',
     },
@@ -30,6 +31,7 @@ require.config({
         "jquery.mobile"       : [ "jt", "jquery", "jquery.mobile-config" ],
         isInViewport          : [ "jquery" ],
         fastclick             : [ "jquery" ],
+        prettify              : [ "jquery" ],
         backbone              : {
             deps   : [ "jt", "underscore", "jquery" ],
             exports: "Backbone"
