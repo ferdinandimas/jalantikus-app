@@ -3,4 +3,5 @@ var _config = {
     'baseURL'    : '',
     'jtURL'      : 'https://jalantikus.com/',
     'jtAPI'      : 'https://api.jalantikus.com/',
+    'jtFiles'    : 'http://files.jalantikus.com/dde/',
 };
