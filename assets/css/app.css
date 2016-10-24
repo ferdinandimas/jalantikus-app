@@ -201,7 +201,7 @@ html, body
 	margin-right: 10px;
 	border-radius: 0;
 	width: calc((100% - 20px) / 3);
-	height: calc(((100% - 20px) / 3 ) * 0.62);
+	height: calc(((100vw - 20px) / 3 ) * 0.62);
 	background-image: url(../images/placeholder.png);
     background-color: #eee;
     background-position: center center;
@@ -403,6 +403,7 @@ html, body
 .app-detail-body a, .app-detail-body a:hover, .app-detail-body a:active, .app-detail-body a:visited
 {
 	color: #008efa;
+	font-weight: 500;
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
 }
@@ -858,6 +859,7 @@ html, body
 .bacajuga ul li a, .bacajuga ul li a:hover, .bacajuga ul li a:visited, .bacajuga ul li a:active
 {
     color: #008efa;
+    font-weight: 500;
 }
 
 code 
@@ -890,8 +892,7 @@ code
 {
 	padding: 15px;
 	position: relative;
-	min-height: 85px;
-	margin-bottom: 15px;
+	height: 76px;
 }
 .addon-apps .cover-container
 {
@@ -914,14 +915,15 @@ code
 }
 .addon-apps .apps-detail.horizontal.xlSz .info .title
 {
-	max-height: 56px;
+	max-height: 48px;
 	margin-bottom: 6px;
-    display: inline-block;
+	overflow: hidden;
+	display: inline-block;
 }
 .addon-apps .apps-detail.horizontal .title .title-text
 {
-    font-size: 20px;
-    line-height: 28px;
+    font-size: 16px;
+    line-height: 24px;
     color: #252525;
 }
 .addon-apps .apps-detail.horizontal .title .title-text.cl4
@@ -931,20 +933,24 @@ code
 }
 .addon-apps .action-container .action-btn 
 {
-	height: 40px;
-	width: 40px;
+	height: 35px;
+	width: 35px;
 	background-image: url(../images/download-icon.png);
-    background-size: 24px;
-    background-position: center center;
-    background-repeat: no-repeat;
-    text-indent: -9999px;
-    display: inline-block;
-    border-radius: 4px;
-    margin-bottom: 5px;
+	background-size: 18px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	text-indent: -9999px;
+	display: inline-block;
+	border-radius: 4px;
+	margin-bottom: 5px;
 }
 .addon-apps .action-container .action-btn.googleplay-btn
 {
 	background-image: url(../images/googlestore-icon.png);
+}
+.addon-apps .action-container .action-btn.aptoide-btn
+{
+	background-image: url(../images/aptoide-icon.png);
 }
 .addon-apps .action-container .action-btn:last-child
 {
@@ -956,7 +962,7 @@ code
 }
 .addon-apps .action-container .action-btn.clearBlue:hover, .action-container .action-btn.clearBlue:active
 {
-	background-color: #0075ce;
+	background-color: #0b78e8;
 }
 .addon-apps .action-container .action-btn.clearGreen
 {
@@ -964,9 +970,18 @@ code
 }
 .addon-apps .action-container .action-btn.clearGreen:hover, .action-container .action-btn.clearGreen:active
 {
-	background-color: #599a37;
+	background-color: #458d20;
+}
+.addon-apps .action-container .action-btn.boldRed
+{
+	background-color: #C10E0E;
+}
+.addon-apps .action-container .action-btn.boldRed:hover, .action-container .action-btn.boldRed:active
+{
+	background-color: #8A0707;
 }
 .addon-apps .addon-discover {
+	display: none;
     position: absolute;
     bottom: 0;
     right: 0;
@@ -998,7 +1013,7 @@ code
 	vertical-align: top;
 	display: inline-block;
 }
-.addon-apps .property .hidden-480
+.addon-apps .property .note
 {
 	display: none;
 }
@@ -1042,4 +1057,157 @@ code
 {
 	color: #999999;
 	font-weight: 500;
+}
+.app-detail-body .appsinner, .app-detail-body .artikelmenarik, .app-detail-body .partner-banner-aftc-artikel-menarik
+{
+	display: none;
+}
+
+/* Prettify script */
+.str { color: #080 }  /* string content */
+.kwd { color: #678CB1 }  /* a keyword */
+.com { color: #800 }  /* a comment */
+.typ { color: #c10e0e }  /* a type name */
+.lit { color: #0086cf }  /* a literal value */
+/* punctuation, lisp open bracket, lisp close bracket */
+.pun, .opn, .clo { color: #660 }
+.tag { color: #008 }  /* a markup tag name */
+.atn { color: #606 }  /* a markup attribute name */
+.atv { color: #080 }  /* a markup attribute value */
+.dec, .var { color: #606 }  /* a declaration; a variable name */
+.fun { color: red }  /* a function name */
+.color-tag>span { color: inherit!important; font-weight: inherit!important;}
+pre.prettyprint
+{
+    border: 0px solid #888;
+    clear: both;
+        border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+ol.linenums
+{
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 40px;
+    width: 100%;
+}
+.prettyprint {
+}
+.prettyprint li{
+    font-family: monospace!important;
+    font-size: 12px!important;
+    line-height: 16px!important;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+li.L1, li.L3, li.L5, li.L7, li.L9 {
+    background: #f2f2f2;
+}
+.prettyprint li:hover{
+    background: #dfdfdf;
+}
+@media print
+{
+    .str
+    {
+        color: #060;
+    }
+    .kwd
+    {
+        color: #006;
+        font-weight: bold;
+    }
+    .com
+    {
+        color: #600;
+        font-style: italic;
+    }
+    .typ
+    {
+        color: #404;
+        font-weight: bold;
+    }
+    .lit
+    {
+        color: #044;
+    }
+    .pun
+    {
+        color: #440;
+    }
+    .pln
+    {
+        color: #000;
+    }
+    .tag
+    {
+        color: #006;
+        font-weight: bold;
+    }
+    .atn
+    {
+        color: #404;
+    }
+    .atv
+    {
+        color: #060;
+    }
+}
+.prettify-function{
+    float: right;
+    right: 10px;
+    clear: both;
+    margin: 10px 0 4px;
+} 
+.prettify-function a{
+    display: inline-block;
+    line-height: 11px;
+    border: 1px solid #eee!important;
+    border-radius: 3px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    font-size: 11px;
+    position: relative;
+}
+.prettify-function a:hover
+{
+    background: #008efa;
+    border: 1px solid transparent;
+    color: #fff!important;
+}
+.prettify-tooltip
+{
+    display:none;
+    position:absolute;
+    top: -30px;
+    line-height: 11px;
+    border: 1px solid #eee!important;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    font-size: 11px;
+    color: white;
+    background:#555;
+    z-index: 9999;
+    white-space: nowrap;
+    width: 100px;
+    text-align: center;
+}
+.prettify-tooltip:after
+{
+    content: "";
+    display: block;
+    position: absolute;
+    bottom:-8px;
+    width: 10px;
+    left: 45px;
+    height: 8px;
+    border-top: 8px solid #555; 
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
 }
