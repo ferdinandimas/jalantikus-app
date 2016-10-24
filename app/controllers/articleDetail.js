@@ -5,7 +5,8 @@ define(
         "jquery",
         "models/article",
         "text!views/article_layout.html",
-        "text!views/header_detail_layout.html"
+        "text!views/header_detail_layout.html",
+        "prettify"
     ],
     function (_, Backbone, $, Article, articleLayout, headerLayout) {
         var homeView = Backbone.View.extend({
@@ -49,7 +50,7 @@ define(
             },
             render: function () {
                 var tooltip=false;
-                
+
                 $("#app-toolbar").addClass("detail");
                 $(".app-content-container .app-loader").remove();
 
@@ -134,6 +135,19 @@ define(
                         }, 2000)
                     }
                 }
+
+                function decodeHtml(html) {
+                    var txt = document.createElement("textarea");
+                    txt.innerHTML = html;
+                    return txt.value;
+                }
+                
+                $(".prettyprint").each(function(key, value)
+                {
+                    $(this).text(decodeHtml($(this).text()));
+                })
+
+                PR.prettyPrint();
             }
         });
 
