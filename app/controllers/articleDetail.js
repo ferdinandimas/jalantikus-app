@@ -83,6 +83,9 @@ define(
                     }
                 });
 
+                $("a").each(function(key, val) {
+                    $(val).attr("href", $(val).attr("href").replace("https://app.jalantikus.com", "https://jalantikus.com").replace("http://app.jalantikus.com", "https://jalantikus.com"));
+                });
                 $(".apps-detail.horizontal").each(function (key, val) {
                     var _appDetail = $(this).find(".click-target").attr("href");
                     var _that      = this;
@@ -94,15 +97,15 @@ define(
                     $(this)
                         .find(".info-container .info h3")
                         .replaceWith(
-                            $('<div class="title text-link-container">' + $(this)
+                            $('<h3><div class="title text-link-container">' + $(this)
                                     .find(".info-container .title.text-link-container")
-                                    .html() + '</div>')
+                                    .html() + '</div></h3>')
                         );
 
-                    regExp      = /https?:\/\/app\.jalantikus\.com\/(apps|games)\/(.*?)(\/|$)/gi;
+                    regExp      = /https?:\/\/(app\.)?jalantikus\.com\/(apps|games)\/(.*?)(\/|$)/gi;
                     var matches = regExp.exec(_appDetail);
 
-                    _appSlug = matches[ 2 ];
+                    _appSlug = matches[ 3 ];
 
                     _appDetail = new App({
                         slug: _appSlug
