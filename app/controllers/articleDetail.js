@@ -25,7 +25,7 @@ define(
 
                 this.fetch();
             },
-            fetch: function(options) {
+            fetch: function (options) {
                 var that = this;
 
                 if (!jt.isOffline()) {
@@ -41,7 +41,7 @@ define(
                     });
                 }
                 else {
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $(".app-load").css("display", "none");
                         $(".app-retry").css("display", "block");
                     }, 2000);
@@ -64,11 +64,22 @@ define(
                     }
                 });
 
+                $("a").each(function (key, val) {
+                    regExp = /https?\:\/\/app\.jalantikus\.com\/(gadgets|tips|news|gokil)\/(.*?)(\/|$|\?)/gim;
+                    value  = $(val).attr("href");
+
+                    if (value.match(regExp)) {
+                        var matches = regExp.exec(value);
+
+                        $(this).attr("href", "#article/" + matches[ 2 ]);
+                    }
+                });
+
                 $(".app-retry").on("touchend click", function () {
                     $(".app-load").css("display", "block");
                     $(".app-retry").css("display", "none");
 
-                    that.fetch({timeout: 10000});
+                    that.fetch({ timeout: 10000 });
                 });
             }
         });
