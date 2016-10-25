@@ -158,7 +158,7 @@ define(
                 });
 
                 setTimeout(function () {
-                    $("#iframe-jalantikus").prop("src", $("#iframe-jalantikus").data("src"));
+                    //$("#iframe-jalantikus").prop("src", $("#iframe-jalantikus").data("src"));
                 }, 2000);
 
                 $(".app-retry").on("touchend click", function () {
