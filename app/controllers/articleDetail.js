@@ -138,6 +138,8 @@ define(
                     });
                 });
 
+                $("#iframe-jalantikus").prop("src", $("#iframe-jalantikus").data("src"));
+
                 $(".app-retry").on("touchend click", function () {
                     $(".app-load").css("display", "block");
                     $(".app-retry").css("display", "none");
@@ -147,7 +149,7 @@ define(
                 $(".prettify-copy-selected").on("touchend click", function (e) {
                     document.execCommand('copy');
                     validateTooltip(e)
-                })
+                });
 
                 $(".prettify-copy-all").on("touchend click", function (e) {
                     _el     = $(this).parent().parent();
@@ -164,7 +166,7 @@ define(
                     document.execCommand("copy");
                     document.body.removeChild(dummy);
                     validateTooltip(e)
-                })
+                });
 
                 function validateTooltip(e) {
                     if (!tooltip) {
