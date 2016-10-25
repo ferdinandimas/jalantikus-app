@@ -12,14 +12,12 @@ define(
             initialize: function () {
                 jt.log("App Initialized");
 
-                setTimeout(function () {
-                    require(
-                        [ 'controllers/app' ],
-                        function (App) {
-                            new App();
-                        }
-                    );
-                }, 2000);
+                require(
+                    [ 'controllers/app' ],
+                    function (App) {
+                        new App();
+                    }
+                );
             },
 
             home: function () {
