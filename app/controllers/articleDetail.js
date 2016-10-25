@@ -16,7 +16,7 @@ define(
             initialize: function (_articleSlug) {
                 var that = this;
 
-                $("#app-toolbar").empty().append((_.template(headerLayout))())
+                $("#app-toolbar").empty().append((_.template(headerLayout))());
                 $("#app-body .app-content-container").empty().append(
                     '<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
                 );
