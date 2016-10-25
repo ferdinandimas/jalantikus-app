@@ -11,13 +11,6 @@ define(
 
             initialize: function () {
                 jt.log("App Initialized");
-
-                require(
-                    [ 'controllers/app' ],
-                    function (App) {
-                        new App();
-                    }
-                );
             },
 
             home: function () {
