@@ -29,6 +29,15 @@ define(
                         $("#app-body .app-content-container").empty();
 
                         that.render();
+                        if($(".splash").length >= 1)
+                        {
+                            setTimeout(function(){
+                                $(".splash").fadeOut("fast", function(){
+                                    $(this).remove();
+                                })
+                            }, 2500);
+                        }
+                        
                     },
                     error  : function () {
                         $("#app-body .app-content-container").empty().append(

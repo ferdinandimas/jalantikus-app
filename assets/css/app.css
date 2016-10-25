@@ -1562,6 +1562,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	position: fixed;
 	top: 0;
 	left: 0;
+	z-index: 9
 }
 .splash-background:after
 {
@@ -1580,25 +1581,48 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	height: 540px;
 	width: 100vw;
 	margin-top: 40px;
+	z-index: 11
 }
 .splash-content .splash-image img
 {
 	margin-top: 94px;
-	margin-left: calc(((100vw - 217px) / 2) - 39px);
+	margin-left: calc(((100vw - 250px) / 2) - 39px)
 }
 .splash-content .splash-quote
 {
+	opacity: 0;
 	text-align: center;
 	font-size: 14px;
 	line-height: 24px;
 	padding: 20px 20px 10px 20px;
 	color: #fff;
+    font-weight: 100;
+    text-shadow: 0 0 0;
+	-webkit-transition: 0.5s;
+    transition: 0.5s;
 }
 .splash-content .splash-speaker
 {
+	opacity: 0;
 	text-align: center;
 	font-size: 14px;
 	line-height: 24px;
 	font-style: italic;
 	color: #fff;
+	-webkit-transition: 0.5s;
+    transition: 0.5s;
+    font-weight: 100;
+    text-shadow: 0 0 0;
+}
+.splash-content .splash-loading
+{
+	position: fixed;
+	bottom: 20px;
+	left: 0;
+	right: 0;
+	text-align: center;
+	font-size: 14px;
+	line-height: 24px;
+	color: rgba(255,255,255,0.6);
+    text-shadow: 0 0 0;
 }

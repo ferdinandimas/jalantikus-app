@@ -26,6 +26,14 @@ define(
                 });
 
                 this.fetch();
+                if($(".splash").length >= 1)
+                {
+                    setTimeout(function(){
+                        $(".splash").fadeOut("fast", function(){
+                            $(this).remove();
+                        })
+                    }, 2500);
+                }
             },
             fetch     : function (options) {
                 var that = this;
