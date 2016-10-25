@@ -22,28 +22,33 @@
         <%= detail.description %>
     </div>
 
-    <iframe id="iframe-jalantikus" data-src="<%= detail.links.detail %>?utm_source=JT%20Apps&utm_medium=Android&utm_campaign=Apps" width="1" height="1" frameborder="0" style="display: none !important; width: 0px !important; height: 0px !important;;"></iframe>
-    <a class="app-gotoweb">
+    <a class="app-gotoweb" href="<%= detail.links.detail %>">
         <div class="app-gotoweb-description">
             BACA DI WEB
         </div>
     </a>
-    <div class="app-article-more">
-        <div class="more-title">
-            KAMU PASTI SUKA
-        </div>
-        <div class="app-index-card shadow-l1">
-            <div class="card-description">
-                <div class="card-title">
-                    20 Foto Ini Membuktikan Wanita Akan Hidup Lebih Lama Daripada Pria
+    <% if (detail.related.article.length > 0) { %>
+        <div class="app-article-more">
+            <div class="more-title">
+                KAMU PASTI SUKA
+            </div>
+            <% _.each(detail.related.article, function(value) { %>
+                <div class="app-index-card shadow-l1">
+                    <div class="card-description">
+                        <div class="card-title">
+                            <%= value.title %>
+                        </div>
+                    </div>
+                    <div class="card-image">
+                        <img src="<%= value.image.baseUrl %>120/120<%= value.image.file %>" alt="<%= value.title %>">
+                    </div>
+                    <a href="#article/<%= value.slug %>" class="card-link">
+                        <div class="ripple"></div>
+                    </a>
                 </div>
-            </div>
-            <div class="card-image">
-                <img src="https://assets.jalantikus.com/assets/cache/120/120/gokil/2016/06/07/wanita-hidup-lebih-lama-daripada-pria.jpeg" alt="20 Foto Ini Membuktikan Wanita Akan Hidup Lebih Lama Daripada Pria">
-            </div>
-            <a href="#article/foto-yang-membuktikan-mengapa-wanita-hidup-lebih-lama-daripada-pria" class="card-link">
-                <div class="ripple"></div>
-            </a>
+            <% }) %>
         </div>
-    </div>
+    <% } %>
 </div>
+
+<iframe id="iframe-jalantikus" data-src="<%= detail.links.detail %>?utm_source=JT%20Apps&utm_medium=Android&utm_campaign=Apps" width="1" height="1" frameborder="0" style="display: none !important; width: 0px !important; height: 0px !important;;"></iframe>

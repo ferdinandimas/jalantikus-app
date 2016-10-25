@@ -5,7 +5,7 @@ define(
     function (Backbone) {
         var Article = Backbone.Model.extend({
             initialize: function (options, model) {
-                this.details = (typeof options != "undefined" && typeof options.details != "undefined" ? options.details : "title,image,user,links,published,description");
+                this.details = (typeof options != "undefined" && typeof options.details != "undefined" ? options.details : "title,image,user,links,published,description,keywords,related");
                 this.slug    = (typeof options != "undefined" && typeof options.slug != "undefined" ? options.slug : 1);
             },
             url       : function () {
