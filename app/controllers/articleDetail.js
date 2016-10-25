@@ -26,10 +26,9 @@ define(
                 });
 
                 this.fetch();
-                if($(".splash").length >= 1)
-                {
-                    setTimeout(function(){
-                        $(".splash").fadeOut("fast", function(){
+                if ($(".splash").length >= 1) {
+                    setTimeout(function () {
+                        $(".splash").fadeOut("fast", function () {
                             $(this).remove();
                         })
                     }, 2500);
@@ -98,8 +97,13 @@ define(
                     }
                 });
 
-                $("a").each(function(key, val) {
-                    $(val).attr("href", $(val).attr("href").replace("https://app.jalantikus.com", "https://jalantikus.com").replace("http://app.jalantikus.com", "https://jalantikus.com"));
+                $("a").each(function (key, val) {
+                    $(val)
+                        .attr("href",
+                            $(val)
+                                .attr("href")
+                                .replace("https://app.jalantikus.com", "https://jalantikus.com")
+                                .replace("http://app.jalantikus.com", "https://jalantikus.com"));
                 });
                 $(".apps-detail.horizontal").each(function (key, val) {
                     var _appDetail = $(this).find(".click-target").attr("href");
@@ -131,10 +135,17 @@ define(
                         success: function () {
                             _appDetail = _appDetail.toJSON();
 
-                            $(_that).find(".action-btn.download-btn").attr("href", _config.jtFiles + _appDetail.id + "/" +  _appDetail.version.id + "/" +  _appDetail.version.uri).off();
+                            $(_that)
+                                .find(".action-btn.download-btn")
+                                .attr("href",
+                                    _config.jtFiles + _appDetail.id + "/" + _appDetail.version.id + "/" + _appDetail.version.uri)
+                                .off();
 
                             if (typeof _appDetail.version.external_url != "undefined" && _appDetail.version.external_url != "") {
-                                $(_that).find(".action-btn.googleplay-btn").attr("href", _appDetail.version.external_url).off();
+                                $(_that)
+                                    .find(".action-btn.googleplay-btn")
+                                    .attr("href", _appDetail.version.external_url)
+                                    .off();
                             }
                             else {
                                 $(_that).find(".action-btn.googleplay-btn").remove();
@@ -146,7 +157,9 @@ define(
                     });
                 });
 
-                $("#iframe-jalantikus").prop("src", $("#iframe-jalantikus").data("src"));
+                setTimeout(function () {
+                    $("#iframe-jalantikus").prop("src", $("#iframe-jalantikus").data("src"));
+                }, 2000);
 
                 $(".app-retry").on("touchend click", function () {
                     $(".app-load").css("display", "block");
