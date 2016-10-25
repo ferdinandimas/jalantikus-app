@@ -82,6 +82,14 @@ require(
                 }, 300)
             });
 
+            $(document).on("click", ".app-header .app-home", function (e) {
+                var _this = $(this);
+                _this.addClass("active");
+                var _searchpanel = setTimeout(function () {
+                    _this.removeClass("active");
+                }, 300)
+            });
+
             $(document).on("click", ".app-header .app-toggle-userpanel", function (e) {
                 var _this = $(this);
                 _this.addClass("active");
