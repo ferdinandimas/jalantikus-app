@@ -373,6 +373,7 @@ html, body
 {
 	height: 100%;
 	overflow-y: scroll;
+	background-color: #fff
 }
 .app-detail-body
 {
@@ -763,7 +764,7 @@ html, body
 {
 	position: relative;
 }
-.app-header .app-toggle-back:after, .app-header .app-toggle-userpanel:after, .app-header .app-toggle-searchpanel:after
+.app-header .app-toggle-back:after, .app-header .app-toggle-userpanel:after, .app-header .app-toggle-searchpanel:after, .app-header .header-refresh:before, .app-header .app-home:after
 {
 	width: 40px;
 	height: 40px;
@@ -777,7 +778,7 @@ html, body
 	opacity: 0;
 	transition: 0.15s linear;
 }
-.app-header .app-toggle-back.active:after, .app-header .app-toggle-userpanel.active:after, .app-header .app-toggle-searchpanel.active:after
+.app-header .app-toggle-back.active:after, .app-header .app-toggle-userpanel.active:after, .app-header .app-toggle-searchpanel.active:after, .app-header .header-refresh.active:before, .app-header .app-home.active:after
 {
 	opacity: 1
 }
