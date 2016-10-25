@@ -696,7 +696,7 @@ html, body
 	mask-repeat: center center;
     background: #fff;
 }
-.app-toggle-searchpanel, .app-header .header-search
+.app-toggle-searchpanel, .app-header .header-search, .app-header .app-home .app-menu-home, .app-header .header-refresh
 {
 	height: 60px;
 	width: 60px;
@@ -714,6 +714,49 @@ html, body
     bottom: 0;
     left: 0;
     background: url(../images/search-icon.svg) center center no-repeat;
+    background-size: 24px 24px;
+}
+.app-header .app-home, .app-header .app-toggle-refresh
+{
+	height: 60px;
+	width: 60px;
+	position: absolute;
+	right: 60px;
+	top: 0;
+}
+.app-header .header-refresh:after
+{
+	content: "";
+	position: absolute;
+    width: 60px;
+    height: 60px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background: url(../images/refresh-icon.svg) center center no-repeat;
+    background-size: 24px 24px;
+}
+.app-header .header-refresh.active:after
+{
+	-webkit-animation: refresh 1.2s linear infinite;
+    animation: refresh 1.2s linear infinite;
+}
+.app-header .app-menu-home:after
+{
+	content: "";
+	position: absolute;
+    width: 60px;
+    height: 60px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    -webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-position: center center;
+	mask-repeat: center center;
+	-webkit-mask-image: url(../images/home-icon.svg);
+	mask-image: url(../images/home-icon.svg);
+    background: #fff;
     background-size: 24px 24px;
 }
 .app-header .app-toggle-back, .app-header .app-toggle-userpanel
@@ -1231,7 +1274,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     line-height: 11px;
     border: 1px solid #eee!important;
     border-radius: 3px;
-    padding: 5px 10px;
+    padding: 10px 15px;
     margin-right: 5px;
     font-size: 11px;
     position: relative;
