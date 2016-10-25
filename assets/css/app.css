@@ -115,7 +115,8 @@ html, body
 .app-article-more .more-title
 {
 	color: #b90000;
-	font-size: 18px;
+	font-size: 13px;
+    line-height: 18px;
 	margin-bottom: 15px;
 	font-weight: 700;
 }
@@ -1550,4 +1551,54 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	background-size: 24px 24px;
 	background-position:  center center;
 	background-repeat: no-repeat;
+}
+.splash, .splash-background
+{
+	background: #8f1f1f;    
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+.splash-background:after
+{
+	content: "";
+    background: radial-gradient(circle closest-side, rgba(210, 47, 47, 1), rgba(143,31,31, 1) );
+    width: 540px;
+    height: 540px;
+    border-radius: 50%;
+    position: absolute;
+  	left: calc( (100vw - 540px) / 2);
+	top: 40px;
+}
+.splash-content
+{
+	position: relative;
+	height: 540px;
+	width: 100vw;
+	margin-top: 40px;
+}
+.splash-content .splash-image img
+{
+	margin-top: 94px;
+	margin-left: calc(((100vw - 217px) / 2) - 39px);
+}
+.splash-content .splash-quote
+{
+	text-align: center;
+	font-size: 14px;
+	line-height: 24px;
+	padding: 20px 20px 10px 20px;
+	color: #fff;
+}
+.splash-content .splash-speaker
+{
+	text-align: center;
+	font-size: 14px;
+	line-height: 24px;
+	font-style: italic;
+	color: #fff;
 }
