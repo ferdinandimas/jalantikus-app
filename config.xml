@@ -24,7 +24,7 @@
     <preference name="android-targetSdkVersion" value="21"/>
     <preference name="android-installLocation" value="auto"/>
     <preference name="android-build-tool" value="gradle"/>
-    <preference name="ShowTitle" value="false"/>
+    <preference name="ShowTitle" value="true"/>
 
     <!-- iOS only -->
     <preference name="target-device" value="universal"/>
@@ -36,19 +36,18 @@
 
     <preference name="webviewbounce" value="false"/>
     <preference name="DisallowOverscroll" value="true"/>
-    <preference name="disallowOverscroll" value="true"/>
     <preference name="StatusBarOverlaysWebView" value="false"/>
     <preference name="StatusBarStyle" value="default"/>
     <preference name="permissions" value="none"/>
 
-    <preference name="ShowSplashScreen" value="true"/>
-    <preference name="SplashScreen" value="screen"/>
-    <preference name="AutoHideSplashScreen" value="true"/>
-    <preference name="SplashShowOnlyFirstTime" value="true"/>
-    <preference name="ShowSplashScreenSpinner" value="false"/>
+    <preference name="ShowSplashScreen" value="false"/>
+    <!--<preference name="SplashScreen" value="screen"/>-->
+    <!--<preference name="AutoHideSplashScreen" value="true"/>-->
+    <!--<preference name="SplashShowOnlyFirstTime" value="true"/>-->
+    <!--<preference name="ShowSplashScreenSpinner" value="false"/>-->
 
-    <preference name="SplashScreenDelay" value="3500"/>
-    <preference name="FadeSplashScreenDuration" value="500"/>
+    <!--<preference name="SplashScreenDelay" value="3500"/>-->
+    <!--<preference name="FadeSplashScreenDuration" value="500"/>-->
 
     <preference name="SplashScreenBackgroundColor" value="#B71C1C"/>
 
@@ -59,10 +58,10 @@
         <icon src="res/icon/android/drawable-hdpi-icon.png" density="hdpi"/>
         <icon src="res/icon/android/drawable-xhdpi-icon.png" density="xhdpi"/>
 
-        <splash src="res/screen/android/drawable-port-ldpi-screen.png" density="ldpi"/>
-        <splash src="res/screen/android/drawable-port-mdpi-screen.png" density="mdpi"/>
-        <splash src="res/screen/android/drawable-port-hdpi-screen.png" density="hdpi"/>
-        <splash src="res/screen/android/drawable-port-xhdpi-screen.png" density="xhdpi"/>
+        <!--<splash src="res/screen/android/drawable-port-ldpi-screen.png" density="ldpi"/>-->
+        <!--<splash src="res/screen/android/drawable-port-mdpi-screen.png" density="mdpi"/>-->
+        <!--<splash src="res/screen/android/drawable-port-hdpi-screen.png" density="hdpi"/>-->
+        <!--<splash src="res/screen/android/drawable-port-xhdpi-screen.png" density="xhdpi"/>-->
     </platform>
 
     <!--<plugin name="cordova-plugin-camera" spec="~2.1.1" source="npm"/>-->
