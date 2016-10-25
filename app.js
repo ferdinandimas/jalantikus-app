@@ -91,7 +91,9 @@ require(
             });
 
             $(document).on("click", ".card-link", function (e) {
-                jt.ripple($(this), e)
+                if (!jt.isOffline()) {
+                    jt.ripple($(this), e)
+                }
             });
 
             var isOnline, lastFragment;

@@ -19,8 +19,6 @@ define(
                 var _buff        = 0;
                 var that         = this;
 
-                console.log("new");
-
                 _.each(result.response, function (value) {
                     _buff++;
                     _test = _buff;
@@ -38,8 +36,6 @@ define(
 
                         _buff = 0;
                     }
-
-                    console.log(_test, that.page, value.multiple_images, _test2);
 
                     buffResult.push(value);
                 });

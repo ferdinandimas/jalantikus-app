@@ -25,6 +25,7 @@ define(
                     success: function () {
                         that.page = that.page + 1;
 
+                        $(".header-refresh").show();
                         $("#app-body .app-content-container").empty();
 
                         that.render();
@@ -33,9 +34,48 @@ define(
                         $("#app-body .app-content-container").empty().append(
                             '<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
                         );
+                        $(".header-refresh").hide();
 
                         $(".app-load").css("display", "none");
                         $(".app-retry").css("display", "block");
+
+                        $(".app-retry").on("click touchend", function () {
+                            $(".app-load").css("display", "block");
+                            $(".app-retry").css("display", "none");
+                            that.autoload();
+                        });
+                    }
+                });
+
+                $(".header-refresh").on("click", function () {
+                    $(".header-refresh").addClass("active");
+
+                    if (!jt.isOffline()) {
+                        this.page = 1;
+
+                        this.collection = new Timeline({
+                            page: this.page
+                        });
+
+                        this.collection.fetch({
+                            timeout: 10000,
+                            success: function () {
+                                that.page = that.page + 1;
+
+                                $(".header-refresh").removeClass("active");
+                                $("#app-body .app-content-container").empty();
+
+                                that.render();
+                            },
+                            error  : function () {
+                                $(".header-refresh").removeClass("active");
+                            }
+                        });
+                    }
+                    else {
+                        setTimeout(function () {
+                            $(".header-refresh").removeClass("active");
+                        }, 2000);
                     }
                 });
             },
@@ -54,50 +94,17 @@ define(
                     '<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
                 );
 
-                var _movement = 0;
-                var _top      = 0;
-                var _nTop     = 0;
-                var _flag     = 0;
                 $("#app-body .app-content-container").scroll(function () {
                     clearTimeout($.data(this, 'scrollTimer'));
                     $.data(this, 'scrollTimer', setTimeout(function () {
-                        _movement = 0;
                         that.autoload();
                     }, 250));
                 });
-                // $("#app-body .app-content-container").on("touchmove", function () {
-                //     if (_movement++ >= 50) {
-                //         _movement = 0;
-                //         //that.autoload();
-                //     }
 
-                //     _top = $(this).scrollTop();
-
-                //     if (_flag == 0) {
-                //         if (_top > _nTop + 10) {
-                //             if (!$("#app-toolbar").hasClass("scroll")) {
-                //                 _flag = 1;
-                //                 $("#app-toolbar").addClass("scroll")
-                //             }
-                //             ;
-                //         }
-                //     }
-                //     else if (_flag == 1) {
-                //         if (_top <= _nTop - 10) {
-                //             if ($("#app-toolbar").hasClass("scroll")) {
-                //                 $("#app-toolbar").removeClass("scroll")
-                //                 _flag = 0;
-                //             }
-                //             ;
-                //         }
-                //     }
-
-                //     _nTop = _top;
-                // });
                 $("#app-body .app-content-container").on("touchend", function () {
-                    _movement = 0;
                     that.autoload();
                 });
+
                 $(".app-retry").on("click touchend", function () {
                     $(".app-load").css("display", "block");
                     $(".app-retry").css("display", "none");
@@ -117,6 +124,7 @@ define(
                         success: function () {
                             that.page = that.page + 1;
 
+                            $(".header-refresh").show();
                             $(".app-content-container .app-loader").remove();
 
                             that.render();

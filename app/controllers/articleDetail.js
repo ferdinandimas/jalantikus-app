@@ -39,6 +39,13 @@ define(
                         error  : function () {
                             $(".app-load").css("display", "none");
                             $(".app-retry").css("display", "block");
+
+                            $(".app-retry").on("touchend click", function () {
+                                $(".app-load").css("display", "block");
+                                $(".app-retry").css("display", "none");
+
+                                that.fetch({ timeout: 10000 });
+                            });
                         }
                     });
                 }
