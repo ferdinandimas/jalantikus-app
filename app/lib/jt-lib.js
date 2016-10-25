@@ -26,7 +26,7 @@ var jt = function () {
                         _currItem.removeClass("faded");
                         clearTimeout(fdFd);
                         $(_currItem).data("complete", true);
-                        window.location.href += _href;
+                        window.location.href = _config.baseURL + _href;
                     }, 100)
                 }, 300)
             }

@@ -103,6 +103,22 @@ html, body
 	margin-bottom: 10px;
 	border-radius: 2px;
 }
+.app-article-more
+{
+	padding: 15px;
+	border-top: 1px solid #ddd;
+}
+.app-article-more .app-index-card
+{
+	height: 80px;
+}
+.app-article-more .more-title
+{
+	color: #b90000;
+	font-size: 18px;
+	margin-bottom: 15px;
+	font-weight: 700;
+}
 .app-index-card.multi-image .card-description
 {
 	padding: 15px;
@@ -123,6 +139,10 @@ html, body
 	overflow           : hidden;
 	text-overflow      : ellipsis;
 	padding            : 0 !important;
+}
+.app-article-more .app-index-card .card-description .card-title
+{
+	height: 80px;
 }
 .app-index-card.card-placeholder .card-description .card-title
 {
@@ -164,6 +184,11 @@ html, body
 	right: 0;
 	height: 110px;
 	width: 110px;
+}
+.app-article-more .app-index-card .card-image
+{
+	height: 80px;
+	width: 80px;
 }
 .app-index-card.card-placeholder .card-image
 {
@@ -208,7 +233,11 @@ html, body
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
-
+}
+.app-article-more .app-index-card .card-image img
+{
+	height: 80px;
+	width: 80px;
 }
 .app-index-card.multi-image .card-image img:nth-child(3)
 {
@@ -382,6 +411,7 @@ html, body
 	font-size: 15px;
 	line-height: 26px;
 	font-weight: 500;
+	overflow: hidden;
 }
 .app-detail-body h2
 {
@@ -724,6 +754,23 @@ html, body
 	position: absolute;
 	right: 60px;
 	top: 0;
+}
+.app-body .app-refreshed
+{
+	display: none;
+    position: fixed;
+    top: 200px;
+    text-align: center;
+    padding: 10px 20px;
+    margin: auto;
+    left: 0;
+    right: 0;
+    width: 150px;
+    color: #fff;
+    background: rgba(0,0,0,0.45);
+    text-shadow: 0 0 0;
+    border-radius: 5px;
+    font-weight: 100;
 }
 .app-header .header-refresh:after
 {
@@ -1464,4 +1511,43 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+/*Baca di Web*/
+.app-gotoweb-description
+{
+    width: 170px;
+    height: 40px;
+    line-height: 42px;
+    color: #fff;
+    background-color: #bf0b0b;
+    border-radius: 4px;
+    padding-left: 30px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    margin: auto;
+    box-sizing: border-box;
+    text-shadow: 0 0 0;
+    margin-bottom: 20px;
+    position: relative;
+    -webkit-transition: 0.3s;
+	transition: 0.3s;
+}
+.app-gotoweb-description:active
+{
+    background-color: #9c0909;
+}
+.app-gotoweb-description:after
+{
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+    width: 55px;
+    height: 40px;
+	background-image: url(../images/openbrowser-icon.svg) ;
+	background-size: 24px 24px;
+	background-position:  center center;
+	background-repeat: no-repeat;
 }

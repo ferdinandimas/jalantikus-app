@@ -64,8 +64,11 @@ define(
 
                                 $(".header-refresh").removeClass("active");
                                 $("#app-body .app-content-container").empty();
-
                                 that.render();
+                                $(".app-refreshed").fadeIn();
+                                setTimeout(function () {
+                                    $(".app-refreshed").fadeOut();
+                                }, 2000);
                             },
                             error  : function () {
                                 $(".header-refresh").removeClass("active");
@@ -92,6 +95,10 @@ define(
 
                 $("#app-body .app-content-container").append(
                     '<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
+                );
+
+                $("#app-body").append(
+                    '<div class="app-refreshed">Refresh selesai</div>'
                 );
 
                 $("#app-body .app-content-container").scroll(function () {
