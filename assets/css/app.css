@@ -115,10 +115,15 @@ html, body
 .app-article-more .more-title
 {
 	color: #b90000;
-	font-size: 13px;
-    line-height: 18px;
+	font-size: 18px;
+    line-height: 24px;
 	margin-bottom: 15px;
 	font-weight: 700;
+}
+.app-article-more .app-index-card .card-description .card-title
+{
+	font-size: 13px;
+	line-height: 18px;
 }
 .app-index-card.multi-image .card-description
 {
@@ -247,6 +252,10 @@ html, body
 .app-index-card .card-description
 {
 	padding: 15px 125px 15px 15px;
+}
+.app-article-more .app-index-card .card-description
+{
+	padding: 15px 95px 15px 15px;
 }
 .app-index-card .card-description .card-note
 {
@@ -787,8 +796,8 @@ html, body
 }
 .app-header .header-refresh.active:after
 {
-	-webkit-animation: refresh 1.2s linear infinite;
-    animation: refresh 1.2s linear infinite;
+	-webkit-animation: refresh 1.2s linear 1;
+    animation: refresh 1.2s linear 1;
 }
 .app-header .app-menu-home:after
 {
@@ -982,7 +991,7 @@ html, body
     display: inline-block;
 }
 .bacajuga .title {
-    background-color: #f9f9f9;
+    background-color: #fff;
     position: absolute;
     margin-left: 30px;
     margin-top: -14px;
@@ -1585,8 +1594,8 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 }
 .splash-content .splash-image img
 {
-	margin-top: 94px;
-	margin-left: calc(((100vw - 250px) / 2) - 39px)
+	margin-top: 100px;
+	margin-left: calc(((100vw - 200px) / 2) - 39px)
 }
 .splash-content .splash-quote
 {
@@ -1598,8 +1607,8 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	color: #fff;
     font-weight: 100;
     text-shadow: 0 0 0;
-	-webkit-transition: 0.5s;
-    transition: 0.5s;
+	-webkit-transition: 0.2s;
+    transition: 0.2s;
 }
 .splash-content .splash-speaker
 {
@@ -1609,8 +1618,8 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	line-height: 24px;
 	font-style: italic;
 	color: #fff;
-	-webkit-transition: 0.5s;
-    transition: 0.5s;
+	-webkit-transition: 0.2s;
+    transition: 0.2s;
     font-weight: 100;
     text-shadow: 0 0 0;
 }

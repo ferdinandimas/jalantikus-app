@@ -57,7 +57,13 @@ define(
                 });
 
                 $(".header-refresh").on("click", function () {
-                    $(".header-refresh").addClass("active");
+                    if(!$(".header-refresh").hasClass("active"))
+                    {
+                        $(".header-refresh").addClass("active");
+                        setTimeout(function(){
+                            $(".header-refresh").removeClass("active");
+                        }, 1500);
+                    }
 
                     if (!jt.isOffline()) {
                         this.page = 1;
@@ -71,16 +77,12 @@ define(
                             success: function () {
                                 that.page = that.page + 1;
 
-                                $(".header-refresh").removeClass("active");
                                 $("#app-body .app-content-container").empty();
                                 that.render();
                                 $(".app-refreshed").fadeIn();
                                 setTimeout(function () {
                                     $(".app-refreshed").fadeOut();
                                 }, 2000);
-                            },
-                            error  : function () {
-                                $(".header-refresh").removeClass("active");
                             }
                         });
                     }
