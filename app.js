@@ -165,11 +165,11 @@ require(
             });
 
             document.addEventListener("deviceready", function () {
-                document.addEventListener('backbutton', function (e) {
+                document.addEventListener("backbutton", function (e) {
                     navigator.notification.confirm(
-                        'Tutup JalanTikus?',
+                        "Tutup JalanTikus?",
                         function (confirmation) {
-                            if (confirmation == 'Keluar') {
+                            if (confirmation == "Ya") {
                                 if (Backbone.history.getFragment() == "") {
                                     navigator.app.exitApp();
                                 }
@@ -178,8 +178,8 @@ require(
                                 }
                             }
                         },
-                        'Keluar',
-                        [ 'Ya', 'Tidak' ]
+                        "Keluar",
+                        [ "Ya", "Tidak" ]
                     );
                 });
             });
