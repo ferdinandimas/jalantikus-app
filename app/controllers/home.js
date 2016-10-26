@@ -129,6 +129,15 @@ define(
                     $(".app-retry").css("display", "none");
                     that.autoload();
                 });
+
+                if($("#app-toolbar").hasClass("detail"))
+                {    
+                    $("#app-toolbar").removeClass("detail");
+                }
+                if($("#app-toolbar").hasClass("scroll"))
+                {    
+                    $("#app-toolbar").removeClass("scroll");
+                }
             },
             autoload        : function () {
                 var that = this;
