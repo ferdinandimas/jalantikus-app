@@ -13,7 +13,7 @@ var jt = function () {
             var _currItem = t;
             var _href     = t.attr("href");
             var _ripple   = $(_currItem.children()[ 0 ]);
-            var rX       = e.offsetX - 225, rY = e.offsetY - 225;
+            var rX        = e.offsetX - 225, rY = e.offsetY - 225;
             if (!_currItem.hasClass("active") && !_currItem.hasClass("faded")) {
                 _ripple.css('top', rY);
                 _ripple.css('left', rX);
@@ -26,12 +26,15 @@ var jt = function () {
                         _currItem.removeClass("faded");
                         clearTimeout(fdFd);
                         $(_currItem).data("complete", true);
+
+                        window.stop();
                         window.location.href = _config.baseURL + _href;
+
                     }, 100)
                 }, 300)
             }
         },
-        isOffline : function () {
+        isOffline: function () {
             return 'onLine' in navigator && !navigator.onLine;
         },
         timeSince: function (date) {

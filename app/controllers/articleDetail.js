@@ -16,24 +16,19 @@ define(
             initialize: function (_articleSlug) {
                 var that = this;
 
-                $("#app-toolbar").removeClass("scroll").empty().append((_.template(headerLayout))());
+                $("#app-toolbar").addClass("detail").removeClass("scroll").empty().append((_.template(headerLayout))());
 
                 if (typeof window.StatusBar != "undefined") {
                     window.StatusBar.backgroundColorByHexString("#045f04");
                 }
 
-                if ($("#app-body .app-detail-container").length > 0) {
-                    $("#app-body").empty().append(
-                        '<div class="app-toolbar-placeholder"></div><div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
-                    );
-                }
-                else {
-                    $("#app-body .app-content-container").empty().append(
-                        '<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
-                    );
-                }
+                $("#app-body").empty().append(
+                    '<div class="app-detail-container"><div class="app-toolbar-placeholder"></div><div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div></div>'
+                );
 
                 $(".app-home").on("click", function (e) {
+                    window.stop();
+
                     if (jt.isOffline()) {
                         e.preventDefault();
 
@@ -192,6 +187,19 @@ define(
                         $("#iframe-jalantikus").prop("src", $("#iframe-jalantikus").data("src"));
                     }
                 }, 2000);
+
+                /*
+                Preaload Banner Image
+                 */
+                if ($(".app-detail-header .header-image img").length > 0) {
+                    var img = new Image();
+                    img.src = $(".app-detail-header .header-image img").data("src");
+                    $(img).on("load", img, function() {
+                        console.log("loaded");
+
+                        $(".app-detail-header .header-image img").prop("src", $(".app-detail-header .header-image img").data("src"));
+                    });
+                }
 
                 $("a").on("click", function (e) {
                     if (jt.isOffline()) {
