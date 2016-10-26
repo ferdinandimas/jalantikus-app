@@ -11,6 +11,8 @@ define(
 
             initialize: function () {
                 jt.log("App Initialized");
+
+                window.StatusBar.show();
             },
 
             home: function () {
