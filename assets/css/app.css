@@ -209,6 +209,14 @@ div, span, a
     background-size: cover;
     background-repeat: no-repeat;
 }
+.app-article-more .card-image img
+{
+	display: block;
+	width: 100%;
+	min-height: calc( 100% * 0.59);
+	position: relative;
+	z-index: 2
+}
 .app-index-card.multi-image 
 {
 	height: auto;
@@ -433,6 +441,10 @@ div, span, a
     border-radius: 4px;
     background-repeat: no-repeat;
     background-size: 25px 25px;
+}
+.app-loader.detail .app-load .app-retry, .app-loader .app-load.detail, .app-loader .app-retry.detail
+{
+	background-color: #0b880b;
 }
 .app-loader .app-retry:hover, .app-loader .app-retry:active, .app-loader .app-retry:visited
 {
@@ -846,7 +858,7 @@ div, span, a
     right: 0;
     width: 150px;
     color: #fff;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.8);
     text-shadow: 0 0 0;
     border-radius: 25px;
     font-weight: 500;
@@ -1059,6 +1071,7 @@ div, span, a
 	right: 15px;
 	width: 50px;
 	height: 110px;
+	z-index: 9;
 }
 .app-scroll-button .scroll-button
 {
