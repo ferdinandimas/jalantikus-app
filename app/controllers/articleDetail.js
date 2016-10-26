@@ -99,10 +99,10 @@ define(
 
                 $(".app-detail-container").on("scroll touchmove", function () {
                     if ($(this).scrollTop() > 60) {
-                        $("#app-toolbar").removeClass("detail");
+                        $("#app-toolbar").removeClass("scroll");
                     }
                     else {
-                        $("#app-toolbar").addClass("detail");
+                        $("#app-toolbar").addClass("scroll");
                     }
                 });
 

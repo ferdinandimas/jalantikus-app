@@ -28,6 +28,10 @@ html, body
 {
 	margin: 0;
 }
+div, span, a 
+{
+	text-shadow: 0px 0px 0px transparent
+}
 .shadow-l1 {
     box-shadow: 0 1px 1px rgba(0,0,0,0.04), 0 1px 5px rgba(0,0,0,0.15)
 }
@@ -56,11 +60,15 @@ html, body
 	-webkit-transition: 0.1s;
     transition: 0.1s;
 }
-.app-toolbar.scroll
+.app-toolbar.detail
 {
 	background-color: #0b880b;
 }
-.app-toolbar.detail
+.app-toolbar.offline
+{
+	background-color: #5f5f5f;
+}
+.app-toolbar.scroll
 {
 	position: fixed;
 	top: 1px;
@@ -782,9 +790,9 @@ html, body
     right: 0;
     width: 150px;
     color: #fff;
-    background: rgba(0,0,0,0.45);
+    background: rgba(0,0,0,0.40);
     text-shadow: 0 0 0;
-    border-radius: 5px;
+    border-radius: 10px;
     font-weight: 100;
 }
 .app-header .header-refresh:after
@@ -1037,7 +1045,7 @@ code
     border-left: 5px solid #eee;
 }
 
-.app-detail-body .addon-apps
+.app-detail-body .addon-apps, .app-detail-body .addon-gadgets
 {
     margin: 5px 0;
     width: 100%;
@@ -1045,17 +1053,17 @@ code
     border: 1px solid #ddd;
 	position: relative;
 }
-.app-detail-body .addon-apps h3
+.app-detail-body .addon-apps h3, .app-detail-body .addon-gadgets h3
 {
 	margin: 0;
 	line-height: 18px;
 }
-.app-detail-body .addon-apps .apps-detail
+.app-detail-body .addon-apps .apps-detail, .app-detail-body .addon-gadgets .gadget-detail
 {
 	padding: 15px;
 	position: relative;
 }
-.app-detail-body .addon-apps .cover-container
+.app-detail-body .addon-apps .cover-container, .app-detail-body .addon-gadgets .cover-container
 {
 	position: absolute;
 	width: 60px;
@@ -1063,11 +1071,11 @@ code
 	left: 15px;
 	top: 15px;
 }
-.addon-apps .info-container
+.app-detail-body .addon-apps .info-container, .app-detail-body .addon-gadgets .info-container
 {
 	padding: 0 0 0 75px;
 }
-.app-detail-body .addon-apps .action-container
+.app-detail-body .addon-apps .action-container, .app-detail-body .addon-gadgets .action-container
 {
     position: relative;
     width: 120px;
@@ -1075,36 +1083,34 @@ code
     margin-right: 0;
     margin-left: auto;
 }
-.app-detail-body .addon-apps .apps-detail.horizontal.xlSz .info .title
+.app-detail-body .addon-apps .apps-detail.horizontal.xlSz .info .title, .app-detail-body .addon-gadgets .gadget-detail.horizontal.xlSz .info
 {
 	max-height: 24px;
 	margin-bottom: 0;
 	overflow: hidden;
 	display: inline-block;
 }
-.app-detail-body .addon-apps .apps-detail.horizontal .title .title-text
+.app-detail-body .addon-apps .apps-detail.horizontal .title .title-text, .app-detail-body .addon-gadgets .gadget-detail.horizontal .info .title-text
 {
     font-size: 16px;
     line-height: 24px;
     color: #252525;
     font-weight: 700;
 }
-.app-detail-body .addon-apps .apps-detail.horizontal .title .title-text.fwL
+.app-detail-body .addon-apps .apps-detail.horizontal .title .title-text.fwL, .app-detail-body .addon-gadgets .gadget-detail.horizontal .info .title-text.fwL
 {
 	color: #999999;
 	font-weight: 100;
 }
-.app-detail-body .addon-apps .action-container .action-btn 
+.app-detail-body .addon-apps .action-container .action-btn, .app-detail-body .addon-gadgets .action-container .action-btn  
 {
 	height: 30px;
 	width: 100%;
 	font-size: 14px;
 	line-height: 30px;
-	/* background-image: url(../images/download-icon.png); */
 	background-size: 18px;
 	background-position: center center;
 	background-repeat: no-repeat;
-	/* text-indent: -9999px; */
 	text-align: center;
 	display: inline-block;
 	border-radius: 4px;
@@ -1112,43 +1118,36 @@ code
 	color: #fff;
 	text-shadow: 0 0 0;
 }
-/*.app-detail-body .addon-apps .action-container .action-btn.googleplay-btn
-{
-	background-image: url(../images/googlestore-icon.png);
-}
-.app-detail-body .addon-apps .action-container .action-btn.aptoide-btn
-{
-	background-image: url(../images/aptoide-icon.png);
-}*/
 .app-detail-body .addon-apps .action-container .action-btn:last-child
 {
 	margin: 0;
 }
-.app-detail-body .addon-apps .action-container .action-btn.clearBlue
+.action-container .action-btn.clearBlue
 {
 	background-color: #008efa;
 }
-.app-detail-body .addon-apps .action-container .action-btn.clearBlue:hover, .action-container .action-btn.clearBlue:active
+.action-container .action-btn.clearBlue:hover, .action-container .action-btn.clearBlue:active
 {
 	background-color: #0b78e8;
 }
-.app-detail-body .addon-apps .action-container .action-btn.clearGreen
+.action-container .action-btn.clearGreen
 {
 	background-color: #6ab344;
 }
-.app-detail-body .addon-apps .action-container .action-btn.clearGreen:hover, .action-container .action-btn.clearGreen:active
+.action-container .action-btn.clearGreen:hover, .action-container .action-btn.clearGreen:active
 {
 	background-color: #458d20;
 }
-.app-detail-body .addon-apps .action-container .action-btn.boldRed
+.action-container .action-btn.boldRed
 {
 	background-color: #C10E0E;
 }
-.app-detail-body .addon-apps .action-container .action-btn.boldRed:hover, .action-container .action-btn.boldRed:active
+.action-container .action-btn.boldRed:hover, .action-container .action-btn.boldRed:active
 {
 	background-color: #8A0707;
 }
-.app-detail-body .addon-apps .addon-discover {
+.app-detail-body .addon-apps .addon-discover, .app-detail-body .addon-gadgets .addon-discover
+{
 	display: none;
     position: absolute;
     bottom: 0;
@@ -1171,17 +1170,17 @@ code
 {
 	font-weight: 700;
 }
-.app-detail-body .addon-apps .property
+.app-detail-body .addon-apps .property, .app-detail-body .addon-gadgets .property
 {
 	white-space: nowrap;
 	line-height: 12px;
 }
-.app-detail-body .addon-apps .property a, .addon-apps .property span
+.app-detail-body .addon-apps .property a, .addon-apps .property span, .app-detail-body .addon-gadgets .property a, .addon-gadgets .property span
 {
 	vertical-align: middle;
 	display: inline-block;
 }
-.app-detail-body .addon-apps .property .hidden-480
+.app-detail-body .addon-apps .property .hidden-480, .app-detail-body .addon-gadgets .property .hidden-480
 {
 	display: none;
 }
@@ -1204,12 +1203,12 @@ code
     background-color: #6ab344;
     background-position: 0 0;
 }
-.app-detail-body .addon-apps .info
+.app-detail-body .addon-apps .info, .app-detail-body .addon-gadgets .info
 {
 	position: relative;
 	overflow: hidden;
 }
-.app-detail-body .addon-apps .info:after
+.app-detail-body .addon-apps .info:after, .app-detail-body .addon-gadgets .info:after
 {
 	content    : "";
 	text-align : right;
@@ -1219,9 +1218,9 @@ code
 	display    : block;
 	position   : absolute;
 	height     : 100%;
-	background : linear-gradient(to right, rgba(249, 249, 249, 0), rgba(249, 249, 249, 1) 75%);
+	background : linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 75%);
 }
-.app-detail-body .addon-apps .property a
+.app-detail-body .addon-apps .property a, .app-detail-body .addon-gadgets .property a
 {
 	color: #999999;
 	font-weight: 500;

@@ -64,12 +64,22 @@ require(
 
             $(document).on("click", ".app-toggle-searchpanel", function (e) {
                 if (!jt.isOffline()) {
+
+                    var _this = $(this);
+                    _this.addClass("active");
+
+                    var _searchpanel = setTimeout(function () {
+                        _this.removeClass("active");
+                    }, 300)
+
                     var _focus = setTimeout(function () {
                         $(".searchbar").focus();
                     }, 500)
                 }
                 else {
+                    e.preventDefault();
                     showOffline();
+                    return false;
                 }
             });
 
@@ -82,6 +92,7 @@ require(
                     }
                 }
                 else {
+                    e.preventDefault();
                     showOffline();
                 }
             });
@@ -98,22 +109,18 @@ require(
                     }, 250)
                 }
                 else {
+                    e.preventDefault();
                     showOffline();
                 }
             });
 
-            $(document).on("click", ".app-header .app-toggle-searchpanel", function (e) {
-                if (!jt.isOffline()) {
-                    var _this = $(this);
-                    _this.addClass("active");
-                    var _searchpanel = setTimeout(function () {
-                        _this.removeClass("active");
-                    }, 300)
-                }
-                else {
-                    showOffline();
-                }
-            });
+            $( document ).on( "swiperight", "#app-body", function( e ) {
+                if ( $.mobile.activePage.jqmData( "panel" ) !== "open" ) {
+                    if ( e.type === "swiperight" ) {
+                        $( "#app-userpanel" ).panel( "open" );
+                    }
+                }
+            });
 
             $(document).on("click", ".app-header .app-home", function (e) {
                 if (!jt.isOffline()) {
@@ -124,6 +131,7 @@ require(
                     }, 300)
                 }
                 else {
+                    e.preventDefault();
                     showOffline();
                 }
             });
@@ -137,7 +145,8 @@ require(
                     }, 300)
                 }
                 else {
-                    showOffline();
+                    e.preventDefault();
+                    showOffline();                    
                 }
             });
 
@@ -146,6 +155,7 @@ require(
                     jt.ripple($(this), e)
                 }
                 else {
+                    e.preventDefault();
                     showOffline();
                 }
             });
@@ -263,6 +273,11 @@ require(
                         }
 
                         lastFragment = Backbone.history.getFragment();
+
+                        $("#app-userpanel").panel( "close" );
+                        $('#app-userpanel').panel({disabled:true});
+                        $("#app-searchpanel").panel( "close" );
+                        $('#app-searchpanel').panel({disabled:true});
                     }
                     else {
                         $(".app-index-card img").css("filter", "none");
@@ -287,6 +302,9 @@ require(
                         if (lastFragment != Backbone.history.getFragment()) {
                             Backbone.history.loadUrl();
                         }
+
+                        $('#app-userpanel').panel({disabled:false});
+                        $('#app-searchpanel').panel({disabled:false});
                     }
                 }
             }, 250);
