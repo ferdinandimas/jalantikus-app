@@ -169,7 +169,6 @@ require(
                     navigator.notification.confirm(
                         "Tutup JalanTikus?",
                         function (confirmation) {
-                            alert(confirmation);
                             if (confirmation == 1) {
                                 if (Backbone.history.getFragment() == "") {
                                     navigator.app.exitApp();
