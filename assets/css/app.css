@@ -58,15 +58,7 @@ html, body
 }
 .app-toolbar.scroll
 {
-	top: -61px;
-}
-.app-toolbar.scroll ~ .app-body .app-toolbar-placeholder
-{
-	height: 0px;
-}
-.app-toolbar.scroll ~ .app-body .app-content-container
-{
-	height: 100%;
+	background-color: #0b880b;
 }
 .app-toolbar.detail
 {
@@ -76,7 +68,6 @@ html, body
 	right: 0;
 	height: 0;
 	width: 100%;
-	background-color: #b71c1c;
 	z-index: 4;
 }
 .app-toolbar-placeholder
