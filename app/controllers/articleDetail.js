@@ -20,13 +20,19 @@ define(
                     .addClass("detail")
                     .removeClass("scroll")
                     .empty()
-                    .append((_.template(headerLayout))())
-                    .queue(function () {
-                        if (typeof window.StatusBar != "undefined") {
-                            window.StatusBar.backgroundColorByHexString("#045f04");
-                        }
-                        $(this).dequeue();
-                    });
+                    .append((_.template(headerLayout))());
+
+                var statusBarChanged = 0;
+                while (statusBarChanged != 1) {
+                    if (typeof window.StatusBar != "undefined" && $("#app-toolbar").hasClass("detail")) {
+                        window.StatusBar.backgroundColorByHexString("#045f04");
+
+                        statusBarChanged = 1;
+                    }
+                    else if ($("#app-toolbar").hasClass("detail")) {
+                        statusBarChanged = 1;
+                    }
+                }
 
                 $("#app-body").empty().append(
                     '<div class="app-detail-container"><div class="app-toolbar-placeholder"></div><div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div></div>'
