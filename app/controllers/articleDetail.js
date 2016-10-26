@@ -22,7 +22,6 @@ define(
                     if (typeof window.StatusBar != "undefined") {
                         window.StatusBar.backgroundColorByHexString("#045f04");
                     }
-                    alert("1");
                 }, 45);
 
                 $("#app-body").empty().append(
