@@ -114,13 +114,13 @@ require(
                 }
             });
 
-            $( document ).on( "swiperight", "#app-body", function( e ) {
-                if ( $.mobile.activePage.jqmData( "panel" ) !== "open" ) {
-                    if ( e.type === "swiperight" ) {
-                        $( "#app-userpanel" ).panel( "open" );
-                    }
-                }
-            });
+            $(document).on("swiperight", "#app-body", function (e) {
+                if ($.mobile.activePage.jqmData("panel") !== "open") {
+                    if (e.type === "swiperight") {
+                        $("#app-userpanel").panel("open");
+                    }
+                }
+            });
 
             $(document).on("click", ".app-header .app-home", function (e) {
                 if (!jt.isOffline()) {
@@ -146,7 +146,7 @@ require(
                 }
                 else {
                     e.preventDefault();
-                    showOffline();                    
+                    showOffline();
                 }
             });
 
@@ -162,6 +162,15 @@ require(
 
             $(document).on("touchend click", ".app-index-card a.disabled", function (e) {
                 e.preventDefault();
+            });
+
+            document.addEventListener('backbutton', function (e) {
+                if (Backbone.history.getFragment() == "") {
+                    navigator.app.exitApp();
+                }
+                else {
+                    navigator.app.backHistory()
+                }
             });
 
             var trivia    = [
@@ -274,10 +283,10 @@ require(
 
                         lastFragment = Backbone.history.getFragment();
 
-                        $("#app-userpanel").panel( "close" );
-                        $('#app-userpanel').panel({disabled:true});
-                        $("#app-searchpanel").panel( "close" );
-                        $('#app-searchpanel').panel({disabled:true});
+                        $("#app-userpanel").panel("close");
+                        $('#app-userpanel').panel({ disabled: true });
+                        $("#app-searchpanel").panel("close");
+                        $('#app-searchpanel').panel({ disabled: true });
                     }
                     else {
                         $(".app-index-card img").css("filter", "none");
@@ -303,8 +312,8 @@ require(
                             Backbone.history.loadUrl();
                         }
 
-                        $('#app-userpanel').panel({disabled:false});
-                        $('#app-searchpanel').panel({disabled:false});
+                        $('#app-userpanel').panel({ disabled: false });
+                        $('#app-searchpanel').panel({ disabled: false });
                     }
                 }
             }, 250);

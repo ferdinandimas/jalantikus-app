@@ -36,7 +36,7 @@
 
     <preference name="webviewbounce" value="false"/>
     <preference name="DisallowOverscroll" value="true"/>
-    <preference name="StatusBarOverlaysWebView" value="true"/>
+    <preference name="StatusBarOverlaysWebView" value="false"/>
     <preference name="StatusBarStyle" value="default"/>
     <preference name="permissions" value="none"/>
 
