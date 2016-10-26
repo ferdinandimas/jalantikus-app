@@ -164,16 +164,23 @@ require(
                 e.preventDefault();
             });
 
-            document.addEventListener("deviceready", function(){
-                alert("device ready");
+            document.addEventListener("deviceready", function () {
                 document.addEventListener('backbutton', function (e) {
-                    alert("back button");
-                    if (Backbone.history.getFragment() == "") {
-                        navigator.app.exitApp();
-                    }
-                    else {
-                        navigator.app.backHistory()
-                    }
+                    navigator.notification.confirm(
+                        'Tutup JalanTikus?',
+                        function (confirmation) {
+                            if (confirmation == 'Keluar') {
+                                if (Backbone.history.getFragment() == "") {
+                                    navigator.app.exitApp();
+                                }
+                                else {
+                                    navigator.app.backHistory()
+                                }
+                            }
+                        },
+                        'Keluar',
+                        [ 'Ya', 'Tidak' ]
+                    );
                 });
             });
 
