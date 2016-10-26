@@ -75,7 +75,7 @@ define(
                                 $(".header-refresh").removeClass("active");
 
                                 if (!jt.isOffline()) {
-                                    $(".app-refreshed").html("Refresh selesai").fadeIn();
+                                    $(".app-refreshed").html("Refresh selesai.").fadeIn();
                                     setTimeout(function () {
                                         $(".app-refreshed").fadeOut();
                                     }, 2000);
@@ -84,7 +84,7 @@ define(
                         }
                     }
                     else {
-                        $(".app-refreshed").html("Tidak ada jaringan").fadeIn();
+                        $(".app-refreshed").html("Tidak ada jaringan.").fadeIn();
                         setTimeout(function () {
                             $(".app-refreshed").fadeOut();
                         }, 2000);
@@ -171,7 +171,7 @@ define(
                         $(".app-load").css("display", "none");
                         $(".app-retry").css("display", "block");
 
-                        $(".app-refreshed").html("Tidak ada jaringan").fadeIn();
+                        $(".app-refreshed").html("Tidak ada jaringan.").fadeIn();
                         setTimeout(function () {
                             $(".app-refreshed").fadeOut();
                         }, 2000);

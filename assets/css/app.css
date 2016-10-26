@@ -1782,13 +1782,41 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 }
 .splash-content .splash-loading
 {
-	position: fixed;
-	bottom: 20px;
-	left: 0;
-	right: 0;
-	text-align: center;
-	font-size: 14px;
-	line-height: 24px;
-	color: rgba(255,255,255,0.6);
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    -webkit-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+    text-align: center;
+    font-size: 14px;
+    line-height: 24px;
+    color: rgba(255,255,255,0.6);
     text-shadow: 0 0 0;
+}
+.splash-content .splash-loading:after
+{
+	position: absolute;
+    content: "";
+    left: calc(100% + 2px);
+    bottom: 10px;
+    width: 2px;
+    height: 2px;
+    background: transparent;
+    animation: dot 3s infinite;
+    border-radius: 50%;
+}
+@keyframes dot
+{
+	0%, 25% {
+		box-shadow: 2px 2px 0 transparent, 6px 2px 0 transparent, 10px 2px 0 transparent;
+	}
+	26%, 50% {
+    	box-shadow: 2px 2px 0 rgba(255,255,255,0.6), 6px 2px 0 transparent, 10px 2px 0 transparent;
+	}
+	51%, 75% {
+    	box-shadow: 2px 2px 0 rgba(255,255,255,0.6), 6px 2px 0 rgba(255,255,255,0.6), 10px 2px 0 transparent;
+	}
+	76%, 100% {
+    	box-shadow: 2px 2px 0 rgba(255,255,255,0.6), 6px 2px 0 rgba(255,255,255,0.6), 10px 2px 0 rgba(255,255,255,0.6);
+	}
 }
