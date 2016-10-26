@@ -17,8 +17,19 @@ define(
             initialize      : function () {
                 var that = this;
 
-                $("#app-toolbar").removeClass("detail").empty().append((_.template(headerLayout))());
+                $("#app-toolbar").removeClass("detail").removeClass("scroll").empty().append((_.template(headerLayout))());
+
+                if (typeof window.StatusBar != "undefined") {
+                    window.StatusBar.backgroundColorByHexString("#8f1f1f");
+                }
+
                 $("#app-body").empty().append(this.layout());
+
+                if ($("#app-body .app-refreshed").length == 0) {
+                    $("#app-body").append(
+                        '<div class="app-refreshed"></div>'
+                    );
+                }
 
                 this.collection.fetch({
                     timeout: 5000,
@@ -32,8 +43,6 @@ define(
 
                         if ($(".splash").length >= 1) {
                             setTimeout(function () {
-                                window.StatusBar.backgroundColorByHexString("#981010");
-
                                 $(".splash").fadeOut("fast", function () {
                                     $(this).remove();
                                 })
@@ -59,11 +68,26 @@ define(
                 });
 
                 $(".header-refresh").on("click", function () {
-                    if (!$(".header-refresh").hasClass("active")) {
-                        $(".header-refresh").addClass("active");
+                    if (!jt.isOffline()) {
+                        if (!$(".header-refresh").hasClass("active")) {
+                            $(".header-refresh").addClass("active");
+                            setTimeout(function () {
+                                $(".header-refresh").removeClass("active");
+
+                                if (!jt.isOffline()) {
+                                    $(".app-refreshed").html("Refresh selesai").fadeIn();
+                                    setTimeout(function () {
+                                        $(".app-refreshed").fadeOut();
+                                    }, 2000);
+                                }
+                            }, 1500);
+                        }
+                    }
+                    else {
+                        $(".app-refreshed").html("Tidak ada jaringan").fadeIn();
                         setTimeout(function () {
-                            $(".header-refresh").removeClass("active");
-                        }, 1500);
+                            $(".app-refreshed").fadeOut();
+                        }, 2000);
                     }
 
                     if (!jt.isOffline()) {
@@ -79,18 +103,10 @@ define(
                                 that.page = that.page + 1;
 
                                 $("#app-body .app-content-container").empty();
+
                                 that.render();
-                                $(".app-refreshed").fadeIn();
-                                setTimeout(function () {
-                                    $(".app-refreshed").fadeOut();
-                                }, 2000);
                             }
                         });
-                    }
-                    else {
-                        setTimeout(function () {
-                            $(".header-refresh").removeClass("active");
-                        }, 2000);
                     }
                 });
             },
@@ -109,10 +125,6 @@ define(
                     '<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
                 );
 
-                $("#app-body").append(
-                    '<div class="app-refreshed">Refresh selesai</div>'
-                );
-
                 $("#app-body .app-content-container").scroll(function () {
                     clearTimeout($.data(this, 'scrollTimer'));
                     $.data(this, 'scrollTimer', setTimeout(function () {
@@ -129,15 +141,6 @@ define(
                     $(".app-retry").css("display", "none");
                     that.autoload();
                 });
-
-                if($("#app-toolbar").hasClass("detail"))
-                {    
-                    $("#app-toolbar").removeClass("detail");
-                }
-                if($("#app-toolbar").hasClass("scroll"))
-                {    
-                    $("#app-toolbar").removeClass("scroll");
-                }
             },
             autoload        : function () {
                 var that = this;
@@ -167,6 +170,11 @@ define(
                     setTimeout(function () {
                         $(".app-load").css("display", "none");
                         $(".app-retry").css("display", "block");
+
+                        $(".app-refreshed").html("Tidak ada jaringan").fadeIn();
+                        setTimeout(function () {
+                            $(".app-refreshed").fadeOut();
+                        }, 2000);
                     }, 2000);
                 }
             }

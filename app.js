@@ -49,94 +49,166 @@ require(
         $(function () {
             $.mobile.loading().hide();
 
+            if (typeof window.StatusBar != "undefined") {
+                window.StatusBar.backgroundColorByHexString("#8F1F1F");
+            }
+
+            if ($("#app-body .app-refreshed").length == 0) {
+                $("#app-body").append(
+                    '<div class="app-refreshed"></div>'
+                );
+            }
+
             window.BackboneRouter = new Router();
             Backbone.history.start({ pushState: false });
 
             $(document).on("click", ".app-toggle-searchpanel", function (e) {
-                var _focus = setTimeout(function () {
-                    $(".searchbar").focus();
-                }, 500)
+                if (!jt.isOffline()) {
+                    var _focus = setTimeout(function () {
+                        $(".searchbar").focus();
+                    }, 500)
+                }
+                else {
+                    showOffline();
+                }
             });
 
             $(document).on("click", ".usermenu-item", function (e) {
-                var _currUI = $(this);
-                if (!_currUI.hasClass("active")) {
-                    $('.usermenu-item').not(_currUI).removeClass("active");
-                    _currUI.addClass("active");
+                if (!jt.isOffline()) {
+                    var _currUI = $(this);
+                    if (!_currUI.hasClass("active")) {
+                        $('.usermenu-item').not(_currUI).removeClass("active");
+                        _currUI.addClass("active");
+                    }
+                }
+                else {
+                    showOffline();
                 }
             });
 
             $(document).on("click", ".app-header .app-toggle-back", function (e) {
-                e.preventDefault();
-                $(this).addClass("active");
-                var _history = setTimeout(function () {
-                    window.history.back(); 
-                }, 250)
+                if (!jt.isOffline()) {
+                    window.stop();
+
+                    e.preventDefault();
+
+                    $(this).addClass("active");
+                    var _history = setTimeout(function () {
+                        window.history.back();
+                    }, 250)
+                }
+                else {
+                    showOffline();
+                }
             });
 
             $(document).on("click", ".app-header .app-toggle-searchpanel", function (e) {
-                var _this = $(this);
-                _this.addClass("active");
-                var _searchpanel = setTimeout(function () {
-                    _this.removeClass("active");
-                }, 300)
+                if (!jt.isOffline()) {
+                    var _this = $(this);
+                    _this.addClass("active");
+                    var _searchpanel = setTimeout(function () {
+                        _this.removeClass("active");
+                    }, 300)
+                }
+                else {
+                    showOffline();
+                }
             });
 
             $(document).on("click", ".app-header .app-home", function (e) {
-                var _this = $(this);
-                _this.addClass("active");
-                var _searchpanel = setTimeout(function () {
-                    _this.removeClass("active");
-                }, 300)
+                if (!jt.isOffline()) {
+                    var _this = $(this);
+                    _this.addClass("active");
+                    var _searchpanel = setTimeout(function () {
+                        _this.removeClass("active");
+                    }, 300)
+                }
+                else {
+                    showOffline();
+                }
             });
 
             $(document).on("click", ".app-header .app-toggle-userpanel", function (e) {
-                var _this = $(this);
-                _this.addClass("active");
-                var _userpanel = setTimeout(function () {
-                    _this.removeClass("active");
-                }, 300)
+                if (!jt.isOffline()) {
+                    var _this = $(this);
+                    _this.addClass("active");
+                    var _userpanel = setTimeout(function () {
+                        _this.removeClass("active");
+                    }, 300)
+                }
+                else {
+                    showOffline();
+                }
             });
 
             $(document).on("click", ".card-link", function (e) {
                 if (!jt.isOffline()) {
                     jt.ripple($(this), e)
                 }
+                else {
+                    showOffline();
+                }
             });
 
-            var trivia = [
-                ["\"Sukses adalah guru yang buruk. Itu hanya membuat orang pintar menjadi berpikir bahwa mereka tidak akan pernah gagal.\"","-- Bill Gates"],
-                ["\"Hidup memang tidak adil, jadi biasakanlah.\"","-- Bill Gates"],
-                ["\"DNA manusia itu seperti program komputer, tapi jauh lebih maju daripada software apapun yang pernah dibuat.\"","-- Bill Gates"],
-                ["\"Jika kau terlahir miskin, itu bukan salahmu. Tapi jika kau mati dalam keadaan miskin, itu adalah kesalahanmu.\"","-- Bill Gates"],
-                ["\"Lakukan apa yang kamu suka dan jadikan itu sebagai pekerjaanmu.\"","-- Bill Gates"],
-                ["\"Merayakan kesuksesan adalah hal yang baik, tapi lebih penting lagi jika dapat mengambil pelajaran dari kegagalan.\"","-- Bill Gates"],
-                ["\"Harapan adalah kenyataan yang paling nyata. Jika kau percaya, harapan itu akan menjadi nyata.\"","-- Bill Gates"],
-                ["\"Kualitas itu lebih penting daripada kuantitas. Satu home run jauh lebih baik daripada dua doubles.\"","-- Steve Jobs"],
-                ["\"Jika Saya mencoba yang terbaik dan saya gagal, yah, setidaknya saya sudah mencoba yang terbaik.\"","-- Steve Jobs"],
-                ["\"Stay Hungry, Stay Foolish.\"","-- Steve Jobs"],
-                ["\"Inovasi lah yang membedakan seorang pemimpin dan seorang pengikut.\"","-- Steve Jobs"],
+            $(document).on("touchend click", ".app-index-card a.disabled", function (e) {
+                e.preventDefault();
+            });
+
+            var trivia    = [
+                [
+                    "\"Sukses adalah guru yang buruk. Itu hanya membuat orang pintar menjadi berpikir bahwa mereka tidak akan pernah gagal.\"",
+                    "-- Bill Gates"
+                ],
+                [ "\"Hidup memang tidak adil, jadi biasakanlah.\"", "-- Bill Gates" ],
+                [
+                    "\"DNA manusia itu seperti program komputer, tapi jauh lebih maju daripada software apapun yang pernah dibuat.\"",
+                    "-- Bill Gates"
+                ],
+                [
+                    "\"Jika kau terlahir miskin, itu bukan salahmu. Tapi jika kau mati dalam keadaan miskin, itu adalah kesalahanmu.\"",
+                    "-- Bill Gates"
+                ],
+                [ "\"Lakukan apa yang kamu suka dan jadikan itu sebagai pekerjaanmu.\"", "-- Bill Gates" ],
+                [
+                    "\"Merayakan kesuksesan adalah hal yang baik, tapi lebih penting lagi jika dapat mengambil pelajaran dari kegagalan.\"",
+                    "-- Bill Gates"
+                ],
+                [
+                    "\"Harapan adalah kenyataan yang paling nyata. Jika kau percaya, harapan itu akan menjadi nyata.\"",
+                    "-- Bill Gates"
+                ],
+                [
+                    "\"Kualitas itu lebih penting daripada kuantitas. Satu home run jauh lebih baik daripada dua doubles.\"",
+                    "-- Steve Jobs"
+                ],
+                [
+                    "\"Jika Saya mencoba yang terbaik dan saya gagal, yah, setidaknya saya sudah mencoba yang terbaik.\"",
+                    "-- Steve Jobs"
+                ],
+                [ "\"Stay Hungry, Stay Foolish.\"", "-- Steve Jobs" ],
+                [ "\"Inovasi lah yang membedakan seorang pemimpin dan seorang pengikut.\"", "-- Steve Jobs" ],
             ];
             var triviaidx = 0;
+
             function shuffle(array) {
                 var curr = array.length, temp, rnd;
                 while (0 !== curr) {
-                    rnd = Math.floor(Math.random() * curr);
+                    rnd           = Math.floor(Math.random() * curr);
                     curr -= 1;
-                    temp          = array[ curr ];
+                    temp = array[ curr ];
                     array[ curr ] = array[ rnd ];
                     array[ rnd ]  = temp;
                 }
                 return array;
             }
+
             function slowType() {
-                if($(".splash").length >= 1)
-                {
+                if ($(".splash").length >= 1) {
                     $(".splash-quote").html("");
                     $(".splash-speaker").html("");
 
-                    var str     = trivia[ triviaidx ][0];
-                    var wtr     = trivia[ triviaidx ][1];
+                    var str = trivia[ triviaidx ][ 0 ];
+                    var wtr = trivia[ triviaidx ][ 1 ];
                     $(".splash-quote").html(str);
                     $(".splash-speaker").html(wtr);
 
@@ -147,7 +219,7 @@ require(
                         $(".splash-quote").css("opacity", 0);
                         $(".splash-speaker").css("opacity", 0);
                     }, 4500);
-                    var fadeIn = setTimeout(function () {
+                    var fadeIn  = setTimeout(function () {
                         clearTimeout("fadeIn")
                         slowType();
                     }, 5000);
@@ -158,6 +230,13 @@ require(
                         triviaidx = 0;
                     }
                 }
+            }
+
+            function showOffline() {
+                $(".app-refreshed").html("Tidak ada jaringan").fadeIn();
+                setTimeout(function () {
+                    $(".app-refreshed").fadeOut();
+                }, 2000);
             }
 
             shuffle(trivia);
@@ -175,6 +254,13 @@ require(
                             .addClass("ripple-disabled")
                             .parent()
                             .addClass("disabled");
+                        $(".app-toolbar").removeClass("online").addClass("offline");
+
+                        console.log("offline");
+
+                        if (typeof window.StatusBar != "undefined") {
+                            window.StatusBar.backgroundColorByHexString("#474747");
+                        }
 
                         lastFragment = Backbone.history.getFragment();
                     }
@@ -185,6 +271,18 @@ require(
                             .addClass("ripple")
                             .parent()
                             .removeClass("disabled");
+                        $(".app-toolbar").addClass("online").removeClass("offline");
+
+                        console.log("online");
+
+                        if (typeof window.StatusBar != "undefined") {
+                            if ($(".app-toolbar").hasClass("detail")) {
+                                window.StatusBar.backgroundColorByHexString("#045f04");
+                            }
+                            else {
+                                window.StatusBar.backgroundColorByHexString("#8f1f1f");
+                            }
+                        }
 
                         if (lastFragment != Backbone.history.getFragment()) {
                             Backbone.history.loadUrl();
@@ -192,10 +290,6 @@ require(
                     }
                 }
             }, 250);
-
-            $(document).on("touchend click", ".app-index-card a.disabled", function (e) {
-                e.preventDefault();
-            });
         });
     }
 );

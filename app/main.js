@@ -11,8 +11,6 @@ define(
 
             initialize: function () {
                 jt.log("App Initialized");
-
-                window.StatusBar.backgroundColorByHexString("#8F1F1F");
             },
 
             home: function () {

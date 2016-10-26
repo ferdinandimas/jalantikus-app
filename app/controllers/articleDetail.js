@@ -16,10 +16,25 @@ define(
             initialize: function (_articleSlug) {
                 var that = this;
 
-                $("#app-toolbar").empty().append((_.template(headerLayout))());
+                $("#app-toolbar").addClass("detail").addClass("scroll").empty().append((_.template(headerLayout))());
+
+                $(".app-home").on("click", function() {
+                    
+                });
+
+                if (typeof window.StatusBar != "undefined") {
+                    window.StatusBar.backgroundColorByHexString("#045f04");
+                }
+
                 $("#app-body .app-content-container").empty().append(
                     '<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
                 );
+
+                if ($("#app-body .app-refreshed").length == 0) {
+                    $("#app-body").append(
+                        '<div class="app-refreshed"></div>'
+                    );
+                }
 
                 this.model = new Article({
                     slug: _articleSlug
@@ -30,8 +45,6 @@ define(
                 if ($(".splash").length >= 1) {
                     setTimeout(function () {
                         $(".splash").fadeOut("fast", function () {
-                            window.StatusBar.backgroundColorByHexString("#045f04");
-
                             $(this).remove();
                         })
                     }, 2500);
@@ -69,8 +82,6 @@ define(
             render    : function () {
                 var tooltip = false;
 
-                $("#app-toolbar").addClass("detail");
-                $("#app-toolbar").addClass("scroll");
                 $(".app-content-container .app-loader").remove();
 
                 $("#app-body").empty().append(this.layout({
