@@ -164,13 +164,17 @@ require(
                 e.preventDefault();
             });
 
-            document.addEventListener('backbutton', function (e) {
-                if (Backbone.history.getFragment() == "") {
-                    navigator.app.exitApp();
-                }
-                else {
-                    navigator.app.backHistory()
-                }
+            document.addEventListener("deviceready", function(){
+                alert("device ready");
+                document.addEventListener('backbutton', function (e) {
+                    alert("back button");
+                    if (Backbone.history.getFragment() == "") {
+                        navigator.app.exitApp();
+                    }
+                    else {
+                        navigator.app.backHistory()
+                    }
+                });
             });
 
             var trivia    = [
@@ -275,8 +279,6 @@ require(
                             .addClass("disabled");
                         $(".app-toolbar").removeClass("online").addClass("offline");
 
-                        console.log("offline");
-
                         if (typeof window.StatusBar != "undefined") {
                             window.StatusBar.backgroundColorByHexString("#474747");
                         }
@@ -296,8 +298,6 @@ require(
                             .parent()
                             .removeClass("disabled");
                         $(".app-toolbar").addClass("online").removeClass("offline");
-
-                        console.log("online");
 
                         if (typeof window.StatusBar != "undefined") {
                             if ($(".app-toolbar").hasClass("detail")) {

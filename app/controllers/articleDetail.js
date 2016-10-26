@@ -183,9 +183,7 @@ define(
                 }, 2000);
 
                 $("a").on("click", function (e) {
-                    console.log("here");
                     if (jt.isOffline()) {
-                        console.log("here offline");
                         e.preventDefault();
 
                         that.showOffline();
