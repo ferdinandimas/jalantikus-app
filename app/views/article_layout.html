@@ -28,27 +28,35 @@
         </div>
     </a>
     <% if (detail.related.article.length > 0) { %>
+        <div class="more-title shadow-l2">
+            KAMU PASTI SUKA
+        </div>
         <div class="app-article-more">
-            <div class="more-title">
-                KAMU PASTI SUKA
-            </div>
-            <% _.each(detail.related.article, function(value) { %>
-                <div class="app-index-card shadow-l1">
+            <% _.each(detail.related.article, function(value) { %><div class="app-index-card shadow-l1">
+                    <div class="card-image">
+                        <img src="<%= value.image.baseUrl %>168/100<%= value.image.file %>" alt="<%= value.title %>">
+                    </div>
                     <div class="card-description">
                         <div class="card-title">
                             <%= value.title %>
                         </div>
-                    </div>
-                    <div class="card-image">
-                        <img src="<%= value.image.baseUrl %>120/120<%= value.image.file %>" alt="<%= value.title %>">
+                        <div class="card-note">
+                            <div class="card-category category-wajibbaca">
+                                Populer
+                            </div>
+                        </div>
                     </div>
                     <a href="#article/<%= value.slug %>" class="card-link">
                         <div class="ripple"></div>
                     </a>
-                </div>
-            <% }) %>
+                </div><% }) %>
         </div>
     <% } %>
+    <a class="app-gotohome" href="#">
+        <div class="app-gotohome-description">
+            KEMBALI KE BERANDA
+        </div>
+    </a>
 </div>
 
 <iframe id="iframe-jalantikus" data-src="<%= detail.links.detail %>?utm_source=JT%20Apps&utm_medium=Android&utm_campaign=Apps" width="1" height="1" frameborder="0" style="display: none !important; width: 0px !important; height: 0px !important;;"></iframe>

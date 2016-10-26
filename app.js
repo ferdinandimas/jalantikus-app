@@ -115,7 +115,7 @@ require(
             });
 
             $(document).on("swiperight", "#app-body", function (e) {
-                if ($.mobile.activePage.jqmData("panel") !== "open") {
+                if ($.mobile.activePage.jqmData("panel") !== "open" && !$(".app-toolbar").hasClass("detail")) {
                     if (e.type === "swiperight") {
                         $("#app-userpanel").panel("open");
                     }
