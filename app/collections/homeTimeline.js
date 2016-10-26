@@ -9,9 +9,9 @@ define(
                 this.page = (typeof options != "undefined" && typeof options.page != "undefined" ? options.page : 1);
             },
             model     : Timeline,
-            urlRoot   : _config.jtAPI + (_config.environment == "dev" ? "live/" : "") + "getArticles/limit/" + (this.page == 1 ? 11 : 12) + "/order/published/detail/id,title,slug,image,user,published,description_images",
+            urlRoot   : _config.jtAPI + (_config.environment == "dev" ? "live/" : "") + "getArticles/order/published/detail/id,title,slug,image,user,published,description_images",
             url       : function () {
-                return this.urlRoot + "/page/" + this.page;
+                return this.urlRoot + "/limit/" + (this.page == 1 ? 11 : 9) + "/page/" + this.page;
             },
             parse     : function (result) {
                 var reservedSlot = false;
