@@ -16,13 +16,17 @@ define(
             initialize: function (_articleSlug) {
                 var that = this;
 
-                $("#app-toolbar").addClass("detail").removeClass("scroll").empty().append((_.template(headerLayout))());
-
-                setTimeout(function() {
-                    if (typeof window.StatusBar != "undefined") {
-                        window.StatusBar.backgroundColorByHexString("#045f04");
-                    }
-                }, 45);
+                $("#app-toolbar")
+                    .addClass("detail")
+                    .removeClass("scroll")
+                    .empty()
+                    .append((_.template(headerLayout))())
+                    .queue(function () {
+                        if (typeof window.StatusBar != "undefined") {
+                            window.StatusBar.backgroundColorByHexString("#045f04");
+                        }
+                        $(this).dequeue();
+                    });
 
                 $("#app-body").empty().append(
                     '<div class="app-detail-container"><div class="app-toolbar-placeholder"></div><div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div></div>'
@@ -191,15 +195,14 @@ define(
                 }, 2000);
 
                 /*
-                Preaload Banner Image
+                 Preaload Banner Image
                  */
                 if ($(".app-detail-header .header-image img").length > 0) {
                     var img = new Image();
                     img.src = $(".app-detail-header .header-image img").data("src");
-                    $(img).on("load", img, function() {
-                        console.log("loaded");
-
-                        $(".app-detail-header .header-image img").prop("src", $(".app-detail-header .header-image img").data("src"));
+                    $(img).on("load", img, function () {
+                        $(".app-detail-header .header-image img")
+                            .prop("src", $(".app-detail-header .header-image img").data("src"));
                     });
                 }
 

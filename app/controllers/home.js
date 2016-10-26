@@ -17,13 +17,17 @@ define(
             initialize      : function () {
                 var that = this;
 
-                $("#app-toolbar").removeClass("detail").removeClass("scroll").empty().append((_.template(headerLayout))());
-
-                setTimeout(function() {
-                    if (typeof window.StatusBar != "undefined") {
-                        window.StatusBar.backgroundColorByHexString("#8f1f1f");
-                    }
-                }, 45);
+                $("#app-toolbar")
+                    .removeClass("detail")
+                    .removeClass("scroll")
+                    .empty()
+                    .append((_.template(headerLayout))())
+                    .queue(function () {
+                        if (typeof window.StatusBar != "undefined") {
+                            window.StatusBar.backgroundColorByHexString("#8f1f1f");
+                        }
+                        $(this).dequeue();
+                    });
 
                 $("#app-body").empty().append(this.layout());
 
