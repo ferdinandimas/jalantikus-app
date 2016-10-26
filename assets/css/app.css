@@ -209,14 +209,6 @@ div, span, a
     background-size: cover;
     background-repeat: no-repeat;
 }
-.app-article-more .card-image img
-{
-	display: block;
-	width: 100%;
-	min-height: calc( 100% * 0.59);
-	position: relative;
-	z-index: 2
-}
 .app-index-card.multi-image 
 {
 	height: auto;
@@ -255,9 +247,11 @@ div, span, a
 }
 .app-article-more .app-index-card .card-image img
 {
-	height: auto;
-	width: 100%;
 	display: block;
+	width: 100%;
+	height: calc(((100vw - 45px) /2 ) * 0.59);
+	position: relative;
+	z-index: 2
 }
 .app-index-card.multi-image .card-image img:nth-child(3)
 {
@@ -364,6 +358,7 @@ div, span, a
 	left: 0;
 	bottom: 0;
 	overflow: hidden;
+	z-index: 9;
 }
 .app-index-card .card-link .ripple
 {
@@ -442,7 +437,7 @@ div, span, a
     background-repeat: no-repeat;
     background-size: 25px 25px;
 }
-.app-loader.detail .app-load .app-retry, .app-loader .app-load.detail, .app-loader .app-retry.detail
+.app-detail-container .app-loader .app-load, .app-detail-container .app-loader .app-retry
 {
 	background-color: #0b880b;
 }
@@ -1067,7 +1062,7 @@ div, span, a
 .app-scroll-button
 {
 	position: fixed;
-	bottom: 15%;
+	bottom: 20%;
 	right: 15px;
 	width: 50px;
 	height: 110px;
