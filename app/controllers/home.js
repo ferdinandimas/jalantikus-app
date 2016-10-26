@@ -19,9 +19,11 @@ define(
 
                 $("#app-toolbar").removeClass("detail").removeClass("scroll").empty().append((_.template(headerLayout))());
 
-                if (typeof window.StatusBar != "undefined") {
-                    window.StatusBar.backgroundColorByHexString("#8f1f1f");
-                }
+                setTimeout(function() {
+                    if (typeof window.StatusBar != "undefined") {
+                        window.StatusBar.backgroundColorByHexString("#8f1f1f");
+                    }
+                }, 45);
 
                 $("#app-body").empty().append(this.layout());
 

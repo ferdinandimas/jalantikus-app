@@ -18,9 +18,12 @@ define(
 
                 $("#app-toolbar").addClass("detail").removeClass("scroll").empty().append((_.template(headerLayout))());
 
-                if (typeof window.StatusBar != "undefined") {
-                    window.StatusBar.backgroundColorByHexString("#045f04");
-                }
+                setTimeout(function() {
+                    if (typeof window.StatusBar != "undefined") {
+                        window.StatusBar.backgroundColorByHexString("#045f04");
+                    }
+                    alert("1");
+                }, 45);
 
                 $("#app-body").empty().append(
                     '<div class="app-detail-container"><div class="app-toolbar-placeholder"></div><div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div></div>'

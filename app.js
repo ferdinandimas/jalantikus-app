@@ -210,21 +210,21 @@ require(
 
             document.addEventListener("deviceready", function () {
                 document.addEventListener("backbutton", function (e) {
-                    navigator.notification.confirm(
-                        "Tutup JalanTikus?",
-                        function (confirmation) {
-                            if (confirmation == 1) {
-                                if (Backbone.history.getFragment() == "") {
+                    if (Backbone.history.getFragment() == "") {
+                        navigator.notification.confirm(
+                            "Tutup JalanTikus?",
+                            function (confirmation) {
+                                if (confirmation == 1) {
                                     navigator.app.exitApp();
                                 }
-                                else {
-                                    navigator.app.backHistory()
-                                }
-                            }
-                        },
-                        "Keluar",
-                        [ "Ya", "Tidak" ]
-                    );
+                            },
+                            "Keluar",
+                            [ "Ya", "Tidak" ]
+                        );
+                    }
+                    else {
+                        navigator.app.backHistory()
+                    }
                 });
             });
 

@@ -38,7 +38,7 @@ define(
                     }
 
                     var img = new Image();
-                    img.src = value.image.baseUrl + "10/0" + value.image.file;
+                    img.src = value.image.baseUrl + "9/3" + value.image.file;
 
                     buffResult.push(value);
                 });
