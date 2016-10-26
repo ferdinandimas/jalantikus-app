@@ -37,6 +37,9 @@ define(
                         _buff = 0;
                     }
 
+                    var img = new Image();
+                    img.src = value.image.baseUrl + "10/0" + value.image.file;
+
                     buffResult.push(value);
                 });
 
