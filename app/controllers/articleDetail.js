@@ -12,7 +12,7 @@ define(
     function (_, Backbone, $, Article, App, articleLayout, headerLayout) {
         var homeView = Backbone.View.extend({
             layout    : _.template(articleLayout),
-            model : new Article(),
+            model     : new Article(),
             initialize: function (_articleSlug) {
                 var that = this;
 
@@ -26,9 +26,12 @@ define(
                 });
 
                 this.fetch();
+
                 if ($(".splash").length >= 1) {
                     setTimeout(function () {
                         $(".splash").fadeOut("fast", function () {
+                            window.StatusBar.backgroundColorByHexString("#045f04");
+
                             $(this).remove();
                         })
                     }, 2500);
@@ -196,8 +199,7 @@ define(
                         var posX = e.target.clientX;
                         var posY = e.target.clientY;
                         $(e.target).append(q);
-                        $('.prettify-tooltip').slideDown(300, function () {
-                        });
+                        $('.prettify-tooltip').slideDown(300);
                         var w  = $(e.target).innerWidth();
                         var fw = (100 - w) / 2
                         if (fw > 0) {

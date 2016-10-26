@@ -18,8 +18,6 @@
     <preference name="orientation" value="portrait"/>
     <preference name="fullscreen" value="false"/>
 
-    <preference name="StatusBarBackgroundColor" value="#8F1F1F"/>
-
     <!-- Android only -->
     <preference name="android-minSdkVersion" value="21"/>
     <preference name="android-targetSdkVersion" value="21"/>

@@ -29,15 +29,17 @@ define(
                         $("#app-body .app-content-container").empty();
 
                         that.render();
-                        if($(".splash").length >= 1)
-                        {
-                            setTimeout(function(){
-                                $(".splash").fadeOut("fast", function(){
+
+                        if ($(".splash").length >= 1) {
+                            setTimeout(function () {
+                                window.StatusBar.backgroundColorByHexString("#981010");
+
+                                $(".splash").fadeOut("fast", function () {
                                     $(this).remove();
                                 })
                             }, 2500);
                         }
-                        
+
                     },
                     error  : function () {
                         $("#app-body .app-content-container").empty().append(
@@ -57,10 +59,9 @@ define(
                 });
 
                 $(".header-refresh").on("click", function () {
-                    if(!$(".header-refresh").hasClass("active"))
-                    {
+                    if (!$(".header-refresh").hasClass("active")) {
                         $(".header-refresh").addClass("active");
-                        setTimeout(function(){
+                        setTimeout(function () {
                             $(".header-refresh").removeClass("active");
                         }, 1500);
                     }

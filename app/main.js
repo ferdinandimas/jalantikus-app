@@ -11,11 +11,11 @@ define(
 
             initialize: function () {
                 jt.log("App Initialized");
+
+                window.StatusBar.backgroundColorByHexString("#8F1F1F");
             },
 
             home: function () {
-                window.StatusBar.backgroundColorByHexString("#B71C1C");
-
                 require(
                     [ 'controllers/home' ],
                     function (Home) {
@@ -25,8 +25,6 @@ define(
             },
 
             articleDetail: function (_articleSlug) {
-                window.StatusBar.backgroundColorByHexString("#00C000");
-
                 require(
                     [ 'controllers/articleDetail' ],
                     function (ArticleDetail) {
