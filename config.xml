@@ -11,14 +11,14 @@
         JalanTikus
     </author>
 
-    <platform name="ios"/>
+    <!--<platform name="ios"/>-->
     <platform name="android"/>
 
     <preference name="phonegap-version" value="cli-6.3.0"/>
     <preference name="orientation" value="portrait"/>
     <preference name="fullscreen" value="false"/>
 
-    <preference name="StatusBarBackgroundColor" value="#981010"/>
+    <preference name="StatusBarBackgroundColor" value="#8F1F1F"/>
 
     <!-- Android only -->
     <preference name="android-minSdkVersion" value="21"/>
@@ -41,16 +41,16 @@
     <preference name="StatusBarStyle" value="default"/>
     <preference name="permissions" value="none"/>
 
-    <preference name="ShowSplashScreen" value="false"/>
-    <!--<preference name="SplashScreen" value="screen"/>-->
-    <!--<preference name="AutoHideSplashScreen" value="true"/>-->
-    <!--<preference name="SplashShowOnlyFirstTime" value="true"/>-->
-    <!--<preference name="ShowSplashScreenSpinner" value="false"/>-->
+    <preference name="ShowSplashScreen" value="true"/>
+    <preference name="SplashScreen" value="screen"/>
+    <preference name="AutoHideSplashScreen" value="true"/>
+    <preference name="SplashShowOnlyFirstTime" value="true"/>
+    <preference name="ShowSplashScreenSpinner" value="false"/>
 
-    <!--<preference name="SplashScreenDelay" value="3500"/>-->
-    <!--<preference name="FadeSplashScreenDuration" value="500"/>-->
+    <preference name="SplashScreenDelay" value="1500"/>
+    <preference name="FadeSplashScreenDuration" value="500"/>
 
-    <preference name="SplashScreenBackgroundColor" value="#B71C1C"/>
+    <preference name="SplashScreenBackgroundColor" value="#8F1F1F"/>
 
     <platform name="android">
         <icon src="res/icon/android/drawable-xhdpi-icon.png"/>
