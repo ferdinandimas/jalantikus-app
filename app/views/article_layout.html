@@ -28,7 +28,7 @@
         </div>
     </a>
     <% if (detail.related.article.length > 0) { %>
-        <div class="more-title shadow-l2">
+        <div class="more-title shadow-l1">
             KAMU PASTI SUKA
         </div>
         <div class="app-article-more">
@@ -57,6 +57,12 @@
             KEMBALI KE BERANDA
         </div>
     </a>
+    <div class="app-scroll-button">
+        <a href="#" class="scroll-button scroll-up" data-direction="up">
+        </a>
+        <a href="#" class="scroll-button scroll-down" data-direction="down">
+        </a>
+    </div>
 </div>
 
 <iframe id="iframe-jalantikus" data-src="<%= detail.links.detail %>?utm_source=JT%20Apps&utm_medium=Android&utm_campaign=Apps" width="1" height="1" frameborder="0" style="display: none !important; width: 0px !important; height: 0px !important;;"></iframe>
