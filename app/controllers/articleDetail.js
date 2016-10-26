@@ -24,7 +24,7 @@ define(
 
                 if ($("#app-body .app-detail-container").length > 0) {
                     $("#app-body").empty().append(
-                        '<div class="app-toolbar-placeholder"></div><div class="app-content-container"><div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div></div>'
+                        '<div class="app-toolbar-placeholder"></div><div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
                     );
                 }
                 else {
