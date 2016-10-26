@@ -16,15 +16,22 @@ define(
             initialize: function (_articleSlug) {
                 var that = this;
 
-                $("#app-toolbar").addClass("detail").addClass("scroll").empty().append((_.template(headerLayout))());
+                $("#app-toolbar").removeClass("scroll").empty().append((_.template(headerLayout))());
 
                 if (typeof window.StatusBar != "undefined") {
                     window.StatusBar.backgroundColorByHexString("#045f04");
                 }
 
-                $("#app-body .app-content-container").empty().append(
-                    '<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
-                );
+                if ($("#app-body .app-detail-container").length > 0) {
+                    $("#app-body").empty().append(
+                        '<div class="app-toolbar-placeholder"></div><div class="app-content-container"><div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div></div>'
+                    );
+                }
+                else {
+                    $("#app-body .app-content-container").empty().append(
+                        '<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
+                    );
+                }
 
                 $(".app-home").on("click", function (e) {
                     if (jt.isOffline()) {
@@ -86,6 +93,8 @@ define(
                 $("#app-body").empty().append(this.layout({
                     detail: this.model.toJSON()
                 }));
+
+                $("#app-toolbar").addClass("detail").addClass("scroll");
 
                 if ($("#app-body .app-refreshed").length == 0) {
                     $("#app-body").append(
@@ -179,7 +188,9 @@ define(
                 });
 
                 setTimeout(function () {
-                    $("#iframe-jalantikus").prop("src", $("#iframe-jalantikus").data("src"));
+                    if (_config.environment == "live") {
+                        $("#iframe-jalantikus").prop("src", $("#iframe-jalantikus").data("src"));
+                    }
                 }, 2000);
 
                 $("a").on("click", function (e) {
