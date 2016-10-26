@@ -69,7 +69,7 @@
     </platform>
 
     <gap:config-file platform="android" parent="/manifest">
-        <application android:theme="@android:style/Theme.NoTitleBar"></application>
+        <application android:theme="@android:style/Theme.Material.Light.NoActionBar.TranslucentDecor"></application>
     </gap:config-file>
 
     <!--<plugin name="cordova-plugin-camera" spec="~2.1.1" source="npm"/>-->
