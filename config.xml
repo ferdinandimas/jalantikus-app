@@ -51,11 +51,13 @@
     <preference name="SplashScreenBackgroundColor" value="#8F1F1F"/>
 
     <platform name="android">
-        <icon src="res/icon/android/drawable-xhdpi-icon.png"/>
+        <icon src="res/icon/android/google-play-store.png"/>
         <icon src="res/icon/android/drawable-ldpi-icon.png" density="ldpi"/>
         <icon src="res/icon/android/drawable-mdpi-icon.png" density="mdpi"/>
         <icon src="res/icon/android/drawable-hdpi-icon.png" density="hdpi"/>
         <icon src="res/icon/android/drawable-xhdpi-icon.png" density="xhdpi"/>
+        <icon src="res/icon/android/drawable-xxhdpi-icon.png" density="xxhdpi"/>
+        <icon src="res/icon/android/drawable-xxxhdpi-icon.png" density="xxxhdpi"/>
 
         <!--<splash src="res/screen/android/drawable-port-ldpi-screen.png" density="ldpi"/>-->
         <!--<splash src="res/screen/android/drawable-port-mdpi-screen.png" density="mdpi"/>-->
