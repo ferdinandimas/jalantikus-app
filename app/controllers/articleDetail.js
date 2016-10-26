@@ -11,16 +11,12 @@ define(
     ],
     function (_, Backbone, $, Article, App, articleLayout, headerLayout) {
         var homeView = Backbone.View.extend({
-            layout    : _.template(articleLayout),
-            model     : new Article(),
+            layout     : _.template(articleLayout),
+            model : new Article(),
             initialize: function (_articleSlug) {
                 var that = this;
 
                 $("#app-toolbar").addClass("detail").addClass("scroll").empty().append((_.template(headerLayout))());
-
-                $(".app-home").on("click", function() {
-                    
-                });
 
                 if (typeof window.StatusBar != "undefined") {
                     window.StatusBar.backgroundColorByHexString("#045f04");
@@ -30,11 +26,13 @@ define(
                     '<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
                 );
 
-                if ($("#app-body .app-refreshed").length == 0) {
-                    $("#app-body").append(
-                        '<div class="app-refreshed"></div>'
-                    );
-                }
+                $(".app-home").on("click", function (e) {
+                    if (jt.isOffline()) {
+                        e.preventDefault();
+
+                        that.showOffline();
+                    }
+                });
 
                 this.model = new Article({
                     slug: _articleSlug
@@ -80,6 +78,7 @@ define(
                 }
             },
             render    : function () {
+                var that    = this;
                 var tooltip = false;
 
                 $(".app-content-container .app-loader").remove();
@@ -87,6 +86,12 @@ define(
                 $("#app-body").empty().append(this.layout({
                     detail: this.model.toJSON()
                 }));
+
+                if ($("#app-body .app-refreshed").length == 0) {
+                    $("#app-body").append(
+                        '<div class="app-refreshed"></div>'
+                    );
+                }
 
                 $(".jt-not-view.appsinner").remove();
                 $(".jt-not-view.artikelmenarik").remove();
@@ -120,6 +125,7 @@ define(
                                 .replace("https://app.jalantikus.com", "https://jalantikus.com")
                                 .replace("http://app.jalantikus.com", "https://jalantikus.com"));
                 });
+
                 $(".apps-detail.horizontal").each(function (key, val) {
                     var _appDetail = $(this).find(".click-target").attr("href");
                     var _that      = this;
@@ -175,6 +181,16 @@ define(
                 setTimeout(function () {
                     $("#iframe-jalantikus").prop("src", $("#iframe-jalantikus").data("src"));
                 }, 2000);
+
+                $("a").on("click", function (e) {
+                    console.log("here");
+                    if (jt.isOffline()) {
+                        console.log("here offline");
+                        e.preventDefault();
+
+                        that.showOffline();
+                    }
+                });
 
                 $(".app-retry").on("touchend click", function () {
                     $(".app-load").css("display", "block");
@@ -241,6 +257,12 @@ define(
                 })
 
                 PR.prettyPrint();
+            },
+            showOffline: function () {
+                $(".app-refreshed").html("Tidak ada jaringan").fadeIn();
+                setTimeout(function () {
+                    $(".app-refreshed").fadeOut();
+                }, 2000);
             }
         });
 
