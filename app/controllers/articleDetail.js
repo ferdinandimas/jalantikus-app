@@ -67,6 +67,7 @@ define(
                 var tooltip = false;
 
                 $("#app-toolbar").addClass("detail");
+                $("#app-toolbar").addClass("scroll");
                 $(".app-content-container .app-loader").remove();
 
                 $("#app-body").empty().append(this.layout({
@@ -158,7 +159,7 @@ define(
                 });
 
                 setTimeout(function () {
-                    //$("#iframe-jalantikus").prop("src", $("#iframe-jalantikus").data("src"));
+                    $("#iframe-jalantikus").prop("src", $("#iframe-jalantikus").data("src"));
                 }, 2000);
 
                 $(".app-retry").on("touchend click", function () {
