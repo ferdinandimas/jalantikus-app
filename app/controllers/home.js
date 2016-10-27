@@ -45,6 +45,8 @@ define(
                 }
 
                 if (typeof _options != "undefined" && typeof _options.type != "undefined") {
+                    this.type = _options.type;
+
                     if (_options.type == "most-read") {
                         this.order = "3day";
                     }
@@ -66,7 +68,7 @@ define(
                             .removeClass("scroll")
                             .empty()
                             .append((_.template(headerDetailLayout))());
-                        
+
                         $("#search-form [name='search']").val(_options.search);
                         $("#app-toolbar .header-description").html("Hasil Pencarian");
                     }
@@ -175,32 +177,52 @@ define(
                 var _data = this.collection.toJSON();
 
                 if (_data.length > 0) {
+                    if (this.type == "search") {
+                        $("#app-body .app-content-container").empty().append(
+                            '<div class="app-search">' +
+                                '<span class="app-search-result">Hasil pencarian dari: </span>' +
+                                '<span class="app-search-keyword">"' + this.search + '"</span>' +
+                            '</div>'
+                        );
+                    }
+
                     $("#app-body .app-content-container")
                         .append(this.timelineTemplate({
                             timelineArticle: _data
                         }));
-                }
 
-                $("#app-body .app-content-container").append(
-                    '<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
-                );
+                    if (_data.length > 5) {
+                        $("#app-body .app-content-container").append(
+                            '<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
+                        );
+                    }
 
-                $("#app-body .app-content-container").scroll(function () {
-                    clearTimeout($.data(this, 'scrollTimer'));
-                    $.data(this, 'scrollTimer', setTimeout(function () {
+                    $("#app-body .app-content-container").scroll(function () {
+                        clearTimeout($.data(this, 'scrollTimer'));
+                        $.data(this, 'scrollTimer', setTimeout(function () {
+                            that.autoload();
+                        }, 250));
+                    });
+
+                    $("#app-body .app-content-container").on("touchend", function () {
                         that.autoload();
-                    }, 250));
-                });
+                    });
 
-                $("#app-body .app-content-container").on("touchend", function () {
-                    that.autoload();
-                });
-
-                $(".app-retry").on("click touchend", function () {
-                    $(".app-load").css("display", "block");
-                    $(".app-retry").css("display", "none");
-                    that.autoload();
-                });
+                    $(".app-retry").on("click touchend", function () {
+                        $(".app-load").css("display", "block");
+                        $(".app-retry").css("display", "none");
+                        that.autoload();
+                    });
+                }
+                else {
+                    if (this.type == "search") {
+                        $("#app-body .app-content-container").empty().append(
+                            '<div class="app-search">' +
+                            '<span class="app-search-result">Tidak ditemukan artikel yang sesuai</span>' +
+                            '</div>'
+                        );
+                    }
+                }
             },
             autoload        : function () {
                 var that = this;
