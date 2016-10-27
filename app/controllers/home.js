@@ -14,7 +14,7 @@ define(
             layout          : _.template(homeLayout),
             collection      : new Timeline(),
             page            : 1,
-            initialize      : function () {
+            initialize      : function (_type) {
                 var that = this;
 
                 $("#app-toolbar")
@@ -41,6 +41,32 @@ define(
                     $("#app-body").append(
                         '<div class="app-refreshed"></div>'
                     );
+                }
+
+                if (typeof _type != "undefined") {
+                    console.log(_type);
+
+                    var _order, _search, _category;
+
+                    if (_type == "most-read") {
+                        _order = "3day";
+                    }
+                    else if (_type == "hacking-tips") {
+                        _order    = "3day";
+                        _category = "tips";
+                        _search   = "hack";
+                    }
+                    else if (_type == "games-tips") {
+                        _order    = "3day";
+                        _category = "tips";
+                        _search   = "game";
+                    }
+
+                    this.collection = new Timeline({
+                        order   : typeof _order != "undefined" ? _order : "",
+                        category: typeof _category != "undefined" ? _category : "",
+                        search  : typeof _search != "undefined" ? _search : "",
+                    });
                 }
 
                 this.collection.fetch({
@@ -123,7 +149,7 @@ define(
                 });
             },
             render          : function () {
-                var that = this;
+                var that  = this;
                 var _data = this.collection.toJSON();
 
                 if (_data.length > 0) {

@@ -5,7 +5,8 @@ define(
     function (Backbone) {
         var Router = Backbone.Router.extend({
             routes: {
-                '': 'home',
+                ''           : 'home',
+                'index/:id'  : 'index',
                 'article/:id': 'articleDetail',
             },
 
@@ -18,6 +19,15 @@ define(
                     [ 'controllers/home' ],
                     function (Home) {
                         new Home();
+                    }
+                );
+            },
+
+            index: function (_type) {
+                require(
+                    [ 'controllers/home' ],
+                    function (Home) {
+                        new Home(_type);
                     }
                 );
             },
