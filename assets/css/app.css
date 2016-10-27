@@ -1062,7 +1062,7 @@ div, span, a
 .app-scroll-button
 {
 	position: fixed;
-	bottom: 20%;
+	bottom: 25%;
 	right: 15px;
 	width: 50px;
 	height: 110px;

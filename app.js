@@ -114,14 +114,55 @@ require(
                 }
             });
 
-            $(document).on("swiperight", "#app-body", function (e) {
-                if ($.mobile.activePage.jqmData("panel") !== "open" && !$(".app-toolbar").hasClass("detail")) {
-                    if (e.type === "swiperight") {
-                        $("#app-userpanel").panel("open");
+            // $(document).on("swiperight", "#app-body", function (e) {
+            //     if ($.mobile.activePage.jqmData("panel") !== "open" && !$(".app-toolbar").hasClass("detail")) {
+            //         if (e.type === "swiperight") {
+            //             $("#app-userpanel").panel("open");
+            //         }
+            //     }
+            // });
+
+            var _slideSt, _slideCur, _slideFlag = false;
+            $(document).on("touchstart", "#app-body", function (e) {
+                _slideSt = e.originalEvent.touches[0].pageX;
+            });
+            $(document).on("touchmove", "#app-body", function (e) {
+                _slideCur = e.originalEvent.touches[0].pageX;
+                if(_slideCur - _slideSt > 30)
+                {
+                    if ($.mobile.activePage.jqmData("panel") !== "open" && !$(".app-toolbar").hasClass("detail")) {
+                        _slideFlag = true;
+                        $("#app-userpanel").addClass("ui-panel-open").removeClass("ui-panel-closed");
+                    }
+                }
+                if(_slideFlag)
+                {
+                    $("#app-userpanel").css("left", (_slideCur-290));
+                    if(parseInt($("#app-userpanel").css("left")) > 0)
+                    {
+                        $("#app-userpanel").css("left", (0));
+                        console.log("batas");
                     }
                 }
             });
-
+            $(document).on("touchend", "#app-body", function (e) {
+                _slideFlag = false;
+                if(parseInt($("#app-userpanel").css("left")) > -80)
+                {
+                    $("#app-userpanel").animate({
+                        left: 0
+                    }, 300);
+                    $("#app-userpanel").panel("open");
+                }
+                else
+                {
+                    $("#app-userpanel").animate({
+                        left: -290
+                    }, 300, function(){
+                        $("#app-userpanel").removeClass("ui-panel-open").addClass("ui-panel-closed");
+                    });
+                }
+            });
             $(document).on("click", ".app-header .app-home", function (e) {
                 if (!jt.isOffline()) {
                     var _this = $(this);
