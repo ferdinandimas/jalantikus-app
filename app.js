@@ -133,17 +133,28 @@ require(
                         }
                     }
                 }
-                if(_slideFlag)
-                {
-                    $("#app-userpanel").animate({
-                            left: _slideCur-290
-                        },0);
-                    if(parseInt($("#app-userpanel").css("left")) > 0)
-                    {
-                        $("#app-userpanel").css("left", (0));
-                    }
-                }
+                smoothSlide();
             });
+            function smoothSlide(e)
+            {
+                var _slide = setInterval(function(e)
+                {
+                    if(_slideFlag)
+                    {
+                        $("#app-userpanel").animate({
+                                left: _slideCur-290
+                            },0);
+                        if(parseInt($("#app-userpanel").css("left")) > 0)
+                        {
+                            $("#app-userpanel").css("left", (0));
+                        }
+                    }
+                    else
+                    {
+                        clearInterval(_slide);
+                    }
+                }, 20)
+            }
             $(document).on("touchend", "#app-body", function (e) {
                 if(_slideFlag)
                 {
@@ -152,7 +163,7 @@ require(
                     {
                         $("#app-userpanel").animate({
                             left: 0
-                        }, 100, function()
+                        }, 300, function()
                         {
                             $("#app-userpanel").panel("open");
                         });
