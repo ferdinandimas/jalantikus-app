@@ -114,21 +114,13 @@ require(
                 }
             });
 
-            // $(document).on("swiperight", "#app-body", function (e) {
-            //     if ($.mobile.activePage.jqmData("panel") !== "open" && !$(".app-toolbar").hasClass("detail")) {
-            //         if (e.type === "swiperight") {
-            //             $("#app-userpanel").panel("open");
-            //         }
-            //     }
-            // });
-
             var _slideSt, _slideCur, _slideFlag = false;
             $(document).on("touchstart", "#app-body", function (e) {
                 _slideSt = e.originalEvent.touches[0].pageX;
             });
             $(document).on("touchmove", "#app-body", function (e) {
                 _slideCur = e.originalEvent.touches[0].pageX;
-                if(_slideCur - _slideSt > 30)
+                if(_slideCur - _slideSt > 30 && _slideFlag == false)
                 {
                     if ($.mobile.activePage.jqmData("panel") !== "open" && !$(".app-toolbar").hasClass("detail")) {
                         _slideFlag = true;
@@ -141,7 +133,6 @@ require(
                     if(parseInt($("#app-userpanel").css("left")) > 0)
                     {
                         $("#app-userpanel").css("left", (0));
-                        console.log("batas");
                     }
                 }
             });
@@ -151,8 +142,10 @@ require(
                 {
                     $("#app-userpanel").animate({
                         left: 0
-                    }, 300);
-                    $("#app-userpanel").panel("open");
+                    }, 100, function()
+                    {
+                        $("#app-userpanel").panel("open");
+                    });
                 }
                 else
                 {
@@ -160,6 +153,7 @@ require(
                         left: -290
                     }, 300, function(){
                         $("#app-userpanel").removeClass("ui-panel-open").addClass("ui-panel-closed");
+                        $("#app-userpanel").panel("close");
                     });
                 }
             });
