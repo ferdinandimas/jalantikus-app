@@ -122,7 +122,6 @@ require(
             $(document).on("touchmove", "#app-body", function (e) {
                 _slideCur = e.originalEvent.touches[0].pageX;
                 _slideVtCur = e.originalEvent.touches[0].pageY;
-                    console.log(_slideVtCur +" - "+ _slideVt)
                 if(_slideFlag == false)
                 {
                     if(_slideCur - _slideSt > 30 && Math.abs(_slideVtCur - _slideVt) < 30)
@@ -149,7 +148,7 @@ require(
                 if(_slideFlag)
                 {
                     $(".app-content-container").css("overflow-y", "scroll")
-                    if(parseInt($("#app-userpanel").css("left")) > -80)
+                    if(parseInt($("#app-userpanel").css("left")) > -280)
                     {
                         $("#app-userpanel").animate({
                             left: 0

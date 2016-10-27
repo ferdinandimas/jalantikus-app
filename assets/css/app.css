@@ -416,18 +416,19 @@ div, span, a
     animation: refresh 1.2s linear infinite;
 }
 .app-loader .app-retry {
-	display: none;
+    display: none;
     width: 200px;
-    height: 45px;
+    height: 15px;
     top: 0;
     right: 0;
     bottom: 0;
     margin: auto;
     left: 0;
+    padding: 15px 0;
     color: #fff;
     text-shadow: 0 0 0;
     font-size: 12px;
-    line-height: 45px;
+    line-height: 15px;
     padding-left: 40px;
     text-align: center;
     background-image: url(../images/refresh-icon.svg);
@@ -436,6 +437,10 @@ div, span, a
     border-radius: 4px;
     background-repeat: no-repeat;
     background-size: 25px 25px;
+}
+.offline ~ .app-body .app-loader .app-retry, .offline ~ .app-body .app-loader .app-load
+{
+	background-color: #5f5f5f;
 }
 .app-detail-container .app-loader .app-load, .app-detail-container .app-loader .app-retry
 {
