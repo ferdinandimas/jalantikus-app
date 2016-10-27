@@ -62,6 +62,15 @@ require(
             window.BackboneRouter = new Router();
             Backbone.history.start({ pushState: false });
 
+            $("#search-form").on("submit", function(e) {
+                e.preventDefault();
+
+                window.location = "#search/" + $("#search-form [name='search']").val();
+                Backbone.history.loadUrl();
+
+                $("#app-searchpanel").panel("close");
+            });
+
             $(document).on("click", ".app-toggle-searchpanel", function (e) {
                 if (!jt.isOffline()) {
 
@@ -89,6 +98,8 @@ require(
                     if (!_currUI.hasClass("active")) {
                         $('.usermenu-item').not(_currUI).removeClass("active");
                         _currUI.addClass("active");
+
+                        $(".app-header .header-description").html($(this).find(".usermenu-item-detail").html());
                     }
                 }
                 else {

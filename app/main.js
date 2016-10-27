@@ -7,6 +7,7 @@ define(
             routes: {
                 ''           : 'home',
                 'index/:id'  : 'index',
+                'search/:id' : 'search',
                 'article/:id': 'articleDetail',
             },
 
@@ -23,11 +24,22 @@ define(
                 );
             },
 
-            index: function (_type) {
+            index: function (_options) {
                 require(
                     [ 'controllers/home' ],
                     function (Home) {
-                        new Home(_type);
+                        _options = { type: _options };
+                        new Home(_options);
+                    }
+                );
+            },
+
+            search: function (_options) {
+                require(
+                    [ 'controllers/home' ],
+                    function (Home) {
+                        _options = { type: "search", search: _options };
+                        new Home(_options);
                     }
                 );
             },

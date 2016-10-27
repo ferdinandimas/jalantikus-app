@@ -6,15 +6,16 @@ define(
         "collections/homeTimeline",
         "text!views/home_layout.html",
         "text!views/header_layout.html",
-        "text!views/template/timeline.html"
+        "text!views/template/timeline.html",
+        "text!views/header_detail_layout.html",
     ],
-    function (_, Backbone, $, Timeline, homeLayout, headerLayout, timelineTemplate) {
+    function (_, Backbone, $, Timeline, homeLayout, headerLayout, timelineTemplate, headerDetailLayout) {
         var homeView = Backbone.View.extend({
             timelineTemplate: _.template(timelineTemplate),
             layout          : _.template(homeLayout),
             collection      : new Timeline(),
             page            : 1,
-            initialize      : function (_type) {
+            initialize      : function (_options) {
                 var that = this;
 
                 $("#app-toolbar")
@@ -43,31 +44,49 @@ define(
                     );
                 }
 
-                if (typeof _type != "undefined") {
-                    console.log(_type);
-
-                    var _order, _search, _category;
-
-                    if (_type == "most-read") {
-                        _order = "3day";
+                if (typeof _options != "undefined" && typeof _options.type != "undefined") {
+                    if (_options.type == "most-read") {
+                        this.order = "3day";
                     }
-                    else if (_type == "hacking-tips") {
-                        _order    = "3day";
-                        _category = "tips";
-                        _search   = "hack";
+                    else if (_options.type == "hacking-tips") {
+                        this.order    = "3day";
+                        this.category = "tips";
+                        this.search   = "hack";
                     }
-                    else if (_type == "games-tips") {
-                        _order    = "3day";
-                        _category = "tips";
-                        _search   = "game";
+                    else if (_options.type == "games-tips") {
+                        this.order    = "3day";
+                        this.category = "tips";
+                        this.search   = "game";
+                    }
+                    else if (_options.type == "search") {
+                        this.search = _options.search;
+
+                        $("#app-toolbar")
+                            .removeClass("detail")
+                            .removeClass("scroll")
+                            .empty()
+                            .append((_.template(headerDetailLayout))());
+                        
+                        $("#search-form [name='search']").val(_options.search);
+                        $("#app-toolbar .header-description").html("Hasil Pencarian");
                     }
 
                     this.collection = new Timeline({
-                        order   : typeof _order != "undefined" ? _order : "",
-                        category: typeof _category != "undefined" ? _category : "",
-                        search  : typeof _search != "undefined" ? _search : "",
+                        order   : typeof this.order != "undefined" ? this.order : "",
+                        category: typeof this.category != "undefined" ? this.category : "",
+                        search  : typeof this.search != "undefined" ? this.search : "",
                     });
                 }
+                else {
+                    $("#search-form [name='search']").val("");
+                }
+
+                $("a.usermenu-item").removeClass("active").each(function () {
+                    if ($(this).attr("href") == "#" + Backbone.history.getFragment()) {
+                        $("#app-toolbar .header-description").html($(this).find(".usermenu-item-detail").html());
+                        $(this).addClass("active");
+                    }
+                });
 
                 this.collection.fetch({
                     timeout: 5000,
@@ -132,7 +151,10 @@ define(
                         this.page = 1;
 
                         this.collection = new Timeline({
-                            page: this.page
+                            order   : typeof that.order != "undefined" ? that.order : "",
+                            category: typeof that.category != "undefined" ? that.category : "",
+                            search  : typeof that.search != "undefined" ? that.search : "",
+                            page    : that.page,
                         });
 
                         this.collection.fetch({
@@ -185,7 +207,10 @@ define(
 
                 if ($(".app-content-container .app-load").is(":in-viewport") && !jt.isOffline()) {
                     this.collection = new Timeline({
-                        page: this.page
+                        order   : typeof this.order != "undefined" ? this.order : "",
+                        category: typeof this.category != "undefined" ? this.category : "",
+                        search  : typeof this.search != "undefined" ? this.search : "",
+                        page    : this.page,
                     });
 
                     this.collection.fetch({
