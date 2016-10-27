@@ -360,7 +360,7 @@ div, span, a
 	overflow: hidden;
 	z-index: 9;
 }
-.app-index-card .card-link .ripple
+.app-index-card .card-link .ripple, .usermenu-top .usermenu-item .ripple
 {
 	width: 450px;
 	height: 450px;
@@ -374,8 +374,9 @@ div, span, a
 	-webkit-transform: scale(0);
 	transform: scale(0);
 	opacity: 0;
+	z-index: 2;
 }
-.app-index-card .card-link.active .ripple
+.app-index-card .card-link.fadedin .ripple, .usermenu-top .usermenu-item.fadedin .ripple
 {
 	-webkit-transition: opacity 300ms linear, -webkit-transform 300ms linear;
     transition: opacity 300ms linear, transform 300ms linear;
@@ -383,7 +384,7 @@ div, span, a
 	transform: scale(0.75);
 	opacity: 0.7;
 }
-.app-index-card .card-link.active.faded .ripple
+.app-index-card .card-link.fadedin.fadedout .ripple, .usermenu-top .usermenu-item.fadedin.fadedout .ripple
 {
 	-webkit-transition: opacity 100ms linear, -webkit-transform 100ms linear;
     transition: opacity 100ms linear, transform 100ms linear;
@@ -988,7 +989,12 @@ div, span, a
 }
 .app-panel .userpanel-body .usermenu-item
 {
-	text-decoration: none;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    width: 290px;
+    height: 45px;
+    display: block;
 }
 .app-panel .userpanel-body .usermenu-item .usermenu-item-detail
 {

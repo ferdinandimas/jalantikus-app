@@ -14,19 +14,18 @@ var jt = function () {
             var _href     = t.attr("href");
             var _ripple   = $(_currItem.children()[ 0 ]);
             var rX        = e.offsetX - 225, rY = e.offsetY - 225;
-            if (!_currItem.hasClass("active") && !_currItem.hasClass("faded")) {
+            if (!_currItem.hasClass("fadedin") && !_currItem.hasClass("fadedout")) {
                 _ripple.css('top', rY);
                 _ripple.css('left', rX);
-                _currItem.addClass("active");
+                _currItem.addClass("fadedin");
                 var fdCurr = setTimeout(function () {
-                    _currItem.addClass("faded");
+                    _currItem.addClass("fadedout");
                     clearTimeout(fdCurr);
                     var fdFd = setTimeout(function () {
-                        _currItem.removeClass("active");
-                        _currItem.removeClass("faded");
+                        _currItem.removeClass("fadedin");
+                        _currItem.removeClass("fadedout");
                         clearTimeout(fdFd);
                         $(_currItem).data("complete", true);
-
                         window.stop();
                         window.location.href = _config.baseURL + _href;
 
