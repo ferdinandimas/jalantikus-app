@@ -114,22 +114,31 @@ require(
                 }
             });
 
-            var _slideSt, _slideCur, _slideFlag = false;
+            var _slideSt, _slideCur, _slideFlag = false, _slideVt, _slideVtCur;
             $(document).on("touchstart", "#app-body", function (e) {
                 _slideSt = e.originalEvent.touches[0].pageX;
+                _slideVt = e.originalEvent.touches[0].pageY;
             });
             $(document).on("touchmove", "#app-body", function (e) {
                 _slideCur = e.originalEvent.touches[0].pageX;
-                if(_slideCur - _slideSt > 30 && _slideFlag == false)
+                _slideVtCur = e.originalEvent.touches[0].pageY;
+                    console.log(_slideVtCur +" - "+ _slideVt)
+                if(_slideFlag == false)
                 {
-                    if ($.mobile.activePage.jqmData("panel") !== "open" && !$(".app-toolbar").hasClass("detail")) {
-                        _slideFlag = true;
-                        $("#app-userpanel").addClass("ui-panel-open").removeClass("ui-panel-closed");
+                    if(_slideCur - _slideSt > 30 && Math.abs(_slideVtCur - _slideVt) < 30)
+                    {
+                        if ($.mobile.activePage.jqmData("panel") !== "open" && !$(".app-toolbar").hasClass("detail")) {
+                            _slideFlag = true;
+                            $(".app-content-container").css("overflow-y", "hidden")
+                            $("#app-userpanel").addClass("ui-panel-open").removeClass("ui-panel-closed");
+                        }
                     }
                 }
                 if(_slideFlag)
                 {
-                    $("#app-userpanel").css("left", (_slideCur-290));
+                    $("#app-userpanel").animate({
+                            left: _slideCur-290
+                        },0);
                     if(parseInt($("#app-userpanel").css("left")) > 0)
                     {
                         $("#app-userpanel").css("left", (0));
@@ -137,24 +146,28 @@ require(
                 }
             });
             $(document).on("touchend", "#app-body", function (e) {
-                _slideFlag = false;
-                if(parseInt($("#app-userpanel").css("left")) > -80)
+                if(_slideFlag)
                 {
-                    $("#app-userpanel").animate({
-                        left: 0
-                    }, 100, function()
+                    $(".app-content-container").css("overflow-y", "scroll")
+                    if(parseInt($("#app-userpanel").css("left")) > -80)
                     {
-                        $("#app-userpanel").panel("open");
-                    });
-                }
-                else
-                {
-                    $("#app-userpanel").animate({
-                        left: -290
-                    }, 300, function(){
-                        $("#app-userpanel").removeClass("ui-panel-open").addClass("ui-panel-closed");
-                        $("#app-userpanel").panel("close");
-                    });
+                        $("#app-userpanel").animate({
+                            left: 0
+                        }, 100, function()
+                        {
+                            $("#app-userpanel").panel("open");
+                        });
+                    }
+                    else
+                    {
+                        $("#app-userpanel").animate({
+                            left: -290
+                        }, 300, function(){
+                            $("#app-userpanel").removeClass("ui-panel-open").addClass("ui-panel-closed");
+                            $("#app-userpanel").panel("close");
+                        });
+                    }
+                    _slideFlag = false;
                 }
             });
             $(document).on("click", ".app-header .app-home", function (e) {
