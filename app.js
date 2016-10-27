@@ -128,12 +128,12 @@ require(
                     {
                         if ($.mobile.activePage.jqmData("panel") !== "open" && !$(".app-toolbar").hasClass("detail")) {
                             _slideFlag = true;
+                            smoothSlide();
                             $(".app-content-container").css("overflow-y", "hidden")
                             $("#app-userpanel").addClass("ui-panel-open").removeClass("ui-panel-closed");
                         }
                     }
                 }
-                smoothSlide();
             });
             function smoothSlide(e)
             {
@@ -143,11 +143,12 @@ require(
                     {
                         $("#app-userpanel").animate({
                                 left: _slideCur-290
-                            },0);
+                            },0, "linear");
                         if(parseInt($("#app-userpanel").css("left")) > 0)
                         {
                             $("#app-userpanel").css("left", (0));
                         }
+                        console.log('a');
                     }
                     else
                     {
@@ -175,6 +176,7 @@ require(
                         }, 300, function(){
                             $("#app-userpanel").removeClass("ui-panel-open").addClass("ui-panel-closed");
                             $("#app-userpanel").panel("close");
+                            $("#app-userpanel").css("left", 0);
                         });
                     }
                     _slideFlag = false;
@@ -193,6 +195,20 @@ require(
                     showOffline();
                 }
             });
+
+            $(document).on("click", ".usermenu-top .usermenu-item", function(e)
+            {
+                if (!jt.isOffline()) {
+                    jt.ripple($(this), e);
+                    setTimeout(function(){
+                        $('#app-userpanel').panel('close')
+                    }, 150);
+                }
+                else {
+                    e.preventDefault();
+                    showOffline();
+                }
+            })
 
             var _scrolling = false, _direction, _pos, _velocity = 0;
             $(document).on("touchstart", ".scroll-button", function(e)
