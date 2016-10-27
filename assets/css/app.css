@@ -945,6 +945,17 @@ div, span, a
     background: url(../images/mic-icon.svg) center center no-repeat;
     opacity: 0.5;
 }
+.app-search
+{
+	text-align: center;
+    line-height: 24px;
+    font-size: 18px;
+    margin: 0 0 15px 0;
+}
+.app-search .app-search-keyword
+{
+	font-weight: 700;
+}
 .app-panel .searchpanel .searchbar
 {
 	width: calc(100% - 120px);
@@ -1030,6 +1041,7 @@ div, span, a
 	mask-position: center center;
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
+	transform: translateZ(0);
 }
 .usermenu-item.active .usermenu-item-detail:after
 {
