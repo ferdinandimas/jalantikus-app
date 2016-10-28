@@ -71,7 +71,7 @@ div, span, a
 .app-toolbar.scroll
 {
 	position: fixed;
-	top: 1px;
+	top: -1px;
 	left: 0;
 	right: 0;
 	height: 0;
