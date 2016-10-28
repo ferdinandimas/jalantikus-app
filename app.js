@@ -275,6 +275,8 @@ require(
 
             document.addEventListener("deviceready", function () {
                 document.addEventListener("backbutton", function (e) {
+                    window.stop();
+
                     if (Backbone.history.getFragment() == "") {
                         navigator.notification.confirm(
                             "Tutup JalanTikus?",
