@@ -24,17 +24,17 @@ define(
                     .empty()
                     .append((_.template(headerLayout))());
 
-                var statusBarChanged = 0;
-                while (statusBarChanged != 1) {
-                    if (typeof window.StatusBar != "undefined" && !$("#app-toolbar").hasClass("detail")) {
-                        window.StatusBar.backgroundColorByHexString("#8f1f1f");
-
-                        statusBarChanged = 1;
-                    }
-                    else if (!$("#app-toolbar").hasClass("detail")) {
-                        statusBarChanged = 1;
-                    }
-                }
+                //var statusBarChanged = 0;
+                //while (statusBarChanged != 1) {
+                //    if (typeof window.StatusBar != "undefined" && !$("#app-toolbar").hasClass("detail")) {
+                //        window.StatusBar.backgroundColorByHexString("#8f1f1f");
+                //
+                //        statusBarChanged = 1;
+                //    }
+                //    else if (!$("#app-toolbar").hasClass("detail")) {
+                //        statusBarChanged = 1;
+                //    }
+                //}
 
                 $("#app-body").empty().append(this.layout());
 

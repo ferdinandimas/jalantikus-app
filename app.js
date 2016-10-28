@@ -435,14 +435,14 @@ require(
                             .removeClass("disabled");
                         $(".app-toolbar").addClass("online").removeClass("offline");
 
-                        if (typeof window.StatusBar != "undefined") {
-                            if ($(".app-toolbar").hasClass("detail")) {
-                                window.StatusBar.backgroundColorByHexString("#045f04");
-                            }
-                            else {
-                                window.StatusBar.backgroundColorByHexString("#8f1f1f");
-                            }
-                        }
+                        //if (typeof window.StatusBar != "undefined") {
+                        //    if ($(".app-toolbar").hasClass("detail")) {
+                        //        window.StatusBar.backgroundColorByHexString("#045f04");
+                        //    }
+                        //    else {
+                        //        window.StatusBar.backgroundColorByHexString("#8f1f1f");
+                        //    }
+                        //}
 
                         if (lastFragment != Backbone.history.getFragment()) {
                             Backbone.history.loadUrl();

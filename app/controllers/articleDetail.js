@@ -22,17 +22,17 @@ define(
                     .empty()
                     .append((_.template(headerLayout))());
 
-                var statusBarChanged = 0;
-                while (statusBarChanged != 1) {
-                    if (typeof window.StatusBar != "undefined" && $("#app-toolbar").hasClass("detail")) {
-                        window.StatusBar.backgroundColorByHexString("#045f04");
-
-                        statusBarChanged = 1;
-                    }
-                    else if ($("#app-toolbar").hasClass("detail")) {
-                        statusBarChanged = 1;
-                    }
-                }
+                //var statusBarChanged = 0;
+                //while (statusBarChanged != 1) {
+                //    if (typeof window.StatusBar != "undefined" && $("#app-toolbar").hasClass("detail")) {
+                //        window.StatusBar.backgroundColorByHexString("#045f04");
+                //
+                //        statusBarChanged = 1;
+                //    }
+                //    else if ($("#app-toolbar").hasClass("detail")) {
+                //        statusBarChanged = 1;
+                //    }
+                //}
 
                 $("#app-body").empty().append(
                     '<div class="app-detail-container"><div class="app-toolbar-placeholder"></div><div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div></div>'
@@ -94,7 +94,7 @@ define(
             render    : function () {
                 var that    = this;
                 var tooltip = false;
-                
+
                 $(".app-content-container .app-loader").remove();
 
                 $("#app-body").empty().append(this.layout({
@@ -120,28 +120,21 @@ define(
                     else {
                         $("#app-toolbar").addClass("scroll");
                     }
-                    if($(this).scrollTop() <= 0 )
-                    {
-                        if($(".scroll-up").css("display") != "none")
-                        {
+                    if ($(this).scrollTop() <= 0) {
+                        if ($(".scroll-up").css("display") != "none") {
                             $(".scroll-up").css("display", "none");
                         }
                     }
-                    else if( $(".app-detail-end").is(":in-viewport"))
-                    {
-                        if($(".scroll-down").css("display") != "none")
-                        {
+                    else if ($(".app-detail-end").is(":in-viewport")) {
+                        if ($(".scroll-down").css("display") != "none") {
                             $(".scroll-down").css("display", "none");
                         }
                     }
-                    else
-                    {
-                        if($(".scroll-up").css("display") == "none")
-                        {
+                    else {
+                        if ($(".scroll-up").css("display") == "none") {
                             $(".scroll-up").css("display", "block");
                         }
-                        if($(".scroll-down").css("display") == "none")
-                        {
+                        if ($(".scroll-down").css("display") == "none") {
                             $(".scroll-down").css("display", "block");
                         }
                     }
@@ -254,6 +247,16 @@ define(
                 $(".prettify-copy-selected").on("touchend click", function (e) {
                     document.execCommand('copy');
                     validateTooltip(e)
+                });
+
+                $(".link-share").on("click", function () {
+                    document.querySelector("#share-link").select();
+                    document.execCommand('copy');
+
+                    $(".app-refreshed").html("Link berhasil disalin").fadeIn();
+                    setTimeout(function () {
+                        $(".app-refreshed").fadeOut();
+                    }, 2000);
                 });
 
                 $(".prettify-copy-all").on("touchend click", function (e) {

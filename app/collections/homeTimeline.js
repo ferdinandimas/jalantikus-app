@@ -14,7 +14,7 @@ define(
             model     : Timeline,
             urlRoot   : _config.jtAPI + (_config.environment == "dev" ? "live/" : "") + "getArticles/detail/id,title,slug,image,user,published,description_images",
             url       : function () {
-                return this.urlRoot + "/limit/9/page/" + this.page + "/order/" + this.order + (this.category != "" ? "/category/" + this.category : "") + (this.search != "" ? "/search/" + this.search : "");
+                return this.urlRoot + "/limit/6/page/" + this.page + "/order/" + this.order + (this.category != "" ? "/category/" + this.category : "") + (this.search != "" ? "/search/" + this.search : "");
             },
             parse     : function (result) {
                 var reservedSlot = false;
