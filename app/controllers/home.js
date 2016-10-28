@@ -92,7 +92,7 @@ define(
                 });
 
                 this.collection.fetch({
-                    timeout: 5,
+                    timeout: 5000,
                     success: function () {
                         that.page = that.page + 1;
 
