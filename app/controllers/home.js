@@ -16,6 +16,8 @@ define(
             collection      : new Timeline(),
             page            : 1,
             initialize      : function (_options) {
+                this.page = 1;
+
                 var that = this;
 
                 $("#app-toolbar")
@@ -48,15 +50,14 @@ define(
                     this.type = _options.type;
 
                     if (_options.type == "most-read") {
-                        this.order = "3day";
+                        this.order = "14day";
                     }
-                    else if (_options.type == "hacking-tips") {
-                        this.order    = "3day";
+                    else if (_options.type == "android-tips") {
+                        this.order    = "14day";
                         this.category = "tips";
-                        this.search   = "hack";
                     }
                     else if (_options.type == "games-tips") {
-                        this.order    = "3day";
+                        this.order    = "14day";
                         this.category = "tips";
                         this.search   = "game";
                     }
@@ -99,15 +100,6 @@ define(
                         $("#app-body .app-content-container").empty();
 
                         that.render();
-
-                        if ($(".splash").length >= 1) {
-                            setTimeout(function () {
-                                $(".splash").fadeOut("fast", function () {
-                                    $(this).remove();
-                                })
-                            }, 2000);
-                        }
-
                     },
                     error  : function () {
                         $("#app-body .app-content-container").empty().append(
@@ -123,6 +115,19 @@ define(
                             $(".app-retry").css("display", "none");
                             that.autoload();
                         });
+
+                        if ($(".splash").length >= 1) {
+                            $(".app-refreshed").html("Tidak ada jaringan.").fadeIn();
+                            setTimeout(function () {
+                                $(".app-refreshed").fadeOut();
+                            }, 2000);
+
+                            $(".splash-content .app-loader").fadeIn();
+
+                            $(".splash-quote").remove();
+                            $(".splash-speaker").remove();
+                            $(".splash-loading").hide();
+                        }
                     }
                 });
 
@@ -180,8 +185,8 @@ define(
                     if (this.type == "search") {
                         $("#app-body .app-content-container").empty().append(
                             '<div class="app-search">' +
-                                '<span class="app-search-result">Hasil pencarian dari: </span>' +
-                                '<span class="app-search-keyword">"' + this.search + '"</span>' +
+                            '<span class="app-search-result">Hasil pencarian dari: </span>' +
+                            '<span class="app-search-keyword">"' + this.search + '"</span>' +
                             '</div>'
                         );
                     }
@@ -223,11 +228,21 @@ define(
                         );
                     }
                 }
+
+                if ($(".splash").length >= 1) {
+                    setTimeout(function () {
+                        $(".splash").fadeOut("fast", function () {
+                            $(this).remove();
+                        })
+                    }, 2000);
+                }
             },
             autoload        : function () {
                 var that = this;
 
-                if ($(".app-content-container .app-load").is(":in-viewport") && !jt.isOffline()) {
+                if ($(".app-content-container .app-load").is(":in-viewport") && !$(".app-content-container .app-load").hasClass("loading") && !jt.isOffline()) {
+                    $(".app-content-container .app-load").addClass("loading");
+
                     this.collection = new Timeline({
                         order   : typeof this.order != "undefined" ? this.order : "",
                         category: typeof this.category != "undefined" ? this.category : "",

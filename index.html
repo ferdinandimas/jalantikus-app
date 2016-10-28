@@ -16,7 +16,8 @@
 </head>
 <body>
 <div class="app-root" id="app-root" data-role="page">
-    <div data-role="panel" id="app-userpanel" data-position="left" data-display="overlay" data-theme="a" class="app-panel ui-panel-closed" style="display:none">
+    <div data-role="panel" id="app-userpanel" data-position="left" data-display="overlay" data-theme="a"
+         class="app-panel ui-panel-closed" style="display:none">
         <div class="userpanel-header">
             <div class="jalantikus-logo">
                 <img src="assets/images/JT-Logo.png" width="64" height="64">
@@ -45,10 +46,10 @@
                         Banyak Dibaca
                     </div>
                 </a>
-                <a href="#index/hacking-tips" class="usermenu-item">
+                <a href="#index/android-tips" class="usermenu-item">
                     <div class="ripple"></div>
                     <div class="usermenu-item-detail hack">
-                        Tips Hacking
+                        Tips Android
                     </div>
                 </a>
                 <a href="#index/games-tips" class="usermenu-item">
@@ -73,7 +74,8 @@
             </div>
         </div>
     </div>
-    <div data-role="panel" id="app-searchpanel" data-position="right" data-display="overlay" data-theme="a" class="app-panel ui-panel-closed" style="display:none">
+    <div data-role="panel" id="app-searchpanel" data-position="right" data-display="overlay" data-theme="a"
+         class="app-panel ui-panel-closed" style="display:none">
         <div class="searchpanel">
             <a href="javascript:void(0)" data-rel="close">
                 <div class="header-back">
@@ -94,6 +96,7 @@
                 <div class="header-menu index">
                 </div>
             </a>
+
             <div class="header-description">
                 Beranda
             </div>
@@ -193,6 +196,11 @@
             <!-- -- Bill Gates -->
         </div>
         <div class="splash-loading">Loading</div>
+
+        <div class="app-loader" style="display: none">
+            <a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a>
+            <div class="app-load"></div>
+        </div>
     </div>
 </div>
 </body>

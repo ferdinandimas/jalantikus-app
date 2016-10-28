@@ -62,7 +62,7 @@ require(
             window.BackboneRouter = new Router();
             Backbone.history.start({ pushState: false });
 
-            $("#search-form").on("submit", function(e) {
+            $("#search-form").on("submit", function (e) {
                 e.preventDefault();
 
                 window.location = "#search/" + $("#search-form [name='search']").val();
@@ -127,16 +127,14 @@ require(
 
             var _slideSt, _slideCur, _slideFlag = false, _slideVt, _slideVtCur;
             $(document).on("touchstart", "#app-body", function (e) {
-                _slideSt = e.originalEvent.touches[0].pageX;
-                _slideVt = e.originalEvent.touches[0].pageY;
+                _slideSt = e.originalEvent.touches[ 0 ].pageX;
+                _slideVt = e.originalEvent.touches[ 0 ].pageY;
             });
             $(document).on("touchmove", "#app-body", function (e) {
-                _slideCur = e.originalEvent.touches[0].pageX;
-                _slideVtCur = e.originalEvent.touches[0].pageY;
-                if(_slideFlag == false)
-                {
-                    if(_slideCur - _slideSt > 30 && Math.abs(_slideVtCur - _slideVt) < 30)
-                    {
+                _slideCur   = e.originalEvent.touches[ 0 ].pageX;
+                _slideVtCur = e.originalEvent.touches[ 0 ].pageY;
+                if (_slideFlag == false) {
+                    if (_slideCur - _slideSt > 30 && Math.abs(_slideVtCur - _slideVt) < 30) {
                         if ($.mobile.activePage.jqmData("panel") !== "open" && !$(".app-toolbar").hasClass("detail")) {
                             _slideFlag = true;
                             smoothSlide();
@@ -146,45 +144,37 @@ require(
                     }
                 }
             });
-            function smoothSlide(e)
-            {
-                var _slide = setInterval(function(e)
-                {
-                    if(_slideFlag)
-                    {
+            function smoothSlide(e) {
+                var _slide = setInterval(function (e) {
+                    if (_slideFlag) {
                         $("#app-userpanel").animate({
-                                left: _slideCur-290
-                            },0, "linear");
-                        if(parseInt($("#app-userpanel").css("left")) > 0)
-                        {
+                            left: _slideCur - 290
+                        }, 0, "linear");
+                        if (parseInt($("#app-userpanel").css("left")) > 0) {
                             $("#app-userpanel").css("left", (0));
                         }
                         console.log('a');
                     }
-                    else
-                    {
+                    else {
                         clearInterval(_slide);
                     }
                 }, 20)
             }
+
             $(document).on("touchend", "#app-body", function (e) {
-                if(_slideFlag)
-                {
+                if (_slideFlag) {
                     $(".app-content-container").css("overflow-y", "scroll")
-                    if(parseInt($("#app-userpanel").css("left")) > -280)
-                    {
+                    if (parseInt($("#app-userpanel").css("left")) > -280) {
                         $("#app-userpanel").animate({
                             left: 0
-                        }, 300, function()
-                        {
+                        }, 300, function () {
                             $("#app-userpanel").panel("open");
                         });
                     }
-                    else
-                    {
+                    else {
                         $("#app-userpanel").animate({
                             left: -290
-                        }, 300, function(){
+                        }, 300, function () {
                             $("#app-userpanel").removeClass("ui-panel-open").addClass("ui-panel-closed");
                             $("#app-userpanel").panel("close");
                             $("#app-userpanel").css("left", 0);
@@ -207,11 +197,10 @@ require(
                 }
             });
 
-            $(document).on("click", ".usermenu-top .usermenu-item", function(e)
-            {
+            $(document).on("click", ".usermenu-top .usermenu-item", function (e) {
                 if (!jt.isOffline()) {
                     jt.ripple($(this), e);
-                    setTimeout(function(){
+                    setTimeout(function () {
                         $('#app-userpanel').panel('close')
                     }, 150);
                 }
@@ -222,48 +211,39 @@ require(
             })
 
             var _scrolling = false, _direction, _pos, _velocity = 0;
-            $(document).on("touchstart", ".scroll-button", function(e)
-            {
+            $(document).on("touchstart", ".scroll-button", function (e) {
                 e.preventDefault();
-                if(!_scrolling)
-                {   
+                if (!_scrolling) {
                     _scrolling = true
                     _direction = $(this).data("direction");
                     $(this).addClass("active")
-                    if(_velocity != 0)
-                    {
+                    if (_velocity != 0) {
                         _velocity = 0;
                     }
-                    var _scrollInterval = setInterval(function(){
+                    var _scrollInterval = setInterval(function () {
                         _pos = $(".app-detail-container").scrollTop() + _velocity;
-                        if(_scrolling == true)
-                        {
+                        if (_scrolling == true) {
                             $(".app-detail-container").scrollTop(_pos);
                         }
-                        else
-                        {
+                        else {
                             clearInterval(_scrollInterval);
                         }
 
-                        if(_direction == "up" && _velocity > -2)
-                        {
-                            _velocity -=0.2;
+                        if (_direction == "up" && _velocity > -2) {
+                            _velocity -= 0.2;
                         }
-                        else if(_direction == "down" && _velocity < 2)
-                        {
-                            _velocity +=0.2;
+                        else if (_direction == "down" && _velocity < 2) {
+                            _velocity += 0.2;
                         }
                     }, 20)
                 }
             })
 
-            $(document).on("touchend", ".scroll-button", function(e)
-            {
+            $(document).on("touchend", ".scroll-button", function (e) {
                 _scrolling = false;
                 $(".scroll-button").removeClass("active")
                 _velocity = 0;
             })
-
 
             $(document).on("click", ".app-header .app-toggle-userpanel", function (e) {
                 if (!jt.isOffline()) {
@@ -362,7 +342,7 @@ require(
             }
 
             function slowType() {
-                if ($(".splash").length >= 1) {
+                if ($(".splash").length >= 1 && $(".splash-quote").length >= 1 && $(".splash-speaker").length >= 1) {
                     $(".splash-quote").html("");
                     $(".splash-speaker").html("");
 
@@ -415,7 +395,7 @@ require(
                             .addClass("disabled");
                         $(".app-toolbar").removeClass("online").addClass("offline");
 
-                        if (typeof window.StatusBar != "undefined") {
+                        if ($(".splash").length < 1 && typeof window.StatusBar != "undefined") {
                             window.StatusBar.backgroundColorByHexString("#474747");
                         }
 
@@ -435,14 +415,16 @@ require(
                             .removeClass("disabled");
                         $(".app-toolbar").addClass("online").removeClass("offline");
 
-                        //if (typeof window.StatusBar != "undefined") {
-                        //    if ($(".app-toolbar").hasClass("detail")) {
-                        //        window.StatusBar.backgroundColorByHexString("#045f04");
-                        //    }
-                        //    else {
-                        //        window.StatusBar.backgroundColorByHexString("#8f1f1f");
-                        //    }
-                        //}
+                        if (typeof window.StatusBar != "undefined") {
+                            //if ($(".app-toolbar").hasClass("detail")) {
+                            //    window.StatusBar.backgroundColorByHexString("#045f04");
+                            //}
+                            //else {
+                            //    window.StatusBar.backgroundColorByHexString("#8f1f1f");
+                            //}
+
+                            window.StatusBar.backgroundColorByHexString("#8f1f1f");
+                        }
 
                         if (lastFragment != Backbone.history.getFragment()) {
                             Backbone.history.loadUrl();

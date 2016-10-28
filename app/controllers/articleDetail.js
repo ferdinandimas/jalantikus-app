@@ -260,6 +260,11 @@ define(
                     }, 2000);
                 });
 
+                $(".addon-gadgets .action-container").remove();
+                $(".addon-gadgets a").on("click", function(e) {
+                    e.preventDefault();
+                });
+
                 $(".prettify-copy-all").on("touchend click", function (e) {
                     _el     = $(this).parent().parent();
                     _result = "";
