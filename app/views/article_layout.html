@@ -16,7 +16,7 @@
         </div>
     </div>
     <ul class="share-container">
-        <li class="wa-share shadow-l1"><a href="#"></a></li><li class="bbm-share shadow-l1"><a href="#"></a></li><li class="line-share shadow-l1"><a href="#"></a></li><li class="fb-share shadow-l1"><a href="#"></a></li><li class="link-share shadow-l1"><a href="#"></a></li>
+        <li class="wa-share shadow-l1"><a href="whatsapp://send?text=<%= detail.links.detail %>?utm_source=JT%20Apps&utm_medium=Share_Whatsapp&utm_campaign=Apps"></a></li><li class="bbm-share shadow-l1"><a href="bbmi://api/share?message=<%= detail.links.detail %>?utm_source=JT%20Apps&utm_medium=Share_BBM&utm_campaign=Apps&userCustomMessage=<%= detail.title %>"></a></li><li class="line-share shadow-l1"><a href="line://msg/text/<%= detail.links.detail %>?utm_source=JT%20Apps&utm_medium=Share_Line&utm_campaign=Apps"></a></li><li class="fb-share shadow-l1"><a href="https://www.facebook.com/sharer/sharer.php?u=<%= detail.links.detail %>?utm_source=JT%20Apps&utm_medium=Share_Facebook&utm_campaign=Apps"></a></li><li class="link-share shadow-l1"><a href="#"></a></li>
     </ul>
     <div class="app-detail-body">
         <%= detail.description %>

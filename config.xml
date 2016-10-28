@@ -87,4 +87,9 @@
 
     <allow-intent href="http://*/*"/>
     <allow-intent href="https://*/*"/>
+    <allow-intent href="whatsapp:*"/>
+    <allow-intent href="line:*"/>
+    <allow-intent href="bbmi:*"/>
+
+    <!--<access origin="whatsapp:*" launch-external="yes" />-->
 </widget>
