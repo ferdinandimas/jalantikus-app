@@ -92,7 +92,7 @@ define(
                 });
 
                 this.collection.fetch({
-                    timeout: 5000,
+                    timeout: 5,
                     success: function () {
                         that.page = that.page + 1;
 
@@ -117,9 +117,9 @@ define(
                         });
 
                         if ($(".splash").length >= 1) {
-                            $(".app-refreshed").html("Tidak ada jaringan.").fadeIn();
+                            $(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
                             setTimeout(function () {
-                                $(".app-refreshed").fadeOut();
+                                $(".splash .app-refreshed").fadeOut();
                             }, 2000);
 
                             $(".splash-content .app-loader").fadeIn();
