@@ -381,6 +381,8 @@ require(
             shuffle(trivia);
             slowType();
 
+            $(".jalantikus-copyright span").html(new Date().getFullYear());
+
             var isOnline, lastFragment;
             setInterval(function () {
                 if (isOnline != !jt.isOffline()) {

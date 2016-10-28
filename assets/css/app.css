@@ -364,6 +364,15 @@ div, span, a
 {
 	display: none;
 }
+.ui-panel-inner .jalantikus-copyright
+{
+	position: absolute;
+    bottom: 20px;
+    text-align: center;
+    width: 100%;
+    font-size: 12px;
+    color: #9a9a9a;
+}
 .app-index-card .card-link .ripple, .usermenu-top .usermenu-item .ripple
 {
 	width: 450px;
@@ -445,7 +454,7 @@ div, span, a
     background-repeat: no-repeat;
     background-size: 25px 25px;
 }
-.splash-content .app-retry 
+.splash-content .app-load, .splash-content .app-retry 
 {
 	margin-top: 20px;
 	border: 2px solid #fff;
@@ -879,6 +888,12 @@ div, span, a
     text-shadow: 0 0 0;
     border-radius: 25px;
     font-weight: 500;
+}
+.splash .app-refreshed
+{
+	top: 50px;
+	z-index: 999;
+    background: rgba(0,0,0,0.25);
 }
 .app-header .header-refresh:after
 {
