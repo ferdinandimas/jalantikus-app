@@ -249,7 +249,8 @@ define(
                     validateTooltip(e)
                 });
 
-                $(".link-share").on("click", function () {
+                $(".link-share a").on("click", function (e) {
+                    e.preventDefault();
                     document.querySelector("#share-link").select();
                     document.execCommand('copy');
 

@@ -651,6 +651,13 @@ div, span, a
 {
 	margin-right: calc((100% - 250px) / 4);
 }
+#share-link
+{
+	position: absolute;
+    top: -200px;
+    z-index: -9999;
+    opacity: 0;
+}
 @media(min-width: 360px){
 	.share-container li
 	{
