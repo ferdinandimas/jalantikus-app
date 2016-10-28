@@ -56,7 +56,7 @@ div, span, a
 	height: 61px;
 	width: 100%;
 	background-color: #b71c1c;
-	z-index: 4;
+	z-index: 12;
 	-webkit-transition: 0.1s;
     transition: 0.1s;
 }
@@ -76,7 +76,7 @@ div, span, a
 	right: 0;
 	height: 0;
 	width: 100%;
-	z-index: 4;
+	z-index: 12;
 }
 .app-toolbar-placeholder
 {
@@ -1224,13 +1224,17 @@ code
 {
 	padding: 0 0 0 75px;
 }
-.app-detail-body .addon-apps .action-container, .app-detail-body .addon-gadgets .action-container
+.app-detail-body .addon-apps .action-container
 {
     position: relative;
     width: 120px;
     margin-top: 5px;
     margin-right: 0;
     margin-left: auto;
+}
+.app-detail-body .addon-gadgets .action-container
+{
+	display: none;
 }
 .app-detail-body .addon-apps .apps-detail.horizontal.xlSz .info .title, .app-detail-body .addon-gadgets .gadget-detail.horizontal.xlSz .info
 {
@@ -1352,10 +1356,14 @@ code
     background-color: #6ab344;
     background-position: 0 0;
 }
-.app-detail-body .addon-apps .info, .app-detail-body .addon-gadgets .info
+.app-detail-body .addon-apps .info
 {
 	position: relative;
 	overflow: hidden;
+}
+.app-detail-body .addon-gadgets .info
+{
+	height: 60px;
 }
 .app-detail-body .addon-apps .info:after, .app-detail-body .addon-gadgets .info:after
 {
@@ -1776,7 +1784,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 9
+	z-index: 98
 }
 .splash-background:after
 {
@@ -1795,7 +1803,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	height: 540px;
 	width: 100vw;
 	margin-top: 40px;
-	z-index: 11
+	z-index: 99
 }
 .splash-content .splash-image img
 {
