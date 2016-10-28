@@ -105,7 +105,7 @@ define(
                                 $(".splash").fadeOut("fast", function () {
                                     $(this).remove();
                                 })
-                            }, 2500);
+                            }, 2000);
                         }
 
                     },
