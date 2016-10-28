@@ -94,7 +94,7 @@ define(
             render    : function () {
                 var that    = this;
                 var tooltip = false;
-
+                
                 $(".app-content-container .app-loader").remove();
 
                 $("#app-body").empty().append(this.layout({
@@ -119,6 +119,31 @@ define(
                     }
                     else {
                         $("#app-toolbar").addClass("scroll");
+                    }
+                    if($(this).scrollTop() <= 0 )
+                    {
+                        if($(".scroll-up").css("display") != "none")
+                        {
+                            $(".scroll-up").css("display", "none");
+                        }
+                    }
+                    else if( $(".app-detail-end").is(":in-viewport"))
+                    {
+                        if($(".scroll-down").css("display") != "none")
+                        {
+                            $(".scroll-down").css("display", "none");
+                        }
+                    }
+                    else
+                    {
+                        if($(".scroll-up").css("display") == "none")
+                        {
+                            $(".scroll-up").css("display", "block");
+                        }
+                        if($(".scroll-down").css("display") == "none")
+                        {
+                            $(".scroll-down").css("display", "block");
+                        }
                     }
                 });
 

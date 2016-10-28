@@ -360,6 +360,10 @@ div, span, a
 	overflow: hidden;
 	z-index: 9;
 }
+.usermenu-bottom
+{
+	display: none;
+}
 .app-index-card .card-link .ripple, .usermenu-top .usermenu-item .ripple
 {
 	width: 450px;
@@ -1105,6 +1109,10 @@ div, span, a
 	right: 0;
 	border-radius: 50%;
 }
+.app-scroll-button .scroll-up
+{
+	display: none;
+}
 .app-scroll-button .scroll-up:after, .app-scroll-button .scroll-down:after
 {
 	content: "";
@@ -1699,6 +1707,13 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 }
 
 /*Kembali ke home*/
+.app-gotohome
+{
+	width: 225px;
+	height: 40px;
+    margin: auto;
+	padding-bottom: 30px;
+}
 .app-gotohome-description
 {
     width: 225px;
@@ -1740,7 +1755,12 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	transition: 0.3s;
 	background-color: #fff;
 }
-
+.app-detail-end
+{
+    height: 1px;
+    background: #fff;
+    width: 100%;
+}
 .splash, .splash-background
 {
 	background: #8f1f1f;    
