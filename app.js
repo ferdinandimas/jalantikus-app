@@ -40,7 +40,7 @@ require.config({
     },
 
     // Disable script caching on development mode
-    urlArgs: "version=" + (_config.environment == "dev" ? (new Date()).getTime() : "161025.1")
+    urlArgs: "version=" + (_config.environment == "dev" ? (new Date()).getTime() : "161028")
 });
 
 require(
