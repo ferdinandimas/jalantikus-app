@@ -48,6 +48,10 @@ define(
                     }
                 });
 
+                if (window.sessionStorage.getItem(Backbone.history.getFragment()) == null) {
+                    window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-detail-container").scrollTop());
+                }
+
                 this.model = new Article({
                     slug: _articleSlug
                 });
@@ -61,28 +65,37 @@ define(
                         })
                     }, 2000);
                 }
+
+                $("#app-body .app-detail-container").scroll(function () {
+                    window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-detail-container").scrollTop());
+                });
             },
             fetch     : function (options) {
                 var that = this;
 
                 if (!jt.isOffline()) {
-                    this.model.fetch({
-                        timeout: typeof options != "undefined" && typeof options.timeout != "undefined" ? options.timeout : 5000,
-                        success: function () {
-                            that.render();
-                        },
-                        error  : function () {
-                            $(".app-load").css("display", "none");
-                            $(".app-retry").css("display", "block");
+                    if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null) {
+                        that.render();
+                    }
+                    else {
+                        this.model.fetch({
+                            timeout: typeof options != "undefined" && typeof options.timeout != "undefined" ? options.timeout : 5000,
+                            success: function () {
+                                that.render();
+                            },
+                            error  : function () {
+                                $(".app-load").css("display", "none");
+                                $(".app-retry").css("display", "block");
 
-                            $(".app-retry").on("touchend click", function () {
-                                $(".app-load").css("display", "block");
-                                $(".app-retry").css("display", "none");
+                                $(".app-retry").on("touchend click", function () {
+                                    $(".app-load").css("display", "block");
+                                    $(".app-retry").css("display", "none");
 
-                                that.fetch({ timeout: 10000 });
-                            });
-                        }
-                    });
+                                    that.fetch({ timeout: 10000 });
+                                });
+                            }
+                        });
+                    }
                 }
                 else {
                     setTimeout(function () {
@@ -95,10 +108,19 @@ define(
                 var that    = this;
                 var tooltip = false;
 
-                $(".app-content-container .app-loader").remove();
+                $(".app-detail-container .app-loader").remove();
+
+                if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null) {
+                    _buff = JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()));
+                }
+                else {
+                    window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(this.model.toJSON()));
+
+                    _buff = this.model.toJSON();
+                }
 
                 $("#app-body").empty().append(this.layout({
-                    detail: this.model.toJSON()
+                    detail: _buff
                 }));
 
                 $("#app-toolbar").addClass("detail").addClass("scroll");
@@ -322,6 +344,10 @@ define(
                 })
 
                 PR.prettyPrint();
+
+                if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
+                    $(".app-detail-container").scrollTop(parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop")));
+                }
             },
             showOffline: function () {
                 $(".app-refreshed").html("Tidak ada jaringan").fadeIn();

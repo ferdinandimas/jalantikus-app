@@ -73,6 +73,8 @@ define(
                         order   : typeof this.order != "undefined" ? this.order : "",
                         category: typeof this.category != "undefined" ? this.category : "",
                         search  : typeof this.search != "undefined" ? this.search : "",
+                        page    : (window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop") != null ? window.sessionStorage.getItem(
+                            Backbone.history.getFragment() + "/scrollTop") : 1),
                     });
                 }
                 else {
@@ -93,7 +95,8 @@ define(
                     this.page = 1;
 
                     window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", this.page);
-                    window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-content-container").scrollTop());
+                    window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
+                        $(".app-content-container").scrollTop());
                 }
 
                 if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null) {
@@ -105,10 +108,12 @@ define(
                     that.render();
 
                     if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
-                        $(".app-content-container").scrollTop(parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop")));
+                        $(".app-content-container")
+                            .scrollTop(parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop")));
                     }
                 }
                 else {
+                    console.log("fetch");
                     this.collection.fetch({
                         timeout: 5000,
                         success: function () {
@@ -202,21 +207,29 @@ define(
                 var that  = this;
                 var _data = this.collection.toJSON();
 
-                if (_data.length < 1 && window.sessionStorage.getItem(Backbone.history.getFragment()) != null) {
+                console.log(_data, this.collection);
+
+                if ((_data.length < 1 && window.sessionStorage.getItem(Backbone.history.getFragment()) != null) || this.collection.length == 1) {
                     _data = JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()));
+
+                    console.log("HERE 1");
                 }
                 else {
                     if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null && this.page > 1) {
                         _buff = JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()));
 
-                        $.each(_data, function(key, val) {
+                        $.each(_data, function (key, val) {
                             _buff.push(val);
                         });
 
                         window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_buff));
+
+                        //console.log("HERE 2", JSON.stringify(_buff));
                     }
                     else {
                         window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
+
+                        //console.log("HERE 3", JSON.stringify(_data));
                     }
 
                     this.collection.reset();
@@ -249,7 +262,8 @@ define(
                             that.autoload();
                         }, 250));
 
-                        window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-content-container").scrollTop());
+                        window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
+                            $(".app-content-container").scrollTop());
                     });
 
                     $("#app-body .app-content-container").on("touchend", function () {
@@ -283,7 +297,8 @@ define(
             autoload        : function () {
                 var that = this;
 
-                if ($(".app-content-container .app-load").is(":in-viewport") && !$(".app-content-container .app-load").hasClass("loading") && !jt.isOffline()) {
+                if ($(".app-content-container .app-load").is(":in-viewport") && !$(".app-content-container .app-load")
+                        .hasClass("loading") && !jt.isOffline()) {
                     $(".app-content-container .app-load").addClass("loading");
 
                     window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", this.page + 1);
