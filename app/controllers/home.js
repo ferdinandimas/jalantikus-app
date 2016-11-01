@@ -16,8 +16,6 @@ define(
             collection      : new Timeline(),
             page            : 1,
             initialize      : function (_options) {
-                this.page = 1;
-
                 var that = this;
 
                 $("#app-toolbar")
@@ -92,7 +90,10 @@ define(
                     this.page = parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/page"));
                 }
                 else {
+                    this.page = 1;
+
                     window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", this.page);
+                    window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-content-container").scrollTop());
                 }
 
                 if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null) {
@@ -171,20 +172,24 @@ define(
                     }
 
                     if (!jt.isOffline()) {
-                        this.page = 1;
+                        window.sessionStorage.removeItem(Backbone.history.getFragment());
+                        window.sessionStorage.removeItem(Backbone.history.getFragment() + "/page");
+                        window.sessionStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
 
-                        this.collection = new Timeline({
+                        $(".app-content-container").scrollTop(0);
+
+                        that.page = 1;
+
+                        that.collection = new Timeline({
                             order   : typeof that.order != "undefined" ? that.order : "",
                             category: typeof that.category != "undefined" ? that.category : "",
                             search  : typeof that.search != "undefined" ? that.search : "",
                             page    : that.page,
                         });
 
-                        this.collection.fetch({
+                        that.collection.fetch({
                             timeout: 10000,
                             success: function () {
-                                that.page = that.page + 1;
-
                                 $("#app-body .app-content-container").empty();
 
                                 that.render();
@@ -213,6 +218,8 @@ define(
                     else {
                         window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
                     }
+
+                    this.collection.reset();
                 }
 
                 if (_data.length > 0) {
