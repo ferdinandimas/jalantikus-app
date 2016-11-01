@@ -330,7 +330,35 @@ require(
                     "-- Steve Jobs"
                 ],
                 [ "\"Stay Hungry, Stay Foolish.\"", "-- Steve Jobs" ],
+
                 [ "\"Inovasi lah yang membedakan seorang pemimpin dan seorang pengikut.\"", "-- Steve Jobs" ],
+
+                [ "\"Kamu bebas memilih. Tapi kamu tidak akan terbebas dari konsekuensi dari apa yang kamu pilih.\"", 
+                    "-- Epi Kusnara (Writer)"],
+
+                [ "\"Keluarlah dari zona nyamanmu. Maka kamu akan mengetahui arti dari sebuah kehidupan.\"", 
+                    "-- Panji Galih (Videographer)"],
+
+                [ "\"Kita tidaklah kalah dari sebuah permainan, kita hanya kehabisan waktu.\"", 
+                    "-- Em Yopik (Writer)"],  
+
+                [ "\"Key to a successful relationship is to clear your Internet browser history.\"", 
+                    "-- Malano (Content Specialist)"],
+
+                [ "\"Jika tidak ada yang membencimu, maka kamu telah melakukan hal yang salah.\"", 
+                    "-- House"],
+
+                [ "\"Hidup itu sederhana, tapi kita yang membuat hidup menjadi rumit.\"", 
+                    "-- Confucius"],
+
+                [ "\"Tidak ada kata GAGAL, Gagal adalah ketika kita berhenti berusaha.\"", 
+                    "-- Amrillah (Writer)"],
+
+                [ "\"Hasil dari Ilmu adalah TINDAKAN, bukan PENGETAHUAN.\"", 
+                    "-- Lukman Azis (Writer)"],
+
+                [ "\"Life has no CTRL+Z.\"", 
+                    "-- Anonymous"],
             ];
             var triviaidx = 0;
 
