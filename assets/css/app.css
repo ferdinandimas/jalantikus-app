@@ -371,7 +371,11 @@ div, span, a
 }
 .usermenu-bottom
 {
-	display: none;
+	padding-top: 10px!important;
+}
+.usermenu-bottom .usermenu-item.app-share
+{
+	display: none!important;
 }
 .ui-panel-inner .jalantikus-copyright
 {
@@ -1036,6 +1040,7 @@ div, span, a
 .app-panel .userpanel-body .usermenu-top
 {
 	margin-top: 10px;
+	padding-bottom: 10px;
 	border-bottom: 1px solid #eeeeee; 
 }
 .app-panel .userpanel-body .usermenu-item
