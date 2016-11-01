@@ -49,17 +49,14 @@ define(
                 if (typeof _options != "undefined" && typeof _options.type != "undefined") {
                     this.type = _options.type;
 
-                    if (_options.type == "most-read") {
-                        this.order = "14day";
+                    if (_options.type == "home1") {
+                        this.order = "7day";
                     }
-                    else if (_options.type == "android-tips") {
-                        this.order    = "14day";
+                    else if (_options.type == "home2") {
                         this.category = "tips";
                     }
-                    else if (_options.type == "games-tips") {
-                        this.order    = "14day";
-                        this.category = "tips";
-                        this.search   = "game";
+                    else if (_options.type == "home3") {
+                        this.category = "gokil";
                     }
                     else if (_options.type == "search") {
                         this.search = _options.search;
@@ -91,45 +88,64 @@ define(
                     }
                 });
 
-                this.collection.fetch({
-                    timeout: 5000,
-                    success: function () {
-                        that.page = that.page + 1;
+                if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/page") != null) {
+                    this.page = parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/page"));
+                }
+                else {
+                    window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", this.page);
+                }
 
-                        $(".header-refresh").show();
-                        $("#app-body .app-content-container").empty();
+                if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null) {
+                    window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", this.page);
 
-                        that.render();
-                    },
-                    error  : function () {
-                        $("#app-body .app-content-container").empty().append(
-                            '<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
-                        );
-                        $(".header-refresh").hide();
+                    $(".header-refresh").show();
+                    $("#app-body .app-content-container").empty();
 
-                        $(".app-load").css("display", "none");
-                        $(".app-retry").css("display", "block");
+                    that.render();
 
-                        $(".app-retry").on("click touchend", function () {
-                            $(".app-load").css("display", "block");
-                            $(".app-retry").css("display", "none");
-                            that.autoload();
-                        });
-
-                        if ($(".splash").length >= 1) {
-                            $(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
-                            setTimeout(function () {
-                                $(".splash .app-refreshed").fadeOut();
-                            }, 2000);
-
-                            $(".splash-content .app-loader").fadeIn();
-
-                            $(".splash-quote").remove();
-                            $(".splash-speaker").remove();
-                            $(".splash-loading").hide();
-                        }
+                    if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
+                        $(".app-content-container").scrollTop(parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop")));
                     }
-                });
+                }
+                else {
+                    this.collection.fetch({
+                        timeout: 5000,
+                        success: function () {
+                            $(".header-refresh").show();
+                            $("#app-body .app-content-container").empty();
+
+                            that.render();
+                        },
+                        error  : function () {
+                            $("#app-body .app-content-container").empty().append(
+                                '<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
+                            );
+                            $(".header-refresh").hide();
+
+                            $(".app-load").css("display", "none");
+                            $(".app-retry").css("display", "block");
+
+                            $(".app-retry").on("click touchend", function () {
+                                $(".app-load").css("display", "block");
+                                $(".app-retry").css("display", "none");
+                                that.autoload();
+                            });
+
+                            if ($(".splash").length >= 1) {
+                                $(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
+                                setTimeout(function () {
+                                    $(".splash .app-refreshed").fadeOut();
+                                }, 2000);
+
+                                $(".splash-content .app-loader").fadeIn();
+
+                                $(".splash-quote").remove();
+                                $(".splash-speaker").remove();
+                                $(".splash-loading").hide();
+                            }
+                        }
+                    });
+                }
 
                 $(".header-refresh").on("click", function () {
                     if (!jt.isOffline()) {
@@ -181,6 +197,24 @@ define(
                 var that  = this;
                 var _data = this.collection.toJSON();
 
+                if (_data.length < 1 && window.sessionStorage.getItem(Backbone.history.getFragment()) != null) {
+                    _data = JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()));
+                }
+                else {
+                    if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null && this.page > 1) {
+                        _buff = JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()));
+
+                        $.each(_data, function(key, val) {
+                            _buff.push(val);
+                        });
+
+                        window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_buff));
+                    }
+                    else {
+                        window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
+                    }
+                }
+
                 if (_data.length > 0) {
                     if (this.type == "search") {
                         $("#app-body .app-content-container").empty().append(
@@ -207,6 +241,8 @@ define(
                         $.data(this, 'scrollTimer', setTimeout(function () {
                             that.autoload();
                         }, 250));
+
+                        window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-content-container").scrollTop());
                     });
 
                     $("#app-body .app-content-container").on("touchend", function () {
@@ -243,11 +279,13 @@ define(
                 if ($(".app-content-container .app-load").is(":in-viewport") && !$(".app-content-container .app-load").hasClass("loading") && !jt.isOffline()) {
                     $(".app-content-container .app-load").addClass("loading");
 
+                    window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", this.page + 1);
+
                     this.collection = new Timeline({
                         order   : typeof this.order != "undefined" ? this.order : "",
                         category: typeof this.category != "undefined" ? this.category : "",
                         search  : typeof this.search != "undefined" ? this.search : "",
-                        page    : this.page,
+                        page    : this.page + 1,
                     });
 
                     this.collection.fetch({
