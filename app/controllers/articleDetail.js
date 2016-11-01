@@ -218,6 +218,9 @@ define(
                     }
                 }, 2000);
 
+                $("#iframe-jalantikus").on("load", function(){
+                    $(".app-scroll-button").show();
+                })
                 /*
                  Preaload Banner Image
                  */

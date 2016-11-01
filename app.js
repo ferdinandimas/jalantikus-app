@@ -218,10 +218,10 @@ require(
                     _direction = $(this).data("direction");
                     $(this).addClass("active")
                     if (_direction == "up") {
-                        _velocity = -360;
+                        _velocity = -260;
                     }
                     else if (_direction == "down") {
-                        _velocity = 360;
+                        _velocity = 260;
                     }
                     _pos = $(".app-detail-container").scrollTop() + _velocity;
                     $(".app-detail-container").animate({
