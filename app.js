@@ -167,14 +167,14 @@ require(
                     if (parseInt($("#app-userpanel").css("left")) > -280) {
                         $("#app-userpanel").animate({
                             left: 0
-                        }, 300, function () {
+                        }, 100, function () {
                             $("#app-userpanel").panel("open");
                         });
                     }
                     else {
                         $("#app-userpanel").animate({
                             left: -290
-                        }, 300, function () {
+                        }, 100, function () {
                             $("#app-userpanel").removeClass("ui-panel-open").addClass("ui-panel-closed");
                             $("#app-userpanel").panel("close");
                             $("#app-userpanel").css("left", 0);
@@ -210,32 +210,34 @@ require(
                 }
             })
 
-            var _scrolling = false, _direction, _pos, _velocity = 0;
+            var _scrolling = false, _direction, _pos, _velocity = 0, _scrollInterval;
             $(document).on("touchstart", ".scroll-button", function (e) {
                 e.preventDefault();
                 if (!_scrolling) {
                     _scrolling = true
                     _direction = $(this).data("direction");
                     $(this).addClass("active")
-                    if (_velocity != 0) {
-                        _velocity = 0;
+                    if (_direction == "up") {
+                        _velocity = -360;
                     }
-                    var _scrollInterval = setInterval(function () {
+                    else if (_direction == "down") {
+                        _velocity = 360;
+                    }
+                    _pos = $(".app-detail-container").scrollTop() + _velocity;
+                    $(".app-detail-container").animate({
+                        "scrollTop": _pos}
+                    ,300);
+                    _scrollInterval = setInterval(function () {
                         _pos = $(".app-detail-container").scrollTop() + _velocity;
                         if (_scrolling == true) {
-                            $(".app-detail-container").scrollTop(_pos);
+                            $(".app-detail-container").animate({
+                                "scrollTop": _pos}
+                                ,300);
                         }
                         else {
                             clearInterval(_scrollInterval);
                         }
-
-                        if (_direction == "up" && _velocity > -2) {
-                            _velocity -= 0.2;
-                        }
-                        else if (_direction == "down" && _velocity < 2) {
-                            _velocity += 0.2;
-                        }
-                    }, 20)
+                    }, 750)
                 }
             })
 
@@ -243,6 +245,7 @@ require(
                 _scrolling = false;
                 $(".scroll-button").removeClass("active")
                 _velocity = 0;
+                clearInterval(_scrollInterval);
             })
 
             $(document).on("click", ".app-header .app-toggle-userpanel", function (e) {

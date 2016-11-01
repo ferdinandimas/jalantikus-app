@@ -137,6 +137,10 @@ div, span, a
 {
 	padding: 15px;
 }
+.app-index-card.multi-image .card-description .card-note 
+{
+	max-width: calc(100% - 30px);
+}
 .app-index-card .card-description .card-title
 {
 	color: #454545;
@@ -265,11 +269,15 @@ div, span, a
 {
 	padding: 10px 10px 30px 10px;
 }
-.app-index-card .card-description .card-note
-{
-	position: absolute;
-	bottom: 15px;
-	left: 15px;
+.app-index-card .card-description .card-note {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    max-width: calc(100% - 140px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #bcbcbc;
 }
 .app-index-card .card-description .card-author, .app-index-card .card-description .card-published
 {
