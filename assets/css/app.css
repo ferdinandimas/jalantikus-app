@@ -289,6 +289,7 @@ div, span, a
 {
 	bottom: 5px;
 	left: 10px;
+	max-width: calc(100% - 20px);
 }
 .app-article-more .app-index-card .card-description .card-category
 {
@@ -1098,13 +1099,13 @@ div, span, a
 }
 .usermenu-item .usermenu-item-detail.hack:after
 {
-	-webkit-mask-image: url(../images/hack-icon.svg);
-	mask-image: url(../images/hack-icon.svg);
+	-webkit-mask-image: url(../images/highlight-icon.svg);
+	mask-image: url(../images/highlight-icon.svg);
 }
 .usermenu-item .usermenu-item-detail.game:after
 {
-	-webkit-mask-image: url(../images/game-icon.svg);
-	mask-image: url(../images/game-icon.svg);
+	-webkit-mask-image: url(../images/stars-icon.svg);
+	mask-image: url(../images/stars-icon.svg);
 }
 .usermenu-item .usermenu-item-detail.share:after
 {
