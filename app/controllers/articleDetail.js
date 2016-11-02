@@ -198,7 +198,7 @@ define(
                     regExp = /(https?\:\/\/app\.jalantikus\.com\/(gadgets|tips|news|gokil)\/(.*?)(\/|$|\?)|\#)/gim;
                     value  = $(val).attr("href");
 
-                    if (!value.match(regExp)) {
+                    if (!value.match(regExp) && !$(this).hasClass("share") && !$(this).hasClass("scroll-button")) {
                         $(this).attr("href", "#browser/" + encodeURIComponent(value));
                     }
                 });
