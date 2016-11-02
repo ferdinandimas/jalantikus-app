@@ -95,7 +95,7 @@ require(
             $(document).on("click", ".usermenu-item", function (e) {
                 if (!jt.isOffline()) {
                     var _currUI = $(this);
-                    if (!_currUI.hasClass("active")) {
+                    if (!_currUI.hasClass("active") && !_currUI.hasClass("app-rate") && !_currUI.hasClass("app-share")) {
                         $('.usermenu-item').not(_currUI).removeClass("active");
                         _currUI.addClass("active");
 
@@ -196,6 +196,63 @@ require(
                     showOffline();
                 }
             });
+
+            var _displayRate = [
+                "Dari lubuk hati kami yang terdalam, kami minta maaf :'(",
+                "Mohon maaf atas ketidaknyamanannya, akan segera kami perbaiki :)",
+                "Berikan kami kesempatan lagi untuk membuat aplikasi ini lebih baik.",
+                "Terima kasih, segala kritik dan saran akan sangat membantu :)",
+                "Terima Kasih, Kami akan terus berusaha membuatnya lebih baik :)"
+            ]
+            $(document).on("click", ".rate-star", function(){
+                var rate = $(this).data("rate");
+                switch(rate)
+                {
+                    case 1:
+                        $(".app-rating-subtitle").html(_displayRate[0]);
+                        break;
+                    case 2:
+                        $(".app-rating-subtitle").html(_displayRate[1]);
+                        break;
+                    case 3:
+                        $(".app-rating-subtitle").html(_displayRate[2]);
+                        break;
+                    case 4:
+                        $(".app-rating-subtitle").html(_displayRate[3]);
+                        break;
+                    case 5:
+                        $(".app-rating-subtitle").html(_displayRate[4]);
+                        break;
+                    default:
+                        console.log("ERROR");
+                }
+                stars(rate);
+            });
+
+            function stars(e)
+            {
+                $(".rate-star").removeClass("active");
+                for(var q = 1; q <= e; q++)
+                {
+                    $(".rate-"+q).addClass("active");
+                }
+            }
+            $(document).on("click", ".app-rate", function(e)
+            {
+                e.preventDefault();
+                $(".app-rating").fadeIn();
+                $("#app-userpanel").panel("close");
+            })
+            $(document).on("click", ".app-rating-overlay", function()
+            {
+                $(".app-rating").fadeOut();
+            })
+            $(document).on("click", ".app-rating-submit", function(){
+                setTimeout(function () {
+                    $(".app-rating").fadeOut();
+                    window.open("https://play.google.com/store/apps/details?id=com.jalantikus.app", "_blank");
+                }, 500);
+            })
 
             $(document).on("click", ".usermenu-top .usermenu-item", function (e) {
                 if (!jt.isOffline()) {
