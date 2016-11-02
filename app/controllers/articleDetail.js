@@ -195,7 +195,7 @@ define(
                 });
 
                 $("#app-body .app-detail-container a").each(function (key, val) {
-                    regExp = /https?\:\/\/app\.jalantikus\.com\/(gadgets|tips|news|gokil)\/(.*?)(\/|$|\?)/gim;
+                    regExp = /(https?\:\/\/app\.jalantikus\.com\/(gadgets|tips|news|gokil)\/(.*?)(\/|$|\?)|\#)/gim;
                     value  = $(val).attr("href");
 
                     if (!value.match(regExp)) {
