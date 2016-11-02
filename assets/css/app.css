@@ -359,7 +359,7 @@ div, span, a
 {
 	display: none;
 }
-.card-link
+.card-link, .rating-link
 {
 	position: absolute;
 	top: 0;
@@ -417,6 +417,16 @@ div, span, a
 	opacity: 0;
 	-webkit-transform: scale(1);
 	transform: scale(1);
+}
+.rating-link.fadedin .ripple
+{
+	-webkit-transition: opacity 600ms linear, -webkit-transform 600ms linear;
+    transition: opacity 600ms linear, transform 600ms linear;
+}
+.rating-link.fadedin.fadedout .ripple
+{
+	-webkit-transition: opacity 200ms linear, -webkit-transform 200ms linear;
+    transition: opacity 200ms linear, transform 200ms linear;
 }
 .app-loader
 {

@@ -8,12 +8,29 @@ var jt = function () {
                 console.log(_text);
             }
         },
-        ripple   : function (t, e) {
+        ripple   : function (t, e, sp) {
             e.preventDefault();
+            var _speed = [300, 100];
             var _currItem = t;
             var _href     = t.attr("href");
             var _ripple   = $(_currItem.children()[ 0 ]);
             var rX        = e.offsetX - 225, rY = e.offsetY - 225;
+            if(typeof sp != "undefined")
+            {
+                switch(sp){
+                    case "slow":
+                        _speed[0] = 600;
+                        _speed[1] = 200;
+                        console.log('true');
+                        break;
+                    default:
+                        _speed[0] = 300;
+                        _speed[1] = 100;
+                        break;
+                }
+            }
+            console.log(sp)
+            console.log(_speed)
             if (!_currItem.hasClass("fadedin") && !_currItem.hasClass("fadedout")) {
                 _ripple.css('top', rY);
                 _ripple.css('left', rX);
@@ -29,8 +46,8 @@ var jt = function () {
                         window.stop();
                         window.location.href = _config.baseURL + _href;
 
-                    }, 100)
-                }, 300)
+                    }, _speed[1])
+                }, _speed[0])
             }
         },
         isOffline: function () {

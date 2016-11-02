@@ -247,12 +247,21 @@ require(
             {
                 $(".app-rating").fadeOut();
             })
-            $(document).on("click", ".app-rating-submit", function(){
+
+            $(document).on("click", ".app-rating-submit .rating-link", function (e) {
                 setTimeout(function () {
-                    $(".app-rating").fadeOut();
+                    $(".app-rating").fadeOut(300);
                     window.open("https://play.google.com/store/apps/details?id=com.jalantikus.app", "_blank");
                 }, 500);
-            })
+
+                if (!jt.isOffline()) {
+                    jt.ripple($(this), e, "slow")
+                }
+                else {
+                    e.preventDefault();
+                    showOffline();
+                }
+            });
 
             $(document).on("click", ".usermenu-top .usermenu-item", function (e) {
                 if (!jt.isOffline()) {
