@@ -116,7 +116,7 @@ define(
 
                     $(".header-refresh").show();
 
-                    that.render();
+                    that.render(true);
 
                     if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
                         $(".app-content-container")
@@ -189,6 +189,7 @@ define(
                         window.sessionStorage.removeItem(Backbone.history.getFragment());
                         window.sessionStorage.removeItem(Backbone.history.getFragment() + "/page");
                         window.sessionStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
+                        window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
 
                         $(".app-content-container").scrollTop(0);
 
@@ -212,23 +213,24 @@ define(
                     }
                 });
             },
-            render          : function () {
+            render          : function (_isUsingCache) {
                 var that  = this;
                 var _data = this.collection.toJSON();
 
-                console.log(this.collection, _data, _data.length);
-
-                if (this.collection.length == 1) {
+                if (_isUsingCache && window.sessionStorage.getItem(Backbone.history.getFragment()) != null) {
                     _data = JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()));
                 }
-                else if (_data.length < 1) {
+                else if (_data.length == 0) {
                     that.page = that.page - 1;
+
+                    console.log("HERE 1");
 
                     window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
                     window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
                 }
                 else {
                     if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null && this.page > 1) {
+
                         _buff = JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()));
 
                         $.each(_data, function (key, val) {
@@ -236,12 +238,13 @@ define(
                         });
 
                         window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_buff));
+                        console.log("HERE 3");
                     }
                     else {
+
+                        console.log("HERE 2", _data);
                         window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
                     }
-
-                    this.collection.reset();
                 }
 
                 if (_data.length > 0) {
@@ -286,6 +289,8 @@ define(
                         })
                     }, 2000);
                 }
+
+                this.collection.reset();
             },
             autoload        : function () {
                 var that = this;

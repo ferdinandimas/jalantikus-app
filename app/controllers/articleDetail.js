@@ -267,8 +267,8 @@ define(
                         $("#iframe-jalantikus").prop("src", $("#iframe-jalantikus").data("src"));
                     }
                 }, 2000);
-                    
-                $("#iframe-jalantikus").on("load", function(){
+
+                $("#iframe-jalantikus").on("load", function () {
                     $(".app-scroll-button").fadeIn();
                 })
 

@@ -16,15 +16,15 @@
         </div>
     </div>
     <ul class="share-container">
-        <li class="wa-share shadow-l1"><a class="share" href="whatsapp://send?text=<%= detail.links.detail %>?utm_source=JT%20Apps&utm_medium=Whatsapp&utm_campaign=Apps"></a></li><li class="bbm-share shadow-l1"><a class="share" href="bbmi://api/share?message=<%= detail.links.detail %>?utm_source=JT%20Apps&utm_medium=BBM&utm_campaign=Apps&userCustomMessage=<%= detail.title %>"></a></li><li class="line-share shadow-l1"><a class="share" href="line://msg/text/<%= detail.links.detail %>?utm_source=JT%20Apps&utm_medium=Line&utm_campaign=Apps"></a></li><li class="fb-share shadow-l1"><a class="share" href="https://www.facebook.com/sharer/sharer.php?u=<%= detail.links.detail %>?utm_source=JT%20Apps&utm_medium=Facebook&utm_campaign=Apps"></a></li><li class="link-share shadow-l1"><a class="share" href="#"></a></li>
+        <li class="wa-share shadow-l1"><a class="share" href="whatsapp://send?text=<%= detail.links.detail %>"></a></li><li class="bbm-share shadow-l1"><a class="share" href="bbmi://api/share?message=<%= detail.links.detail %>&userCustomMessage=<%= detail.title %>"></a></li><li class="line-share shadow-l1"><a class="share" href="line://msg/text/<%= detail.links.detail %>"></a></li><li class="fb-share shadow-l1"><a class="share" href="https://www.facebook.com/sharer/sharer.php?u=<%= detail.links.detail %>"></a></li><li class="link-share shadow-l1"><a class="share" href="#"></a></li>
     </ul>
     <div class="app-detail-body">
         <%= detail.description %>
     </div>
 
-    <input type="text" id="share-link" readonly value="<%= detail.links.detail %>?utm_source=JT%20Apps&utm_medium=Share&utm_campaign=Apps" />
+    <input type="text" id="share-link" readonly value="<%= detail.links.detail %>" />
 
-    <a class="app-gotoweb" href="<%= detail.links.detail %>?utm_source=JT%20Apps&utm_medium=Baca_Web&utm_campaign=Apps">
+    <a class="app-gotoweb" href="<%= detail.links.detail %>">
         <div class="app-gotoweb-description">
             BACA DI WEB
         </div>
@@ -68,4 +68,4 @@
     </div>
 </div>
 
-<iframe id="iframe-jalantikus" data-src="<%= detail.links.detail %>?utm_source=JT%20Apps&utm_medium=Android&utm_campaign=Apps" width="1" height="1" frameborder="0" style="display: none !important; width: 0px !important; height: 0px !important;;"></iframe>
+<iframe id="iframe-jalantikus" data-src="<%= detail.links.detail %>?utm_source=JT%20Apps&utm_medium=Android&utm_campaign=Apps" width="1" height="1" frameborder="0" style="display: none !important; width: 100% !important; height: 0px !important;;"></iframe>
