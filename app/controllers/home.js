@@ -113,7 +113,6 @@ define(
                     }
                 }
                 else {
-                    console.log("fetch");
                     this.collection.fetch({
                         timeout: 5000,
                         success: function () {
@@ -207,12 +206,8 @@ define(
                 var that  = this;
                 var _data = this.collection.toJSON();
 
-                console.log(_data, this.collection);
-
                 if ((_data.length < 1 && window.sessionStorage.getItem(Backbone.history.getFragment()) != null) || this.collection.length == 1) {
                     _data = JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()));
-
-                    console.log("HERE 1");
                 }
                 else {
                     if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null && this.page > 1) {
@@ -223,13 +218,9 @@ define(
                         });
 
                         window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_buff));
-
-                        //console.log("HERE 2", JSON.stringify(_buff));
                     }
                     else {
                         window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
-
-                        //console.log("HERE 3", JSON.stringify(_data));
                     }
 
                     this.collection.reset();
