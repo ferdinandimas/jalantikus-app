@@ -269,8 +269,7 @@ require(
 
             var _scrolling = false, _direction, _pos, _velocity = 0, _scrollInterval;
             $(document).on("touchstart", ".scroll-button", function (e) {
-                e.preventDefault();
-                if (!_scrolling) {
+                if (!_scrolling && !$(".app-detail-container").is(':animated')) {
                     _scrolling = true
                     _direction = $(this).data("direction");
                     $(this).addClass("active")
