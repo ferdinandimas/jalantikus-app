@@ -23,12 +23,12 @@
     </div>
 
     <input type="text" id="share-link" readonly value="<%= detail.links.detail %>" />
-
-    <a class="app-gotoweb" href="<%= detail.links.detail %>">
-        <div class="app-gotoweb-description">
-            BACA DI WEB
-        </div>
-    </a>
+    <div class="app-gotoweb-description">
+        BACA DI WEB
+        <a class="app-gotoweb app-goto" href="<%= detail.links.detail %>">
+            <div class="ripple"></div>
+        </a>
+    </div>
     <% if (detail.related.article.length > 0) { %>
         <div class="more-title shadow-l1">
             KAMU PASTI SUKA
@@ -54,11 +54,13 @@
                 </div><% }) %>
         </div>
     <% } %>
-    <a class="app-gotohome" href="#">
-        <div class="app-gotohome-description">
-            KEMBALI KE BERANDA
-        </div>
-    </a>
+    <div class="app-gotohome-description">
+        KEMBALI KE BERANDA
+        <a class="app-gotohome app-goto" href="#">
+            <div class="ripple"></div>
+        </a>
+    </div>
+    
     <div class="app-detail-end"></div>
     <div class="app-scroll-button">
         <a href="javascript:void(0)" class="scroll-button scroll-up" data-direction="up">

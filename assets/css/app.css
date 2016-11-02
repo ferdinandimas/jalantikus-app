@@ -359,7 +359,7 @@ div, span, a
 {
 	display: none;
 }
-.card-link, .rating-link
+.card-link, .rating-link, .app-gotohome, .app-gotoweb
 {
 	position: absolute;
 	top: 0;
@@ -1751,6 +1751,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     position: relative;
     -webkit-transition: 0.3s;
 	transition: 0.3s;
+	overflow: hidden;
 }
 .app-gotoweb-description:after
 {
@@ -1767,13 +1768,6 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 }
 
 /*Kembali ke home*/
-.app-gotohome
-{
-	width: 225px;
-	height: 40px;
-    margin: auto;
-	padding-bottom: 30px;
-}
 .app-gotohome-description
 {
     width: 225px;
@@ -1794,6 +1788,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     position: relative;
     -webkit-transition: 0.3s;
 	transition: 0.3s;
+	overflow: hidden;
 }
 .app-gotohome-description:after
 {
