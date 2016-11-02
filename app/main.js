@@ -9,6 +9,7 @@ define(
                 'index/:id'  : 'index',
                 'search/:id' : 'search',
                 'article/:id': 'articleDetail',
+                'browser/:id': 'browser',
             },
 
             initialize: function () {
@@ -49,6 +50,16 @@ define(
                     [ 'controllers/articleDetail' ],
                     function (ArticleDetail) {
                         new ArticleDetail(_articleSlug);
+                    }
+                );
+            },
+
+            browser: function (_url) {
+                console.log("HERE 1");
+                require(
+                    [ 'controllers/browser' ],
+                    function (browserView) {
+                        new browserView(_url);
                     }
                 );
             },

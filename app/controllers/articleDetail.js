@@ -132,8 +132,6 @@ define(
                     if (value.match(regExp)) {
                         var matches = regExp.exec(value);
 
-                        console.log(matches);
-
                         _images      = matches[ 1 ] + $(".app-detail-body").width() + "/0" + matches[ 5 ];
                         _placeholder = matches[ 1 ] + Math.ceil($(".app-detail-body")
                                     .width() / 100) + "/0" + matches[ 5 ];
@@ -141,6 +139,12 @@ define(
                         $(val).data("src", _images);
                         $(val).prop("src", _placeholder);
                     }
+                });
+
+                $(".app-gotoweb").on("click", function (e) {
+                    e.preventDefault();
+
+                    window.location = "#browser/" + encodeURIComponent($("#iframe-jalantikus").data("detail"));
                 });
 
                 $(".app-detail-body img").each(function (key, val) {
@@ -190,6 +194,15 @@ define(
                     }
                 });
 
+                $("#app-body .app-detail-container a").each(function (key, val) {
+                    regExp = /https?\:\/\/app\.jalantikus\.com\/(gadgets|tips|news|gokil)\/(.*?)(\/|$|\?)/gim;
+                    value  = $(val).attr("href");
+
+                    if (!value.match(regExp)) {
+                        $(this).attr("href", "#browser/" + encodeURIComponent(value));
+                    }
+                });
+
                 $("a").each(function (key, val) {
                     regExp = /https?\:\/\/app\.jalantikus\.com\/(gadgets|tips|news|gokil)\/(.*?)(\/|$|\?)/gim;
                     value  = $(val).attr("href");
@@ -229,37 +242,39 @@ define(
                     regExp      = /https?:\/\/(app\.)?jalantikus\.com\/(apps|games)\/(.*?)(\/|$)/gi;
                     var matches = regExp.exec(_appDetail);
 
-                    _appSlug = matches[ 3 ];
+                    if (matches != null) {
+                        _appSlug = matches[ 3 ];
 
-                    _appDetail = new App({
-                        slug: _appSlug
-                    });
+                        _appDetail = new App({
+                            slug: _appSlug
+                        });
 
-                    _appDetail.fetch({
-                        timeout: 5000,
-                        success: function () {
-                            _appDetail = _appDetail.toJSON();
+                        _appDetail.fetch({
+                            timeout: 5000,
+                            success: function () {
+                                _appDetail = _appDetail.toJSON();
 
-                            $(_that)
-                                .find(".action-btn.download-btn")
-                                .attr("href",
-                                    _config.jtFiles + _appDetail.id + "/" + _appDetail.version.id + "/" + _appDetail.version.uri)
-                                .off();
-
-                            if (typeof _appDetail.version.external_url != "undefined" && _appDetail.version.external_url != "") {
                                 $(_that)
-                                    .find(".action-btn.googleplay-btn")
-                                    .attr("href", _appDetail.version.external_url)
+                                    .find(".action-btn.download-btn")
+                                    .attr("href",
+                                        _config.jtFiles + _appDetail.id + "/" + _appDetail.version.id + "/" + _appDetail.version.uri)
                                     .off();
+
+                                if (typeof _appDetail.version.external_url != "undefined" && _appDetail.version.external_url != "") {
+                                    $(_that)
+                                        .find(".action-btn.googleplay-btn")
+                                        .attr("href", _appDetail.version.external_url)
+                                        .off();
+                                }
+                                else {
+                                    $(_that).find(".action-btn.googleplay-btn").remove();
+                                }
+                            },
+                            error  : function () {
+                                $(_that).parent().parent().remove();
                             }
-                            else {
-                                $(_that).find(".action-btn.googleplay-btn").remove();
-                            }
-                        },
-                        error  : function () {
-                            $(_that).parent().parent().remove();
-                        }
-                    });
+                        });
+                    }
                 });
 
                 setTimeout(function () {
