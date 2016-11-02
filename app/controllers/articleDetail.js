@@ -132,8 +132,6 @@ define(
                     if (value.match(regExp)) {
                         var matches = regExp.exec(value);
 
-                        console.log(matches);
-
                         _images      = matches[ 1 ] + $(".app-detail-body").width() + "/0" + matches[ 5 ];
                         _placeholder = matches[ 1 ] + Math.ceil($(".app-detail-body")
                                     .width() / 100) + "/0" + matches[ 5 ];

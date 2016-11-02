@@ -337,6 +337,17 @@ require(
                 }
             });
 
+            $(document).on("click", ".app-goto", function (e) {
+                console.log('as')
+                if (!jt.isOffline()) {
+                    jt.ripple($(this), e)
+                }
+                else {
+                    e.preventDefault();
+                    showOffline();
+                }
+            });
+
             $(document).on("touchend click", ".app-index-card a.disabled", function (e) {
                 e.preventDefault();
             });
