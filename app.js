@@ -243,7 +243,7 @@ require(
                 $(".app-rating").fadeIn();
                 $("#app-userpanel").panel("close");
             })
-            $(document).on("click", ".app-rating-overlay", function()
+            $(document).on("click", ".rating-close", function()
             {
                 $(".app-rating").fadeOut();
             })

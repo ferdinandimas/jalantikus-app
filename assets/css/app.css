@@ -1942,8 +1942,8 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 .app-rating .app-rating-body
 {
     position: absolute;
-    width: 250px;
-    height: 190px;
+    width: 280px;
+    height: 220px;
     border-radius: 5px;
     background: #fff;
     left: 50%;
@@ -1969,9 +1969,24 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     font-size: 15px;
     font-weight: 700;
 }
+.app-rating .app-rating-close
+{
+	width: 28px;
+	height: 28px;
+	position: absolute;
+	top: -12px;
+	right: -12px;
+	background-image: url(../images/close-icon.svg);
+	background-size: 16px 16px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-color: #fff;
+	border-radius: 50%;
+}
 .app-rating .app-rating-stars
 {
-    margin-top: 10px;
+    padding-left: 15px;
+    margin-top: 15px;
 }
 .app-rating .app-rating-stars .rate-star
 {
@@ -2017,6 +2032,6 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 .app-rating .app-rating-subtitle
 {
     margin-top: 10px;
-    font-size: 11px;
+    font-size: 13px;
     line-height: 18px;
 }
