@@ -1965,8 +1965,8 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 }
 .app-rating .app-rating-stars .rate-star
 {
-    -webkit-mask-image: url(assets/images/favorite-icon.svg);
-    mask-image: url(assets/images/favorite-icon.svg);
+    -webkit-mask-image: url(../images/favorite-icon.svg);
+    mask-image: url(../images/favorite-icon.svg);
     -webkit-mask-repeat: repeat-x;
     mask-repeat: repeat-x;
     -webkit-mask-position: center center;
@@ -1990,7 +1990,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     bottom: 0;
     content: "";
     display: block;
-    background-image: url(assets/images/favorite-icon.svg);
+    background-image: url(../images/favorite-icon.svg);
     background-size: 30px 30px;
     opacity: 0; 
     transition: 0.2s;
