@@ -81,6 +81,18 @@ define(
                     $("#search-form [name='search']").val("");
                 }
 
+                if (this.type == "search") {
+                    $("#app-body .app-content-container").empty().append(
+                        '<div class="app-search">' +
+                        '<span class="app-search-result">Hasil pencarian dari: </span>' +
+                        '<span class="app-search-keyword">"' + this.search + '"</span>' +
+                        '</div>'
+                    );
+                }
+                else {
+                    $("#app-body .app-content-container").empty();
+                }
+
                 $("a.usermenu-item").removeClass("active").each(function () {
                     if ($(this).attr("href") == "#" + Backbone.history.getFragment()) {
                         $("#app-toolbar .header-description").html($(this).find(".usermenu-item-detail").html());
@@ -103,7 +115,6 @@ define(
                     window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", this.page);
 
                     $(".header-refresh").show();
-                    $("#app-body .app-content-container").empty();
 
                     that.render();
 
@@ -117,7 +128,6 @@ define(
                         timeout: 5000,
                         success: function () {
                             $(".header-refresh").show();
-                            $("#app-body .app-content-container").empty();
 
                             that.render();
                         },
@@ -206,8 +216,16 @@ define(
                 var that  = this;
                 var _data = this.collection.toJSON();
 
-                if ((_data.length < 1 && window.sessionStorage.getItem(Backbone.history.getFragment()) != null) || this.collection.length == 1) {
+                console.log(this.collection, _data, _data.length);
+
+                if (this.collection.length == 1) {
                     _data = JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()));
+                }
+                else if (_data.length < 1) {
+                    that.page = that.page - 1;
+
+                    window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
+                    window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
                 }
                 else {
                     if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null && this.page > 1) {
@@ -227,25 +245,14 @@ define(
                 }
 
                 if (_data.length > 0) {
-                    if (this.type == "search") {
-                        $("#app-body .app-content-container").empty().append(
-                            '<div class="app-search">' +
-                            '<span class="app-search-result">Hasil pencarian dari: </span>' +
-                            '<span class="app-search-keyword">"' + this.search + '"</span>' +
-                            '</div>'
-                        );
-                    }
-
                     $("#app-body .app-content-container")
                         .append(this.timelineTemplate({
                             timelineArticle: _data
                         }));
 
-                    if (_data.length > 5) {
-                        $("#app-body .app-content-container").append(
-                            '<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
-                        );
-                    }
+                    $("#app-body .app-content-container").append(
+                        '<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
+                    );
 
                     $("#app-body .app-content-container").scroll(function () {
                         clearTimeout($.data(this, 'scrollTimer'));
@@ -267,14 +274,9 @@ define(
                         that.autoload();
                     });
                 }
-                else {
-                    if (this.type == "search") {
-                        $("#app-body .app-content-container").empty().append(
-                            '<div class="app-search">' +
-                            '<span class="app-search-result">Tidak ditemukan artikel yang sesuai</span>' +
-                            '</div>'
-                        );
-                    }
+
+                if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/isLastPage") != null) {
+                    $(".app-content-container .app-loader").remove();
                 }
 
                 if ($(".splash").length >= 1) {
