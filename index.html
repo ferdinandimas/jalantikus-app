@@ -207,99 +207,6 @@
         </div>
     </div>
 </div>
-<style>
-    .app-rating{
-        position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        background: rgba(0,0,0,0.46);
-        z-index: 1005;
-        display: none;
-    }
-    .app-rating-body
-    {
-        position: absolute;
-        width: 250px;
-        height: 190px;
-        border-radius: 5px;
-        background: #fff;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        padding: 20px;
-        box-sizing: border-box;
-    }
-    .app-rating-title
-    {
-        font-weight: 700;
-        font-size: 16px;
-    }
-    .app-rating-submit
-    {
-        position: absolute;
-        bottom: 20px;
-        right: 20px;
-        overflow: hidden;
-        padding: 5px 30px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        font-size: 15px;
-        font-weight: 700;
-    }
-    .app-rating-stars
-    {
-        margin-top: 10px;
-    }
-    .app-rating-stars .rate-star
-    {
-        -webkit-mask-image: url(assets/images/favorite-icon.svg);
-        mask-image: url(assets/images/favorite-icon.svg);
-        -webkit-mask-repeat: repeat-x;
-        mask-repeat: repeat-x;
-        -webkit-mask-position: center center;
-        mask-position: center center;
-        -webkit-mask-size: 30px 30px;
-        mask-size: 30px 30px;
-        background-color: #eaeaea ;
-        width: 30px;
-        height: 30px;
-        display: inline-block;
-        margin-right: 15px;
-       
-        position: relative;
-    }
-    .rate-star:after
-    {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        content: "";
-        display: block;
-        background-image: url(assets/images/favorite-icon.svg);
-        background-size: 30px 30px;
-        opacity: 0; 
-        transition: 0.2s;
-        -webkit-transition: 0.2s;
-    }
-    .rate-star.active:after
-    {
-        opacity: 1;
-    }
-    .app-rating-stars .rate-star:last-child
-    {
-        margin-right: 0;
-    }
-    .app-rating-subtitle
-    {
-        margin-top: 10px;
-        font-size: 11px;
-        line-height: 18px;
-    }
-</style>
 <div class="app-rating">
     <div class="app-rating-overlay">
     </div>
@@ -308,13 +215,13 @@
             Beri Kami Nilai
         </div>
         <div class="app-rating-stars">
-            <a href="#" class="rate-star rate-1"></a><a href="#" class="rate-star rate-2"> </a><a href="#" class="rate-star rate-3"></a><a href="#" class="rate-star rate-4"></a><a href="#" class="rate-star rate-5"></a>
+            <a href="javascript:void(0)" class="rate-star rate-1 active" data-rate="1"></a><a href="javascript:void(0)" class="rate-star rate-2 active" data-rate="2"></a><a href="javascript:void(0)" class="rate-star rate-3 active" data-rate="3"></a><a href="javascript:void(0)" class="rate-star rate-4" data-rate="4"></a><a href="javascript:void(0)" class="rate-star rate-5" data-rate="5"></a>
         </div>
         <div class="app-rating-subtitle">
-            Dari lubuk hati kami yang terdalam, kami minta maaf :'(
+            Berikan kami kesempatan lagi untuk membuat aplikasi ini lebih baik.
         </div>
         <div class="app-rating-submit">
-            <a href="#" class="card-link">
+            <a href="javascript:void(0)" class="card-link">
                 <div class="ripple"></div>
             </a>
             Kirim

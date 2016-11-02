@@ -267,12 +267,11 @@ define(
                         $("#iframe-jalantikus").prop("src", $("#iframe-jalantikus").data("src"));
                     }
                 }, 2000);
+                    
+                $("#iframe-jalantikus").on("load", function(){
+                    $(".app-scroll-button").fadeIn();
+                })
 
-                $(".app-scroll-button").fadeIn();
-
-                // $("#iframe-jalantikus").on("load", function(){
-                //     $(".app-scroll-button").fadeIn();
-                // })
                 /*
                  Preaload Banner Image
                  */
