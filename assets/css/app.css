@@ -1926,9 +1926,9 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     position: absolute;
     width: 100%;
     content: "";
-    height: 4px;
+    height: 3px;
     bottom: 0;
-    background-color: #afcff1;
+    background-color: #bcbcbc;
     opacity: 1;
     transition: 0.4s;
 }
@@ -1937,10 +1937,10 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     position: absolute;
     width: 15%;
     content: "";
-    height: 4px;
+    height: 3px;
     left: -35%;
     bottom: 0;
-    background-color: #4c89e2;
+    background-color: #fff;
     animation: loadbar 2s infinite linear;
     transition: 0.4s;
     opacity: 1;
