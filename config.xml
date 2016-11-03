@@ -47,7 +47,7 @@
     <preference name="ShowSplashScreenSpinner" value="false"/>
     <preference name="SplashMaintainAspectRatio" value="true" />
 
-    <preference name="SplashScreenDelay" value="1500"/>
+    <preference name="SplashScreenDelay" value="1000"/>
     <preference name="FadeSplashScreenDuration" value="500"/>
 
     <preference name="SplashScreenBackgroundColor" value="#8f1f1f"/>

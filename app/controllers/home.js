@@ -89,9 +89,6 @@ define(
                         '</div>'
                     );
                 }
-                else {
-                    $("#app-body .app-content-container").empty();
-                }
 
                 $("a.usermenu-item").removeClass("active").each(function () {
                     if ($(this).attr("href") == "#" + Backbone.history.getFragment()) {
@@ -116,6 +113,10 @@ define(
 
                     $(".header-refresh").show();
 
+                    if (that.type != "search") {
+                        $("#app-body .app-content-container").empty();
+                    }
+
                     that.render(true);
 
                     if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
@@ -128,6 +129,10 @@ define(
                         timeout: 5000,
                         success: function () {
                             $(".header-refresh").show();
+
+                            if (that.type != "search") {
+                                $("#app-body .app-content-container").empty();
+                            }
 
                             that.render();
                         },
