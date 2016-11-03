@@ -681,6 +681,13 @@ div, span, a
     z-index: 11;
     position: relative;
 }
+.app-detail-body ~ .share-container
+{
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 15px;
+    z-index: 9;
+}
 .share-container li, .share-container li a
 {
 	width: 50px;
@@ -1345,6 +1352,10 @@ code
 .action-container .action-btn.boldRed:hover, .action-container .action-btn.boldRed:active
 {
 	background-color: #8A0707;
+}
+.aptoide-btn
+{
+	display: none!important;
 }
 .app-detail-body .addon-apps .addon-discover, .app-detail-body .addon-gadgets .addon-discover
 {

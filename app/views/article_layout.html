@@ -21,7 +21,9 @@
     <div class="app-detail-body">
         <%= detail.description %>
     </div>
-
+    <ul class="share-container">
+        <li class="wa-share shadow-l1"><a class="share" href="whatsapp://send?text=<%= detail.links.detail %>"></a></li><li class="bbm-share shadow-l1"><a class="share" href="bbmi://api/share?message=<%= detail.links.detail %>&userCustomMessage=<%= detail.title %>"></a></li><li class="line-share shadow-l1"><a class="share" href="line://msg/text/<%= detail.links.detail %>"></a></li><li class="fb-share shadow-l1"><a class="share" href="https://www.facebook.com/sharer/sharer.php?u=<%= detail.links.detail %>"></a></li><li class="link-share shadow-l1"><a class="share" href="#"></a></li>
+    </ul>
     <input type="text" id="share-link" readonly value="<%= detail.links.detail %>" />
     <div class="app-gotoweb-description">
         BACA DI WEB
