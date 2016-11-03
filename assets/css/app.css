@@ -1919,6 +1919,44 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     	box-shadow: 2px 2px 0 rgba(255,255,255,0.6), 6px 2px 0 rgba(255,255,255,0.6), 10px 2px 0 rgba(255,255,255,0.6);
 	}
 }
+
+/*In app browser loading*/
+.app-header.browser:before
+{
+    position: absolute;
+    width: 100%;
+    content: "";
+    height: 2px;
+    bottom: 0;
+    background-color: #afcff1;
+    opacity: 1;
+    transition: 0.4s;
+}
+.app-header.browser:after
+{
+    position: absolute;
+    width: 15%;
+    content: "";
+    height: 2px;
+    left: -35%;
+    bottom: 0;
+    background-color: #4c89e2;
+    animation: loadbar 2s infinite linear;
+    transition: 0.4s;
+    opacity: 1;
+}
+.app-header.browser.fadedout:after, .app-header.browser.fadedout:before
+{
+    opacity: 0;
+}
+@keyframes loadbar
+{
+    0%{left: -55%}
+    55%{width:75%;left: 25%}
+    80%{width:65%;left: 80%}
+    100%{left: 100%}
+}
+
 .app-rating{
     position: fixed;
     top: 0;

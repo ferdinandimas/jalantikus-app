@@ -28,7 +28,11 @@ define(
                 }));
 
                 $("#iframe").on("load", function() {
-                    //$("#app-toolbar .header-description").html("Browser");
+                    $(".app-header").addClass("fadedout");
+
+                    setTimeout(function(){
+                        $(".app-header").removeClass("browser").removeClass("fadedout");
+                    }, 400)
                 });
 
                 if ($(".splash").length >= 1) {
