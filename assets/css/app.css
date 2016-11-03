@@ -918,6 +918,7 @@ div, span, a
     text-shadow: 0 0 0;
     border-radius: 25px;
     font-weight: 500;
+    z-index: 15
 }
 .splash .app-refreshed
 {
