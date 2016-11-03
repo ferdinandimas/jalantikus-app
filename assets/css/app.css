@@ -1926,7 +1926,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     position: absolute;
     width: 100%;
     content: "";
-    height: 2px;
+    height: 4px;
     bottom: 0;
     background-color: #afcff1;
     opacity: 1;
@@ -1937,7 +1937,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     position: absolute;
     width: 15%;
     content: "";
-    height: 2px;
+    height: 4px;
     left: -35%;
     bottom: 0;
     background-color: #4c89e2;
