@@ -20,9 +20,16 @@ define(
                     .empty()
                     .append((_.template(headerLayout))());
 
+                _count = 1;
+
+
                 $("#app-body").empty().append(this.layout({
                     url: _url
                 }));
+
+                $("#iframe").on("load", function() {
+                    //$("#app-toolbar .header-description").html("Browser");
+                });
 
                 if ($(".splash").length >= 1) {
                     setTimeout(function () {

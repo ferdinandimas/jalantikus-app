@@ -141,12 +141,6 @@ define(
                     }
                 });
 
-                $(".app-gotoweb").on("click", function (e) {
-                    e.preventDefault();
-
-                    window.location = "#browser/" + encodeURIComponent($("#iframe-jalantikus").data("detail"));
-                });
-
                 $(".app-detail-body img").each(function (key, val) {
                     var img = new Image();
                     img.src = $(val).data("src");
@@ -191,15 +185,6 @@ define(
                         if ($(".scroll-down").css("display") == "none") {
                             $(".scroll-down").css("display", "block");
                         }
-                    }
-                });
-
-                $("#app-body .app-detail-container a").each(function (key, val) {
-                    regExp = /(https?\:\/\/app\.jalantikus\.com\/(gadgets|tips|news|gokil)\/(.*?)(\/|$|\?)|\#)/gim;
-                    value  = $(val).attr("href");
-
-                    if (!value.match(regExp) && !$(this).hasClass("share") && !$(this).hasClass("scroll-button")) {
-                        $(this).attr("href", "#browser/" + encodeURIComponent(value));
                     }
                 });
 
@@ -274,6 +259,15 @@ define(
                                 $(_that).parent().parent().remove();
                             }
                         });
+                    }
+                });
+
+                $("#app-body .app-detail-container a").each(function (key, val) {
+                    regExp = /(https?\:\/\/app\.jalantikus\.com\/(gadgets|tips|news|gokil)\/(.*?)(\/|$|\?)|\#)/gim;
+                    value  = $(val).attr("href");
+
+                    if (!value.match(regExp) && !$(this).hasClass("share") && !$(this).hasClass("scroll-button") && !$(this).hasClass("download-btn") && !$(this).hasClass("googleplay-btn")) {
+                        $(this).attr("href", "#browser/" + encodeURIComponent(value));
                     }
                 });
 
