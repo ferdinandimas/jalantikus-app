@@ -1104,6 +1104,8 @@ div, span, a
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
 	transform: translateZ(0);
+	-webkit-perspective: 1000;
+	-webkit-backface-visibility: hidden;
 }
 .usermenu-item.active .usermenu-item-detail:after
 {
