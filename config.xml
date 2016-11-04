@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android" id="com.jalantikus.app"
-        versionCode="1" version="1.0.1">
+        versionCode="2" version="1.0.1">
     <name>JalanTikus</name>
     <description>
         Situs Download Software dan Games Gratis, Aplikasi Android APK dan Games APK Gratis, Tips dan Trik, Berita
@@ -20,8 +20,8 @@
     <preference name="StatusBarBackgroundColor" value="#8f1f1f"/>
 
     <!-- Android only -->
-    <preference name="android-minSdkVersion" value="14"/>
-    <preference name="android-targetSdkVersion" value="14"/>
+    <preference name="android-minSdkVersion" value="19"/>
+    <preference name="android-targetSdkVersion" value="19"/>
     <preference name="android-installLocation" value="auto"/>
     <preference name="android-build-tool" value="gradle"/>
     <preference name="ShowTitle" value="false"/>
