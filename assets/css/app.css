@@ -918,6 +918,7 @@ div, span, a
     text-shadow: 0 0 0;
     border-radius: 25px;
     font-weight: 500;
+    z-index: 15
 }
 .splash .app-refreshed
 {
@@ -1066,13 +1067,13 @@ div, span, a
     position: relative;
     overflow: hidden;
     width: 290px;
-    height: 45px;
+    height: 55px;
     display: block;
 }
 .app-panel .userpanel-body .usermenu-item .usermenu-item-detail
 {
     height: 15px;
-    padding: 15px 15px 15px 50px;
+    padding: 20px 20px 20px 50px;
     font-size: 15px;
     font-weight: 500;
     line-height: 16px;
@@ -1089,12 +1090,12 @@ div, span, a
 .usermenu-item .usermenu-item-detail:after
 {
 	content: "";
-	width: 45px;
-	height: 45px;
+	width: 55px;
+	height: 55px;
 	position: absolute;
 	top: 0;
 	left: 0;
-	background-color: #767676; 
+	background-color: #767676;
 	-webkit-mask-repeat: no-repeat;
 	mask-repeat: no-repeat;
 	-webkit-mask-size: 16px 16px;
@@ -1103,7 +1104,8 @@ div, span, a
 	mask-position: center center;
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
-	transform: translateZ(0);
+	-webkit-transform: translate(0);
+	transform: translate(0);
 }
 .usermenu-item.active .usermenu-item-detail:after
 {
@@ -2003,14 +2005,14 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 }
 .app-rating .app-rating-submit
 {
-    position: absolute;
+   	position: absolute;
     bottom: 20px;
     right: 20px;
     overflow: hidden;
-    padding: 5px 30px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 15px;
+    padding: 10px 40px;
+    border: 1px solid #b7b7b7;
+    border-radius: 6px;
+    font-size: 14px;
     font-weight: 700;
 }
 .app-rating .app-rating-close

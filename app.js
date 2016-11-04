@@ -239,9 +239,10 @@ require(
             }
             $(document).on("click", ".app-rate", function(e)
             {
-                e.preventDefault();
-                $(".app-rating").fadeIn();
-                $("#app-userpanel").panel("close");
+                setTimeout(function () {
+                    $(".app-rating").fadeIn();
+                    $("#app-userpanel").panel("close");
+                }, 150);
             })
             $(document).on("click", ".rating-close", function()
             {
@@ -263,7 +264,7 @@ require(
                 }
             });
 
-            $(document).on("click", ".usermenu-top .usermenu-item", function (e) {
+            $(document).on("click", ".usermenu-item", function (e) {
                 if (!jt.isOffline()) {
                     jt.ripple($(this), e);
                     setTimeout(function () {
