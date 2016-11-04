@@ -1104,13 +1104,8 @@ div, span, a
 	mask-position: center center;
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
-	transform: translateZ(0);
-    -webkit-perspective: 1000;
-    perspective: 1000;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-transform-style: preserve-3d;
-    transform-style: preserve-3d;
+	-webkit-transform: translate(0);
+	transform: translate(0);
 }
 .usermenu-item.active .usermenu-item-detail:after
 {

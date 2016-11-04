@@ -29,8 +29,6 @@ var jt = function () {
                         break;
                 }
             }
-            console.log(sp)
-            console.log(_speed)
             if (!_currItem.hasClass("fadedin") && !_currItem.hasClass("fadedout")) {
                 _ripple.css('top', rY);
                 _ripple.css('left', rX);
