@@ -571,6 +571,7 @@ div, span, a
     border-bottom: 2px solid #dddddd;
     border-collapse: collapse;
     border-spacing: 0;
+    table-layout: fixed;
 }
 .app-detail-body table th 
 {
