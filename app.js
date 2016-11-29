@@ -76,6 +76,7 @@ require(
 
                 window.plugins.OneSignal
                     .startInit("a92950f8-7bf1-462a-9157-e480802c2ae5", "975487375429")
+                    .inFocusDisplaying("none")
                     .handleNotificationOpened(notificationOpenedCallback)
                     .endInit();
             }, false);
