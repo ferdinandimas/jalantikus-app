@@ -63,17 +63,18 @@ require(
             Backbone.history.start({ pushState: false });
 
             document.addEventListener('deviceready', function () {
-                //// Enable to debug issues.
-                // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
-                //
-                //var notificationOpenedCallback = function(jsonData) {
-                //    console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-                //};
-                //
-                //window.plugins.OneSignal
-                //    .startInit("YOUR_APPID", "YOUR_GOOGLE_PROJECT_NUMBER_IF_ANDROID")
-                //    .handleNotificationOpened(notificationOpenedCallback)
-                //    .endInit();
+                // Enable to debug issues.
+                 window.plugins.OneSignal.setLogLevel(OneSignal.LOG_LEVEL.DEBUG, OneSignal.LOG_LEVEL.DEBUG);
+
+                var notificationOpenedCallback = function(jsonData) {
+                    console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+                    alert('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+                };
+
+                window.plugins.OneSignal
+                    .startInit("a92950f8-7bf1-462a-9157-e480802c2ae5", "975487375429")
+                    .handleNotificationOpened(notificationOpenedCallback)
+                    .endInit();
 
                 console.log("HERE");
                 alert("HERE");
