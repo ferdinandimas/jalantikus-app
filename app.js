@@ -64,14 +64,12 @@ require(
 
             document.addEventListener('deviceready', function () {
                 // Enable to debug issues.
-                window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+                window.plugins.OneSignal.setLogLevel({logLevel: 2, visualLevel: 2});
 
                 var notificationOpenedCallback = function(jsonData) {
                     //jsonData = JSON.parse(jsonData);
                     if (typeof jsonData.notification.payload.additionalData.article != "undefined" && jsonData.notification.payload.additionalData.article != "") {
-                        window.location = "#article/" + jsonData.notification.payload.additionalData.article;
-                        Backbone.history.loadUrl();
-                        alert(window.location);
+                        window.BackboneRouter.navigate("#article/" + jsonData.notification.payload.additionalData.article, {trigger: true})
                     }
                 };
 
@@ -85,8 +83,7 @@ require(
             $("#search-form").on("submit", function (e) {
                 e.preventDefault();
 
-                window.location = "#search/" + $("#search-form [name='search']").val();
-                Backbone.history.loadUrl();
+                window.BackboneRouter.navigate("#search/" + $("#search-form [name='search']").val(), {trigger: true})
 
                 $("#app-searchpanel").panel("close");
             });
