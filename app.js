@@ -68,8 +68,9 @@ require(
 
                 var notificationOpenedCallback = function(jsonData) {
                     //jsonData = JSON.parse(jsonData);
-                    alert('notificationOpenedCallback: ' + jsonData);
-                    alert('notificationOpenedCallback: ' + jsonData.notification.payload.additionalData.article);
+                    if (typeof jsonData.notification.payload.additionalData.article != "undefined" && jsonData.notification.payload.additionalData.article != "") {
+                        window.location = "#article/" + jsonData.notification.payload.additionalData.article;
+                    }
                 };
 
                 window.plugins.OneSignal
