@@ -70,6 +70,7 @@ require(
                     //jsonData = JSON.parse(jsonData);
                     if (typeof jsonData.notification.payload.additionalData.article != "undefined" && jsonData.notification.payload.additionalData.article != "") {
                         window.location = "#article/" + jsonData.notification.payload.additionalData.article;
+                        Backbone.history.loadUrl();
                     }
                 };
 
