@@ -228,8 +228,6 @@ define(
                 else if (_data.length == 0) {
                     that.page = that.page - 1;
 
-                    console.log("HERE 1");
-
                     window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
                     window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
                 }
@@ -243,11 +241,8 @@ define(
                         });
 
                         window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_buff));
-                        console.log("HERE 3");
                     }
                     else {
-
-                        console.log("HERE 2", _data);
                         window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
                     }
                 }

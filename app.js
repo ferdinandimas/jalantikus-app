@@ -40,7 +40,7 @@ require.config({
     },
 
     // Disable script caching on development mode
-    urlArgs: "version=" + (_config.environment == "dev" ? (new Date()).getTime() : "161028")
+    urlArgs: "version=" + (_config.environment == "dev" ? (new Date()).getTime() : "161129")
 });
 
 require(
@@ -69,7 +69,7 @@ require(
                 var notificationOpenedCallback = function(jsonData) {
                     //jsonData = JSON.parse(jsonData);
                     if (typeof jsonData.notification.payload.additionalData.article != "undefined" && jsonData.notification.payload.additionalData.article != "") {
-                        window.BackboneRouter.navigate("#article/" + jsonData.notification.payload.additionalData.article, {trigger: true})
+                        window.BackboneRouter.navigate("article/" + jsonData.notification.payload.additionalData.article, {trigger: true})
                     }
                 };
 
@@ -83,7 +83,7 @@ require(
             $("#search-form").on("submit", function (e) {
                 e.preventDefault();
 
-                window.BackboneRouter.navigate("#search/" + $("#search-form [name='search']").val(), {trigger: true})
+                window.BackboneRouter.navigate("search/" + $("#search-form [name='search']").val(), {trigger: true})
 
                 $("#app-searchpanel").panel("close");
             });
