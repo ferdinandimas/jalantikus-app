@@ -64,7 +64,7 @@ require(
 
             document.addEventListener('deviceready', function () {
                 // Enable to debug issues.
-                window.plugins.OneSignal.setLogLevel(window.plugins.OneSignal.LOG_LEVEL.DEBUG, window.plugins.OneSignal.LOG_LEVEL.DEBUG);
+                window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 
                 var notificationOpenedCallback = function(jsonData) {
                     console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
@@ -78,9 +78,9 @@ require(
 
                 console.log("HERE");
                 alert("HERE");
+                alert(OneSignal);
                 alert(window.plugins);
                 alert(window.plugins.OneSignal);
-                alert(OneSignal);
             }, false);
 
             $("#search-form").on("submit", function (e) {
