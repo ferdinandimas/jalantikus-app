@@ -67,7 +67,7 @@ require(
                 window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 
                 var notificationOpenedCallback = function(jsonData) {
-                    jsonData = JSON.parse(jsonData);
+                    //jsonData = JSON.parse(jsonData);
                     alert('notificationOpenedCallback: ' + jsonData);
                     alert('notificationOpenedCallback: ' + jsonData.notification.payload.additionalData.article);
                 };
