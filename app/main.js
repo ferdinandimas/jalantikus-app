@@ -55,7 +55,6 @@ define(
             },
 
             browser: function (_url) {
-                console.log("HERE 1");
                 require(
                     [ 'controllers/browser' ],
                     function (browserView) {

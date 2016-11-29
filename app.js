@@ -62,6 +62,23 @@ require(
             window.BackboneRouter = new Router();
             Backbone.history.start({ pushState: false });
 
+            document.addEventListener('deviceready', function () {
+                //// Enable to debug issues.
+                // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+                //
+                //var notificationOpenedCallback = function(jsonData) {
+                //    console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+                //};
+                //
+                //window.plugins.OneSignal
+                //    .startInit("YOUR_APPID", "YOUR_GOOGLE_PROJECT_NUMBER_IF_ANDROID")
+                //    .handleNotificationOpened(notificationOpenedCallback)
+                //    .endInit();
+
+                console.log("HERE");
+                alert("HERE");
+            }, false);
+
             $("#search-form").on("submit", function (e) {
                 e.preventDefault();
 
@@ -130,6 +147,7 @@ require(
                 _slideSt = e.originalEvent.touches[ 0 ].pageX;
                 _slideVt = e.originalEvent.touches[ 0 ].pageY;
             });
+
             $(document).on("touchmove", "#app-body", function (e) {
                 _slideCur   = e.originalEvent.touches[ 0 ].pageX;
                 _slideVtCur = e.originalEvent.touches[ 0 ].pageY;
@@ -144,6 +162,7 @@ require(
                     }
                 }
             });
+
             function smoothSlide(e) {
                 var _slide = setInterval(function (e) {
                     if (_slideFlag) {
@@ -182,6 +201,7 @@ require(
                     _slideFlag = false;
                 }
             });
+
             $(document).on("click", ".app-header .app-home", function (e) {
                 if (!jt.isOffline()) {
                     var _this = $(this);
@@ -228,23 +248,20 @@ require(
                 stars(rate);
             });
 
-            function stars(e)
-            {
+            function stars(e) {
                 $(".rate-star").removeClass("active");
-                for(var q = 1; q <= e; q++)
-                {
-                    $(".rate-"+q).addClass("active");
+                for (var q = 1; q <= e; q++) {
+                    $(".rate-" + q).addClass("active");
                 }
             }
-            $(document).on("click", ".app-rate", function(e)
-            {
+
+            $(document).on("click", ".app-rate", function (e) {
                 setTimeout(function () {
                     $(".app-rating").fadeIn();
                     $("#app-userpanel").panel("close");
                 }, 150);
             })
-            $(document).on("click", ".rating-close", function()
-            {
+            $(document).on("click", ".rating-close", function () {
                 $(".app-rating").fadeOut();
             })
 
