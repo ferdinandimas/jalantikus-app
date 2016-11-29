@@ -62,6 +62,27 @@ require(
             window.BackboneRouter = new Router();
             Backbone.history.start({ pushState: false });
 
+            document.addEventListener('deviceready', function () {
+                // Enable to debug issues.
+                window.plugins.OneSignal.setLogLevel(window.plugins.OneSignal.LOG_LEVEL.DEBUG, window.plugins.OneSignal.LOG_LEVEL.DEBUG);
+
+                var notificationOpenedCallback = function(jsonData) {
+                    console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+                    alert('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+                };
+
+                window.plugins.OneSignal
+                    .startInit("a92950f8-7bf1-462a-9157-e480802c2ae5", "975487375429")
+                    .handleNotificationOpened(notificationOpenedCallback)
+                    .endInit();
+
+                console.log("HERE");
+                alert("HERE");
+                alert(window.plugins);
+                alert(window.plugins.OneSignal);
+                alert(OneSignal);
+            }, false);
+
             $("#search-form").on("submit", function (e) {
                 e.preventDefault();
 
@@ -546,26 +567,5 @@ require(
                 }
             }, 250);
         });
-
-        document.addEventListener('deviceready', function () {
-            // Enable to debug issues.
-            window.plugins.OneSignal.setLogLevel(window.plugins.OneSignal.LOG_LEVEL.DEBUG, window.plugins.OneSignal.LOG_LEVEL.DEBUG);
-
-            var notificationOpenedCallback = function(jsonData) {
-                console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-                alert('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-            };
-
-            window.plugins.OneSignal
-                .startInit("a92950f8-7bf1-462a-9157-e480802c2ae5", "975487375429")
-                .handleNotificationOpened(notificationOpenedCallback)
-                .endInit();
-
-            console.log("HERE");
-            alert("HERE");
-            alert(window.plugins);
-            alert(window.plugins.OneSignal);
-            alert(OneSignal);
-        }, false);
     }
 );
