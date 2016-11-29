@@ -71,12 +71,13 @@ require(
                     if (typeof jsonData.notification.payload.additionalData.article != "undefined" && jsonData.notification.payload.additionalData.article != "") {
                         window.location = "#article/" + jsonData.notification.payload.additionalData.article;
                         Backbone.history.loadUrl();
+                        alert(window.location);
                     }
                 };
 
                 window.plugins.OneSignal
                     .startInit("a92950f8-7bf1-462a-9157-e480802c2ae5", "975487375429")
-                    .inFocusDisplaying("none")
+                    .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.None)
                     .handleNotificationOpened(notificationOpenedCallback)
                     .endInit();
             }, false);
