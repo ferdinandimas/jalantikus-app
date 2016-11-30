@@ -53,19 +53,13 @@
     <preference name="SplashScreenBackgroundColor" value="#8f1f1f"/>
 
     <platform name="android">
-        <icon src="res/icon/android/google-play-store.png"/>
-        <icon src="res/icon/android/drawable-ldpi-icon.png" density="ldpi"/>
-        <icon src="res/icon/android/drawable-mdpi-icon.png" density="mdpi"/>
-        <icon src="res/icon/android/drawable-hdpi-icon.png" density="hdpi"/>
-        <icon src="res/icon/android/drawable-xhdpi-icon.png" density="xhdpi"/>
-        <icon src="res/icon/android/drawable-xxhdpi-icon.png" density="xxhdpi"/>
-        <icon src="res/icon/android/drawable-xxxhdpi-icon.png" density="xxxhdpi"/>
-
-        <splash src="res/screen/android/background.png"/>
-        <!--<splash src="res/screen/android/drawable-port-ldpi-screen.png" density="ldpi"/>-->
-        <!--<splash src="res/screen/android/drawable-port-mdpi-screen.png" density="mdpi"/>-->
-        <!--<splash src="res/screen/android/drawable-port-hdpi-screen.png" density="hdpi"/>-->
-        <!--<splash src="res/screen/android/drawable-port-xhdpi-screen.png" density="xhdpi"/>-->
+        <icon src="locales/android/icons/google-play-store.png"/>
+        <icon src="locales/android/drawable-ldpi/ldpi-icon.png" density="ldpi"/>
+        <icon src="locales/android/drawable-mdpi/mdpi-icon.png" density="mdpi"/>
+        <icon src="locales/android/drawable-hdpi/hdpi-icon.png" density="hdpi"/>
+        <icon src="locales/android/drawable-xhdpi/xhdpi-icon.png" density="xhdpi"/>
+        <icon src="locales/android/drawable-xxhdpi/xxhdpi-icon.png" density="xxhdpi"/>
+        <icon src="locales/android/drawable-xxxhdpi/xxxhdpi-icon.png" density="xxxhdpi"/>
     </platform>
 
     <gap:config-file platform="android" parent="/manifest">
