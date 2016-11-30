@@ -51,7 +51,7 @@ var jt = function () {
         isOffline: function () {
             return 'onLine' in navigator && !navigator.onLine;
         },
-        timeSince: function (date) {
+        timeSince: function (date, type) {
             if (typeof date !== 'object') {
                 date = new Date(date);
             }
@@ -67,18 +67,35 @@ var jt = function () {
                 interval = Math.floor(seconds / 2592000);
                 if (interval >= 1) {
                     var month   = new Array();
-                    month[ 0 ]  = "Jan";
-                    month[ 1 ]  = "Feb";
-                    month[ 2 ]  = "Mar";
-                    month[ 3 ]  = "Apr";
-                    month[ 4 ]  = "Mei";
-                    month[ 5 ]  = "Jun";
-                    month[ 6 ]  = "Jul";
-                    month[ 7 ]  = "Agu";
-                    month[ 8 ]  = "Sept";
-                    month[ 9 ]  = "Okt";
-                    month[ 10 ] = "Nov";
-                    month[ 11 ] = "Des";
+
+                    if (type == "fullMonth") {
+                        month[ 0 ]  = "Januari";
+                        month[ 1 ]  = "Februari";
+                        month[ 2 ]  = "Maret";
+                        month[ 3 ]  = "April";
+                        month[ 4 ]  = "Mei";
+                        month[ 5 ]  = "Juni";
+                        month[ 6 ]  = "Juli";
+                        month[ 7 ]  = "Agustus";
+                        month[ 8 ]  = "September";
+                        month[ 9 ]  = "Oktober";
+                        month[ 10 ] = "November";
+                        month[ 11 ] = "Desember";
+                    }
+                    else {
+                        month[ 0 ]  = "Jan";
+                        month[ 1 ]  = "Feb";
+                        month[ 2 ]  = "Mar";
+                        month[ 3 ]  = "Apr";
+                        month[ 4 ]  = "Mei";
+                        month[ 5 ]  = "Jun";
+                        month[ 6 ]  = "Jul";
+                        month[ 7 ]  = "Agu";
+                        month[ 8 ]  = "Sept";
+                        month[ 9 ]  = "Okt";
+                        month[ 10 ] = "Nov";
+                        month[ 11 ] = "Des";
+                    }
 
                     realDate = (new Date(date));
                     realDate = realDate.getDate() + " " + month[ (realDate.getMonth()) ] + " " + realDate.getFullYear();

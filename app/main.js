@@ -3,6 +3,7 @@ define(
         'backbone'
     ],
     function (Backbone) {
+        var route = {};
         var Router = Backbone.Router.extend({
             routes: {
                 ''           : 'home',
@@ -20,7 +21,7 @@ define(
                 require(
                     [ 'controllers/home' ],
                     function (Home) {
-                        new Home();
+                        console.log("here 1");
                     }
                 );
             },
@@ -30,7 +31,6 @@ define(
                     [ 'controllers/home' ],
                     function (Home) {
                         _options = { type: _options };
-                        new Home(_options);
                     }
                 );
             },

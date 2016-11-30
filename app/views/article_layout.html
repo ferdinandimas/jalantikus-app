@@ -11,7 +11,7 @@
                 Ditulis oleh <strong><%= detail.user.name %></strong>
             </div>
             <div class="header-published">
-                <strong><%= detail.published %></strong> yang lalu
+                <strong><%= jt.timeSince(detail.published, "fullMonth") %></strong>
             </div>
         </div>
     </div>

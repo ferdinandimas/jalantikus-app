@@ -47,6 +47,7 @@ require(
     [ "main", "backbone", "jquery", "jquery.mobile", "isInViewport" ],
     function (Router) {
         $(function () {
+            console.log("here 2");
             $.mobile.loading().hide();
 
             if (typeof window.StatusBar != "undefined") {
@@ -79,6 +80,8 @@ require(
                     .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.None)
                     .handleNotificationOpened(notificationOpenedCallback)
                     .endInit();
+
+                console.log("HERE READY");
             }, false);
 
             $("#search-form").on("submit", function (e) {
@@ -261,10 +264,11 @@ require(
                     $(".app-rating").fadeIn();
                     $("#app-userpanel").panel("close");
                 }, 150);
-            })
+            });
+
             $(document).on("click", ".rating-close", function () {
                 $(".app-rating").fadeOut();
-            })
+            });
 
             $(document).on("click", ".app-rating-submit .rating-link", function (e) {
                 setTimeout(function () {
@@ -292,7 +296,7 @@ require(
                     e.preventDefault();
                     showOffline();
                 }
-            })
+            });
 
             var _scrolling = false, _direction, _pos, _velocity = 0, _scrollInterval;
             $(document).on("touchstart", ".scroll-button", function (e) {
@@ -322,14 +326,14 @@ require(
                         }
                     }, 750)
                 }
-            })
+            });
 
             $(document).on("touchend", ".scroll-button", function (e) {
                 _scrolling = false;
                 $(".scroll-button").removeClass("active")
                 _velocity = 0;
                 clearInterval(_scrollInterval);
-            })
+            });
 
             $(document).on("click", ".app-header .app-toggle-userpanel", function (e) {
                 if (!jt.isOffline()) {

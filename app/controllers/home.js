@@ -18,6 +18,8 @@ define(
             initialize      : function (_options) {
                 var that = this;
 
+                console.log("HERE");
+
                 $("#app-toolbar")
                     .removeClass("detail")
                     .removeClass("scroll")
