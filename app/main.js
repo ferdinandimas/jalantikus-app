@@ -21,7 +21,7 @@ define(
                 require(
                     [ 'controllers/home' ],
                     function (Home) {
-                        console.log("here 1");
+                        new Home();
                     }
                 );
             },
@@ -31,6 +31,7 @@ define(
                     [ 'controllers/home' ],
                     function (Home) {
                         _options = { type: _options };
+                        new Home(_options);
                     }
                 );
             },
