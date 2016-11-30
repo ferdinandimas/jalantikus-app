@@ -16,7 +16,7 @@ define(
             initialize: function (_articleSlug) {
                 var that = this;
 
-                alert("DETAIL 1");
+                console.log("DETAIL 1");
 
                 $("#app-toolbar")
                     .addClass("detail")
@@ -77,19 +77,19 @@ define(
             fetch     : function (options) {
                 var that = this;
 
-                alert("DETAIL 2");
+                console.log("DETAIL 2");
 
                 if (!jt.isOffline()) {
-                    alert("DETAIL 3");
+                    console.log("DETAIL 3");
                     if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null) {
-                        alert("DETAIL 3A");
+                        console.log("DETAIL 3A");
                         that.render();
                     }
                     else {
                         this.model.fetch({
                             timeout: typeof options != "undefined" && typeof options.timeout != "undefined" ? options.timeout : 5000,
                             success: function () {
-                                alert("DETAIL 3B");
+                                console.log("DETAIL 3B");
                                 that.render();
                             },
                             error  : function () {
@@ -117,22 +117,22 @@ define(
                 var that    = this;
                 var tooltip = false;
 
-                alert("DETAIL 4");
+                console.log("DETAIL 4");
 
                 $(".app-detail-container .app-loader").remove();
 
                 if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null) {
-                    alert("DETAIL 4A");
+                    console.log("DETAIL 4A");
                     _buff = JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()));
                 }
                 else {
-                    alert("DETAIL 4B");
+                    console.log("DETAIL 4B");
                     window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(this.model.toJSON()));
 
                     _buff = this.model.toJSON();
                 }
 
-                alert("DETAIL 5");
+                console.log("DETAIL 5");
 
                 $("#app-body").empty().append(this.layout({
                     detail: _buff
@@ -154,7 +154,7 @@ define(
                     }
                 });
 
-                alert("DETAIL 6");
+                console.log("DETAIL 6");
 
                 $(".app-detail-body img").each(function (key, val) {
                     var img = new Image();
@@ -176,7 +176,7 @@ define(
                 $(".jt-not-view.artikelmenarik").remove();
                 $(".partner-banner-aftc-artikel-menarik").remove();
 
-                alert("DETAIL 7");
+                console.log("DETAIL 7");
 
                 $(".app-detail-container").on("scroll touchmove", function () {
                     if ($(this).scrollTop() > 60) {
@@ -216,7 +216,7 @@ define(
                     }
                 });
 
-                alert("DETAIL 8");
+                console.log("DETAIL 8");
 
                 $("a").each(function (key, val) {
                     $(val)
@@ -296,7 +296,7 @@ define(
                     }
                 }, 2000);
 
-                alert("DETAIL 9");
+                console.log("DETAIL 9");
 
                 $("#iframe-jalantikus").on("load", function () {
                     $(".app-scroll-button").fadeIn();
@@ -409,7 +409,7 @@ define(
                         .scrollTop(parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop")));
                 }
 
-                alert("DETAIL 10");
+                console.log("DETAIL 10");
             },
             showOffline: function () {
                 $(".app-refreshed").html("Tidak ada jaringan").fadeIn();

@@ -47,7 +47,6 @@ require(
     [ "main", "backbone", "jquery", "jquery.mobile", "isInViewport" ],
     function (Router) {
         $(function () {
-            console.log("here 2");
             $.mobile.loading().hide();
 
             if (typeof window.StatusBar != "undefined") {
@@ -71,7 +70,6 @@ require(
                     //jsonData = JSON.parse(jsonData);
                     if (typeof jsonData.notification.payload.additionalData.article != "undefined" && jsonData.notification.payload.additionalData.article != "") {
                         window.BackboneRouter.navigate("article/" + jsonData.notification.payload.additionalData.article, {trigger: true});
-                        alert("PUSH " + jsonData.notification.payload.additionalData.article);
                     }
                 };
 
@@ -80,8 +78,6 @@ require(
                     .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.None)
                     .handleNotificationOpened(notificationOpenedCallback)
                     .endInit();
-
-                console.log("HERE READY");
             }, false);
 
             $("#search-form").on("submit", function (e) {
