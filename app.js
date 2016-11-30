@@ -67,9 +67,12 @@ require(
                 window.plugins.OneSignal.setLogLevel({logLevel: 2, visualLevel: 2});
 
                 var notificationOpenedCallback = function(jsonData) {
-                    //jsonData = JSON.parse(jsonData);
                     if (typeof jsonData.notification.payload.additionalData.article != "undefined" && jsonData.notification.payload.additionalData.article != "") {
                         window.BackboneRouter.navigate("article/" + jsonData.notification.payload.additionalData.article, {trigger: true});
+                        
+                        if (!jt.isOffline()) {
+                            $(".splash .app-refreshed").hide();
+                        }
                     }
                 };
 
