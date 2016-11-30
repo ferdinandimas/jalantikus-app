@@ -10,7 +10,7 @@ define(
         "prettify"
     ],
     function (_, Backbone, $, Article, App, articleLayout, headerLayout) {
-        var homeView = Backbone.View.extend({
+        var articleDetailView = Backbone.View.extend({
             layout     : _.template(articleLayout),
             model : new Article(),
             initialize: function (_articleSlug) {
@@ -122,13 +122,17 @@ define(
                 $(".app-detail-container .app-loader").remove();
 
                 if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null) {
+                    alert("DETAIL 4A");
                     _buff = JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()));
                 }
                 else {
+                    alert("DETAIL 4B");
                     window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(this.model.toJSON()));
 
                     _buff = this.model.toJSON();
                 }
+
+                alert("DETAIL 5");
 
                 $("#app-body").empty().append(this.layout({
                     detail: _buff
@@ -150,6 +154,8 @@ define(
                     }
                 });
 
+                alert("DETAIL 6");
+
                 $(".app-detail-body img").each(function (key, val) {
                     var img = new Image();
                     img.src = $(val).data("src");
@@ -169,6 +175,8 @@ define(
                 $(".jt-not-view.appsinner").remove();
                 $(".jt-not-view.artikelmenarik").remove();
                 $(".partner-banner-aftc-artikel-menarik").remove();
+
+                alert("DETAIL 7");
 
                 $(".app-detail-container").on("scroll touchmove", function () {
                     if ($(this).scrollTop() > 60) {
@@ -207,6 +215,8 @@ define(
                         $(this).attr("href", "#article/" + matches[ 2 ]);
                     }
                 });
+
+                alert("DETAIL 8");
 
                 $("a").each(function (key, val) {
                     $(val)
@@ -285,6 +295,8 @@ define(
                         $("#iframe-jalantikus").prop("src", $("#iframe-jalantikus").data("src"));
                     }
                 }, 2000);
+
+                alert("DETAIL 9");
 
                 $("#iframe-jalantikus").on("load", function () {
                     $(".app-scroll-button").fadeIn();
@@ -396,15 +408,20 @@ define(
                     $(".app-detail-container")
                         .scrollTop(parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop")));
                 }
+
+                alert("DETAIL 10");
             },
             showOffline: function () {
                 $(".app-refreshed").html("Tidak ada jaringan").fadeIn();
                 setTimeout(function () {
                     $(".app-refreshed").fadeOut();
                 }, 2000);
+            },
+            cleanup: function() {
+                this.undelegateEvents();
             }
         });
 
-        return homeView;
+        return articleDetailView;
     }
 );
