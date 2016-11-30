@@ -53,13 +53,13 @@
     <preference name="SplashScreenBackgroundColor" value="#8f1f1f"/>
 
     <platform name="android">
-        <icon src="locales/android/icons/google-play-store.png"/>
-        <icon src="locales/android/drawable_ldpi/ldpi-icon.png" density="ldpi"/>
-        <icon src="locales/android/drawable_mdpi/mdpi-icon.png" density="mdpi"/>
-        <icon src="locales/android/drawable_hdpi/hdpi-icon.png" density="hdpi"/>
-        <icon src="locales/android/drawable_xhdpi/xhdpi-icon.png" density="xhdpi"/>
-        <icon src="locales/android/drawable_xxhdpi/xxhdpi-icon.png" density="xxhdpi"/>
-        <icon src="locales/android/drawable_xxxhdpi/xxxhdpi-icon.png" density="xxxhdpi"/>
+        <icon src="res/icons/google-play-store.png"/>
+        <icon src="res/icons/drawable-ldpi-icon.png" density="ldpi"/>
+        <icon src="res/icons/drawable-mdpi-icon.png" density="mdpi"/>
+        <icon src="res/icons/drawable-hdpi-icon.png" density="hdpi"/>
+        <icon src="res/icons/drawable-xhdpi-icon.png" density="xhdpi"/>
+        <icon src="res/icons/drawable-xxhdpi-icon.png" density="xxhdpi"/>
+        <icon src="res/icons/drawable-xxxhdpi-icon.png" density="xxxhdpi"/>
     </platform>
 
     <gap:config-file platform="android" parent="/manifest">
