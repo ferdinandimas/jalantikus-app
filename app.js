@@ -40,7 +40,7 @@ require.config({
     },
 
     // Disable script caching on development mode
-    urlArgs: "version=" + (_config.environment == "dev" ? (new Date()).getTime() : "161129")
+    urlArgs: "version=" + (_config.environment == "dev" ? (new Date()).getTime() : _config.timestamp)
 });
 
 require(
@@ -75,7 +75,7 @@ require(
 
                 window.plugins.OneSignal
                     .startInit("a92950f8-7bf1-462a-9157-e480802c2ae5", "975487375429")
-                    .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.None)
+                    .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
                     .handleNotificationOpened(notificationOpenedCallback)
                     .endInit();
             }, false);
