@@ -3,7 +3,11 @@ define(
         'backbone'
     ],
     function (Backbone) {
-        var route = {};
+        /*
+            Prevent Controller hitted twice
+         */
+        var isFirstInit = true;
+
         var Router = Backbone.Router.extend({
             routes: {
                 ''           : 'home',
@@ -18,50 +22,70 @@ define(
             },
 
             home: function () {
-                require(
-                    [ 'controllers/home' ],
-                    function (Home) {
-                        new Home();
-                    }
-                );
+                if (!isFirstInit) {
+                    require(
+                        [ 'controllers/home' ],
+                        function (Home) {
+                            new Home();
+                        }
+                    );
+                }
+
+                isFirstInit = false;
             },
 
             index: function (_options) {
-                require(
-                    [ 'controllers/home' ],
-                    function (Home) {
-                        _options = { type: _options };
-                        new Home(_options);
-                    }
-                );
+                if (!isFirstInit) {
+                    require(
+                        [ 'controllers/home' ],
+                        function (Home) {
+                            _options = { type: _options };
+                            new Home(_options);
+                        }
+                    );
+                }
+
+                isFirstInit = false;
             },
 
             search: function (_options) {
-                require(
-                    [ 'controllers/home' ],
-                    function (Home) {
-                        _options = { type: "search", search: _options };
-                        new Home(_options);
-                    }
-                );
+                if (!isFirstInit) {
+                    require(
+                        [ 'controllers/home' ],
+                        function (Home) {
+                            _options = { type: "search", search: _options };
+                            new Home(_options);
+                        }
+                    );
+                }
+
+                isFirstInit = false;
             },
 
             articleDetail: function (_articleSlug) {
-                require(
-                    [ 'controllers/articleDetail' ],
-                    function (ArticleDetail) {
-                        new ArticleDetail(_articleSlug);
-                    }
-                );
+                if (!isFirstInit) {
+                    require(
+                        [ 'controllers/articleDetail' ],
+                        function (ArticleDetail) {
+                            new ArticleDetail(_articleSlug);
+                        }
+                    );
+                }
+
+                isFirstInit = false;
             },
 
             browser: function (_url) {
-                require(
-                    [ 'controllers/browser' ],
-                    function (browserView) {
-                        new browserView(_url);
-                    }
-                );
+                if (!isFirstInit) {
+                    require(
+                        [ 'controllers/browser' ],
+                        function (browserView) {
+                            new browserView(_url);
+                        }
+                    );
+                }
+
+                isFirstInit = false;
             },
         });
 
