@@ -16,6 +16,8 @@ define(
             initialize: function (_articleSlug) {
                 var that = this;
 
+                alert("DETAIL 1");
+
                 $("#app-toolbar")
                     .addClass("detail")
                     .removeClass("scroll")
@@ -75,14 +77,19 @@ define(
             fetch     : function (options) {
                 var that = this;
 
+                alert("DETAIL 2");
+
                 if (!jt.isOffline()) {
+                    alert("DETAIL 3");
                     if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null) {
+                        alert("DETAIL 3A");
                         that.render();
                     }
                     else {
                         this.model.fetch({
                             timeout: typeof options != "undefined" && typeof options.timeout != "undefined" ? options.timeout : 5000,
                             success: function () {
+                                alert("DETAIL 3B");
                                 that.render();
                             },
                             error  : function () {
@@ -109,6 +116,8 @@ define(
             render    : function () {
                 var that    = this;
                 var tooltip = false;
+
+                alert("DETAIL 4");
 
                 $(".app-detail-container .app-loader").remove();
 

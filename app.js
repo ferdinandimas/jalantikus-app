@@ -69,7 +69,8 @@ require(
                 var notificationOpenedCallback = function(jsonData) {
                     //jsonData = JSON.parse(jsonData);
                     if (typeof jsonData.notification.payload.additionalData.article != "undefined" && jsonData.notification.payload.additionalData.article != "") {
-                        window.BackboneRouter.navigate("article/" + jsonData.notification.payload.additionalData.article, {trigger: true})
+                        window.BackboneRouter.navigate("article/" + jsonData.notification.payload.additionalData.article, {trigger: true});
+                        alert("PUSH " + jsonData.notification.payload.additionalData.article);
                     }
                 };
 
