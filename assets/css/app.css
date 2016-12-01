@@ -58,8 +58,8 @@ div, span, a
 	width: 100%;
 	background-color: #c92737;
 	z-index: 12;
-	-webkit-transition: 0.1s;
-    transition: 0.1s;
+	-webkit-transition: 0.2s;
+    transition: 0.2s;
 }
 .app-toolbar.on-top	
 {
@@ -101,8 +101,12 @@ div, span, a
 }
 .app-content-container
 {
-	height: calc(100% - 80px);
+	height: calc(100% - 60px);
 	overflow-y: scroll;
+}
+.app-toolbar.on-top ~ #app-body .app-content-container
+{
+	height: calc(100% - 95px);
 }
 .app-index-card
 {
@@ -111,6 +115,33 @@ div, span, a
     border-radius: 2px;
     padding: 15px;
     border-bottom: 1px solid #f0f0f0;
+}
+.app-toolbar .app-logo 
+{
+    position: absolute;
+    left: 60px;
+    transform: translate(0, 0);
+    width: 120px;
+    height: 60px;
+    background-image: url(../images/jalantikus-logo-white.png);
+    background-size: auto 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+}
+.app-toolbar.on-top .app-logo 
+{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    right: 0;
+    width: 150px;
+    height: 60px;
+    background-image: url(../images/jalantikus-logo-white.png);
+    background-size: auto 25px;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 .app-article-more
 {
@@ -123,6 +154,7 @@ div, span, a
 	width: calc((100% - 15px )/2);
 	margin-right: 15px;
 	margin-bottom: 15px;
+	padding: 0;
 }
 .app-article-more .app-index-card:nth-child(2n)
 {
@@ -141,7 +173,7 @@ div, span, a
 {
 	font-size: 12px;
 	line-height: 22px;
-	height: 54px;
+	height: 44px;
 }
 .app-index-card.multi-image .card-description
 {
@@ -216,6 +248,8 @@ div, span, a
 .app-article-more .app-index-card .card-image
 {
 	width: 100%;
+	top: 0;
+	right: 0;
 	height: auto;
 	position: relative;
 }
@@ -875,7 +909,6 @@ div, span, a
 {
 	width: 100%;
 	height: 60px;
-	margin-top: 1px;
 }
 .app-header .app-toggle-userpanel
 {
@@ -1042,7 +1075,50 @@ div, span, a
 {
 	opacity: 1
 }
-
+.quick-search-container
+{
+    position: absolute;
+    padding: 0 15px 0 15px;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+}
+.quick-search-container .quick-search
+{
+    width: 100%;
+    padding: 5px 10px 5px 50px;
+    border: 0;
+    border-radius: 4px;
+    height: 35px;
+    box-sizing: border-box;
+}
+.app-toolbar .quick-search-container
+{
+    transform-origin: bottom;
+    transform: scaleY(0);
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+}
+.app-toolbar.on-top .quick-search-container
+{
+    transform: scaleY(1);
+}
+.quick-search-container:after
+{
+	position: absolute;
+    width: 20px;
+    height: 20px;
+    content: "";
+    top: 8px;
+    left: 30px;
+    background-color: #c92737;
+    -webkit-mask-image: url(../images/search-icon.svg);
+    mask-image: url(../images/search-icon.svg);
+    -webkit-mask-size: 20px;
+    mask-size: 15px;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+}
 .on-top.app-toolbar .app-header .app-toggle-searchpanel
 {
 	right: -60px;
