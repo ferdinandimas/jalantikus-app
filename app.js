@@ -115,7 +115,7 @@ require(
             $(document).on("click", ".usermenu-item", function (e) {
                 if (!jt.isOffline()) {
                     var _currUI = $(this);
-                    if (!_currUI.hasClass("active") && !_currUI.hasClass("app-rate") && !_currUI.hasClass("app-share") && !_currUI.hasClass("app-notification") && !_currUI.hasClass("notification")) {
+                    if (!_currUI.hasClass("active") && !_currUI.hasClass("app-rate") && !_currUI.hasClass("app-share") && !_currUI.hasClass("item-pass")) {
                         $('.usermenu-item').not(_currUI).removeClass("active");
                         _currUI.addClass("active");
 
@@ -286,7 +286,7 @@ require(
 
             $(document).on("click", ".usermenu-item", function (e) {
                 if (!jt.isOffline()) {
-                    if(!$(this).hasClass("notification") && !$(this).hasClass("app-notification"))
+                    if(!$(this).hasClass("item-pass"))
                     {
                         jt.ripple($(this), e);
                         setTimeout(function () {
@@ -304,6 +304,7 @@ require(
             {
                 if(!$(this).is(":checked"))
                 {
+                    $("#notification").prop("checked", true);
                     navigator.notification.confirm(
                         "Ingin mematikan notifikasi?",
                         function (confirmation) {

@@ -55,14 +55,14 @@ div, span, a
 	right: 0;
 	height: 61px;
 	width: 100%;
-	background-color: #b71c1c;
+	background-color: #c92737;
 	z-index: 12;
 	-webkit-transition: 0.1s;
     transition: 0.1s;
 }
 .app-toolbar.detail
 {
-	background-color: #b71c1c;
+	background-color: #c92737;
 }
 .app-toolbar.offline
 {
@@ -120,12 +120,12 @@ div, span, a
 }
 .more-title
 {
-	color: #b71c1c;
+	color: #c92737;
 	font-size: 18px;
     line-height: 24px;
 	padding: 15px;
 	font-weight: 700;
-	border-left: 10px solid #b71c1c;
+	border-left: 10px solid #c92737;
 }
 .app-article-more .app-index-card .card-description .card-title
 {
@@ -444,7 +444,7 @@ div, span, a
     margin: auto;
     left: 0;
     background-image: url(../images/refresh-icon.svg);
-    background-color: #b71c1c;
+    background-color: #c92737;
     background-position: center center;
     border-radius: 50%;
     background-repeat: no-repeat;
@@ -471,7 +471,7 @@ div, span, a
     padding-left: 40px;
     text-align: center;
     background-image: url(../images/refresh-icon.svg);
-    background-color: #b71c1c;
+    background-color: #c92737;
     background-position: top 10px left 20px;
     border-radius: 4px;
     background-repeat: no-repeat;
@@ -810,7 +810,7 @@ div, span, a
 .userpanel-header
 {
 	height: 120px;
-	background-color: #b71c1c;
+	background-color: #c92737;
 }
 .searchpanel-header
 {
@@ -1086,7 +1086,7 @@ div, span, a
 .app-panel .userpanel-body .usermenu-item.active .usermenu-item-detail
 {
 	background-color: #eeeeee; 
-	color: #b71c1c;
+	color: #c92737;
 }
 .usermenu-item .usermenu-item-detail:after
 {
@@ -1110,7 +1110,7 @@ div, span, a
 }
 .usermenu-item.active .usermenu-item-detail:after
 {
-	background-color: #b71c1c; 
+	background-color: #c92737; 
 }
 .usermenu-item .usermenu-item-detail.home:after
 {
@@ -1764,7 +1764,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     height: 40px;
     line-height: 42px;
     color: #fff;
-    background-color: #b71c1c;
+    background-color: #c92737;
     border-radius: 4px;
     padding-left: 30px;
     text-align: center;
@@ -1800,7 +1800,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     height: 40px;
     line-height: 42px;
     color: #fff;
-    background-color: #b71c1c;
+    background-color: #c92737;
     border-radius: 4px;
     padding-left: 30px;
     text-align: center;
@@ -2111,14 +2111,14 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     background-color: #9E9E9E;
 }
 .onoffswitch-checkbox:checked + .onoffswitch-label {
-    background-color: #B71C1C;
+    background-color: #c92737;
 }
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
     margin-left: 0;
 }
 .onoffswitch-checkbox:checked + .onoffswitch-label:before {
     right: 0px; 
-    background-color: #B71C1C; 
+    background-color: #c92737; 
     box-shadow: 3px 6px 18px 0px rgba(0, 0, 0, 0.2);
 }
 .onoffswitch-label:before {
