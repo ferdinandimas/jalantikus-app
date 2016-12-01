@@ -115,7 +115,7 @@ require(
             $(document).on("click", ".usermenu-item", function (e) {
                 if (!jt.isOffline()) {
                     var _currUI = $(this);
-                    if (!_currUI.hasClass("active") && !_currUI.hasClass("app-rate") && !_currUI.hasClass("app-share")) {
+                    if (!_currUI.hasClass("active") && !_currUI.hasClass("app-rate") && !_currUI.hasClass("app-share") && !_currUI.hasClass("app-notification") && !_currUI.hasClass("notification")) {
                         $('.usermenu-item').not(_currUI).removeClass("active");
                         _currUI.addClass("active");
 
@@ -286,10 +286,13 @@ require(
 
             $(document).on("click", ".usermenu-item", function (e) {
                 if (!jt.isOffline()) {
-                    jt.ripple($(this), e);
-                    setTimeout(function () {
-                        $('#app-userpanel').panel('close')
-                    }, 150);
+                    if(!$(this).hasClass("notification") && !$(this).hasClass("app-notification"))
+                    {
+                        jt.ripple($(this), e);
+                        setTimeout(function () {
+                            $('#app-userpanel').panel('close')
+                        }, 150);
+                    }
                 }
                 else {
                     e.preventDefault();
