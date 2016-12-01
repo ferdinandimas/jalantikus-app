@@ -279,17 +279,17 @@ define(
                 }
                 if($(".app-content-container").scrollTop() < 100)
                 {
-                    $(".app-toolbar").addClass("scroll");
+                    $(".app-toolbar").addClass("on-top");
                 }
 
                 $(".app-content-container").on("scroll",function(e){
                     if($(this).scrollTop() >= 100)
                     {
-                        $(".app-toolbar").removeClass("scroll");
+                        $(".app-toolbar").removeClass("on-top");
                     }
                     else
                     {
-                        $(".app-toolbar").addClass("scroll");
+                        $(".app-toolbar").addClass("on-top");
                     }
                 });
 
