@@ -304,7 +304,6 @@ require(
             {
                 if(!$(this).is(":checked"))
                 {
-                    $("#notification").prop("checked", true);
                     navigator.notification.confirm(
                         "Ingin mematikan notifikasi?",
                         function (confirmation) {

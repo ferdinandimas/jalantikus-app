@@ -91,16 +91,18 @@ div, span, a
 }
 .app-content-container
 {
-    padding: 15px 10px 5px;
+    padding: 15px 15px 5px;
 	height: calc(100% - 80px);
 	overflow-y: scroll;
 }
 .app-index-card
 {
-	position: relative;
-	height: 110px;
-	margin-bottom: 10px;
-	border-radius: 2px;
+    position: relative;
+    height: 110px;
+    margin-bottom: 15px;
+    border-radius: 2px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f3f3f3;
 }
 .app-article-more
 {
@@ -130,12 +132,12 @@ div, span, a
 .app-article-more .app-index-card .card-description .card-title
 {
 	font-size: 12px;
-	line-height: 18px;
+	line-height: 22px;
 	height: 54px;
 }
 .app-index-card.multi-image .card-description
 {
-	padding: 15px;
+	padding: 0 0 15px 0;
 }
 .app-index-card.multi-image .card-description .card-note 
 {
@@ -224,7 +226,7 @@ div, span, a
 	right: 0;
 	height: auto;
 	width: auto;
-	padding: 0 15px 45px;
+	padding: 0 0 25px;
 }
 .app-index-card .card-image img
 {
@@ -263,7 +265,7 @@ div, span, a
 }
 .app-index-card .card-description
 {
-	padding: 15px 125px 15px 15px;
+	padding: 0 125px 15px 0;
 }
 .app-article-more .app-index-card .card-description
 {
@@ -272,7 +274,7 @@ div, span, a
 .app-index-card .card-description .card-note {
     position: absolute;
     bottom: 15px;
-    left: 15px;
+    left: 0;
     max-width: calc(100% - 140px);
     overflow: hidden;
     text-overflow: ellipsis;
