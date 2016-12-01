@@ -115,7 +115,7 @@ require(
             $(document).on("click", ".usermenu-item", function (e) {
                 if (!jt.isOffline()) {
                     var _currUI = $(this);
-                    if (!_currUI.hasClass("active") && !_currUI.hasClass("app-rate") && !_currUI.hasClass("app-share") && !_currUI.hasClass("app-notification") && !_currUI.hasClass("notification") && !_currUI.hasClass("app-mutiara") && !_currUI.hasClass("mutiara")) {
+                    if (!_currUI.hasClass("active") && !_currUI.hasClass("app-rate") && !_currUI.hasClass("app-share") && !_currUI.hasClass("app-notification") && !_currUI.hasClass("notification")) {
                         $('.usermenu-item').not(_currUI).removeClass("active");
                         _currUI.addClass("active");
 
@@ -286,7 +286,7 @@ require(
 
             $(document).on("click", ".usermenu-item", function (e) {
                 if (!jt.isOffline()) {
-                    if(!$(this).hasClass("notification") && !$(this).hasClass("app-notification") && !$(this).hasClass("mutiara") && !$(this).hasClass("app-mutiara"))
+                    if(!$(this).hasClass("notification") && !$(this).hasClass("app-notification"))
                     {
                         jt.ripple($(this), e);
                         setTimeout(function () {
@@ -299,6 +299,17 @@ require(
                     showOffline();
                 }
             });
+
+            $(document).on("change", "#notification", function()
+            {
+                if(!$(this).is(":checked"))
+                {
+                    if(!confirm("Ingin mematikan notifikasi?"))
+                    {
+                        $("#notification").prop("checked", true);
+                    }
+                }
+            })
 
             var _scrolling = false, _direction, _pos, _velocity = 0, _scrollInterval;
             $(document).on("touchstart", ".scroll-button", function (e) {

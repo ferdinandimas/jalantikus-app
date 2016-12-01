@@ -1144,6 +1144,8 @@ div, span, a
 }
 .usermenu-item .usermenu-item-detail.notification:after
 {
+	-webkit-mask-size: 20px 20px;
+	mask-size: 20px 20px;
 	-webkit-mask-image: url(../images/notification-icon.svg);
 	mask-image: url(../images/notification-icon.svg);
 }
