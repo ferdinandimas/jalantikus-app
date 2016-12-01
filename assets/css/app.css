@@ -50,15 +50,20 @@ div, span, a
 .app-toolbar
 {
 	position: fixed;
-	top: -1px;
+	top: 0;
 	left: 0;
 	right: 0;
-	height: 61px;
+	height: 95px;
+	max-height: 60px;
 	width: 100%;
 	background-color: #c92737;
 	z-index: 12;
 	-webkit-transition: 0.1s;
     transition: 0.1s;
+}
+.app-toolbar.on-top	
+{
+	max-height: 95px;
 }
 .app-toolbar.detail
 {
@@ -71,23 +76,24 @@ div, span, a
 .app-toolbar.scroll
 {
 	position: fixed;
-	top: -1px;
+	top: 0;
 	left: 0;
 	right: 0;
 	height: 0;
 	width: 100%;
 	z-index: 12;
 }
-.app-toolbar.on-top
-{
-
-}
 .app-toolbar-placeholder
 {
-	height: 60px;
+	max-height: 60px;
+	height: 100%;
     width: 100%;
     -webkit-transition: 0.1s;
     transition: 0.1s;
+}
+.app-toolbar.on-top ~ #app-body .app-toolbar-placeholder
+{
+	max-height: 95px;
 }
 .app-body
 {
@@ -928,6 +934,8 @@ div, span, a
 	position: absolute;
 	right: 0;
 	top: 0;
+	-webkit-transition: 0.2s;
+	transition: 0.2s;
 }
 .app-header .header-search:after
 {
@@ -948,6 +956,8 @@ div, span, a
 	position: absolute;
 	right: 60px;
 	top: 0;
+	-webkit-transition: 0.2s;
+	transition: 0.2s;
 }
 .app-body .app-refreshed, .splash .app-refreshed
 {
@@ -1029,6 +1039,15 @@ div, span, a
 .app-header .app-toggle-back.active:after, .app-header .app-toggle-userpanel.active:after, .app-header .app-toggle-searchpanel.active:after, .app-header .header-refresh.active:before, .app-header .app-home.active:after
 {
 	opacity: 1
+}
+
+.on-top.app-toolbar .app-header .app-toggle-searchpanel
+{
+	right: -60px;
+}
+.on-top.app-toolbar .app-header .app-toggle-refresh
+{
+	right: 0;
 }
 .app-panel .searchpanel 
 {

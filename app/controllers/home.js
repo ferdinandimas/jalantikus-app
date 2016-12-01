@@ -277,13 +277,13 @@ define(
                         that.autoload();
                     });
                 }
-                if($(".app-content-container").scrollTop() < 100)
+                if($(".app-content-container").scrollTop() <= 0)
                 {
                     $(".app-toolbar").addClass("on-top");
                 }
 
                 $(".app-content-container").on("scroll",function(e){
-                    if($(this).scrollTop() >= 100)
+                    if($(this).scrollTop() > 0)
                     {
                         $(".app-toolbar").removeClass("on-top");
                     }
