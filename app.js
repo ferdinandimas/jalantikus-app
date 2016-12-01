@@ -304,10 +304,16 @@ require(
             {
                 if(!$(this).is(":checked"))
                 {
-                    if(!confirm("Ingin mematikan notifikasi?"))
-                    {
-                        $("#notification").prop("checked", true);
-                    }
+                    navigator.notification.confirm(
+                        "Ingin mematikan notifikasi?",
+                        function (confirmation) {
+                            if (confirmation != 1) {
+                                $("#notification").prop("checked", true);
+                            }
+                        },
+                        "",
+                        [ "Ya", "Tidak" ]
+                    );
                 }
             })
 
