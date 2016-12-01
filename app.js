@@ -119,7 +119,7 @@ require(
                         $('.usermenu-item').not(_currUI).removeClass("active");
                         _currUI.addClass("active");
 
-                        $(".app-header .header-description").html($(this).find(".usermenu-item-detail").html());
+                        // $(".app-header .header-description").html($(this).find(".usermenu-item-detail").html());
                     }
                 }
                 else {

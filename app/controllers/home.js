@@ -92,7 +92,7 @@ define(
 
                 $("a.usermenu-item").removeClass("active").each(function () {
                     if ($(this).attr("href") == "#" + Backbone.history.getFragment()) {
-                        $("#app-toolbar .header-description").html($(this).find(".usermenu-item-detail").html());
+                        // $("#app-toolbar .header-description").html($(this).find(".usermenu-item-detail").html());
                         $(this).addClass("active");
                     }
                 });
