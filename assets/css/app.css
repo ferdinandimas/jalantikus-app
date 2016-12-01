@@ -1147,6 +1147,11 @@ div, span, a
 	-webkit-mask-image: url(../images/notification-icon.svg);
 	mask-image: url(../images/notification-icon.svg);
 }
+.usermenu-item .usermenu-item-detail.mutiara:after
+{
+	-webkit-mask-image: url(../images/mutiara-icon.svg);
+	mask-image: url(../images/mutiara-icon.svg);
+}
 .ui-panel-open ~ .app-body
 {
 	height: 100vh;
