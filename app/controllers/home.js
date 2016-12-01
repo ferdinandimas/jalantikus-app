@@ -277,6 +277,21 @@ define(
                         that.autoload();
                     });
                 }
+                if($(".app-content-container").scrollTop() < 100)
+                {
+                    $(".app-toolbar").addClass("scroll");
+                }
+
+                $(".app-content-container").on("scroll",function(e){
+                    if($(this).scrollTop() >= 100)
+                    {
+                        $(".app-toolbar").removeClass("scroll");
+                    }
+                    else
+                    {
+                        $(".app-toolbar").addClass("scroll");
+                    }
+                });
 
                 if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/isLastPage") != null) {
                     $(".app-content-container .app-loader").remove();
