@@ -54,7 +54,7 @@ require(
 			$.mobile.loading().hide();
 
 			if (window.localStorage.getItem("show_splash") == null) {
-				window.localStorage.setItem("show_splash", false);
+				window.localStorage.setItem("show_splash", true);
 			}
 
 			if (window.localStorage.getItem("show_splash") === "true") {
