@@ -97,6 +97,7 @@ div, span, a
 }
 .app-body
 {
+	background-color: #fff;
 	height: 100vh;
 }
 .app-content-container
