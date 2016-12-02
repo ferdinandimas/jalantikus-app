@@ -310,6 +310,14 @@ require(
                             if (confirmation != 1) {
                                 $("#notification").prop("checked", true);
                             }
+                            else
+                            {
+                                $(".app-refreshed").html("Notifikasi berhasil dimatikan").fadeIn();
+                                setTimeout(function () {
+                                    $(".app-refreshed").fadeOut();
+                                }, 2000);
+                                $("#app-userpanel").panel("close");
+                            }
                         },
                         "",
                         [ "Ya", "Tidak" ]
