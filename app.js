@@ -327,6 +327,10 @@ require(
 								}
 								else if (confirmation == 1) {
 									oneSignal.setSubscription(false);
+                                    $(".app-refreshed").html("Notifikasi berhasil dimatikan").fadeIn();
+                                    setTimeout(function () {
+                                        $(".app-refreshed").fadeOut();
+                                    }, 2000);
 								}
 							},
 							"",
