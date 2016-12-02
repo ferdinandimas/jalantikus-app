@@ -54,7 +54,7 @@ div, span, a
 	left: 0;
 	right: 0;
 	height: 95px;
-	max-height: 60px;
+	max-height: 50px;
 	width: 100%;
 	background-color: #c92737;
 	z-index: 12;
@@ -85,7 +85,7 @@ div, span, a
 }
 .app-toolbar-placeholder
 {
-	max-height: 60px;
+	max-height: 50px;
 	height: 100%;
     width: 100%;
     -webkit-transition: 0.1s;
@@ -97,11 +97,12 @@ div, span, a
 }
 .app-body
 {
+	background-color: #fff;
 	height: 100vh;
 }
 .app-content-container
 {
-	height: calc(100% - 60px);
+	height: calc(100% - 50px);
 	overflow-y: scroll;
 }
 .app-toolbar.on-top ~ #app-body .app-content-container
@@ -122,7 +123,7 @@ div, span, a
     left: 60px;
     transform: translate(0, 0);
     width: 120px;
-    height: 60px;
+    height: 50px;
     background-color: #fff;
     -webkit-mask-image: url(../images/jalantikus-logo.svg);
     mask-image: url(../images/jalantikus-logo.svg);
@@ -142,9 +143,7 @@ div, span, a
     transform: translate(-50%, 0);
     right: 0;
     width: 150px;
-    height: 60px;
-    -webkit-mask-size: auto 25px;
-    mask-size: auto 25px;
+    height: 50px;
 }
 .app-article-more
 {
@@ -191,8 +190,8 @@ div, span, a
 	color: #454545;
 	position: relative;
 	font-size: 15px;
-	line-height: 22px;
-	max-height: 66px;
+	line-height: 23px;
+	max-height: 69px;
 	-webkit-line-clamp : 3;
 	font-weight: bold;
 	display            : block;
@@ -913,7 +912,7 @@ div, span, a
 .app-header
 {
 	width: 100%;
-	height: 60px;
+	height: 50px;
 }
 .app-header .app-toggle-userpanel
 {
@@ -926,7 +925,7 @@ div, span, a
 	color: #fff;
 	position: absolute;
 	left: 60px;
-	top: 20px;
+	top: 15px;
 	line-height: 20px;
 	height: 20px;
 	font-size: 20px;
@@ -936,8 +935,8 @@ div, span, a
 }
 .app-header .header-menu
 {
-	height: 60px;
-	width: 60px;
+	height: 50px;
+	width: 50px;
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -946,11 +945,11 @@ div, span, a
 {
 	content: "";
 	position: absolute;
-    width: 60px;
-    height: 60px;
-    top: 0;
-    bottom: 0;
-    left: 0;
+	width: 50px;
+	height: 50px;
+	top: 0;
+	bottom: 0;
+	left: 0;
 }
 .app-header .header-menu.index:after
 {
@@ -969,8 +968,8 @@ div, span, a
 }
 .app-toggle-searchpanel, .app-header .header-search, .app-header .app-home .app-menu-home, .app-header .header-refresh
 {
-	height: 60px;
-	width: 60px;
+	height: 50px;
+	width: 50px;
 	position: absolute;
 	right: 0;
 	top: 0;
@@ -981,8 +980,8 @@ div, span, a
 {
 	content: "";
 	position: absolute;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     top: 0;
     bottom: 0;
     left: 0;
@@ -991,10 +990,10 @@ div, span, a
 }
 .app-header .app-home, .app-header .app-toggle-refresh
 {
-	height: 60px;
-	width: 60px;
+	height: 50px;
+	width: 50px;
 	position: absolute;
-	right: 60px;
+	right: 50px;
 	top: 0;
 	-webkit-transition: 0.2s;
 	transition: 0.2s;
@@ -1027,13 +1026,13 @@ div, span, a
 {
 	content: "";
 	position: absolute;
-    width: 60px;
-    height: 60px;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    background: url(../images/refresh-icon.svg) center center no-repeat;
-    background-size: 24px 24px;
+	width: 50px;
+	height: 50px;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	background: url(../images/refresh-icon.svg) center center no-repeat;
+	background-size: 24px 24px;
 }
 .app-header .header-refresh.active:after
 {
@@ -1044,8 +1043,8 @@ div, span, a
 {
 	content: "";
 	position: absolute;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     top: 0;
     bottom: 0;
     left: 0;
@@ -1069,8 +1068,8 @@ div, span, a
 	position: absolute;
 	content: "";
 	display: block;
-	left: 10px;
-	top: 10px;
+	left: 5px;
+	top: 5px;
 	border-radius: 50%;
 	background: rgba(255,255,255, 0.16);
 	opacity: 0;
@@ -1079,14 +1078,6 @@ div, span, a
 .app-header .app-toggle-back.active:after, .app-header .app-toggle-userpanel.active:after, .app-header .app-toggle-searchpanel.active:after, .app-header .header-refresh.active:before, .app-header .app-home.active:after
 {
 	opacity: 1
-}
-.quick-search-container
-{
-    position: absolute;
-    padding: 0 15px 0 15px;
-    bottom: 10px;
-    left: 0;
-    right: 0;
 }
 .quick-search-container .quick-search
 {
@@ -1099,23 +1090,66 @@ div, span, a
 }
 .app-toolbar .quick-search-container
 {
-    transform-origin: bottom;
-    transform: scaleY(0);
+	position: absolute;
+    padding: 0 15px 0 15px;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+	height: 0;
     -webkit-transition: 0.2s;
     transition: 0.2s;
+    margin: 0 15px;
+    overflow: hidden;
+    z-index: 999;
 }
 .app-toolbar.on-top .quick-search-container
 {
-    transform: scaleY(1);
+	height: 35px;
 }
-.quick-search-container:after
+.app-toolbar .quick-search-container #quick-search
+{
+	position: absolute;
+	top: -35px;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+}
+.app-toolbar .quick-search-dismiss
+{
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0,0,0,0.45);
+	visibility: hidden;
+	opacity: 0;
+	-webkit-transition: opacity 0.2s ;
+    transition: opacity 0.2s;
+}
+.app-toolbar .quick-search-dismiss.active
+{
+	visibility: visible;
+	opacity: 1;
+}
+.app-toolbar.on-top .quick-search-container #quick-search
+{
+    top: 0;
+}
+.quick-search-container #quick-search:after
 {
 	position: absolute;
     width: 20px;
     height: 20px;
     content: "";
     top: 8px;
-    left: 30px;
+    left: 15px;
     background-color: #c92737;
     -webkit-mask-image: url(../images/search-icon.svg);
     mask-image: url(../images/search-icon.svg);
