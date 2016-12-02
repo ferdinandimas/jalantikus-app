@@ -368,43 +368,43 @@ require(
 			});
 
 			var _scrolling = false, _direction, _pos, _velocity = 0, _scrollInterval;
-			// $(document).on("touchstart", ".scroll-button", function (e) {
-			// 	if (!_scrolling && !$(".app-detail-container").is(':animated')) {
-			// 		_scrolling = true
-			// 		_direction = $(this).data("direction");
-			// 		$(this).addClass("active")
-			// 		if (_direction == "up") {
-			// 			_velocity = -260;
-			// 		}
-			// 		else if (_direction == "down") {
-			// 			_velocity = 260;
-			// 		}
-			// 		_pos = $(".app-detail-container").scrollTop() + _velocity;
-			// 		$(".app-detail-container").animate({
-			// 					"scrollTop": _pos
-			// 				}
-			// 				, 300);
-			// 		_scrollInterval = setInterval(function () {
-			// 			_pos = $(".app-detail-container").scrollTop() + _velocity;
-			// 			if (_scrolling == true) {
-			// 				$(".app-detail-container").animate({
-			// 							"scrollTop": _pos
-			// 						}
-			// 						, 300);
-			// 			}
-			// 			else {
-			// 				clearInterval(_scrollInterval);
-			// 			}
-			// 		}, 750)
-			// 	}
-			// });
+			$(document).on("touchstart", ".scroll-button", function (e) {
+				if (!_scrolling && !$(".app-detail-container").is(':animated')) {
+					_scrolling = true
+					_direction = $(this).data("direction");
+					$(this).addClass("active")
+					if (_direction == "up") {
+						_velocity = -260;
+					}
+					else if (_direction == "down") {
+						_velocity = 260;
+					}
+					_pos = $(".app-detail-container").scrollTop() + _velocity;
+					$(".app-detail-container").animate({
+								"scrollTop": _pos
+							}
+							, 300);
+					_scrollInterval = setInterval(function () {
+						_pos = $(".app-detail-container").scrollTop() + _velocity;
+						if (_scrolling == true) {
+							$(".app-detail-container").animate({
+										"scrollTop": _pos
+									}
+									, 300);
+						}
+						else {
+							clearInterval(_scrollInterval);
+						}
+					}, 750)
+				}
+			});
 
-			// $(document).on("touchend", ".scroll-button", function (e) {
-			// 	_scrolling = false;
-			// 	$(".scroll-button").removeClass("active")
-			// 	_velocity = 0;
-			// 	clearInterval(_scrollInterval);
-			// });
+			$(document).on("touchend", ".scroll-button", function (e) {
+				_scrolling = false;
+				$(".scroll-button").removeClass("active")
+				_velocity = 0;
+				clearInterval(_scrollInterval);
+			});
 
 			$(document).on("click", ".app-header .app-toggle-userpanel", function (e) {
 				if (!jt.isOffline()) {
