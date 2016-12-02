@@ -658,6 +658,12 @@ require(
 					}
 				}
 			}, 250);
+            
+            if($(window).height() < 560)
+            {
+                console.log('a')
+                $(".userpanel-container").innerHeight($(window).height() - 175);
+            }
 		});
 	}
 );

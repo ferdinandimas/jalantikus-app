@@ -923,6 +923,10 @@ div, span, a
 	height: 120px;
 	background-color: #c92737;
 }
+.userpanel-container
+{
+	overflow-y: scroll;
+}
 .searchpanel-header
 {
 	height: 50px;
