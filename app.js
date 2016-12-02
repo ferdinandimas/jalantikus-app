@@ -69,7 +69,7 @@ require(
                 var notificationOpenedCallback = function(jsonData) {
                     if (typeof jsonData.notification.payload.additionalData.article != "undefined" && jsonData.notification.payload.additionalData.article != "") {
                         window.BackboneRouter.navigate("article/" + jsonData.notification.payload.additionalData.article, {trigger: true});
-                        
+
                         if (!jt.isOffline()) {
                             $(".splash .app-refreshed").hide();
                         }
