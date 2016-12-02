@@ -56,6 +56,8 @@ require(
 			$(function () {
 				$.mobile.loading().hide();
 
+				alert("HERE 2");
+
 				if (window.localStorage.getItem("show_splash") == null) {
 					window.localStorage.setItem("show_splash", false);
 				}
