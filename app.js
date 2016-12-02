@@ -53,6 +53,10 @@ require.config({
 require(
 		[ "app/main" ],
 		function (Router) {
+			if (typeof navigator.splashscreen != "undefined") {
+				navigator.splashscreen.hide();
+			}
+
 			$(".splash-background").addClass("shown").parent().find(".splash-content").fadeIn();
 
 			$(function () {

@@ -305,10 +305,6 @@ define(
                 }
 
                 if ($(".splash").length >= 1) {
-	                if (typeof navigator.splashscreen != "undefined") {
-		                navigator.splashscreen.hide();
-	                }
-
                     setTimeout(function () {
                         $(".splash").fadeOut("fast", function () {
                             $(this).remove();
