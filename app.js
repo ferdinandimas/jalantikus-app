@@ -41,7 +41,6 @@ require.config({
 			deps   : [ "jt" ],
 			exports: "oneSignal",
 		},
-		"app/main"            : [ "backbone", "jquery", "jquery.mobile", "isInViewport", "oneSignal" ],
 	},
 
 	// Disable script caching on development mode
@@ -49,12 +48,10 @@ require.config({
 });
 
 require(
-	[ "main", "backbone", "jquery", "jquery.mobile", "isInViewport", "oneSignal" ],
+	[ "backbone", "jquery", "jquery.mobile", "isInViewport", "oneSignal" ],
 	function (Router) {
 		$(function () {
 			$.mobile.loading().hide();
-
-			alert("HERE 2");
 
 			if (window.localStorage.getItem("show_splash") == null) {
 				window.localStorage.setItem("show_splash", false);

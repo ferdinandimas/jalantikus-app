@@ -314,7 +314,6 @@ define(
                 }
 
                 if ($(".splash").length >= 1) {
-	                alert("HERE 1");
                     setTimeout(function () {
                         $(".splash").fadeOut("fast", function () {
                             $(this).remove();
