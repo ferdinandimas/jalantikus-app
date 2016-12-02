@@ -123,10 +123,15 @@ div, span, a
     transform: translate(0, 0);
     width: 120px;
     height: 60px;
-    background-image: url(../images/jalantikus-logo-white.png);
-    background-size: auto 20px;
-    background-repeat: no-repeat;
-    background-position: center;
+    background-color: #fff;
+    -webkit-mask-image: url(../images/jalantikus-logo.svg);
+    mask-image: url(../images/jalantikus-logo.svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: auto 20px;
+    mask-size: auto 20px;
+    -webkit-mask-position: center center;
+    mask-position: center center;
     -webkit-transition: 0.2s;
     transition: 0.2s;
 }
@@ -138,10 +143,8 @@ div, span, a
     right: 0;
     width: 150px;
     height: 60px;
-    background-image: url(../images/jalantikus-logo-white.png);
-    background-size: auto 25px;
-    background-repeat: no-repeat;
-    background-position: center;
+    -webkit-mask-size: auto 25px;
+    mask-size: auto 25px;
 }
 .app-article-more
 {
@@ -505,12 +508,14 @@ div, span, a
 	top: 10px;
 	left: 10px;
 	content: "";
-    -webkit-mask-image: url(../images/jalantikus-logo-red.png);
-    mask-image: url(../images/jalantikus-logo-red.png);
+    -webkit-mask-image: url(../images/jalantikus-logo.svg);
+    mask-image: url(../images/jalantikus-logo.svg);
     -webkit-mask-position: left center;
     mask-position: left center;
-    -webkit-mask-size: 25px;
-    mask-size: 25px;
+    -webkit-mask-size: auto 25px;
+    mask-size: auto 25px;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
     background-color: #c92737;
 }
 .app-loader .app-load:before
