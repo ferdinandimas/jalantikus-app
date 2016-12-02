@@ -22,8 +22,6 @@ var oneSignal = function () {
 						})
 						.endInit();
 			}
-
-			oneSignal.isSubscribed();
 		},
 		setSubscription: function (_val) {
 			window.localStorage.setItem("push_subscription", (_val === "true" || _val === true));
@@ -35,6 +33,7 @@ var oneSignal = function () {
 		},
 		isSubscribed: function () {
 			if (window.localStorage.getItem("push_subscription") == null) {
+				console.log("HERE 2");
 				window.localStorage.setItem("push_subscription", true);
 				$("#notification").prop("checked", true);
 
@@ -43,7 +42,7 @@ var oneSignal = function () {
 				}
 			}
 			else {
-				$("#notification").prop("checked", (window.localStorage.getItem("push_subscription") === "true"));
+				$("#notification").prop("checked", (window.localStorage.getItem("push_subscription") === "true" || window.localStorage.getItem("push_subscription") === true));
 
 				if (typeof window.plugins != "undefined") {
 					window.plugins.OneSignal.setSubscription(window.localStorage.getItem("push_subscription"));

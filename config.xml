@@ -17,7 +17,8 @@
     <preference name="phonegap-version" value="cli-6.3.0"/>
     <!--<preference name="orientation" value="portrait"/>-->
     <preference name="fullscreen" value="false"/>
-    <preference name="StatusBarBackgroundColor" value="#8f1f1f"/>
+    <!--<preference name="StatusBarBackgroundColor" value="#8f1f1f"/>-->
+    <preference name="StatusBarBackgroundColor" value="#ffffff"/>
 
     <!-- Android only -->
     <preference name="android-minSdkVersion" value="21"/>
@@ -41,7 +42,7 @@
     <preference name="permissions" value="none"/>
 
     <!--<preference name="SplashScreen" value="res/splashscreen.png"/>-->
-    <!--<preference name="ShowSplashScreen" value="true"/>-->
+    <preference name="ShowSplashScreen" value="false"/>
     <!--<preference name="ShowSplashScreenSpinner" value="false"/>-->
     <!--<preference name="AutoHideSplashScreen" value="true"/>-->
     <!--<preference name="SplashShowOnlyFirstTime" value="true"/>-->
@@ -49,15 +50,15 @@
     <!--<preference name="FadeSplashScreen" value="true" />-->
     <!--<preference name="SplashScreenDelay" value="1000" />-->
 
-    <preference name="ShowSplashScreen" value="true"/>
-    <preference name="SplashScreen" value="res/splashscreen.png"/>
-    <preference name="AutoHideSplashScreen" value="true"/>
-    <preference name="SplashShowOnlyFirstTime" value="true"/>
-    <preference name="ShowSplashScreenSpinner" value="false"/>
-    <preference name="SplashMaintainAspectRatio" value="true" />
+    <!--<preference name="ShowSplashScreen" value="true"/>-->
+    <!--<preference name="SplashScreen" value="res/splashscreen.png"/>-->
+    <!--<preference name="AutoHideSplashScreen" value="true"/>-->
+    <!--<preference name="SplashShowOnlyFirstTime" value="true"/>-->
+    <!--<preference name="ShowSplashScreenSpinner" value="false"/>-->
+    <!--<preference name="SplashMaintainAspectRatio" value="true" />-->
 
-    <preference name="SplashScreenDelay" value="1000"/>
-    <preference name="FadeSplashScreenDuration" value="500"/>
+    <!--<preference name="SplashScreenDelay" value="1000"/>-->
+    <!--<preference name="FadeSplashScreenDuration" value="500"/>-->
 
     <platform name="android">
         <icon src="res/icons/google-play-store.png"/>

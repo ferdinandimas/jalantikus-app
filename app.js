@@ -74,7 +74,9 @@ require(
 			window.BackboneRouter = new Router();
 			Backbone.history.start({ pushState: false });
 
-			document.addEventListener('deviceready', function () {
+			oneSignal.isSubscribed();
+
+			document.addEventListener("deviceready", function () {
 				if (typeof window.StatusBar != "undefined") {
 					window.StatusBar.backgroundColorByHexString("#8F1F1F");
 				}
