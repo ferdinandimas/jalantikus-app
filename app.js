@@ -53,17 +53,19 @@ require.config({
 require(
 		[ "app/main" ],
 		function (Router) {
-			if (typeof navigator.splashscreen != "undefined") {
-				navigator.splashscreen.hide();
-			}
-
-			$(".splash-background").addClass("shown").parent().find(".splash-content").fadeIn();
-
 			$(function () {
 				$.mobile.loading().hide();
 
-				if (typeof window.StatusBar != "undefined") {
-					window.StatusBar.backgroundColorByHexString("#8F1F1F");
+				if (window.localStorage.getItem("show_splash") == null) {
+					window.localStorage.setItem("show_splash", false);
+				}
+
+				if (window.localStorage.getItem("show_splash") === "true") {
+					$("#mutiara").prop("checked", true);
+					$(".splash-content").fadeIn();
+				}
+				else {
+					$(".splash").fadeOut();
 				}
 
 				if ($("#app-body .app-refreshed").length == 0) {
@@ -76,6 +78,14 @@ require(
 				Backbone.history.start({ pushState: false });
 
 				document.addEventListener('deviceready', function () {
+					if (typeof window.StatusBar != "undefined") {
+						window.StatusBar.backgroundColorByHexString("#8F1F1F");
+					}
+
+					if (typeof navigator.splashscreen != "undefined") {
+						navigator.splashscreen.hide();
+					}
+
 					oneSignal.init();
 				}, false);
 
@@ -328,7 +338,16 @@ require(
 							oneSignal.setSubscription(true);
 						}
 					}
-				})
+				});
+
+				$(document).on("change", "#mutiara", function () {
+					if (!$(this).is(":checked")) {
+						window.localStorage.setItem("show_splash", false);
+					}
+					else {
+						window.localStorage.setItem("show_splash", true);
+					}
+				});
 
 				var _scrolling = false, _direction, _pos, _velocity = 0, _scrollInterval;
 				// $(document).on("touchstart", ".scroll-button", function (e) {
