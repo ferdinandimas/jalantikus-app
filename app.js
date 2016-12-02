@@ -41,7 +41,7 @@ require.config({
 			deps   : [ "jt" ],
 			exports: "oneSignal",
 		},
-		"app/main"            : [ "backbone", "jquery", "jquery.mobile", "jquery.mobile" ],
+		"app/main"            : [ "backbone", "jquery.mobile", "isInViewport", "oneSignal" ],
 	},
 
 	// Disable script caching on development mode
@@ -49,7 +49,7 @@ require.config({
 });
 
 require(
-	[ "main", "backbone", "jquery", "jquery.mobile", "isInViewport" ],
+	[ "app/main" ],
 	function (Router) {
 		$(function () {
 			$.mobile.loading().hide();
