@@ -219,6 +219,14 @@ require(
                 }
             });
 
+            $(document).on("focus", ".quick-search", function(e)
+            {
+                $(".quick-search-dismiss").addClass("active");
+            })
+            $(document).on("click mouseup touchup", ".quick-search-dismiss", function(e)
+            {
+                $(".quick-search-dismiss").removeClass("active");
+            })
             var _displayRate = [
                 "Dari lubuk hati kami yang terdalam, kami minta maaf :'(",
                 "Mohon maaf atas ketidaknyamanannya, akan segera kami perbaiki :)",

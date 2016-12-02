@@ -101,7 +101,7 @@ div, span, a
 }
 .app-content-container
 {
-	height: calc(100% - 60px);
+	height: calc(100% - 50px);
 	overflow-y: scroll;
 }
 .app-toolbar.on-top ~ #app-body .app-content-container
@@ -1078,14 +1078,6 @@ div, span, a
 {
 	opacity: 1
 }
-.quick-search-container
-{
-    position: absolute;
-    padding: 0 15px 0 15px;
-    bottom: 10px;
-    left: 0;
-    right: 0;
-}
 .quick-search-container .quick-search
 {
     width: 100%;
@@ -1097,11 +1089,17 @@ div, span, a
 }
 .app-toolbar .quick-search-container
 {
+	position: absolute;
+    padding: 0 15px 0 15px;
+    bottom: 10px;
+    left: 0;
+    right: 0;
 	height: 0;
     -webkit-transition: 0.2s;
     transition: 0.2s;
     margin: 0 15px;
     overflow: hidden;
+    z-index: 999;
 }
 .app-toolbar.on-top .quick-search-container
 {
@@ -1119,7 +1117,26 @@ div, span, a
     -webkit-transition: 0.2s;
     transition: 0.2s;
 }
-
+.app-toolbar .quick-search-dismiss
+{
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0,0,0,0.45);
+	visibility: hidden;
+	opacity: 0;
+	-webkit-transition: opacity 0.2s ;
+    transition: opacity 0.2s;
+}
+.app-toolbar .quick-search-dismiss.active
+{
+	visibility: visible;
+	opacity: 1;
+}
 .app-toolbar.on-top .quick-search-container #quick-search
 {
     top: 0;
