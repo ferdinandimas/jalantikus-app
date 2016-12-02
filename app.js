@@ -212,30 +212,37 @@ require(
 					}
 				});
 
+				$(document).on("focus", ".quick-search", function (e) {
+					$(".quick-search-dismiss").addClass("active");
+				});
+				$(document).on("click mouseup touchup", ".quick-search-dismiss", function (e) {
+					$(".quick-search-dismiss").removeClass("active");
+				});
 				var _displayRate = [
 					"Dari lubuk hati kami yang terdalam, kami minta maaf :'(",
 					"Mohon maaf atas ketidaknyamanannya, akan segera kami perbaiki :)",
 					"Berikan kami kesempatan lagi untuk membuat aplikasi ini lebih baik.",
 					"Terima kasih, segala kritik dan saran akan sangat membantu :)",
 					"Terima Kasih, Kami akan terus berusaha membuatnya lebih baik :)"
-				]
-				$(document).on("click", ".rate-star", function () {
+				];
+				$(document).on("click", ".rate-star", function(){
 					var rate = $(this).data("rate");
-					switch (rate) {
+					switch(rate)
+					{
 						case 1:
-							$(".app-rating-subtitle").html(_displayRate[ 0 ]);
+							$(".app-rating-subtitle").html(_displayRate[0]);
 							break;
 						case 2:
-							$(".app-rating-subtitle").html(_displayRate[ 1 ]);
+							$(".app-rating-subtitle").html(_displayRate[1]);
 							break;
 						case 3:
-							$(".app-rating-subtitle").html(_displayRate[ 2 ]);
+							$(".app-rating-subtitle").html(_displayRate[2]);
 							break;
 						case 4:
-							$(".app-rating-subtitle").html(_displayRate[ 3 ]);
+							$(".app-rating-subtitle").html(_displayRate[3]);
 							break;
 						case 5:
-							$(".app-rating-subtitle").html(_displayRate[ 4 ]);
+							$(".app-rating-subtitle").html(_displayRate[4]);
 							break;
 						default:
 							console.log("ERROR");
