@@ -36,7 +36,7 @@ div, span, a
     box-shadow: 0 1px 1px rgba(0,0,0,0.04), 0 1px 5px rgba(0,0,0,0.15)
 }
 .shadow-l2 {
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.16), 0 1px 3px rgba(0,0,0,0.2);
 }
 .shadow-l3 {
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
@@ -50,19 +50,24 @@ div, span, a
 .app-toolbar
 {
 	position: fixed;
-	top: -1px;
+	top: 0;
 	left: 0;
 	right: 0;
-	height: 61px;
+	height: 95px;
+	max-height: 60px;
 	width: 100%;
-	background-color: #b71c1c;
+	background-color: #c92737;
 	z-index: 12;
-	-webkit-transition: 0.1s;
-    transition: 0.1s;
+	-webkit-transition: 0.2s;
+    transition: 0.2s;
+}
+.app-toolbar.on-top	
+{
+	max-height: 95px;
 }
 .app-toolbar.detail
 {
-	background-color: #b71c1c;
+	background-color: #c92737;
 }
 .app-toolbar.offline
 {
@@ -71,7 +76,7 @@ div, span, a
 .app-toolbar.scroll
 {
 	position: fixed;
-	top: -1px;
+	top: 0;
 	left: 0;
 	right: 0;
 	height: 0;
@@ -80,10 +85,15 @@ div, span, a
 }
 .app-toolbar-placeholder
 {
-	height: 60px;
+	max-height: 60px;
+	height: 100%;
     width: 100%;
     -webkit-transition: 0.1s;
     transition: 0.1s;
+}
+.app-toolbar.on-top ~ #app-body .app-toolbar-placeholder
+{
+	max-height: 95px;
 }
 .app-body
 {
@@ -91,16 +101,50 @@ div, span, a
 }
 .app-content-container
 {
-    padding: 15px 10px 5px;
-	height: calc(100% - 80px);
+	height: calc(100% - 60px);
 	overflow-y: scroll;
+}
+.app-toolbar.on-top ~ #app-body .app-content-container
+{
+	height: calc(100% - 95px);
 }
 .app-index-card
 {
-	position: relative;
-	height: 110px;
-	margin-bottom: 10px;
-	border-radius: 2px;
+    position: relative;
+    height: 100px;
+    border-radius: 2px;
+    padding: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.app-toolbar .app-logo 
+{
+    position: absolute;
+    left: 60px;
+    transform: translate(0, 0);
+    width: 120px;
+    height: 60px;
+    background-color: #fff;
+    -webkit-mask-image: url(../images/jalantikus-logo.svg);
+    mask-image: url(../images/jalantikus-logo.svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: auto 20px;
+    mask-size: auto 20px;
+    -webkit-mask-position: center center;
+    mask-position: center center;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+}
+.app-toolbar.on-top .app-logo 
+{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    right: 0;
+    width: 150px;
+    height: 60px;
+    -webkit-mask-size: auto 25px;
+    mask-size: auto 25px;
 }
 .app-article-more
 {
@@ -113,6 +157,7 @@ div, span, a
 	width: calc((100% - 15px )/2);
 	margin-right: 15px;
 	margin-bottom: 15px;
+	padding: 0;
 }
 .app-article-more .app-index-card:nth-child(2n)
 {
@@ -120,22 +165,22 @@ div, span, a
 }
 .more-title
 {
-	color: #b71c1c;
+	color: #c92737;
 	font-size: 18px;
     line-height: 24px;
 	padding: 15px;
 	font-weight: 700;
-	border-left: 10px solid #b71c1c;
+	border-left: 10px solid #c92737;
 }
 .app-article-more .app-index-card .card-description .card-title
 {
 	font-size: 12px;
-	line-height: 18px;
-	height: 54px;
+	line-height: 22px;
+	height: 44px;
 }
 .app-index-card.multi-image .card-description
 {
-	padding: 15px;
+	padding: 0 0 15px 0;
 }
 .app-index-card.multi-image .card-description .card-note 
 {
@@ -146,8 +191,8 @@ div, span, a
 	color: #454545;
 	position: relative;
 	font-size: 15px;
-	line-height: 18px;
-	max-height: 54px;
+	line-height: 22px;
+	max-height: 66px;
 	-webkit-line-clamp : 3;
 	font-weight: bold;
 	display            : block;
@@ -157,6 +202,10 @@ div, span, a
 	overflow           : hidden;
 	text-overflow      : ellipsis;
 	padding            : 0 !important;
+}
+.app-index-card.multi-image .card-description .card-title
+{
+	max-height: 44px;
 }
 .app-index-card.card-placeholder .card-description .card-title
 {
@@ -181,7 +230,7 @@ div, span, a
 	width      : 25%;
 	display    : block;
 	position   : absolute;
-	height     : 18px;
+	height     : 22px;
 	background : linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 75%);
 }
 @supports (-webkit-line-clamp: 1)
@@ -194,14 +243,16 @@ div, span, a
 .app-index-card .card-image
 {
 	position: absolute;
-	top: 0;
-	right: 0;
-	height: 110px;
-	width: 110px;
+	top: 15px;
+	right: 15px;
+	height: 100px;
+	width: 100px;
 }
 .app-article-more .app-index-card .card-image
 {
 	width: 100%;
+	top: 0;
+	right: 0;
 	height: auto;
 	position: relative;
 }
@@ -224,12 +275,12 @@ div, span, a
 	right: 0;
 	height: auto;
 	width: auto;
-	padding: 0 15px 45px;
+	padding: 0 0 25px;
 }
 .app-index-card .card-image img
 {
-	height: 110px;
-	width: 110px;
+	height: 100px;
+	width: 100px;
 	border-radius: 0 2px 2px 0;
 	background-image: url(../images/placeholder.png);
     background-color: #eee;
@@ -263,7 +314,7 @@ div, span, a
 }
 .app-index-card .card-description
 {
-	padding: 15px 125px 15px 15px;
+	padding: 0 125px 15px 0;
 }
 .app-article-more .app-index-card .card-description
 {
@@ -436,22 +487,53 @@ div, span, a
 }
 .app-loader .app-load, .splash-content .app-load 
 {
-    width: 45px;
-    height: 45px;
+	position: relative;
+    width: 50px;
+    height: 50px;
     top: 0;
     right: 0;
     bottom: 0;
     margin: auto;
     left: 0;
-    background-image: url(../images/refresh-icon.svg);
-    background-color: #b71c1c;
-    background-position: center center;
+    background-color: #fff;
     border-radius: 50%;
     background-repeat: no-repeat;
-    background-size: 25px 25px;
     pointer-events: none;
+}
+.app-loader .app-load:after
+{
+	position: absolute;
+	height: 25px;
+	width: 25px;
+	top: 10px;
+	left: 10px;
+	content: "";
+    -webkit-mask-image: url(../images/jalantikus-logo.svg);
+    mask-image: url(../images/jalantikus-logo.svg);
+    -webkit-mask-position: left center;
+    mask-position: left center;
+    -webkit-mask-size: auto 25px;
+    mask-size: auto 25px;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    background-color: #c92737;
+}
+.app-loader .app-load:before
+{
+	position: absolute;
+	height: 50px;
+	width: 50px;
+	top: -2px;
+	left: -2px;
+	content: "";
+	border-radius: 50%;
+	border-left: 4px solid #c92737;
+	border-top: 4px solid #ededed;
+	border-right: 4px solid #ededed;
+	border-bottom: 4px solid #ededed;
     -webkit-animation: refresh 1.2s linear infinite;
     animation: refresh 1.2s linear infinite;
+    box-sizing: border-box;
 }
 .app-loader .app-retry, .splash-content .app-retry 
 {
@@ -471,7 +553,7 @@ div, span, a
     padding-left: 40px;
     text-align: center;
     background-image: url(../images/refresh-icon.svg);
-    background-color: #b71c1c;
+    background-color: #c92737;
     background-position: top 10px left 20px;
     border-radius: 4px;
     background-repeat: no-repeat;
@@ -482,9 +564,20 @@ div, span, a
 	margin-top: 20px;
 	border: 2px solid #fff;
 }
-.offline ~ .app-body .app-loader .app-retry, .offline ~ .app-body .app-loader .app-load
+.offline ~ .app-body .app-loader .app-retry
 {
 	background-color: #5f5f5f;
+}
+.offline ~ .app-body .app-loader .app-load:before
+{
+	border-left: 4px solid #5f5f5f;
+	border-top: 4px solid #ededed;
+	border-right: 4px solid #ededed;
+	border-bottom: 4px solid #ededed;
+}
+.offline ~ .app-body .app-loader .app-load:after
+{
+    background-color: #5f5f5f;
 }
 .app-loader .app-retry:hover, .app-loader .app-retry:active, .app-loader .app-retry:visited, .splash-content .app-retry:hover, .splash-content .app-retry:active, .splash-content .app-retry:visited
 {
@@ -810,7 +903,7 @@ div, span, a
 .userpanel-header
 {
 	height: 120px;
-	background-color: #b71c1c;
+	background-color: #c92737;
 }
 .searchpanel-header
 {
@@ -821,7 +914,6 @@ div, span, a
 {
 	width: 100%;
 	height: 60px;
-	margin-top: 1px;
 }
 .app-header .app-toggle-userpanel
 {
@@ -882,6 +974,8 @@ div, span, a
 	position: absolute;
 	right: 0;
 	top: 0;
+	-webkit-transition: 0.2s;
+	transition: 0.2s;
 }
 .app-header .header-search:after
 {
@@ -902,6 +996,8 @@ div, span, a
 	position: absolute;
 	right: 60px;
 	top: 0;
+	-webkit-transition: 0.2s;
+	transition: 0.2s;
 }
 .app-body .app-refreshed, .splash .app-refreshed
 {
@@ -983,6 +1079,58 @@ div, span, a
 .app-header .app-toggle-back.active:after, .app-header .app-toggle-userpanel.active:after, .app-header .app-toggle-searchpanel.active:after, .app-header .header-refresh.active:before, .app-header .app-home.active:after
 {
 	opacity: 1
+}
+.quick-search-container
+{
+    position: absolute;
+    padding: 0 15px 0 15px;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+}
+.quick-search-container .quick-search
+{
+    width: 100%;
+    padding: 5px 10px 5px 50px;
+    border: 0;
+    border-radius: 4px;
+    height: 35px;
+    box-sizing: border-box;
+}
+.app-toolbar .quick-search-container
+{
+    transform-origin: bottom;
+    transform: scaleY(0);
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+}
+.app-toolbar.on-top .quick-search-container
+{
+    transform: scaleY(1);
+}
+.quick-search-container:after
+{
+	position: absolute;
+    width: 20px;
+    height: 20px;
+    content: "";
+    top: 8px;
+    left: 30px;
+    background-color: #c92737;
+    -webkit-mask-image: url(../images/search-icon.svg);
+    mask-image: url(../images/search-icon.svg);
+    -webkit-mask-size: 20px;
+    mask-size: 15px;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+}
+.on-top.app-toolbar .app-header .app-toggle-searchpanel
+{
+	right: -60px;
+}
+.on-top.app-toolbar .app-header .app-toggle-refresh
+{
+	right: 0;
 }
 .app-panel .searchpanel 
 {
@@ -1086,7 +1234,7 @@ div, span, a
 .app-panel .userpanel-body .usermenu-item.active .usermenu-item-detail
 {
 	background-color: #eeeeee; 
-	color: #b71c1c;
+	color: #c92737;
 }
 .usermenu-item .usermenu-item-detail:after
 {
@@ -1110,7 +1258,7 @@ div, span, a
 }
 .usermenu-item.active .usermenu-item-detail:after
 {
-	background-color: #b71c1c; 
+	background-color: #c92737; 
 }
 .usermenu-item .usermenu-item-detail.home:after
 {
@@ -1141,6 +1289,18 @@ div, span, a
 {
 	-webkit-mask-image: url(../images/rate-icon.svg);
 	mask-image: url(../images/rate-icon.svg);
+}
+.usermenu-item .usermenu-item-detail.notification:after
+{
+	-webkit-mask-size: 20px 20px;
+	mask-size: 20px 20px;
+	-webkit-mask-image: url(../images/notification-icon.svg);
+	mask-image: url(../images/notification-icon.svg);
+}
+.usermenu-item .usermenu-item-detail.mutiara:after
+{
+	-webkit-mask-image: url(../images/mutiara-icon.svg);
+	mask-image: url(../images/mutiara-icon.svg);
 }
 .ui-panel-open ~ .app-body
 {
@@ -1752,7 +1912,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     height: 40px;
     line-height: 42px;
     color: #fff;
-    background-color: #b71c1c;
+    background-color: #c92737;
     border-radius: 4px;
     padding-left: 30px;
     text-align: center;
@@ -1788,7 +1948,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     height: 40px;
     line-height: 42px;
     color: #fff;
-    background-color: #b71c1c;
+    background-color: #c92737;
     border-radius: 4px;
     padding-left: 30px;
     text-align: center;
@@ -2081,4 +2241,48 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     margin-top: 10px;
     font-size: 13px;
     line-height: 18px;
+}
+.onoffswitch {
+    position: absolute; 
+    width: 55px;
+    right: 20px;
+    top: 20px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    height: 15px; padding: 0; line-height: 15px;
+    border: 0px solid #FFFFFF; border-radius: 20px;
+    background-color: #9E9E9E;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label {
+    background-color: #c92737;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label:before {
+    right: 0px; 
+    background-color: #c92737; 
+    box-shadow: 3px 6px 18px 0px rgba(0, 0, 0, 0.2);
+}
+.onoffswitch-label:before {
+   	content: "";
+    display: block;
+    height: 20px;
+    width: 20px;
+    margin: -2.5px;
+    background: #FFFFFF;
+    position: absolute;
+    top: -2px;
+    bottom: 0;
+    right: 36px;
+    border-radius: 20px;
+    box-shadow: 0 5px 9px 0px #757575;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    border: 2px solid #FFF;
 }

@@ -1,6 +1,6 @@
 <% _.each(timelineArticle, function(value) { %>
     <% if(value.multiple_images == true) { %>
-        <div class="app-index-card multi-image shadow-l1">
+        <div class="app-index-card multi-image">
             <div class="card-description">
                 <div class="card-title">
                     <%= value.title %>
@@ -23,7 +23,7 @@
             </a>
         </div>
     <% } else { %>
-        <div class="app-index-card shadow-l1">
+        <div class="app-index-card">
             <div class="card-description">
                 <div class="card-title">
                     <%= value.title %>

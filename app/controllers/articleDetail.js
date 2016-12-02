@@ -21,6 +21,7 @@ define(
                 $("#app-toolbar")
                     .addClass("detail")
                     .removeClass("scroll")
+                    .removeClass("on-top")
                     .empty()
                     .append((_.template(headerLayout))());
 

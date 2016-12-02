@@ -60,18 +60,36 @@
                 </a>
             </div>
             <div class="usermenu-bottom">
-                <a href="javascript:void()" class="usermenu-item app-share">
+                <a href="javascript:void(0)" class="usermenu-item app-share">
                     <div class="ripple"></div>
                     <div class="usermenu-item-detail share">
                         Bagikan ke Teman
                     </div>
                 </a>
-                <a href="javascript:void()" class="usermenu-item app-rate">
+                <a href="javascript:void(0)" class="usermenu-item app-rate">
                     <div class="ripple"></div>
                     <div class="usermenu-item-detail rate">
                         Rate JalanTikus
                     </div>
                 </a>
+                <div class="usermenu-item app-notification item-pass">
+                    <div class="usermenu-item-detail notification">
+                        Notifikasi
+                        <div class="onoffswitch">
+                            <input type="checkbox" name="notification" class="onoffswitch-checkbox" id="notification" checked  data-role="none">
+                            <label class="onoffswitch-label" for="notification"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="usermenu-item app-mutiara item-pass">
+                    <div class="usermenu-item-detail mutiara">
+                        Kata Mutiara
+                        <div class="onoffswitch">
+                            <input type="checkbox" name="mutiara" class="onoffswitch-checkbox" id="mutiara" data-role="none">
+                            <label class="onoffswitch-label" for="mutiara"></label>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="jalantikus-copyright">
@@ -94,15 +112,16 @@
             </form>
         </div>
     </div>
-    <div class="app-toolbar shadow-l2" id="app-toolbar">
+    <div class="app-toolbar shadow-l2 on-top" id="app-toolbar">
         <div class="app-header">
             <a href="#app-userpanel" class="app-toggle-userpanel">
                 <div class="header-menu index">
                 </div>
             </a>
-
             <div class="header-description">
-                Beranda
+            </div>
+            <div class="app-logo">
+                <a href="javascript:void(0)" class="card-link"></a>
             </div>
             <a href="#app-searchpanel" class="app-toggle-searchpanel">
                 <div class="header-search">
@@ -113,21 +132,7 @@
     <div data-role="main" class="app-body" id="app-body">
         <div class="app-toolbar-placeholder"></div>
         <div class="app-content-container">
-            <div class="app-index-card card-placeholder shadow-l1">
-                <div class="card-description">
-                    <div class="card-title">
-                    </div>
-                    <div class="card-note">
-                        <span class="card-author">
-                        </span>
-                        <span class="card-published">
-                        </span>
-                    </div>
-                </div>
-                <div class="card-image"></div>
-                <a href="javascript:void(0)" class="carird-link"></a>
-            </div>
-            <div class="app-index-card card-placeholder shadow-l1">
+            <div class="app-index-card card-placeholder">
                 <div class="card-description">
                     <div class="card-title">
                     </div>
@@ -141,7 +146,7 @@
                 <div class="card-image"></div>
                 <a href="javascript:void(0)" class="card-link"></a>
             </div>
-            <div class="app-index-card card-placeholder shadow-l1">
+            <div class="app-index-card card-placeholder">
                 <div class="card-description">
                     <div class="card-title">
                     </div>
@@ -155,7 +160,7 @@
                 <div class="card-image"></div>
                 <a href="javascript:void(0)" class="card-link"></a>
             </div>
-            <div class="app-index-card card-placeholder shadow-l1">
+            <div class="app-index-card card-placeholder">
                 <div class="card-description">
                     <div class="card-title">
                     </div>
@@ -169,7 +174,21 @@
                 <div class="card-image"></div>
                 <a href="javascript:void(0)" class="card-link"></a>
             </div>
-            <div class="app-index-card card-placeholder shadow-l1">
+            <div class="app-index-card card-placeholder">
+                <div class="card-description">
+                    <div class="card-title">
+                    </div>
+                    <div class="card-note">
+                        <span class="card-author">
+                        </span>
+                        <span class="card-published">
+                        </span>
+                    </div>
+                </div>
+                <div class="card-image"></div>
+                <a href="javascript:void(0)" class="card-link"></a>
+            </div>
+            <div class="app-index-card card-placeholder">
                 <div class="card-description">
                     <div class="card-title">
                     </div>

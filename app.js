@@ -115,11 +115,11 @@ require(
             $(document).on("click", ".usermenu-item", function (e) {
                 if (!jt.isOffline()) {
                     var _currUI = $(this);
-                    if (!_currUI.hasClass("active") && !_currUI.hasClass("app-rate") && !_currUI.hasClass("app-share")) {
+                    if (!_currUI.hasClass("active") && !_currUI.hasClass("app-rate") && !_currUI.hasClass("app-share") && !_currUI.hasClass("item-pass")) {
                         $('.usermenu-item').not(_currUI).removeClass("active");
                         _currUI.addClass("active");
 
-                        $(".app-header .header-description").html($(this).find(".usermenu-item-detail").html());
+                        // $(".app-header .header-description").html($(this).find(".usermenu-item-detail").html());
                     }
                 }
                 else {
@@ -286,16 +286,36 @@ require(
 
             $(document).on("click", ".usermenu-item", function (e) {
                 if (!jt.isOffline()) {
-                    jt.ripple($(this), e);
-                    setTimeout(function () {
-                        $('#app-userpanel').panel('close')
-                    }, 150);
+                    if(!$(this).hasClass("item-pass"))
+                    {
+                        jt.ripple($(this), e);
+                        setTimeout(function () {
+                            $('#app-userpanel').panel('close')
+                        }, 150);
+                    }
                 }
                 else {
                     e.preventDefault();
                     showOffline();
                 }
             });
+
+            $(document).on("change", "#notification", function()
+            {
+                if(!$(this).is(":checked"))
+                {
+                    navigator.notification.confirm(
+                        "Ingin mematikan notifikasi?",
+                        function (confirmation) {
+                            if (confirmation != 1) {
+                                $("#notification").prop("checked", true);
+                            }
+                        },
+                        "",
+                        [ "Ya", "Tidak" ]
+                    );
+                }
+            })
 
             var _scrolling = false, _direction, _pos, _velocity = 0, _scrollInterval;
             $(document).on("touchstart", ".scroll-button", function (e) {

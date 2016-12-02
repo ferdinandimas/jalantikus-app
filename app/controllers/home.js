@@ -92,7 +92,7 @@ define(
 
                 $("a.usermenu-item").removeClass("active").each(function () {
                     if ($(this).attr("href") == "#" + Backbone.history.getFragment()) {
-                        $("#app-toolbar .header-description").html($(this).find(".usermenu-item-detail").html());
+                        // $("#app-toolbar .header-description").html($(this).find(".usermenu-item-detail").html());
                         $(this).addClass("active");
                     }
                 });
@@ -277,6 +277,21 @@ define(
                         that.autoload();
                     });
                 }
+                if($(".app-content-container").scrollTop() <= 0)
+                {
+                    $(".app-toolbar").addClass("on-top");
+                }
+
+                $(".app-content-container").on("scroll",function(e){
+                    if($(this).scrollTop() > 0)
+                    {
+                        $(".app-toolbar").removeClass("on-top");
+                    }
+                    else
+                    {
+                        $(".app-toolbar").addClass("on-top");
+                    }
+                });
 
                 if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/isLastPage") != null) {
                     $(".app-content-container .app-loader").remove();
