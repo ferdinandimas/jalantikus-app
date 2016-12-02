@@ -906,7 +906,7 @@ div, span, a
 }
 .searchpanel-header
 {
-	height: 60px;
+	height: 50px;
 	background-color: #fff;
 }
 .app-header
@@ -927,7 +927,7 @@ div, span, a
 	left: 60px;
 	top: 15px;
 	line-height: 20px;
-	height: 20px;
+	height: 18px;
 	font-size: 20px;
 	font-weight: 500;
 	display: block;
@@ -1175,8 +1175,8 @@ div, span, a
 }
 .app-panel .searchpanel .header-back
 {
-	width: 60px;
-	height: 60px;
+	width: 50px;
+	height: 50px;
 	position: absolute;
 	left: 0;
 	top: 0;
