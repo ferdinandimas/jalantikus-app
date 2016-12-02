@@ -135,6 +135,7 @@ div, span, a
     mask-position: center center;
     -webkit-transition: 0.2s;
     transition: 0.2s;
+    z-index: 8;
 }
 .app-toolbar.on-top .app-logo 
 {
@@ -181,8 +182,8 @@ div, span, a
 {
 	font-size: 12px;
 	line-height: 22px;
-	height: 44px;
-	max-height: 44px;
+	height: 66px;
+	max-height: 66px;
 }
 .app-index-card.multi-image .card-description
 {
@@ -921,11 +922,32 @@ div, span, a
 	width: 100%;
 	height: 50px;
 }
+.app-header:after, .app-header:before
+{
+	height: 50px;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	content: "";
+	background-color: #c92737;
+	-webkit-transition: 0.2s;
+	transition: 0.2s;
+	z-index: 4;
+}
+.app-header:before
+{
+	z-index: 7
+}
+.app-toolbar.on-top .app-header:after
+{
+	top: 50px;
+}
 .app-header .app-toggle-userpanel
 {
 	width: 100%;
 	height: 60px;
 	text-decoration: none;
+	z-index: 8;
 }
 .app-header .header-description
 {
@@ -935,10 +957,11 @@ div, span, a
 	top: 15px;
 	line-height: 20px;
 	height: 18px;
-	font-size: 20px;
+	font-size: 19px;
 	font-weight: 500;
 	display: block;
 	text-shadow: 0px 0px 0px;
+	z-index: 8;
 }
 .app-header .header-menu
 {
@@ -982,6 +1005,7 @@ div, span, a
 	top: 0;
 	-webkit-transition: 0.2s;
 	transition: 0.2s;
+	z-index: 8;
 }
 .app-header .header-search:after
 {
@@ -1004,6 +1028,7 @@ div, span, a
 	top: 0;
 	-webkit-transition: 0.2s;
 	transition: 0.2s;
+	z-index: 8;
 }
 .app-body .app-refreshed, .splash .app-refreshed
 {
@@ -1070,6 +1095,7 @@ div, span, a
 .app-header .app-toggle-back, .app-header .app-toggle-userpanel
 {
 	position: relative;
+	z-index: 7;
 }
 .app-header .app-toggle-back:after, .app-header .app-toggle-userpanel:after, .app-header .app-toggle-searchpanel:after, .app-header .header-refresh:before, .app-header .app-home:after
 {
@@ -1101,25 +1127,25 @@ div, span, a
 .app-toolbar .quick-search-container
 {
 	position: absolute;
-    padding: 0 15px 0 15px;
-    bottom: 10px;
-    left: 0;
-    right: 0;
-	height: 0;
-    -webkit-transition: 0.2s;
-    transition: 0.2s;
-    margin: 0 15px;
-    overflow: hidden;
-    z-index: 999;
-}
-.app-toolbar.on-top .quick-search-container
-{
+	padding: 0 15px 0 15px;
+	bottom: 10px;
+	left: 0;
+	right: 0;
 	height: 35px;
+	-webkit-transition: 0.2s;
+	transition: 0.2s;
+	margin: 0 15px;
+	overflow: hidden;
+	z-index: 5;
+}
+.app-toolbar.on-top .quick-search-container.active
+{
+	z-index: 999
 }
 .app-toolbar .quick-search-container #quick-search-form
 {
 	position: absolute;
-	top: -35px;
+    top: 0;
     right: 0;
     left: 0;
     bottom: 0;
@@ -1147,10 +1173,7 @@ div, span, a
 {
 	visibility: visible;
 	opacity: 1;
-}
-.app-toolbar.on-top .quick-search-container #quick-search-form
-{
-    top: 0;
+	z-index:  9;
 }
 .quick-search-container #quick-search-form:after
 {
