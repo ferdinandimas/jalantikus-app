@@ -62,18 +62,22 @@ define(
 
                 this.fetch();
 
-                if ($(".splash").length >= 1) {
-                    setTimeout(function () {
-                        $(".splash").fadeOut("fast", function () {
-                            $(this).remove();
-                        })
-                    }, 2000);
-                }
-
                 $("#app-body .app-detail-container").scroll(function () {
                     window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
                         $(".app-detail-container").scrollTop());
                 });
+
+	            if ($(".splash").length >= 1) {
+		            if (typeof navigator.splashscreen != "undefined") {
+			            navigator.splashscreen.hide();
+		            }
+
+		            setTimeout(function () {
+			            $(".splash").fadeOut("fast", function () {
+				            $(this).remove();
+			            })
+		            }, 2000);
+	            }
             },
             fetch     : function (options) {
                 var that = this;
