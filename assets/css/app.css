@@ -645,7 +645,7 @@ div, span, a
 }
 .app-detail-body a, .app-detail-body a:hover, .app-detail-body a:active, .app-detail-body a:visited
 {
-	color: #008efa;
+	color: #c92737;
 	font-weight: 500;
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
@@ -691,7 +691,7 @@ div, span, a
 .app-detail-header .header-image
 {
 	position: relative;
-	border-bottom: 5px solid #b11818;
+	border-bottom: 5px solid #c92737;
 }
 .app-detail-header .header-image:after
 {
@@ -754,7 +754,7 @@ div, span, a
 }
 .app-detail-header .header-title
 {
-	background: #37474f;
+	background: #354e5c;
 	padding: 15px 15px 40px;
 	color: #fff;
 	font-size: 20px;
@@ -2049,7 +2049,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     position: absolute;
   	left: calc( (100vw - 540px) / 2);
 	top: 40px;
-	z-index : 90;
+	z-index : 1
 }
 .splash-content
 {
@@ -2058,6 +2058,11 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	width: 100vw;
 	margin-top: 40px;
 	z-index: 99
+}
+.splash-content div
+{
+	position: relative;
+	z-index: 5
 }
 .splash-content .splash-image img
 {

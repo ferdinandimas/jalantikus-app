@@ -286,17 +286,26 @@ define(
                         that.autoload();
                     });
                 }
-               
+                var isInBeranda = true;
+                if(Backbone.history.getFragment().trim() != "")
+                {
+                    $(".app-toolbar").removeClass("on-top");
+                    isInBeranda = false;
+                }
+                else
+                {
+                    $(".app-toolbar").addClass("on-top");
+                }
                 $(".app-content-container").on("scroll touchmove",  function(e)
                 {
                     _pos = $(".app-content-container");
-                    if(_pos.scrollTop() > 0 && Backbone.history.getFragment() == "")
+                    if(_pos.scrollTop() <= 0 && isInBeranda)
                     {
-                        $(".app-toolbar").removeClass("on-top");
+                        $(".app-toolbar").addClass("on-top");
                     }
                     else
                     {
-                        $(".app-toolbar").addClass("on-top");
+                        $(".app-toolbar").removeClass("on-top");
                     }
                 });
 
