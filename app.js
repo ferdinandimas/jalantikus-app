@@ -331,6 +331,9 @@ require(
 							[ "Ya", "Tidak" ]
 						);
 					}
+					else {
+						oneSignal.setSubscription(true);
+					}
 				}
 				else {
 					if (!$(this).is(":checked")) {

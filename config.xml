@@ -17,8 +17,7 @@
     <preference name="phonegap-version" value="cli-6.3.0"/>
     <!--<preference name="orientation" value="portrait"/>-->
     <preference name="fullscreen" value="false"/>
-    <!--<preference name="StatusBarBackgroundColor" value="#8f1f1f"/>-->
-    <preference name="StatusBarBackgroundColor" value="#ffffff"/>
+    <preference name="StatusBarBackgroundColor" value="#8f1f1f"/>
 
     <!-- Android only -->
     <preference name="android-minSdkVersion" value="21"/>

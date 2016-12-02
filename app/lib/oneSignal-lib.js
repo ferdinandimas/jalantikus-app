@@ -33,7 +33,6 @@ var oneSignal = function () {
 		},
 		isSubscribed: function () {
 			if (window.localStorage.getItem("push_subscription") == null) {
-				console.log("HERE 2");
 				window.localStorage.setItem("push_subscription", true);
 				$("#notification").prop("checked", true);
 
