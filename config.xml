@@ -40,13 +40,13 @@
     <preference name="StatusBarStyle" value="default"/>
     <preference name="permissions" value="none"/>
 
-    <preference name="SplashScreen" value="res/splashscreen.png"/>
+    <!--<preference name="SplashScreen" value="res/splashscreen.png"/>-->
     <preference name="ShowSplashScreen" value="false"/>
-    <preference name="ShowSplashScreenSpinner" value="false"/>
-    <preference name="AutoHideSplashScreen" value="false"/>
-    <preference name="SplashShowOnlyFirstTime" value="true"/>
-    <preference name="SplashMaintainAspectRatio" value="true" />
-    <preference name="FadeSplashScreen" value="true" />
+    <!--<preference name="ShowSplashScreenSpinner" value="false"/>-->
+    <!--<preference name="AutoHideSplashScreen" value="false"/>-->
+    <!--<preference name="SplashShowOnlyFirstTime" value="true"/>-->
+    <!--<preference name="SplashMaintainAspectRatio" value="true" />-->
+    <!--<preference name="FadeSplashScreen" value="true" />-->
 
     <platform name="android">
         <icon src="res/icons/google-play-store.png"/>
