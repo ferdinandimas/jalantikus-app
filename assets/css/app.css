@@ -2213,6 +2213,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     animation: loadbar 2s infinite linear;
     transition: 0.4s;
     opacity: 1;
+    z-index: 9;
 }
 .app-header.browser.fadedout:after, .app-header.browser.fadedout:before
 {
