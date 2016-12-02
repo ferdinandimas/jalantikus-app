@@ -101,7 +101,7 @@ require(
                 window.BackboneRouter.navigate("search/" + $("#quick-search-form [name='quick-search']").val(), { trigger: true })
             });
 
-			$(".app-logo .card-link").on("click", function() {
+			$(document).on("click", $(".app-logo .card-link"), function() {
 				console.log("HERE");
 				$(".app-content-container").animate({ scrollTop: 0 }, "slow");
 			});

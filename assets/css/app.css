@@ -64,11 +64,13 @@ div, span, a
 {
 	max-height: 95px;
 }
-.app-toolbar.detail .app-header:before, .app-toolbar.detail .app-header:after
+.app-toolbar.detail .app-header:not(.browser):before, .app-toolbar.detail .app-header:not(.browser):after
 {
+	height: 50px;
+	top: 0;
 	opacity: 1;
-	-webkit-transition: opacity 0.1;
-	transition: opacity 0.1;
+	-webkit-transition: opacity 0.1s;
+	transition: opacity 0.1s;
 }
 .app-toolbar.detail.scroll .app-header:before, .app-toolbar.detail.scroll .app-header:after
 {
@@ -88,9 +90,9 @@ div, span, a
 	top: 0;
 	left: 0;
 	right: 0;
-	height: 0;
 	width: 100%;
 	z-index: 12;
+	box-shadow: 0 0 0;
 }
 .app-toolbar-placeholder
 {
@@ -2182,6 +2184,10 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 }
 
 /*In app browser loading*/
+.app-header.browser
+{
+	background-color: #c92737
+}
 .app-header.browser:before
 {
     position: absolute;
@@ -2189,6 +2195,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     content: "";
     height: 3px;
     bottom: 0;
+    top: initial;
     background-color: #bcbcbc;
     opacity: 1;
     transition: 0.4s;
@@ -2201,6 +2208,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     height: 3px;
     left: -35%;
     bottom: 0;
+    top: initial;
     background-color: #fff;
     animation: loadbar 2s infinite linear;
     transition: 0.4s;
@@ -2354,7 +2362,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 .onoffswitch-checkbox:checked + .onoffswitch-label:before {
     right: 0px; 
     background-color: #c92737; 
-    box-shadow: 3px 6px 18px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.2);
 }
 .onoffswitch-label:before {
    	content: "";
@@ -2368,7 +2376,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     bottom: 0;
     right: 36px;
     border-radius: 20px;
-    box-shadow: 0 5px 9px 0px #757575;
+    box-shadow: 0 3px 5px 0px #757575;
     -webkit-transition: 0.3s;
     transition: 0.3s;
     border: 2px solid #FFF;
