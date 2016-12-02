@@ -48,7 +48,7 @@ require.config({
 });
 
 require(
-	[ "backbone", "jquery", "jquery.mobile", "isInViewport", "oneSignal" ],
+	[ "main", "backbone", "jquery", "jquery.mobile", "isInViewport", "oneSignal" ],
 	function (Router) {
 		$(function () {
 			$.mobile.loading().hide();
