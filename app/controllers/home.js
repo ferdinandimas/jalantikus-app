@@ -277,13 +277,11 @@ define(
                         that.autoload();
                     });
                 }
-                if($(".app-content-container").scrollTop() <= 0)
+               
+                $(".app-content-container").on("scroll touchmove",  function(e)
                 {
-                    $(".app-toolbar").addClass("on-top");
-                }
-
-                $(".app-content-container").on("scroll",function(e){
-                    if($(this).scrollTop() > 0)
+                    _pos = $(".app-content-container");
+                    if(_pos.scrollTop() > 0)
                     {
                         $(".app-toolbar").removeClass("on-top");
                     }
