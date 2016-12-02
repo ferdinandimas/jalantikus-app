@@ -2036,7 +2036,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	left: 0;
 	z-index: 98
 }
-.splash-background:after
+.splash-content:before
 {
 	content: "";
     background: radial-gradient(circle closest-side, rgba(210, 47, 47, 1), rgba(143,31,31, 1) );
@@ -2046,6 +2046,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     position: absolute;
   	left: calc( (100vw - 540px) / 2);
 	top: 40px;
+	z-index : 90;
 }
 .splash-content
 {
@@ -2073,6 +2074,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     text-shadow: 0 0 0;
 	-webkit-transition: 0.2s;
     transition: 0.2s;
+	z-index : 100;
 }
 .splash-content .splash-speaker
 {

@@ -53,7 +53,7 @@ require.config({
 require(
 		[ "app/main" ],
 		function (Router) {
-			$(".splash").hide();
+			$(".splash-background").addClass("shown").parent().find(".splash-content").fadeIn();
 
 			$(function () {
 				$.mobile.loading().hide();
