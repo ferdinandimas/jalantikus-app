@@ -147,20 +147,26 @@ div, span, a
 }
 .app-article-more
 {
-	padding: 15px 15px 0 15px;
+	padding: 0
 }
 .app-article-more .app-index-card
 {
 	height: auto;
 	display: inline-block;
-	width: calc((100% - 15px )/2);
-	margin-right: 15px;
-	margin-bottom: 15px;
-	padding: 0;
+	width: calc(100% / 2);
+	padding: 15px;
+	border-bottom: 1px solid #f0f0f0;
+	border-right: 1px solid #f0f0f0;
+	border-radius: 0;
+	box-sizing: border-box;
 }
 .app-article-more .app-index-card:nth-child(2n)
 {
-	margin-right: 0;
+	border-right: 0px solid #f0f0f0;
+}
+.app-article-more .app-index-card:nth-child(n+3)
+{
+	border-bottom: 0px solid #f0f0f0;
 }
 .more-title
 {
@@ -176,6 +182,7 @@ div, span, a
 	font-size: 12px;
 	line-height: 22px;
 	height: 44px;
+	max-height: 44px;
 }
 .app-index-card.multi-image .card-description
 {
@@ -191,7 +198,7 @@ div, span, a
 	position: relative;
 	font-size: 15px;
 	line-height: 23px;
-	max-height: 3em;
+	max-height: 69px;
 	-webkit-line-clamp : 3;
 	font-weight: bold;
 	display            : block;
@@ -317,7 +324,7 @@ div, span, a
 }
 .app-article-more .app-index-card .card-description
 {
-	padding: 10px 10px 30px 10px;
+	padding: 10px 0px 30px 0px;
 }
 .app-index-card .card-description .card-note {
     position: absolute;
@@ -337,8 +344,8 @@ div, span, a
 }
 .app-article-more .app-index-card .card-description .card-note
 {
-	bottom: 5px;
-	left: 10px;
+	/* bottom: 5px; */
+	/* left: 10px; */
 	max-width: calc(100% - 20px);
 }
 .app-article-more .app-index-card .card-description .card-category
@@ -1109,7 +1116,7 @@ div, span, a
 {
 	height: 35px;
 }
-.app-toolbar .quick-search-container #quick-search
+.app-toolbar .quick-search-container #quick-search-form
 {
 	position: absolute;
 	top: -35px;
@@ -1141,11 +1148,11 @@ div, span, a
 	visibility: visible;
 	opacity: 1;
 }
-.app-toolbar.on-top .quick-search-container #quick-search
+.app-toolbar.on-top .quick-search-container #quick-search-form
 {
     top: 0;
 }
-.quick-search-container #quick-search:after
+.quick-search-container #quick-search-form:after
 {
 	position: absolute;
     width: 20px;
@@ -1198,7 +1205,7 @@ div, span, a
 	text-align: center;
     line-height: 24px;
     font-size: 18px;
-    margin: 0 0 15px 0;
+    margin: 15px 0 15px 0;
 }
 .app-search .app-search-keyword
 {

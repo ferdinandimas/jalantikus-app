@@ -98,6 +98,10 @@ require(
 
 				$("#app-searchpanel").panel("close");
 			});
+            $(document).on("submit", "#quick-search-form", function (e) {
+                e.preventDefault();
+                window.BackboneRouter.navigate("search/" + $("#quick-search-form [name='quick-search']").val(), { trigger: true })
+            });
 
 			$(document).on("click", ".app-toggle-searchpanel", function (e) {
 				if (!jt.isOffline()) {

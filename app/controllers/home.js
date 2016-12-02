@@ -101,6 +101,7 @@ define(
                         else
                         {
                             $(".app-logo").show();
+                            $(".app-toolbar").addClass("on-top");
                         }
                         $(this).addClass("active");
                     }
@@ -291,10 +292,6 @@ define(
                 {
                     $(".app-toolbar").removeClass("on-top");
                     isInBeranda = false;
-                }
-                else
-                {
-                    $(".app-toolbar").addClass("on-top");
                 }
                 $(".app-content-container").on("scroll touchmove",  function(e)
                 {
