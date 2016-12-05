@@ -21,6 +21,7 @@
             <a href="#article/<%= value.slug %>" class="card-link">
                 <div class="ripple"></div>
             </a>
+            <img src="<%= value.image.baseUrl %>9/3<%= value.image.file %>" style="display: none;">
         </div>
     <% } else { %>
         <div class="app-index-card">
@@ -39,6 +40,7 @@
             </div>
             <div class="card-image">
                 <img src="<%= value.image.baseUrl %>120/120<%= value.image.file %>" alt="<%= value.title %>" />
+                <img src="<%= value.image.baseUrl %>9/3<%= value.image.file %>" style="display: none;">
             </div>
             <a href="#article/<%= value.slug %>" class="card-link">
                 <div class="ripple"></div>
