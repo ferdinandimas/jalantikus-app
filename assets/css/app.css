@@ -509,6 +509,10 @@ div, span, a
 	height: 50px;
 	width: 100%;
 }
+.app-toolbar.detail ~ #app-body .app-loader
+{
+	margin-top: 60px;
+}
 .app-loader .app-load, .splash-content .app-load 
 {
 	position: relative;
