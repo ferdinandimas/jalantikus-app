@@ -678,9 +678,27 @@ require(
 			// window.addEventListener(orientationEvent, function() {
 			//     alert(orientationEvent +" "+ window.orientation + " " + screen.width);
 			// }, false);
+			var orientationChanged = false;
             $(window).on(orientationEvent, function(){
-                $(".userpanel-container").innerHeight($(window).height() - 175);
-                alert("orientation event : " + orientationEvent)
+            	if(!orientationChanged)
+            	{
+            		orientationChanged = true;
+					$("#app-userpanel").panel("close");
+					$("#app-searchpanel").panel("close");
+	            	var evtHeight = $(window).height();
+	            	var intEvt = setInterval(function(){
+	            		if($(window).height() != evtHeight)
+	            		{
+	            			evtHeight = $(window).height();
+	            		}
+	            		else
+	            		{
+	                		$(".userpanel-container").innerHeight($(window).height() - 175);
+            				orientationChanged = false;
+	                		clearInterval(intEvt);
+	            		}
+	            	}, 200)
+	            }
 			});
 		});
 	}
