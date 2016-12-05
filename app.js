@@ -605,7 +605,7 @@ require(
 			slowType();
 
 			$(".jalantikus-copyright span").html(new Date().getFullYear());
-
+			var isInBeranda = true; 
 			var isOnline, lastFragment;
 			setInterval(function () {
 				if (isOnline != !jt.isOffline()) {
@@ -659,6 +659,14 @@ require(
 						$('#app-searchpanel').panel({ disabled: false });
 					}
 				}
+				if(Backbone.history.getFragment().trim() != "")
+                {
+                    $(".app-toolbar").removeClass("on-top");
+                }
+				if($(".app-content-container").scrollTop() <= 0 && isInBeranda)
+                {$(".app-toolbar").addClass("on-top"); }
+                else
+                {if($(".app-toolbar").hasClass("on-top")){$(".app-toolbar").removeClass("on-top"); }}
 			}, 250);
             
             if($(window).height() < 560)
