@@ -673,8 +673,14 @@ require(
             {
                 $(".userpanel-container").innerHeight($(window).height() - 175);
             }
-            $(window).on("orientationchange",function(){
+            var supportsOrientationChange = "onorientationchange" in window,
+			    orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
+			// window.addEventListener(orientationEvent, function() {
+			//     alert(orientationEvent +" "+ window.orientation + " " + screen.width);
+			// }, false);
+            $(window).on(orientationEvent, function(){
                 $(".userpanel-container").innerHeight($(window).height() - 175);
+                alert("orientation event : " + orientationEvent)
 			});
 		});
 	}
