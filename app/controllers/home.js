@@ -312,6 +312,7 @@ define(
 
                 if ($(".splash").length >= 1) {
                     setTimeout(function () {
+                        $(".no-splash").fadeOut("fast");
                         $(".splash").fadeOut("fast", function () {
                             $(this).remove();
                         })

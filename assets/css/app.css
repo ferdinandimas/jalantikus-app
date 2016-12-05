@@ -167,18 +167,21 @@ div, span, a
 	display: inline-block;
 	width: calc(100% / 2);
 	padding: 15px;
-	border-bottom: 1px solid #f0f0f0;
-	border-right: 1px solid #f0f0f0;
 	border-radius: 0;
 	box-sizing: border-box;
 }
-.app-article-more .app-index-card:nth-child(2n)
+.app-article-more .app-index-card:nth-child(1)
 {
-	border-right: 0px solid #f0f0f0;
+	border-bottom: 1px solid #f0f0f0;
+	border-right: 1px solid #f0f0f0;
 }
-.app-article-more .app-index-card:nth-child(n+3)
+.app-article-more .app-index-card:nth-child(2)
 {
-	border-bottom: 0px solid #f0f0f0;
+	border-bottom: 1px solid #f0f0f0;
+}
+.app-article-more .app-index-card:nth-child(3)
+{
+	border-right: 1px solid #f0f0f0;
 }
 .more-title
 {
@@ -2170,6 +2173,25 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     background: transparent;
     animation: dot 3s infinite;
     border-radius: 50%;
+}
+.no-splash
+{
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 100vh;
+	width: 100vw;
+	z-index: 90;
+	background-color: #fff;
+}
+.no-splash .app-loader
+{
+	position: fixed;
+	top: 50%;
+	-webkit-transform: translate(0, -50%);
+	transform: translate(0, -50%);
 }
 @keyframes dot
 {
