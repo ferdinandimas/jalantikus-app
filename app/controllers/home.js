@@ -321,6 +321,7 @@ define(
                 }
                 else {
                     $(".splash").fadeOut();
+                    $(".no-splash").fadeOut();
                 }
 
                 this.collection.reset();

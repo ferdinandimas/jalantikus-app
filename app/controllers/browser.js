@@ -46,6 +46,7 @@ define(
                 }
                 else {
                     $(".splash").fadeOut();
+                    $(".no-splash").fadeOut();
                 }
             }
         });

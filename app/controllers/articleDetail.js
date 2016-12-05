@@ -78,6 +78,7 @@ define(
                 }
                 else {
                     $(".splash").fadeOut();
+                    $(".no-splash").fadeOut();
                 }
             },
             fetch     : function (options) {

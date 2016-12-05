@@ -58,8 +58,13 @@ require(
 			}
 
 			if (window.localStorage.getItem("show_splash") === "true") {
+				$(".no-splash").hide();
+
 				$("#mutiara").prop("checked", true);
 				$(".splash-content").fadeIn();
+			}
+			else {
+				$(".splash").fadeOut();
 			}
 
 			if ($("#app-body .app-refreshed").length == 0) {
