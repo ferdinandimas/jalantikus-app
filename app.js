@@ -61,9 +61,6 @@ require(
 				$("#mutiara").prop("checked", true);
 				$(".splash-content").fadeIn();
 			}
-			else {
-				$(".splash").fadeOut();
-			}
 
 			if ($("#app-body .app-refreshed").length == 0) {
 				$("#app-body").append(
