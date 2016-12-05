@@ -526,8 +526,8 @@ div, span, a
 	position: absolute;
 	height: 25px;
 	width: 25px;
-	top: 10px;
-	left: 10px;
+	top: 12px;
+	left: 12px;
 	content: "";
     -webkit-mask-image: url(../images/jalantikus-logo.svg);
     mask-image: url(../images/jalantikus-logo.svg);
@@ -544,8 +544,8 @@ div, span, a
 	position: absolute;
 	height: 50px;
 	width: 50px;
-	top: -2px;
-	left: -2px;
+	top: 0;
+	left: 0;
 	content: "";
 	border-radius: 50%;
 	border-left: 4px solid #c92737;
@@ -583,6 +583,9 @@ div, span, a
 .splash-content .app-load, .splash-content .app-retry 
 {
 	margin-top: 20px;
+}
+.splash-content .app-retry 
+{
 	border: 2px solid #fff;
 }
 .offline ~ .app-body .app-loader .app-retry
@@ -2184,7 +2187,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	height: 100vh;
 	width: 100vw;
 	z-index: 90;
-	background-color: #fff;
+	background-color: #8f1f1f;
 }
 .no-splash .app-loader
 {
