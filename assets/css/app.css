@@ -53,17 +53,13 @@ div, span, a
 	top: 0;
 	left: 0;
 	right: 0;
-	height: 100%;
-	max-height: 50px;
+	height: 50px;
+	max-height: 95px;
 	width: 100%;
 	z-index: 12;
 	-webkit-transition: 0.2s linear;
     transition: 0.2s linear;
-    overflow: hidden;
-}
-.app-toolbar.on-top	
-{
-	max-height: 95px;
+    overflow: visible;
 }
 .app-toolbar.detail .app-header:not(.browser):before, .app-toolbar.detail .app-header:not(.browser):after
 {
@@ -101,8 +97,8 @@ div, span, a
 	height: 50px;
     width: 100%;
     margin-top: 0;
-    -webkit-transition: 0.2s linear;
-    transition: 0.2s linear;
+    -webkit-transition: 0.1s linear;
+    transition: 0.1s linear;
 }
 .app-toolbar.on-top ~ #app-body .app-toolbar-placeholder
 {
@@ -146,18 +142,14 @@ div, span, a
     mask-size: auto 20px;
     -webkit-mask-position: center center;
     mask-position: center center;
-    -webkit-transition: 0.2s linear;
-    transition: 0.2s linear;
+    -webkit-transition: 0.1s linear;
+    transition: 0.1s linear;
     z-index: 8;
 }
 .app-toolbar.on-top .app-logo 
 {
-    position: absolute;
     left: 50%;
     transform: translate(-50%, 0);
-    right: 0;
-    width: 150px;
-    height: 50px;
 }
 .app-article-more
 {
@@ -957,19 +949,20 @@ div, span, a
 	top: 0;
 	content: "";
 	background-color: #c92737;
-	-webkit-transition: 0.2s;
-	transition: 0.2s;
+	-webkit-transition: 0.1s linear;
+	transition: 0.1s linear;
 	z-index: 4;
 }
 .app-header:after
 {
 	height: 45px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.16), 0 1px 3px rgba(0,0,0,0.2);
 }
 .app-header:before
 {
 	z-index: 7
 }
-.app-toolbar .app-header:after
+.app-toolbar.on-top .app-header:after
 {
 	top: 50px;
 }
@@ -1034,8 +1027,8 @@ div, span, a
 	position: absolute;
 	right: 0;
 	top: 0;
-	-webkit-transition: 0.2s;
-	transition: 0.2s;
+	-webkit-transition: 0.1s;
+	transition: 0.1s;
 	z-index: 8;
 }
 .app-header .header-search:after
@@ -1057,8 +1050,8 @@ div, span, a
 	position: absolute;
 	right: 50px;
 	top: 0;
-	-webkit-transition: 0.2s;
-	transition: 0.2s;
+	-webkit-transition: 0.1s;
+	transition: 0.1s;
 	z-index: 8;
 }
 .app-body .app-refreshed, .splash .app-refreshed
@@ -1163,15 +1156,19 @@ div, span, a
 {
 	position: absolute;
 	padding: 0 15px 0 15px;
-	bottom: 10px;
+	top: 10px;
 	left: 0;
 	right: 0;
 	height: 35px;
-	-webkit-transition: 0.2s;
-	transition: 0.2s;
+	-webkit-transition: 0.1s linear;
+	transition: 0.1s linear;
 	margin: 0 15px;
 	overflow: hidden;
 	z-index: 5;
+}
+.app-toolbar.on-top .quick-search-container
+{
+	top: 50px;
 }
 .app-toolbar.on-top .quick-search-container.active
 {
