@@ -663,9 +663,11 @@ require(
             
             if($(window).height() < 560)
             {
-                console.log('a')
                 $(".userpanel-container").innerHeight($(window).height() - 175);
             }
+            $(window).on("orientationchange",function(){
+                $(".userpanel-container").innerHeight($(window).height() - 175);
+			});
 		});
 	}
 );
