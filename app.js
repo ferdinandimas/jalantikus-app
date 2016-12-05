@@ -673,7 +673,7 @@ require(
             
             if($(window).height() < 560)
             {
-                $(".userpanel-container").innerHeight($(window).height() - 175);
+                $(".userpanel-body").innerHeight($(window).height() - 175);
             }
             var supportsOrientationChange = "onorientationchange" in window,
 			    orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
@@ -695,7 +695,7 @@ require(
 	            		}
 	            		else
 	            		{
-	                		$(".userpanel-container").innerHeight($(window).height() - 175);
+	                		$(".userpanel-body").innerHeight($(window).height() - 175);
             				orientationChanged = false;
 	                		clearInterval(intEvt);
 	            		}

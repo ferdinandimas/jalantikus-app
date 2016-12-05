@@ -933,7 +933,11 @@ div, span, a
 }
 .userpanel-container
 {
-	overflow-y: scroll;
+	overflow: hidden;
+}
+.userpanel-body 
+{
+    overflow-y: scroll;
 }
 .searchpanel-header
 {
