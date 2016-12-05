@@ -119,9 +119,12 @@ div, span, a
 	transition: 0.1s linear;
 	box-sizing: border-box;
 }
+.app-content-container .app-index-card:first-child
+{
+	margin-top: 45px;
+}
 .app-toolbar.on-top ~ #app-body .app-content-container
 {
-	margin-top: 95px;
 	height: calc(100%);
 }
 .app-index-card

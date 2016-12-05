@@ -100,13 +100,13 @@ require(
 				$("#app-searchpanel").panel("close");
 			});
 
-            $(document).on("submit", "#quick-search-form", function (e) {
-                e.preventDefault();
-                window.BackboneRouter.navigate("search/" + $("#quick-search-form [name='quick-search']").val(), { trigger: true })
-            });
+			$(document).on("submit", "#quick-search-form", function (e) {
+				e.preventDefault();
+				window.BackboneRouter.navigate("search/" + $("#quick-search-form [name='quick-search']").val(),
+					{ trigger: true })
+			});
 
-			$(document).on("click", ".app-logo .card-link", function() {
-				console.log("HERE");
+			$(document).on("click", ".app-logo .card-link", function () {
 				$(".app-content-container").animate({ scrollTop: 0 }, "slow");
 			});
 
@@ -240,13 +240,13 @@ require(
 			});
 
 			$(document).on("focus", ".quick-search", function (e) {
-                $(".quick-search-dismiss").addClass("active");
-                $(".quick-search-container").addClass("active");
-            });
-            $(document).on("click", ".quick-search-dismiss", function (e) {
-                $(".quick-search-dismiss").removeClass("active");
-                $(".quick-search-container").removeClass("active");
-            });
+				$(".quick-search-dismiss").addClass("active");
+				$(".quick-search-container").addClass("active");
+			});
+			$(document).on("click", ".quick-search-dismiss", function (e) {
+				$(".quick-search-dismiss").removeClass("active");
+				$(".quick-search-container").removeClass("active");
+			});
 			var _displayRate = [
 				"Dari lubuk hati kami yang terdalam, kami minta maaf :'(",
 				"Mohon maaf atas ketidaknyamanannya, akan segera kami perbaiki :)",
@@ -337,11 +337,11 @@ require(
 								}
 								else if (confirmation == 1) {
 									oneSignal.setSubscription(false);
-                                    $("#app-userpanel").panel("close");
-                                    $(".app-refreshed").html("Notifikasi berhasil dimatikan").fadeIn();
-                                    setTimeout(function () {
-                                        $(".app-refreshed").fadeOut();
-                                    }, 2000);
+									$("#app-userpanel").panel("close");
+									$(".app-refreshed").html("Notifikasi berhasil dimatikan").fadeIn();
+									setTimeout(function () {
+										$(".app-refreshed").fadeOut();
+									}, 2000);
 								}
 							},
 							"",
@@ -385,16 +385,16 @@ require(
 					}
 					_pos = $(".app-detail-container").scrollTop() + _velocity;
 					$(".app-detail-container").animate({
-								"scrollTop": _pos
-							}
-							, 300);
+							"scrollTop": _pos
+						}
+						, 300);
 					_scrollInterval = setInterval(function () {
 						_pos = $(".app-detail-container").scrollTop() + _velocity;
 						if (_scrolling == true) {
 							$(".app-detail-container").animate({
-										"scrollTop": _pos
-									}
-									, 300);
+									"scrollTop": _pos
+								}
+								, 300);
 						}
 						else {
 							clearInterval(_scrollInterval);
@@ -607,8 +607,9 @@ require(
 			slowType();
 
 			$(".jalantikus-copyright span").html(new Date().getFullYear());
-			var isInBeranda = true; 
+			var isInBeranda = true;
 			var isOnline, lastFragment;
+
 			setInterval(function () {
 				if (isOnline != !jt.isOffline()) {
 					isOnline = !jt.isOffline();
@@ -661,46 +662,51 @@ require(
 						$('#app-searchpanel').panel({ disabled: false });
 					}
 				}
-				if(Backbone.history.getFragment().trim() != "")
-                {
-                    $(".app-toolbar").removeClass("on-top");
-                }
-				if($(".app-content-container").scrollTop() <= 0 && isInBeranda)
-                {$(".app-toolbar").addClass("on-top"); }
-                else
-                {if($(".app-toolbar").hasClass("on-top")){$(".app-toolbar").removeClass("on-top"); }}
 			}, 250);
-            
-            if($(window).height() < 560)
-            {
-                $(".userpanel-body").innerHeight($(window).height() - 175);
-            }
-            var supportsOrientationChange = "onorientationchange" in window,
-			    orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
-			// window.addEventListener(orientationEvent, function() {
-			//     alert(orientationEvent +" "+ window.orientation + " " + screen.width);
-			// }, false);
-			var orientationChanged = false;
-            $(window).on(orientationEvent, function(){
-            	if(!orientationChanged)
-            	{
-            		orientationChanged = true;
+
+			setInterval(function () {
+				if (Backbone.history.getFragment().trim() != "") {
+					$(".app-toolbar").removeClass("on-top");
+
+					$(".app-content-container .app-index-card:first-child").css("margin-top", "0px")
+					isInBeranda = false;
+				}
+				else {
+					isInBeranda = true;
+				}
+
+				if ($(".app-content-container").scrollTop() <= 45 && isInBeranda) {
+					$(".app-toolbar").addClass("on-top");
+				}
+				else if ($(".app-toolbar").hasClass("on-top")) {
+					$(".app-toolbar").removeClass("on-top");
+
+				}
+			}, 50);
+
+			if ($(window).height() < 560) {
+				$(".userpanel-body").innerHeight($(window).height() - 175);
+			}
+			var supportsOrientationChange = "onorientationchange" in window,
+			    orientationEvent          = supportsOrientationChange ? "orientationchange" : "resize";
+			var orientationChanged        = false;
+			$(window).on(orientationEvent, function () {
+				if (!orientationChanged) {
+					orientationChanged = true;
 					$("#app-userpanel").panel("close");
 					$("#app-searchpanel").panel("close");
-	            	var evtHeight = $(window).height();
-	            	var intEvt = setInterval(function(){
-	            		if($(window).height() != evtHeight)
-	            		{
-	            			evtHeight = $(window).height();
-	            		}
-	            		else
-	            		{
-	                		$(".userpanel-body").innerHeight($(window).height() - 175);
-            				orientationChanged = false;
-	                		clearInterval(intEvt);
-	            		}
-	            	}, 200)
-	            }
+					var evtHeight = $(window).height();
+					var intEvt    = setInterval(function () {
+						if ($(window).height() != evtHeight) {
+							evtHeight = $(window).height();
+						}
+						else {
+							$(".userpanel-body").innerHeight($(window).height() - 175);
+							orientationChanged = false;
+							clearInterval(intEvt);
+						}
+					}, 200)
+				}
 			});
 		});
 	}
