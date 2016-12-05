@@ -67,14 +67,18 @@ define(
                         $(".app-detail-container").scrollTop());
                 });
 
-	            if ($(".splash").length >= 1) {
-		            setTimeout(function () {
-                        $(".no-splash").fadeOut("fast");
-			            $(".splash").fadeOut("fast", function () {
-				            $(this).remove();
-			            })
-		            }, 2000);
-	            }
+                if (window.localStorage.getItem("show_splash") === "true") {
+                    if ($(".splash").length >= 1) {
+                        setTimeout(function () {
+                            $(".splash").fadeOut("fast", function () {
+                                $(this).remove();
+                            })
+                        }, 2000);
+                    }
+                }
+                else {
+                    $(".splash").fadeOut();
+                }
             },
             fetch     : function (options) {
                 var that = this;
