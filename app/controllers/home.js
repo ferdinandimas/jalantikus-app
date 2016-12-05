@@ -287,21 +287,18 @@ define(
                         that.autoload();
                     });
                 }
+
                 var isInBeranda = true;
-                if(Backbone.history.getFragment().trim() != "")
-                {
+                if (Backbone.history.getFragment().trim() != "") {
                     $(".app-toolbar").removeClass("on-top");
                     isInBeranda = false;
                 }
-                $(".app-content-container").on("scroll touchmove",  function(e)
-                {
+                $(".app-content-container").on("scroll touchmove", function (e) {
                     _pos = $(".app-content-container");
-                    if(_pos.scrollTop() <= 0 && isInBeranda)
-                    {
+                    if (_pos.scrollTop() <= 0 && isInBeranda) {
                         $(".app-toolbar").addClass("on-top");
                     }
-                    else
-                    {
+                    else {
                         $(".app-toolbar").removeClass("on-top");
                     }
                 });
@@ -311,6 +308,8 @@ define(
                 }
 
                 if (window.localStorage.getItem("show_splash") === "true") {
+                    $(".no-splash").hide();
+
                     if ($(".splash").length >= 1) {
                         setTimeout(function () {
                             $(".splash").fadeOut("fast", function () {

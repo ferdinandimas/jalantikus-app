@@ -64,7 +64,9 @@ require(
 				$(".splash-content").fadeIn();
 			}
 			else {
-				$(".splash").fadeOut();
+				$(".splash").fadeOut("fast", function () {
+					$(this).remove();
+				});
 			}
 
 			if ($("#app-body .app-refreshed").length == 0) {

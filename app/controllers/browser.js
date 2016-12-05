@@ -36,6 +36,8 @@ define(
                 });
 
                 if (window.localStorage.getItem("show_splash") === "true") {
+                    $(".no-splash").hide();
+
                     if ($(".splash").length >= 1) {
                         setTimeout(function () {
                             $(".splash").fadeOut("fast", function () {
