@@ -607,7 +607,7 @@ require(
 			slowType();
 
 			$(".jalantikus-copyright span").html(new Date().getFullYear());
-
+			var isInBeranda = true; 
 			var isOnline, lastFragment;
 			setInterval(function () {
 				if (isOnline != !jt.isOffline()) {
@@ -661,13 +661,47 @@ require(
 						$('#app-searchpanel').panel({ disabled: false });
 					}
 				}
+				if(Backbone.history.getFragment().trim() != "")
+                {
+                    $(".app-toolbar").removeClass("on-top");
+                }
+				if($(".app-content-container").scrollTop() <= 0 && isInBeranda)
+                {$(".app-toolbar").addClass("on-top"); }
+                else
+                {if($(".app-toolbar").hasClass("on-top")){$(".app-toolbar").removeClass("on-top"); }}
 			}, 250);
             
             if($(window).height() < 560)
             {
-                console.log('a')
                 $(".userpanel-container").innerHeight($(window).height() - 175);
             }
+            var supportsOrientationChange = "onorientationchange" in window,
+			    orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
+			// window.addEventListener(orientationEvent, function() {
+			//     alert(orientationEvent +" "+ window.orientation + " " + screen.width);
+			// }, false);
+			var orientationChanged = false;
+            $(window).on(orientationEvent, function(){
+            	if(!orientationChanged)
+            	{
+            		orientationChanged = true;
+					$("#app-userpanel").panel("close");
+					$("#app-searchpanel").panel("close");
+	            	var evtHeight = $(window).height();
+	            	var intEvt = setInterval(function(){
+	            		if($(window).height() != evtHeight)
+	            		{
+	            			evtHeight = $(window).height();
+	            		}
+	            		else
+	            		{
+	                		$(".userpanel-container").innerHeight($(window).height() - 175);
+            				orientationChanged = false;
+	                		clearInterval(intEvt);
+	            		}
+	            	}, 200)
+	            }
+			});
 		});
 	}
 );

@@ -53,12 +53,13 @@ div, span, a
 	top: 0;
 	left: 0;
 	right: 0;
-	height: 95px;
+	height: 100%;
 	max-height: 50px;
 	width: 100%;
 	z-index: 12;
-	-webkit-transition: 0.2s;
-    transition: 0.2s;
+	-webkit-transition: 0.2s linear;
+    transition: 0.2s linear;
+    overflow: hidden;
 }
 .app-toolbar.on-top	
 {
@@ -97,14 +98,15 @@ div, span, a
 .app-toolbar-placeholder
 {
 	max-height: 50px;
-	height: 100%;
+	height: 50px;
     width: 100%;
-    -webkit-transition: 0.1s;
-    transition: 0.1s;
+    margin-top: 0;
+    -webkit-transition: 0.2s linear;
+    transition: 0.2s linear;
 }
 .app-toolbar.on-top ~ #app-body .app-toolbar-placeholder
 {
-	max-height: 95px;
+	margin-top: 40px;
 }
 .app-body
 {
@@ -144,8 +146,8 @@ div, span, a
     mask-size: auto 20px;
     -webkit-mask-position: center center;
     mask-position: center center;
-    -webkit-transition: 0.2s;
-    transition: 0.2s;
+    -webkit-transition: 0.2s linear;
+    transition: 0.2s linear;
     z-index: 8;
 }
 .app-toolbar.on-top .app-logo 
@@ -963,7 +965,7 @@ div, span, a
 {
 	z-index: 7
 }
-.app-toolbar.on-top .app-header:after
+.app-toolbar .app-header:after
 {
 	top: 50px;
 }
@@ -1119,7 +1121,11 @@ div, span, a
 }
 .app-header .app-toggle-back, .app-header .app-toggle-userpanel
 {
-	position: relative;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 50px;
+	height: 50px;
 	z-index: 7;
 }
 .app-header .app-toggle-back:after, .app-header .app-toggle-userpanel:after, .app-header .app-toggle-searchpanel:after, .app-header .header-refresh:before, .app-header .app-home:after
