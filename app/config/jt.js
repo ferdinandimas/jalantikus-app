@@ -1,5 +1,5 @@
 var _config = {
-	'environment': 'live', // [dev, live]
+	'environment': 'dev', // [dev, live]
 	'timestamp'  : '161205', // [dev, live]
 	'baseURL'    : '',
 	'jtURL'      : 'https://jalantikus.com/',

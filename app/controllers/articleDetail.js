@@ -64,7 +64,60 @@ define(
 					window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
 						$(".app-detail-container").scrollTop());
 				});
+			},
+			fetch     : function (options) {
+				var that = this;
 
+				if (!jt.isOffline()) {
+					if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null) {
+						that.render();
+					}
+					else {
+						this.model.fetch({
+							timeout: typeof options != "undefined" && typeof options.timeout != "undefined" ? options.timeout : 1,
+							success: function () {
+								that.render();
+							},
+							error  : function () {
+								$(".app-load").css("display", "none");
+								$(".app-retry").css("display", "block");
+
+								$(".app-retry").on("touchend click", function () {
+									$(".app-load").css("display", "block");
+									$(".app-retry").css("display", "none");
+
+									that.fetch({ timeout: 10000 });
+								});
+
+								if ($(".no-splash").length >= 1) {
+									$(".splash").show().find(".splash-content").fadeIn();
+									$(".no-splash").fadeOut();
+								}
+
+								if ($(".splash").length >= 1) {
+									$(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
+									setTimeout(function () {
+										$(".splash .app-refreshed").fadeOut();
+									}, 2000);
+
+									$(".splash-content .app-loader").fadeIn();
+
+									$(".splash-quote").remove();
+									$(".splash-speaker").remove();
+									$(".splash-loading").hide();
+								}
+							}
+						});
+					}
+				}
+				else {
+					setTimeout(function () {
+						$(".app-load").css("display", "none");
+						$(".app-retry").css("display", "block");
+					}, 2000);
+				}
+			},
+			render    : function () {
 				if (window.localStorage.getItem("show_splash") === "true") {
 					$(".no-splash").hide();
 
@@ -80,42 +133,7 @@ define(
 					$(".splash").fadeOut();
 					$(".no-splash").fadeOut();
 				}
-			},
-			fetch     : function (options) {
-				var that = this;
 
-				if (!jt.isOffline()) {
-					if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null) {
-						that.render();
-					}
-					else {
-						this.model.fetch({
-							timeout: typeof options != "undefined" && typeof options.timeout != "undefined" ? options.timeout : 5000,
-							success: function () {
-								that.render();
-							},
-							error  : function () {
-								$(".app-load").css("display", "none");
-								$(".app-retry").css("display", "block");
-
-								$(".app-retry").on("touchend click", function () {
-									$(".app-load").css("display", "block");
-									$(".app-retry").css("display", "none");
-
-									that.fetch({ timeout: 10000 });
-								});
-							}
-						});
-					}
-				}
-				else {
-					setTimeout(function () {
-						$(".app-load").css("display", "none");
-						$(".app-retry").css("display", "block");
-					}, 2000);
-				}
-			},
-			render    : function () {
 				var that    = this;
 				var tooltip = false;
 

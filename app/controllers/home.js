@@ -134,7 +134,7 @@ define(
 				}
 				else {
 					this.collection.fetch({
-						timeout: 5000,
+						timeout: 1,
 						success: function () {
 							$(".header-refresh").show();
 
@@ -158,6 +158,11 @@ define(
 								$(".app-retry").css("display", "none");
 								that.autoload();
 							});
+
+							if ($(".no-splash").length >= 1) {
+								$(".splash").show().find(".splash-content").fadeIn();
+								$(".no-splash").fadeOut();
+							}
 
 							if ($(".splash").length >= 1) {
 								$(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
