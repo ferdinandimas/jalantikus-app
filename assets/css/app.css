@@ -166,12 +166,13 @@ div, span, a
 }
 .app-article-more .app-index-card
 {
-	height: auto;
+	height: 230px;
 	display: inline-block;
 	width: calc(100% / 2);
 	padding: 15px;
 	border-radius: 0;
 	box-sizing: border-box;
+	border-bottom: 0;
 }
 .app-article-more .app-index-card:nth-child(1)
 {
@@ -682,10 +683,6 @@ div, span, a
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
 	text-decoration: none;
-}
-.app-detail-body a:active
-{
-	color: #0071c7;
 }
 .app-detail-body table
 {
