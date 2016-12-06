@@ -128,10 +128,6 @@ div, span, a
 {
 	margin-top: 45px;
 }
-.app-toolbar.on-top ~ #app-body .app-content-container
-{
-	height: calc(100%);
-}
 .app-index-card
 {
     position: relative;
@@ -177,7 +173,6 @@ div, span, a
 	padding: 15px;
 	border-radius: 0;
 	box-sizing: border-box;
-	border-bottom: 0;
 }
 .app-article-more .app-index-card:nth-child(1)
 {
@@ -2075,8 +2070,8 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     margin: auto;
     box-sizing: border-box;
     text-shadow: 0 0 0;
-    margin-top: 10px;
-    margin-bottom: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     position: relative;
     -webkit-transition: 0.3s;
 	transition: 0.3s;
