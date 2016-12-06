@@ -686,7 +686,7 @@ div, span, a
 }
 .app-detail-body a:active, .app-detail-body a:visited
 {
-	color: #a21422
+	color: #ff9000
 }
 .app-detail-body table
 {
@@ -2212,11 +2212,23 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 }
 .no-splash .app-loader
 {
-	position: fixed;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(0, -50%);
+    transform: translate(-50%, -50%);
+    margin: auto;
+    display: block;
+    background-color: #fff;
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+}
+.no-splash .app-loader .app-load
+{
 	top: 50%;
-	-webkit-transform: translate(0, -50%);
-	transform: translate(0, -50%);
-	margin: 0;
+	-webkit-transform: translate(0,-50%);
+	transform: translate(0,-50%);
 }
 @keyframes dot
 {
