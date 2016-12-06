@@ -16,6 +16,7 @@ define(
 			layout          : _.template(homeLayout),
 			collection      : new Timeline(),
 			articleModel    : new Article(),
+			isConnected     : true,
 			page            : 1,
 			initialize      : function (_options) {
 				var that = this;
@@ -151,6 +152,8 @@ define(
 							$(".app-retry").css("display", "block");
 
 							$(".app-retry").on("click touchend", function () {
+								that.isConnected = true;
+
 								$(".app-load").css("display", "block");
 								$(".app-retry").css("display", "none");
 								that.autoload();
@@ -162,10 +165,14 @@ define(
 							}
 
 							if ($(".splash").length >= 1) {
-								$(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
-								setTimeout(function () {
-									$(".splash .app-refreshed").fadeOut();
-								}, 2000);
+								if (that.isConnected) {
+									$(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
+									setTimeout(function () {
+										$(".splash .app-refreshed").fadeOut();
+									}, 2000);
+
+									that.isConnected = false;
+								}
 
 								$(".splash-content .app-loader").fadeIn();
 
@@ -196,10 +203,14 @@ define(
 						}
 					}
 					else {
-						$(".app-refreshed").html("Tidak ada jaringan.").fadeIn();
-						setTimeout(function () {
-							$(".app-refreshed").fadeOut();
-						}, 2000);
+						if (that.isConnected) {
+							$(".app-refreshed").html("Tidak ada jaringan.").fadeIn();
+							setTimeout(function () {
+								$(".app-refreshed").fadeOut();
+							}, 2000);
+
+							that.isConnected = false;
+						}
 					}
 
 					if (!jt.isOffline()) {
@@ -343,6 +354,8 @@ define(
 					});
 
 					$(".app-retry").on("click touchend", function () {
+						that.isConnected = true;
+
 						$(".app-load").css("display", "block");
 						$(".app-retry").css("display", "none");
 						that.autoload();
@@ -417,10 +430,14 @@ define(
 						$(".app-load").css("display", "none");
 						$(".app-retry").css("display", "block");
 
-						$(".app-refreshed").html("Tidak ada jaringan.").fadeIn();
-						setTimeout(function () {
-							$(".app-refreshed").fadeOut();
-						}, 2000);
+						if (that.isConnected) {
+							$(".app-refreshed").html("Tidak ada jaringan.").fadeIn();
+							setTimeout(function () {
+								$(".app-refreshed").fadeOut();
+							}, 2000);
+
+							that.isConnected = false;
+						}
 					}, 2000);
 				}
 			}
