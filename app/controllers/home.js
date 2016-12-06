@@ -242,43 +242,70 @@ define(
 					window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 				}
 				else {
+					var _cachedArticle;
+
+					if (window.sessionStorage.getItem("cachedArticle") != null) {
+						_cachedArticle = window.sessionStorage.getItem("cachedArticle");
+						_cachedArticle = _cachedArticle.split(",");
+					}
+
+					if (_cachedArticle == null) {
+						_cachedArticle = [];
+					}
+
 					if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null && this.page > 1) {
 						_buff = JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()));
 
 						$.each(_data, function (key, val) {
 							_buff.push(val);
 
-							//if (window.sessionStorage.getItem("article/" + val.slug) == null) {
-							//	this.articleModel = new Article({
-							//		slug: val.slug
-							//	});
-							//
-							//	this.articleModel.fetch({
-							//		timeout: 5000,
-							//		success: function (_data) {
-							//			window.sessionStorage.setItem("article/" + val.slug, JSON.stringify(_data));
-							//		}
-							//	});
-							//}
+							if (window.sessionStorage.getItem("article/" + val.slug) == null) {
+								_cachedArticle.push("article/" + val.slug);
+
+								if (_cachedArticle.length > 30) {
+									window.sessionStorage.removeItem(_cachedArticle.shift());
+								}
+
+								window.sessionStorage.setItem("cachedArticle", _cachedArticle);
+
+								this.articleModel = new Article({
+									slug: val.slug
+								});
+
+								this.articleModel.fetch({
+									timeout: 5000,
+									success: function (_data) {
+										window.sessionStorage.setItem("article/" + val.slug, JSON.stringify(_data));
+									}
+								});
+							}
 						});
 
 						window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_buff));
 					}
 					else {
-						//$.each(_data, function (key, val) {
-						//	if (window.sessionStorage.getItem("article/" + val.slug) == null) {
-						//		this.articleModel = new Article({
-						//			slug: val.slug
-						//		});
-						//
-						//		this.articleModel.fetch({
-						//			timeout: 5000,
-						//			success: function (_data) {
-						//				window.sessionStorage.setItem("article/" + val.slug, JSON.stringify(_data));
-						//			}
-						//		});
-						//	}
-						//});
+						$.each(_data, function (key, val) {
+							if (window.sessionStorage.getItem("article/" + val.slug) == null) {
+								_cachedArticle.push("article/" + val.slug);
+
+								if (_cachedArticle.length > 30) {
+									window.sessionStorage.removeItem(_cachedArticle.shift());
+								}
+
+								window.sessionStorage.setItem("cachedArticle", _cachedArticle);
+
+								this.articleModel = new Article({
+									slug: val.slug
+								});
+
+								this.articleModel.fetch({
+									timeout: 5000,
+									success: function (_data) {
+										window.sessionStorage.setItem("article/" + val.slug, JSON.stringify(_data));
+									}
+								});
+							}
+						});
 
 						window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
 					}
@@ -331,8 +358,12 @@ define(
 					}
 				}
 				else {
-					$(".splash").fadeOut().remove();
-					$(".no-splash").fadeOut().remove();
+					$(".splash").fadeOut(350, function() {
+						$(this).remove();
+					});
+					$(".no-splash").fadeOut(350, function() {
+						$(this).remove();
+					});
 				}
 
 				if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {

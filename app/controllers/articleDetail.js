@@ -125,8 +125,12 @@ define(
 					}
 				}
 				else {
-					$(".splash").fadeOut().remove();
-					$(".no-splash").fadeOut().remove();
+					$(".splash").fadeOut(350, function() {
+						$(this).remove();
+					});
+					$(".no-splash").fadeOut(350, function() {
+						$(this).remove();
+					});
 				}
 
 				var that    = this;
