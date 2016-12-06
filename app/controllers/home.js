@@ -262,7 +262,7 @@ define(
 							if (window.sessionStorage.getItem("article/" + val.slug) == null) {
 								_cachedArticle.push("article/" + val.slug);
 
-								if (_cachedArticle.length > 30) {
+								if (_cachedArticle.length > 60) {
 									window.sessionStorage.removeItem(_cachedArticle.shift());
 								}
 
@@ -288,7 +288,7 @@ define(
 							if (window.sessionStorage.getItem("article/" + val.slug) == null) {
 								_cachedArticle.push("article/" + val.slug);
 
-								if (_cachedArticle.length > 30) {
+								if (_cachedArticle.length > 60) {
 									window.sessionStorage.removeItem(_cachedArticle.shift());
 								}
 
