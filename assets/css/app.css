@@ -107,13 +107,18 @@ div, span, a
 }*/
 .app-body
 {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
 	background-color: #fff;
 	height: 100vh;
 }
 .app-content-container
 {
 	margin-top: 50px;
-	height: calc(100%);
+	height: calc(100% - 50px);
 	overflow-y: scroll;
 	-webkit-transition: 0.2s linear;
 	transition: 0.2s linear;
@@ -1041,8 +1046,8 @@ div, span, a
 	position: absolute;
 	right: 0;
 	top: 0;
-	-webkit-transition: 0.2s;
-	transition: 0.2s;
+	-webkit-transition: 0.2s linear;
+	transition: 0.2s linear;
 	z-index: 8;
 }
 .app-header .header-search:after
@@ -1064,8 +1069,8 @@ div, span, a
 	position: absolute;
 	right: 50px;
 	top: 0;
-	-webkit-transition: 0.2s;
-	transition: 0.2s;
+	-webkit-transition: 0.2s linear;
+	transition: 0.2s linear;
 	z-index: 8;
 }
 .app-body .app-refreshed, .splash .app-refreshed
