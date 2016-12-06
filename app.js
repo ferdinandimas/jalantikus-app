@@ -663,18 +663,19 @@ require(
 			}, 250);
 
 			setInterval(function () {
-				if (Backbone.history.getFragment().trim() != "") {
-					isInBeranda = false;
-				}
-				else {
-					isInBeranda = true;
-				}
+				// if (Backbone.history.getFragment().trim() != "") {
+				// 	isInBeranda = false;
+				// }
+				// else {
+				// 	isInBeranda = true;
+				// }
 
-				if (!isInBeranda) {
+				if(!$(".app-toolbar-placeholder").is(":in-viewport"))
+				{
 					if ($(".app-toolbar").hasClass("on-top")) {
 						$(".app-toolbar").removeClass("on-top");
 
-						$(".app-content-container .app-index-card:first-child").css("margin-top", "0px");
+						// $(".app-content-container .app-index-card:first-child").css("margin-top", "0px");
 					}
 				}
 				else {

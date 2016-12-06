@@ -127,6 +127,8 @@ define(
 					if (that.type != "search") {
 						$("#app-body .app-content-container").empty();
 					}
+					$("#app-body .app-content-container")
+						.append('<div class="app-toolbar-placeholder"></div>')
 
 					that.render(true);
 				}
@@ -139,6 +141,8 @@ define(
 							if (that.type != "search") {
 								$("#app-body .app-content-container").empty();
 							}
+							$("#app-body .app-content-container")
+							.append('<div class="app-toolbar-placeholder"></div>')
 
 							that.render();
 						},

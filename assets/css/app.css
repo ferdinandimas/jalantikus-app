@@ -93,9 +93,8 @@ div, span, a
 }
 .app-toolbar-placeholder
 {
-	display: none;
-	max-height: 50px;
-	height: 50px;
+	max-height: 45px;
+	height: 45px;
     width: 100%;
     margin-top: 0;
     -webkit-transition: 0.1s linear;
@@ -123,10 +122,6 @@ div, span, a
 	-webkit-transition: 0.2s linear;
 	transition: 0.2s linear;
 	box-sizing: border-box;
-}
-.app-content-container .app-index-card:first-child
-{
-	margin-top: 45px;
 }
 .app-index-card
 {
