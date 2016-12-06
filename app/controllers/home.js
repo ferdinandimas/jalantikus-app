@@ -178,6 +178,8 @@ define(
 				}
 
 				$(".header-refresh").on("click", function () {
+					console.log("HERE");
+
 					if (!jt.isOffline()) {
 						if (!$(".header-refresh").hasClass("active")) {
 							$(".header-refresh").addClass("active");
@@ -316,6 +318,11 @@ define(
 						.append(this.timelineTemplate({
 							timelineArticle: _data
 						}));
+
+					if (Backbone.history.getFragment().trim() != "") {
+						$(".app-toolbar").removeClass("on-top");
+						$(".app-content-container .app-index-card:first-child").css("margin-top", "0px");
+					}
 
 					$("#app-body .app-content-container").append(
 						'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
