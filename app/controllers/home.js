@@ -8,12 +8,14 @@ define(
 		"text!views/header_layout.html",
 		"text!views/template/timeline.html",
 		"text!views/header_detail_layout.html",
+		"models/article",
 	],
-	function (_, Backbone, $, Timeline, homeLayout, headerLayout, timelineTemplate, headerDetailLayout) {
+	function (_, Backbone, $, Timeline, homeLayout, headerLayout, timelineTemplate, headerDetailLayout, Article) {
 		var homeView = Backbone.View.extend({
 			timelineTemplate: _.template(timelineTemplate),
 			layout          : _.template(homeLayout),
 			collection      : new Timeline(),
+			articleModel    : new Article(),
 			page            : 1,
 			initialize      : function (_options) {
 				var that = this;
@@ -73,8 +75,8 @@ define(
 						order   : typeof this.order != "undefined" ? this.order : "",
 						category: typeof this.category != "undefined" ? this.category : "",
 						search  : typeof this.search != "undefined" ? this.search : "",
-						page    : (window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop") != null ? window.sessionStorage.getItem(
-							Backbone.history.getFragment() + "/scrollTop") : 1),
+						page    : (window.sessionStorage.getItem(Backbone.history.getFragment() + "/page") != null ? window.sessionStorage.getItem(
+							Backbone.history.getFragment() + "/page") : 1),
 					});
 				}
 				else {
@@ -126,15 +128,10 @@ define(
 					}
 
 					that.render(true);
-
-					if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
-						$(".app-content-container")
-							.scrollTop(parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop")));
-					}
 				}
 				else {
 					this.collection.fetch({
-						timeout: 1,
+						timeout: 5000,
 						success: function () {
 							$(".header-refresh").show();
 
@@ -246,16 +243,43 @@ define(
 				}
 				else {
 					if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null && this.page > 1) {
-
 						_buff = JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()));
 
 						$.each(_data, function (key, val) {
 							_buff.push(val);
+
+							//if (window.sessionStorage.getItem("article/" + val.slug) == null) {
+							//	this.articleModel = new Article({
+							//		slug: val.slug
+							//	});
+							//
+							//	this.articleModel.fetch({
+							//		timeout: 5000,
+							//		success: function (_data) {
+							//			window.sessionStorage.setItem("article/" + val.slug, JSON.stringify(_data));
+							//		}
+							//	});
+							//}
 						});
 
 						window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_buff));
 					}
 					else {
+						//$.each(_data, function (key, val) {
+						//	if (window.sessionStorage.getItem("article/" + val.slug) == null) {
+						//		this.articleModel = new Article({
+						//			slug: val.slug
+						//		});
+						//
+						//		this.articleModel.fetch({
+						//			timeout: 5000,
+						//			success: function (_data) {
+						//				window.sessionStorage.setItem("article/" + val.slug, JSON.stringify(_data));
+						//			}
+						//		});
+						//	}
+						//});
+
 						window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
 					}
 				}
@@ -307,8 +331,13 @@ define(
 					}
 				}
 				else {
-					$(".splash").fadeOut();
-					$(".no-splash").fadeOut();
+					$(".splash").fadeOut().remove();
+					$(".no-splash").fadeOut().remove();
+				}
+
+				if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
+					$(".app-content-container")
+							.scrollTop(parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop")));
 				}
 
 				this.collection.reset();

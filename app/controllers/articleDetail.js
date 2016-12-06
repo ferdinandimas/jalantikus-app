@@ -59,11 +59,6 @@ define(
 				});
 
 				this.fetch();
-
-				$("#app-body .app-detail-container").scroll(function () {
-					window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
-						$(".app-detail-container").scrollTop());
-				});
 			},
 			fetch     : function (options) {
 				var that = this;
@@ -74,7 +69,7 @@ define(
 					}
 					else {
 						this.model.fetch({
-							timeout: typeof options != "undefined" && typeof options.timeout != "undefined" ? options.timeout : 1,
+							timeout: typeof options != "undefined" && typeof options.timeout != "undefined" ? options.timeout : 5000,
 							success: function () {
 								that.render();
 							},
@@ -89,12 +84,12 @@ define(
 									that.fetch({ timeout: 10000 });
 								});
 
-								if ($(".no-splash").length >= 1) {
-									$(".splash").show().find(".splash-content").fadeIn();
-									$(".no-splash").fadeOut();
-								}
-
 								if ($(".splash").length >= 1) {
+									if ($(".no-splash").length >= 1) {
+										$(".splash").show().find(".splash-content").fadeIn();
+										$(".no-splash").fadeOut();
+									}
+
 									$(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
 									setTimeout(function () {
 										$(".splash .app-refreshed").fadeOut();
@@ -130,8 +125,8 @@ define(
 					}
 				}
 				else {
-					$(".splash").fadeOut();
-					$(".no-splash").fadeOut();
+					$(".splash").fadeOut().remove();
+					$(".no-splash").fadeOut().remove();
 				}
 
 				var that    = this;
@@ -151,6 +146,11 @@ define(
 				$("#app-body").empty().append(this.layout({
 					detail: _buff
 				}));
+
+				$("#app-body .app-detail-container").scroll(function () {
+					window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
+							$(".app-detail-container").scrollTop());
+				});
 
 				$(".app-detail-body img").each(function (key, val) {
 					regExp = /(https?\:\/\/(.*?\.)?(jalantikus\.com|babe\.news)\/assets\/cache\/)(.*?\/.*?)(\/.*?)$/g;
