@@ -128,7 +128,7 @@ define(
 						$("#app-body .app-content-container").empty();
 					}
 					$("#app-body .app-content-container")
-						.append('<div class="app-toolbar-placeholder"></div>')
+							.append('<div class="app-toolbar-placeholder"></div>')
 
 					that.render(true);
 				}
@@ -142,7 +142,7 @@ define(
 								$("#app-body .app-content-container").empty();
 							}
 							$("#app-body .app-content-container")
-							.append('<div class="app-toolbar-placeholder"></div>')
+									.append('<div class="app-toolbar-placeholder"></div>')
 
 							that.render();
 						},

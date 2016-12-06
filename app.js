@@ -663,19 +663,9 @@ require(
 			}, 250);
 
 			setInterval(function () {
-				// if (Backbone.history.getFragment().trim() != "") {
-				// 	isInBeranda = false;
-				// }
-				// else {
-				// 	isInBeranda = true;
-				// }
-
-				if(!$(".app-toolbar-placeholder").is(":in-viewport"))
-				{
+				if (!$(".app-toolbar-placeholder").is(":in-viewport")) {
 					if ($(".app-toolbar").hasClass("on-top")) {
 						$(".app-toolbar").removeClass("on-top");
-
-						// $(".app-content-container .app-index-card:first-child").css("margin-top", "0px");
 					}
 				}
 				else {
@@ -687,26 +677,6 @@ require(
 					}
 				}
 			}, 50);
-
-			//$(document).on("scroll touchmove", "#app-body", function (e) {
-			//	if (Backbone.history.getFragment().trim() != "") {
-			//		$(".app-toolbar").removeClass("on-top");
-			//
-			//		$(".app-content-container .app-index-card:first-child").css("margin-top", "0px")
-			//		isInBeranda = false;
-			//	}
-			//	else {
-			//		isInBeranda = true;
-			//	}
-			//
-			//	if ($(".app-content-container").scrollTop() <= 45 && isInBeranda) {
-			//		$(".app-toolbar").addClass("on-top");
-			//	}
-			//	else if ($(".app-toolbar").hasClass("on-top")) {
-			//		$(".app-toolbar").removeClass("on-top");
-			//
-			//	}
-			//});
 
 			if ($(window).height() < 560) {
 				$(".userpanel-body").innerHeight($(window).height() - 175);
