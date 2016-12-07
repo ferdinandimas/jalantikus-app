@@ -101,10 +101,7 @@ div, span, a
     -webkit-transition: 0.1s linear;
     transition: 0.1s linear;
 }
-.app-toolbar.on-top ~ #app-body .app-toolbar-placeholder
-{
-	display: block;
-}
+
 .app-body
 {
 	position: fixed;

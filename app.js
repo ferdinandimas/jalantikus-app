@@ -661,19 +661,23 @@ require(
 					}
 				}
 			}, 250);
-
+			
 			setInterval(function () {
-				if (!$(".app-toolbar-placeholder").is(":in-viewport") || Backbone.history.getFragment().trim() != "") {
-					if ($(".app-toolbar").hasClass("on-top")) {
-						$(".app-toolbar").removeClass("on-top");
+				if(Backbone.history.getFragment().trim() == "")
+				{
+					$(".app-toolbar-placeholder").show(0);
+					if (!$(".app-toolbar-placeholder").is(":in-viewport")) {
+						if ($(".app-toolbar").hasClass("on-top")) {
+							$(".app-toolbar").removeClass("on-top");
+						}
 					}
-				}
-				else {
-					if (!$(".app-toolbar").hasClass("on-top") && $(".app-content-container").scrollTop() <= 45) {
-						$(".app-toolbar").addClass("on-top");
-					}
-					else if ($(".app-toolbar").hasClass("on-top") && $(".app-content-container").scrollTop() > 45) {
-						$(".app-toolbar").removeClass("on-top");
+					else {
+						if (!$(".app-toolbar").hasClass("on-top") && $(".app-content-container").scrollTop() <= 45) {
+							$(".app-toolbar").addClass("on-top");
+						}
+						else if ($(".app-toolbar").hasClass("on-top") && $(".app-content-container").scrollTop() > 45) {
+							$(".app-toolbar").removeClass("on-top");
+						}
 					}
 				}
 			}, 50);
