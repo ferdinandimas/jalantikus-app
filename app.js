@@ -67,7 +67,7 @@ require(
 				$(".splash").fadeOut("fast");
 			}
 
-			if (jt.isOffline() || 1 == 1) {
+			if (jt.isOffline()) {
 				alert("OFFLINE");
 
 				setTimeout(function () {
