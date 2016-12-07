@@ -70,7 +70,7 @@ require(
 			window.BackboneRouter = new Router();
 			Backbone.history.start({ pushState: false });
 
-			if (jt.isOffline()) {
+			if (jt.isOffline() || 1 == 1) {
 				console.log("OFFLINE", Backbone.history.getFragment());
 
 				setTimeout(function () {
@@ -109,7 +109,8 @@ require(
 					}
 				}, 5000);
 			}
-
+			else
+{
 			if ($("#app-body .app-refreshed").length == 0) {
 				$("#app-body").append(
 						'<div class="app-refreshed"></div>'
@@ -774,7 +775,7 @@ require(
 				}
 			});
 
-			alert("DEBUG END");
+			alert("DEBUG END");}
 		});
 	}
 );

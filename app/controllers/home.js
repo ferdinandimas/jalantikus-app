@@ -21,6 +21,8 @@ define(
 			initialize      : function (_options) {
 				var that = this;
 
+				alert("HERE 1");
+
 				$("#app-toolbar")
 					.removeClass("detail")
 					.removeClass("scroll")
@@ -119,7 +121,10 @@ define(
 						$(".app-content-container").scrollTop());
 				}
 
+				alert("HERE 2");
+
 				if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null) {
+					alert("HERE 4");
 					window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", this.page);
 
 					$(".header-refresh").show();
@@ -133,20 +138,25 @@ define(
 					that.render(true);
 				}
 				else {
+					alert("HERE 3");
 					function offlineHandler() {
+
+						alert("HERE 6");
 						$("#app-body .app-content-container").empty().append(
 								'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
 						);
 						$(".header-refresh").hide();
 
 						$(".app-load").css("display", "none");
-						$(".app-retry").css("display", "block");
+						$(".splash .app-loader").addClass("showbtn");
 
 						$(".app-retry").on("click touchend", function () {
 							that.isConnected = true;
 
 							$(".app-load").css("display", "block");
 							$(".app-retry").css("display", "none");
+							$(".splash .app-loader").removeClass("showbtn");
+							
 							that.autoload();
 						});
 
@@ -188,11 +198,14 @@ define(
 								that.render();
 							},
 							error  : function () {
+								alert("HERE 5");
 								offlineHandler();
 							}
 						});
 					}
 					else {
+						alert("OFFLINE NIH");
+
 						setTimeout(function () {
 							offlineHandler();
 						}, 5000);
