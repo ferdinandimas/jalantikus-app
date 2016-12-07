@@ -720,7 +720,7 @@ require(
 				}
 			});
 
-			alert("DEBUG END"):
+			alert("DEBUG END");
 		});
 	}
 );
