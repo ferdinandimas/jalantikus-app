@@ -70,9 +70,7 @@ require(
 			window.BackboneRouter = new Router();
 			Backbone.history.start({ pushState: false });
 
-			if (jt.isOffline() || 1 == 1) {
-				console.log("OFFLINE", Backbone.history.getFragment());
-
+			if (jt.isOffline()) {
 				setTimeout(function () {
 					$("#app-body .app-content-container").empty().append(
 							'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
@@ -109,8 +107,7 @@ require(
 					}
 				}, 5000);
 			}
-			else
-{
+
 			if ($("#app-body .app-refreshed").length == 0) {
 				$("#app-body").append(
 						'<div class="app-refreshed"></div>'
@@ -774,8 +771,6 @@ require(
 					}, 200)
 				}
 			});
-
-			alert("DEBUG END");}
 		});
 	}
 );
