@@ -53,8 +53,6 @@ require(
 		$(function () {
 			$.mobile.loading().hide();
 
-			alert("DEBUG");
-
 			if (window.localStorage.getItem("show_splash") == null) {
 				window.localStorage.setItem("show_splash", true);
 			}
@@ -69,18 +67,29 @@ require(
 				$(".splash").fadeOut("fast");
 			}
 
-			window.addEventListener("error", handleError, true);
+			if (jt.isOffline() || 1 == 1) {
+				alert("OFFLINE");
 
-			function handleError(evt) {
-				if (evt.message) { // Chrome sometimes provides this
-					alert("error: " + evt.message + " at linenumber: " + evt.lineno + " of file: " + evt.filename);
-				}
-				else {
-					alert("error: " + evt.type + " from element: " + (evt.srcElement || evt.target));
-				}
+				setTimeout(function () {
+					if ($(".no-splash").length >= 1) {
+						$(".splash").show().find(".splash-content").fadeIn();
+						$(".no-splash").fadeOut();
+					}
+
+					if ($(".splash").length >= 1) {
+						$(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
+						setTimeout(function () {
+							$(".splash .app-refreshed").fadeOut();
+						}, 2000);
+
+						$(".splash-content .app-loader").fadeIn();
+
+						$(".splash-quote").remove();
+						$(".splash-speaker").remove();
+						$(".splash-loading").hide();
+					}
+				}, 5000);
 			}
-
-			alert("DEBUG 1");
 
 			if ($("#app-body .app-refreshed").length == 0) {
 				$("#app-body").append(
@@ -93,8 +102,6 @@ require(
 
 			oneSignal.isSubscribed();
 
-			alert("DEBUG 2");
-
 			document.addEventListener("deviceready", function () {
 				if (typeof window.StatusBar != "undefined") {
 					window.StatusBar.backgroundColorByHexString("#8F1F1F");
@@ -106,8 +113,6 @@ require(
 
 				oneSignal.init();
 			}, false);
-
-			alert("DEBUG 3");
 
 			$("#search-form").on("submit", function (e) {
 				e.preventDefault();
@@ -308,18 +313,9 @@ require(
 					$("#app-userpanel").panel("close");
 				}, 150);
 			});
-			$(document).on("click", ".app-setting", function (e) {
-				setTimeout(function () {
-					$(".app-settings").fadeIn();
-					$("#app-userpanel").panel("close");
-				}, 150);
-			});
 
 			$(document).on("click", ".rating-close", function () {
 				$(".app-rating").fadeOut();
-			});
-			$(document).on("click", ".settings-close", function () {
-				$(".app-settings").fadeOut();
 			});
 
 			$(document).on("click", ".app-rating-submit .rating-link", function (e) {
@@ -339,12 +335,12 @@ require(
 
 			$(document).on("click", ".usermenu-item", function (e) {
 				if (!jt.isOffline()) {
-					// if (!$(this).hasClass("item-pass")) {
+					if (!$(this).hasClass("item-pass")) {
 						jt.ripple($(this), e);
 						setTimeout(function () {
 							$('#app-userpanel').panel('close')
 						}, 150);
-					// }
+					}
 				}
 				else {
 					e.preventDefault();
@@ -734,6 +730,8 @@ require(
 					}, 200)
 				}
 			});
+
+			alert("DEBUG END"):
 		});
 	}
 );
