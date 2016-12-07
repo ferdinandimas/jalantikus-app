@@ -663,7 +663,7 @@ require(
 			}, 250);
 
 			setInterval(function () {
-				if (!$(".app-toolbar-placeholder").is(":in-viewport")) {
+				if (!$(".app-toolbar-placeholder").is(":in-viewport") || Backbone.history.getFragment().trim() != "") {
 					if ($(".app-toolbar").hasClass("on-top")) {
 						$(".app-toolbar").removeClass("on-top");
 					}

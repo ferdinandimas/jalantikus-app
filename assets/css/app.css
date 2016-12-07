@@ -93,6 +93,7 @@ div, span, a
 }
 .app-toolbar-placeholder
 {
+	display: none;
 	max-height: 45px;
 	height: 45px;
     width: 100%;
@@ -100,10 +101,10 @@ div, span, a
     -webkit-transition: 0.1s linear;
     transition: 0.1s linear;
 }
-/*.app-toolbar.on-top ~ #app-body .app-toolbar-placeholder
+.app-toolbar.on-top ~ #app-body .app-toolbar-placeholder
 {
-	margin-top: 40px;
-}*/
+	display: block;
+}
 .app-body
 {
 	position: fixed;
@@ -1684,6 +1685,11 @@ code
 {
     background-color: #6ab344;
     background-position: 0 0;
+}
+.app-detail-body .addon-apps .os-style.windows 
+{
+	background-color: #1f9cf4;
+    background-position: 0 -14px;
 }
 .app-detail-body .addon-apps .info
 {

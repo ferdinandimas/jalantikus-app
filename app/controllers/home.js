@@ -189,7 +189,6 @@ define(
 				}
 
 				$(".header-refresh").on("click", function () {
-					console.log("HERE");
 
 					if (!jt.isOffline()) {
 						if (!$(".header-refresh").hasClass("active")) {
@@ -238,7 +237,8 @@ define(
 							timeout: 10000,
 							success: function () {
 								$("#app-body .app-content-container").empty();
-
+								$("#app-body .app-content-container")
+									.append('<div class="app-toolbar-placeholder"></div>')
 								that.render();
 							}
 						});
