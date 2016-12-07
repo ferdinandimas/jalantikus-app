@@ -109,6 +109,24 @@ define(
 					setTimeout(function () {
 						$(".app-load").css("display", "none");
 						$(".app-retry").css("display", "block");
+
+						if ($(".splash").length >= 1) {
+							if ($(".no-splash").length >= 1) {
+								$(".splash").show().find(".splash-content").fadeIn();
+								$(".no-splash").fadeOut();
+							}
+
+							$(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
+							setTimeout(function () {
+								$(".splash .app-refreshed").fadeOut();
+							}, 2000);
+
+							$(".splash-content .app-loader").fadeIn();
+
+							$(".splash-quote").remove();
+							$(".splash-speaker").remove();
+							$(".splash-loading").hide();
+						}
 					}, 2000);
 				}
 			},

@@ -133,63 +133,71 @@ define(
 					that.render(true);
 				}
 				else {
-					this.collection.fetch({
-						timeout: 5000,
-						success: function () {
-							$(".header-refresh").show();
-
-							if (that.type != "search") {
-								$("#app-body .app-content-container").empty();
-							}
-							$("#app-body .app-content-container")
-									.append('<div class="app-toolbar-placeholder"></div>')
-
-							that.render();
-						},
-						error  : function () {
-							$("#app-body .app-content-container").empty().append(
+					function offlineHandler() {
+						$("#app-body .app-content-container").empty().append(
 								'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
-							);
-							$(".header-refresh").hide();
+						);
+						$(".header-refresh").hide();
 
-							$(".app-load").css("display", "none");
-							$(".app-retry").css("display", "block");
+						$(".app-load").css("display", "none");
+						$(".app-retry").css("display", "block");
 
-							$(".app-retry").on("click touchend", function () {
-								that.isConnected = true;
+						$(".app-retry").on("click touchend", function () {
+							that.isConnected = true;
 
-								$(".app-load").css("display", "block");
-								$(".app-retry").css("display", "none");
-								that.autoload();
-							});
+							$(".app-load").css("display", "block");
+							$(".app-retry").css("display", "none");
+							that.autoload();
+						});
 
-							if ($(".no-splash").length >= 1) {
-								$(".splash").show().find(".splash-content").fadeIn();
-								$(".no-splash").fadeOut();
-							}
-
-							if ($(".splash").length >= 1) {
-								if (that.isConnected) {
-									$(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
-									setTimeout(function () {
-										$(".splash .app-refreshed").fadeOut();
-									}, 2000);
-
-									that.isConnected = false;
-								}
-
-								$(".splash-content .app-loader").fadeIn();
-
-								$(".splash-quote").remove();
-								$(".splash-speaker").remove();
-								$(".splash-loading").hide();
-							}
+						if ($(".no-splash").length >= 1) {
+							$(".splash").show().find(".splash-content").fadeIn();
+							$(".no-splash").fadeOut();
 						}
-					});
+
+						if ($(".splash").length >= 1) {
+							if (that.isConnected) {
+								$(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
+								setTimeout(function () {
+									$(".splash .app-refreshed").fadeOut();
+								}, 2000);
+
+								that.isConnected = false;
+							}
+
+							$(".splash-content .app-loader").fadeIn();
+
+							$(".splash-quote").remove();
+							$(".splash-speaker").remove();
+							$(".splash-loading").hide();
+						}
+					}
+
+					if (!jt.isOffline()) {
+						this.collection.fetch({
+							timeout: 5000,
+							success: function () {
+								$(".header-refresh").show();
+
+								if (that.type != "search") {
+									$("#app-body .app-content-container").empty();
+								}
+								$("#app-body .app-content-container")
+										.append('<div class="app-toolbar-placeholder"></div>')
+
+								that.render();
+							},
+							error  : function () {
+								offlineHandler();
+							}
+						});
+					}
+					else {
+						offlineHandler();
+					}
 				}
 
 				$(".header-refresh").on("click", function () {
-
 					if (!jt.isOffline()) {
 						if (!$(".header-refresh").hasClass("active")) {
 							$(".header-refresh").addClass("active");
