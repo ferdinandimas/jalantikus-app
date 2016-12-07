@@ -2488,10 +2488,9 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 }
 .app-settings .app-settings-title
 {
-	font-weight: 500;
-	font-size: 18px;
-	color: #000;
-}
+    font-weight: 700;
+    font-size: 19px;
+    color: #434343;
 .app-rating .app-rating-submit
 {
    	position: absolute;
