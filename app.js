@@ -71,23 +71,12 @@ require(
 				alert("OFFLINE");
 
 				setTimeout(function () {
-					if ($(".no-splash").length >= 1) {
-						$(".splash").show().find(".splash-content").fadeIn();
-						$(".no-splash").fadeOut();
-					}
-
-					if ($(".splash").length >= 1) {
-						$(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
-						setTimeout(function () {
-							$(".splash .app-refreshed").fadeOut();
-						}, 2000);
-
-						$(".splash-content .app-loader").fadeIn();
-
-						$(".splash-quote").remove();
-						$(".splash-speaker").remove();
-						$(".splash-loading").hide();
-					}
+					$(".splash").fadeOut(350, function() {
+						$(this).remove();
+					});
+					$(".no-splash").fadeOut(350, function() {
+						$(this).remove();
+					});
 				}, 5000);
 			}
 
