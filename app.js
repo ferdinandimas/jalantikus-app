@@ -67,6 +67,34 @@ require(
 				$(".splash").fadeOut("fast");
 			}
 
+			if (jt.isOffline()) {
+				alert("OFFLINE");
+
+				setTimeout(function () {
+					if ($(".no-splash").length >= 1) {
+						$(".splash").show().find(".splash-content").fadeIn();
+						$(".no-splash").fadeOut();
+					}
+
+					if ($(".splash").length >= 1) {
+						if (that.isConnected) {
+							$(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
+							setTimeout(function () {
+								$(".splash .app-refreshed").fadeOut();
+							}, 2000);
+
+							that.isConnected = false;
+						}
+
+						$(".splash-content .app-loader").fadeIn();
+
+						$(".splash-quote").remove();
+						$(".splash-speaker").remove();
+						$(".splash-loading").hide();
+					}
+				}, 5000);
+			}
+
 			if ($("#app-body .app-refreshed").length == 0) {
 				$("#app-body").append(
 					'<div class="app-refreshed"></div>'

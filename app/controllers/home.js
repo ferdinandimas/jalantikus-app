@@ -193,7 +193,9 @@ define(
 						});
 					}
 					else {
-						offlineHandler();
+						setTimeout(function () {
+							offlineHandler();
+						}, 5000);
 					}
 				}
 
