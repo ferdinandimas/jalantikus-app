@@ -53,6 +53,8 @@ require(
 		$(function () {
 			$.mobile.loading().hide();
 
+			alert("DEBUG");
+
 			if (window.localStorage.getItem("show_splash") == null) {
 				window.localStorage.setItem("show_splash", true);
 			}
@@ -78,6 +80,8 @@ require(
 				}
 			}
 
+			alert("DEBUG 1");
+
 			if ($("#app-body .app-refreshed").length == 0) {
 				$("#app-body").append(
 					'<div class="app-refreshed"></div>'
@@ -88,6 +92,8 @@ require(
 			Backbone.history.start({ pushState: false });
 
 			oneSignal.isSubscribed();
+
+			alert("DEBUG 2");
 
 			document.addEventListener("deviceready", function () {
 				if (typeof window.StatusBar != "undefined") {
@@ -100,6 +106,8 @@ require(
 
 				oneSignal.init();
 			}, false);
+
+			alert("DEBUG 3");
 
 			$("#search-form").on("submit", function (e) {
 				e.preventDefault();
