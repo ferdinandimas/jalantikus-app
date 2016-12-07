@@ -300,9 +300,18 @@ require(
 					$("#app-userpanel").panel("close");
 				}, 150);
 			});
+			$(document).on("click", ".app-setting", function (e) {
+				setTimeout(function () {
+					$(".app-settings").fadeIn();
+					$("#app-userpanel").panel("close");
+				}, 150);
+			});
 
 			$(document).on("click", ".rating-close", function () {
 				$(".app-rating").fadeOut();
+			});
+			$(document).on("click", ".settings-close", function () {
+				$(".app-settings").fadeOut();
 			});
 
 			$(document).on("click", ".app-rating-submit .rating-link", function (e) {
@@ -322,12 +331,12 @@ require(
 
 			$(document).on("click", ".usermenu-item", function (e) {
 				if (!jt.isOffline()) {
-					if (!$(this).hasClass("item-pass")) {
+					// if (!$(this).hasClass("item-pass")) {
 						jt.ripple($(this), e);
 						setTimeout(function () {
 							$('#app-userpanel').panel('close')
 						}, 150);
-					}
+					// }
 				}
 				else {
 					e.preventDefault();
