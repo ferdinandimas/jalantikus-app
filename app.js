@@ -70,7 +70,7 @@ require(
 			window.BackboneRouter = new Router();
 			Backbone.history.start({ pushState: false });
 
-			if (jt.isOffline() || 1 == 1) {
+			if (jt.isOffline()) {
 				console.log("OFFLINE", Backbone.history.getFragment());
 
 				setTimeout(function () {
