@@ -428,7 +428,7 @@ div, span, a
 {
 	display: none;
 }
-.card-link, .rating-link, .app-gotohome, .app-gotoweb
+.card-link, .rating-link, .app-gotohome, .app-gotoweb, .app-addtofavorite .app-goto
 {
 	position: absolute;
 	top: 0;
@@ -2061,7 +2061,91 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	background-position:  center center;
 	background-repeat: no-repeat;
 }
-
+.app-addtofavorite
+{
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    position: relative;
+    width: 120px;
+    height: 40px;
+    border: 1px solid #d0d0d0;
+    border-radius: 20px;
+    font-size: 16px;
+    line-height: 40px;
+    padding-left: 20px;
+    box-sizing: border-box;
+    color: #9d9d9d;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+}
+.app-addtofavorite.active
+{
+	border: 1px solid #000;
+	color: #000;
+}
+.app-addtofavorite .app-goto
+{
+	border-radius: 20px;
+}
+.app-addtofavorite .app-goto:after
+{
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	content: "";
+	top: 5px;
+	right: 15px;
+	-webkit-mask-image: url(../images/like-icon.png);
+	mask-image: url(../images/like-icon.png);
+	-webkit-mask-position: center center;
+	mask-position: center center;
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	transform-origin: center;
+	-webkit-transition: 0.2s;
+	transition: 0.2s;
+}
+.app-addtofavorite:before
+{
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	content: "";
+	top: 5px;
+	right: 15px;
+	background-image: url(../images/like-icon.png);
+	background-position: center center;
+	background-repeat: no-repeat;
+	transform-origin: center;
+	-webkit-transition: 0.2s;
+	transition: 0.2s;
+	background-size: 23px;
+	-webkit-filter: drop-shadow(1px 1px 0 #cb2f3e)
+                  drop-shadow(-1px -1px 0 #cb2f3e);
+  	filter: drop-shadow(1px 1px 0 #cb2f3e) 
+          drop-shadow(1px -1px 0 #cb2f3e)
+          drop-shadow(-1px -1px 0 #cb2f3e)
+          drop-shadow(-1px 1px 0 #cb2f3e);
+}
+.app-addtofavorite:after
+{
+	-webkit-mask-size: 23px;
+	mask-size: 23px;
+	background-color: #fff;
+}
+.app-addtofavorite .app-goto:after
+{
+	-webkit-mask-size: 25px;
+	mask-size: 25px;
+	background-color: #c92737;
+	transform: scale(0);
+}
+.app-addtofavorite.active .app-goto:after
+{
+	animation: grow 0.4s linear;
+	transform: scale(1);
+}
 /*Kembali ke home*/
 .app-gotohome-description
 {
@@ -2238,7 +2322,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	-webkit-transform: translate(0,-50%);
 	transform: translate(0,-50%);
 }
-.no-splash .app-loader:before
+.no-splash .app-loader:before, .splash-content .app-loader:before
 {
 	position: absolute;
     height: 52px;
@@ -2253,7 +2337,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	border-bottom: 4px solid #fff;
     box-sizing: border-box;
 }
-.no-splash .app-loader .app-load:before
+.no-splash .app-loader .app-load:before, .splash-content .app-loader .app-load:before
 {
     border: 0;
     background: #8f1f1f;
@@ -2281,6 +2365,22 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	}
 	76%, 100% {
     	box-shadow: 2px 2px 0 rgba(255,255,255,0.6), 6px 2px 0 rgba(255,255,255,0.6), 10px 2px 0 rgba(255,255,255,0.6);
+	}
+}
+@keyframes grow
+{
+	0% {
+		-webkit-transform: scale(0);
+		transform: scale(0);
+	}
+	60% {
+		-webkit-transform: scale(1.2);
+		transform: scale(1.2);
+    	
+	}
+	100% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
 	}
 }
 
@@ -2361,10 +2461,16 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 {
 	height: 150px;
 }
-.app-rating .app-rating-title, .app-settings .app-settings-title
+.app-rating .app-rating-title
 {
     font-weight: 700;
     font-size: 16px;
+}
+.app-settings .app-settings-title
+{
+	font-weight: 500;
+	font-size: 18px;
+	color: #000;
 }
 .app-rating .app-rating-submit
 {

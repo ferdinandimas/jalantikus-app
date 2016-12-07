@@ -455,6 +455,23 @@ require(
 				}
 			});
 
+			$(document).on("click", ".app-addtofavorite", function (e) {
+				if (!jt.isOffline()) {
+					if(!$(this).hasClass("active"))
+					{
+						$(this).addClass("active");
+					}
+					else
+					{
+						$(this).removeClass("active");
+					}
+				}
+				else {
+					e.preventDefault();
+					showOffline();
+				}
+			});
+
 			$(document).on("touchend click", ".app-index-card a.disabled", function (e) {
 				e.preventDefault();
 			});
