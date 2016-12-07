@@ -80,7 +80,7 @@ require(
 					$(".header-refresh").hide();
 
 					$(".app-load").css("display", "none");
-					$(".app-retry").css("display", "block");
+					$(".splash .app-loader").addClass("showbtn");
 
 					if ($(".no-splash").length >= 1) {
 						$(".splash").show().find(".splash-content").fadeIn();
@@ -90,6 +90,7 @@ require(
 					$(".app-retry").on("click touchend", function () {
 						$(".app-load").css("display", "block");
 						$(".app-retry").css("display", "none");
+						$(".splash .app-loader").removeClass("showbtn");
 
 						Backbone.history.loadUrl();
 					});
@@ -329,9 +330,19 @@ require(
 				}, 150);
 			});
 
-			$(document).on("click", ".rating-close", function () {
-				$(".app-rating").fadeOut();
-			});
+			$(document).on("click", ".app-setting", function (e) {
+					setTimeout(function () {
+						$(".app-settings").fadeIn();
+						$("#app-userpanel").panel("close");
+					}, 150);
+				});
+
+				$(document).on("click", ".rating-close", function () {
+					$(".app-rating").fadeOut();
+				});
+				$(document).on("click", ".settings-close", function () {
+					$(".app-settings").fadeOut();
+				});
 
 			$(document).on("click", ".app-rating-submit .rating-link", function (e) {
 				setTimeout(function () {

@@ -507,7 +507,7 @@ div, span, a
 {
 	margin-top: 60px;
 }
-.app-loader .app-load
+.app-loader .app-load, .splash-content .app-load 
 {
 	position: relative;
     width: 50px;
@@ -521,6 +521,10 @@ div, span, a
     border-radius: 50%;
     background-repeat: no-repeat;
     pointer-events: none;
+}
+.splash-content .app-load
+{
+	background-color: transparent;
 }
 .app-loader .app-load:after
 {
@@ -2081,8 +2085,8 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 }
 .app-addtofavorite.active
 {
-	border: 1px solid #000;
-	color: #000;
+	border: 1px solid #aeaeae;
+	color: #6b6b6b;
 }
 .app-addtofavorite .app-goto
 {
@@ -2314,7 +2318,27 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	-webkit-transform: translate(0,-50%);
 	transform: translate(0,-50%);
 }
-.no-splash .app-loader:before
+.splash-content .app-loader
+{
+	width: 52px;
+}
+.splash-content .app-loader .app-retry
+{
+	display: none;
+}
+.splash-content .app-loader.showbtn
+{
+	width: 100%;
+}
+.splash-content .app-loader.showbtn .app-retry
+{
+	display: block;
+}
+.splash-content .app-loader.showbtn:before
+{
+	display: none;
+}
+.no-splash .app-loader:before, .splash-content .app-loader:before
 {
 	position: absolute;
     height: 52px;
@@ -2329,18 +2353,25 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	border-bottom: 4px solid #fff;
     box-sizing: border-box;
 }
-.no-splash .app-loader .app-load:before
+.splash-content .app-loader:before
+{
+	border-top-image: -webkit-linear-gradient(bottom, black, rgba(0, 0, 0, 0)) 1 100%;
+	/* -webkit-border-image: -webkit-gradient(linear, 0 0, 0 100%, from(black), to(rgba(0, 0, 0, 0))) 1 100%; */
+	/* border-top: 10px solid red; */
+}
+.no-splash .app-loader .app-load:before, .splash-content .app-loader .app-load:before
 {
     border: 0;
-    background: #8f1f1f;
+    background: #d12f2f;
     height: 10px;
     width: 54px;
     top: 20px;
     left: -2px;
     transform-origin: center;
     border-radius: 0;
+    /* animation:none; */
 }
-.no-splash .app-loader .app-load:after
+.no-splash .app-loader .app-load:after, .splash-content .app-loader .app-load:after
 {
 	background-color: #fff;
 }
