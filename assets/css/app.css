@@ -507,7 +507,7 @@ div, span, a
 {
 	margin-top: 60px;
 }
-.app-loader .app-load, .splash-content .app-load 
+.app-loader .app-load
 {
 	position: relative;
     width: 50px;
@@ -2069,7 +2069,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     position: relative;
     width: 120px;
     height: 40px;
-    border: 1px solid #d0d0d0;
+    border: 1px solid #c6c6c6;
     border-radius: 20px;
     font-size: 16px;
     line-height: 40px;
@@ -2120,24 +2120,16 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	transform-origin: center;
 	-webkit-transition: 0.2s;
 	transition: 0.2s;
-	background-size: 23px;
-	-webkit-filter: drop-shadow(1px 1px 0 #cb2f3e)
-                  drop-shadow(-1px -1px 0 #cb2f3e);
+	background-size: 18px;
   	filter: drop-shadow(1px 1px 0 #cb2f3e) 
           drop-shadow(1px -1px 0 #cb2f3e)
           drop-shadow(-1px -1px 0 #cb2f3e)
           drop-shadow(-1px 1px 0 #cb2f3e);
 }
-.app-addtofavorite:after
-{
-	-webkit-mask-size: 23px;
-	mask-size: 23px;
-	background-color: #fff;
-}
 .app-addtofavorite .app-goto:after
 {
-	-webkit-mask-size: 25px;
-	mask-size: 25px;
+	-webkit-mask-size: 20px;
+	mask-size: 20px;
 	background-color: #c92737;
 	transform: scale(0);
 }
@@ -2322,7 +2314,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	-webkit-transform: translate(0,-50%);
 	transform: translate(0,-50%);
 }
-.no-splash .app-loader:before, .splash-content .app-loader:before
+.no-splash .app-loader:before
 {
 	position: absolute;
     height: 52px;
@@ -2337,7 +2329,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	border-bottom: 4px solid #fff;
     box-sizing: border-box;
 }
-.no-splash .app-loader .app-load:before, .splash-content .app-loader .app-load:before
+.no-splash .app-loader .app-load:before
 {
     border: 0;
     background: #8f1f1f;
