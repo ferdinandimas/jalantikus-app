@@ -2322,7 +2322,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	-webkit-transform: translate(0,-50%);
 	transform: translate(0,-50%);
 }
-.no-splash .app-loader:before
+.no-splash .app-loader:before, .splash-content .app-loader:before
 {
 	position: absolute;
     height: 52px;
@@ -2337,7 +2337,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	border-bottom: 4px solid #fff;
     box-sizing: border-box;
 }
-.no-splash .app-loader .app-load:before
+.no-splash .app-loader .app-load:before, .splash-content .app-loader .app-load:before
 {
     border: 0;
     background: #8f1f1f;
