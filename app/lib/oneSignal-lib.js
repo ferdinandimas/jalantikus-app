@@ -4,7 +4,7 @@
 var oneSignal = function () {
 	return {
 		init: function () {
-			if (typeof window.plugins != "undefined") {
+			if (typeof window.plugins != "undefined" && !jt.isOffline()) {
 				//window.plugins.OneSignal.setLogLevel({ logLevel: 2, visualLevel: 2 });
 
 				window.plugins.OneSignal
@@ -27,7 +27,7 @@ var oneSignal = function () {
 			window.localStorage.setItem("push_subscription", (_val === "true" || _val === true));
 			$("#notification").prop("checked", (_val === "true" || _val === true));
 
-			if (typeof window.plugins != "undefined") {
+			if (typeof window.plugins != "undefined" && !jt.isOffline()) {
 				window.plugins.OneSignal.setSubscription(_val);
 			}
 		},
@@ -36,14 +36,14 @@ var oneSignal = function () {
 				window.localStorage.setItem("push_subscription", true);
 				$("#notification").prop("checked", true);
 
-				if (typeof window.plugins != "undefined") {
+				if (typeof window.plugins != "undefined" && !jt.isOffline()) {
 					window.plugins.OneSignal.setSubscription(true);
 				}
 			}
 			else {
 				$("#notification").prop("checked", (window.localStorage.getItem("push_subscription") === "true" || window.localStorage.getItem("push_subscription") === true));
 
-				if (typeof window.plugins != "undefined") {
+				if (typeof window.plugins != "undefined" && !jt.isOffline()) {
 					window.plugins.OneSignal.setSubscription(window.localStorage.getItem("push_subscription"));
 				}
 			}
