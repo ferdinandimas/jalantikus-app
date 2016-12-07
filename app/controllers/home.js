@@ -209,7 +209,7 @@ define(
 								$(".header-refresh").removeClass("active");
 
 								if (!jt.isOffline()) {
-									$(".app-refreshed").html("Refresh selesai.").fadeIn();
+									$(".app-refreshed").html("Refresh selesai").fadeIn();
 									setTimeout(function () {
 										$(".app-refreshed").fadeOut();
 									}, 2000);
