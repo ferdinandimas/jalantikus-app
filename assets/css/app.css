@@ -2395,8 +2395,8 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 		transform: translate(0) scale(0);
 	}
 	60%, 65% {
-		-webkit-transform: translate(0) scale(1.6);
-		transform: translate(0) scale(1.6);
+		-webkit-transform: translate(0) scale(2);
+		transform: translate(0) scale(2);
     	
 	}
 	100% {

@@ -495,6 +495,10 @@ require(
 					window.localStorage.setItem("favorite/" + Backbone.history.getFragment(), window.sessionStorage.getItem(Backbone.history.getFragment()));
 
 					$(this).addClass("active");
+					$(".app-refreshed").html("Anda menyukai artikel ini").fadeIn();
+					setTimeout(function () {
+						$(".app-refreshed").fadeOut();
+					}, 2000);
 				}
 				else {
 					window.localStorage.removeItem("favorite/" + Backbone.history.getFragment());
