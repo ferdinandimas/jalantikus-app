@@ -77,9 +77,12 @@ define(
 								$(".app-load").css("display", "none");
 								$(".app-retry").css("display", "block");
 
+								$(".splash .app-loader").addClass("showbtn");
+
 								$(".app-retry").on("touchend click", function () {
 									$(".app-load").css("display", "block");
 									$(".app-retry").css("display", "none");
+									$(".splash .app-loader").removeClass("showbtn");
 
 									that.fetch({ timeout: 10000 });
 								});
@@ -109,6 +112,8 @@ define(
 					setTimeout(function () {
 						$(".app-load").css("display", "none");
 						$(".app-retry").css("display", "block");
+
+						$(".splash .app-loader").addClass("showbtn");
 
 						if ($(".splash").length >= 1) {
 							if ($(".no-splash").length >= 1) {
@@ -354,6 +359,7 @@ define(
 				$(".app-retry").on("touchend click", function () {
 					$(".app-load").css("display", "block");
 					$(".app-retry").css("display", "none");
+					$(".splash .app-loader").removeClass("showbtn");
 
 					that.fetch({ timeout: 10000 });
 				});
