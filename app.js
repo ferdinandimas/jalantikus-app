@@ -87,10 +87,27 @@ require(
 
 					$(".app-retry").on("click touchend", function () {
 						$(".app-load").css("display", "block");
-						$(".app-retry").css("display", "none");
 						$(".splash .app-loader").removeClass("showbtn");
 
-						Backbone.history.loadUrl();
+						if (!jt.isOffline()) {
+							Backbone.history.loadUrl();
+						}
+						else {
+							setTimeout(function () {
+								$(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
+								setTimeout(function () {
+									$(".splash .app-refreshed").fadeOut();
+								}, 2000);
+
+								$("#app-body .app-content-container").empty().append(
+										'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
+								);
+								$(".header-refresh").hide();
+
+								$(".app-load").css("display", "none");
+								$(".splash .app-loader").addClass("showbtn");
+							}, 5000);
+						}
 					});
 
 					if ($(".splash").length >= 1) {
@@ -131,7 +148,8 @@ require(
 			$("#search-form").on("submit", function (e) {
 				e.preventDefault();
 
-				window.BackboneRouter.navigate("search/" + $("#search-form [name='search']").val(), { trigger: true })
+				window.BackboneRouter.navigate("search/" + $("#search-form [name='search']").val(),
+						{ trigger: true })
 
 				$("#app-searchpanel").panel("close");
 			});
@@ -170,7 +188,8 @@ require(
 			$(document).on("click", ".usermenu-item", function (e) {
 				if (!jt.isOffline()) {
 					var _currUI = $(this);
-					if (!_currUI.hasClass("active") && !_currUI.hasClass("app-rate") && !_currUI.hasClass("app-share") && !_currUI.hasClass(
+					if (!_currUI.hasClass("active") && !_currUI.hasClass("app-rate") && !_currUI.hasClass(
+									"app-share") && !_currUI.hasClass(
 									"item-pass")) {
 						$('.usermenu-item').not(_currUI).removeClass("active");
 						_currUI.addClass("active");
@@ -212,7 +231,8 @@ require(
 				_slideVtCur = e.originalEvent.touches[ 0 ].pageY;
 				if (_slideFlag == false) {
 					if (_slideCur - _slideSt > 30 && Math.abs(_slideVtCur - _slideVt) < 30) {
-						if ($.mobile.activePage.jqmData("panel") !== "open" && !$(".app-toolbar").hasClass("detail")) {
+						if ($.mobile.activePage.jqmData("panel") !== "open" && !$(".app-toolbar")
+										.hasClass("detail")) {
 							_slideFlag = true;
 							smoothSlide();
 							$(".app-content-container").css("overflow-y", "hidden")
@@ -492,7 +512,8 @@ require(
 
 			$(document).on("click", ".app-addtofavorite", function (e) {
 				if (!$(this).hasClass("active")) {
-					window.localStorage.setItem("favorite/" + Backbone.history.getFragment(), window.sessionStorage.getItem(Backbone.history.getFragment()));
+					window.localStorage.setItem("favorite/" + Backbone.history.getFragment(),
+							window.sessionStorage.getItem(Backbone.history.getFragment()));
 
 					$(this).addClass("active");
 					$(".app-refreshed").html("Anda menyukai artikel ini").fadeIn();
@@ -728,8 +749,7 @@ require(
 			}, 250);
 
 			setInterval(function () {
-				if(Backbone.history.getFragment().trim() == "")
-				{
+				if (Backbone.history.getFragment().trim() == "") {
 					$(".app-toolbar-placeholder").show(0);
 					if (!$(".app-toolbar-placeholder").is(":in-viewport")) {
 						if ($(".app-toolbar").hasClass("on-top")) {
@@ -737,10 +757,12 @@ require(
 						}
 					}
 					else {
-						if (!$(".app-toolbar").hasClass("on-top") && $(".app-content-container").scrollTop() <= 45) {
+						if (!$(".app-toolbar").hasClass("on-top") && $(".app-content-container")
+										.scrollTop() <= 45) {
 							$(".app-toolbar").addClass("on-top");
 						}
-						else if ($(".app-toolbar").hasClass("on-top") && $(".app-content-container").scrollTop() > 45) {
+						else if ($(".app-toolbar").hasClass("on-top") && $(".app-content-container")
+										.scrollTop() > 45) {
 							$(".app-toolbar").removeClass("on-top");
 						}
 					}
