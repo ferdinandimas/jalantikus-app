@@ -113,9 +113,10 @@ define(
 					else
 					{
 						$("#app-body .app-content-container").empty().append(
-								'<div class="app-search">' +
-								'<span class="app-search-result">Kamu belum menambahkan artikel favorit</span>' +
-								'</div>'
+								'<div class="favorite-empty">' +
+								'Maaf, belum ada artikel yang kamu sukai' +
+								'</div>' +
+								'<div class="recommended-articles">REKOMENDASI UNTUK KAMU</div>' 
 						);
 					}
 

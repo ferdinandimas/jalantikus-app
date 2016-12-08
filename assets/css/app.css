@@ -2143,6 +2143,73 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	animation: grow 0.4s linear;
 	transform: translate(0) scale(1);
 }
+.favorite-empty
+{
+	position: relative;
+	min-height: 145px;
+	width: calc(100% - 30px);
+	background-color: #fffaed;
+	margin: 20px 15px ; 
+	padding: 10px;
+	padding-top: 100px;
+	padding-bottom: 25px;
+	color: #c92737;
+	font-size: 15px;
+	line-height: 20px;
+	border: 1px solid #f4d5a5;
+	border-radius: 5px;
+	box-sizing: border-box;
+	text-align: center;
+}
+.favorite-empty:after
+{
+	position: absolute;
+	display: block;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	content: "";
+	-webkit-mask-image: url(../images/sad.png);
+	mask-image: url(../images/sad.png);
+	-webkit-mask-position: center top 20px;
+	mask-position: center top 20px;
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-size: 64px;
+	mask-size: 64px;
+	background-color: #c92737;
+}
+.recommended-articles
+{
+	position: relative;
+	display: block;
+	padding-left: 45px;
+	font-weight: 600;
+	font-size: 15px;
+	line-height: 20px;
+	margin-bottom: 20px;
+}
+.recommended-articles:after
+{
+	position: absolute;
+	display: block;
+	width: 20px;
+	height: 20px;
+	top: 0;
+	left: 15px;
+	bottom: 0;
+	content: "";
+	-webkit-mask-image: url(../images/like-icon.png);
+	mask-image: url(../images/like-icon.png);
+	-webkit-mask-position: center;
+	mask-position: center;
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-size: 20px;
+	mask-size: 20px;
+	background-color: #c92737;
+}
 /*Kembali ke home*/
 .app-gotohome-description
 {
