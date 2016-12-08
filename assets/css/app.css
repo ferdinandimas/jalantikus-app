@@ -2184,11 +2184,12 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 {
 	position: relative;
 	display: block;
-	padding-left: 45px;
+	padding-left: 40px;
 	font-weight: 600;
 	font-size: 15px;
 	line-height: 20px;
-	margin-bottom: 20px;
+	padding-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
 }
 .recommended-articles:after
 {
