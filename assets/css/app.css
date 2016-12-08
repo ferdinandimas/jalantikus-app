@@ -2107,8 +2107,8 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	-webkit-mask-repeat: no-repeat;
 	mask-repeat: no-repeat;
 	transform-origin: center;
-	-webkit-transform: translate(0);
-    transform: translate(0);
+	-webkit-transform: translate(0) scale(0);
+	transform: translate(0) scale(0);
 	-webkit-transition: 0.2s;
 	transition: 0.2s;
 }
@@ -2137,12 +2137,11 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	-webkit-mask-size: 20px;
 	mask-size: 20px;
 	background-color: #c92737;
-	transform: scale(0);
 }
 .app-addtofavorite.active .app-goto:after
 {
 	animation: grow 0.4s linear;
-	transform: scale(1);
+	transform: translate(0) scale(1);
 }
 /*Kembali ke home*/
 .app-gotohome-description
@@ -2392,17 +2391,17 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 @keyframes grow
 {
 	0% {
-		-webkit-transform: scale(0);
-		transform: scale(0);
+		-webkit-transform: translate(0) scale(0);
+		transform: translate(0) scale(0);
 	}
-	60% {
-		-webkit-transform: scale(1.2);
-		transform: scale(1.2);
+	60%, 65% {
+		-webkit-transform: translate(0) scale(1.6);
+		transform: translate(0) scale(1.6);
     	
 	}
 	100% {
-		-webkit-transform: scale(1);
-		transform: scale(1);
+		-webkit-transform: translate(0)  scale(1);
+		transform: translate(0)  scale(1);
 	}
 }
 

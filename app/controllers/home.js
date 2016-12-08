@@ -110,6 +110,14 @@ define(
 							$(".app-content-container .app-index-card:first-child").css("margin-top", "0px");
 						}
 					}
+					else
+					{
+						$("#app-body .app-content-container").empty().append(
+								'<div class="app-search">' +
+								'<span class="app-search-result">Kamu belum menambahkan artikel favorit</span>' +
+								'</div>'
+						);
+					}
 
 					if (window.localStorage.getItem("show_splash") === "true") {
 						$(".no-splash").hide();
@@ -142,6 +150,7 @@ define(
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
 								$(".app-content-container").scrollTop());
 					});
+					$(".app-toolbar").removeClass("on-top");
 				}
 				else {
 					if (typeof _options != "undefined" && typeof _options.type != "undefined") {
@@ -190,20 +199,20 @@ define(
 						);
 					}
 
-					$("a.usermenu-item").removeClass("active").each(function () {
-						if ($(this).attr("href") == "#" + Backbone.history.getFragment()) {
-							// $("#app-toolbar .header-description").html($(this).find(".usermenu-item-detail").html());
-							if ($(this).find(".usermenu-item-detail").html().trim() != "Beranda") {
-								$(".app-header .header-description").html($(this).find(".usermenu-item-detail").html());
-								$(".app-logo").hide();
-							}
-							else {
-								$(".app-logo").show();
-								$(".app-toolbar").addClass("on-top");
-							}
-							$(this).addClass("active");
-						}
-					});
+					// $("a.usermenu-item").removeClass("active").each(function () {
+					// 	if ($(this).attr("href") == "#" + Backbone.history.getFragment()) {
+					// 		// $("#app-toolbar .header-description").html($(this).find(".usermenu-item-detail").html());
+					// 		if ($(this).find(".usermenu-item-detail").html().trim() != "Beranda") {
+					// 			$(".app-header .header-description").html($(this).find(".usermenu-item-detail").html());
+					// 			$(".app-logo").hide();
+					// 		}
+					// 		else {
+					// 			$(".app-logo").show();
+					// 			$(".app-toolbar").addClass("on-top");
+					// 		}
+					// 		$(this).addClass("active");
+					// 	}
+					// });
 
 					if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/page") != null) {
 						this.page = parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/page"));
@@ -354,6 +363,20 @@ define(
 						}
 					});
 				}
+				$("a.usermenu-item").removeClass("active").each(function () {
+					if ($(this).attr("href") == "#" + Backbone.history.getFragment()) {
+						// $("#app-toolbar .header-description").html($(this).find(".usermenu-item-detail").html());
+						if ($(this).find(".usermenu-item-detail").html().trim() != "Beranda") {
+							$(".app-header .header-description").html($(this).find(".usermenu-item-detail").html());
+							$(".app-logo").hide();
+						}
+						else {
+							$(".app-logo").show();
+							$(".app-toolbar").addClass("on-top");
+						}
+						$(this).addClass("active");
+					}
+				});
 			},
 			render          : function (_isUsingCache) {
 				var that  = this;
