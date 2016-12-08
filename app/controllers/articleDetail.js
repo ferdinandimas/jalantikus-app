@@ -446,6 +446,12 @@ define(
 					$(".app-detail-container")
 						.scrollTop(parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop")));
 				}
+
+				if (window.localStorage.getItem("favorite/" + Backbone.history.getFragment()) != null) {
+					window.localStorage.setItem("favorite/" + Backbone.history.getFragment(), window.sessionStorage.getItem(Backbone.history.getFragment()));
+
+					$(".app-addtofavorite").addClass("active");
+				}
 			},
 			showOffline: function () {
 				$(".app-refreshed").html("Tidak ada jaringan").fadeIn();

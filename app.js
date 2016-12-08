@@ -329,18 +329,18 @@ require(
 			});
 
 			$(document).on("click", ".app-setting", function (e) {
-					setTimeout(function () {
-						$(".app-settings").fadeIn();
-						$("#app-userpanel").panel("close");
-					}, 150);
-				});
+				setTimeout(function () {
+					$(".app-settings").fadeIn();
+					$("#app-userpanel").panel("close");
+				}, 150);
+			});
 
-				$(document).on("click", ".rating-close", function () {
-					$(".app-rating").fadeOut();
-				});
-				$(document).on("click", ".settings-close", function () {
-					$(".app-settings").fadeOut();
-				});
+			$(document).on("click", ".rating-close", function () {
+				$(".app-rating").fadeOut();
+			});
+			$(document).on("click", ".settings-close", function () {
+				$(".app-settings").fadeOut();
+			});
 
 			$(document).on("click", ".app-rating-submit .rating-link", function (e) {
 				setTimeout(function () {
@@ -491,19 +491,15 @@ require(
 			});
 
 			$(document).on("click", ".app-addtofavorite", function (e) {
-				if (!jt.isOffline()) {
-					if(!$(this).hasClass("active"))
-					{
-						$(this).addClass("active");
-					}
-					else
-					{
-						$(this).removeClass("active");
-					}
+				if (!$(this).hasClass("active")) {
+					window.localStorage.setItem("favorite/" + Backbone.history.getFragment(), window.sessionStorage.getItem(Backbone.history.getFragment()));
+
+					$(this).addClass("active");
 				}
 				else {
-					e.preventDefault();
-					showOffline();
+					window.localStorage.removeItem("favorite/" + Backbone.history.getFragment());
+
+					$(this).removeClass("active");
 				}
 			});
 
