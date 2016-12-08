@@ -2107,6 +2107,8 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	-webkit-mask-repeat: no-repeat;
 	mask-repeat: no-repeat;
 	transform-origin: center;
+	-webkit-transform: translate(0);
+    transform: translate(0);
 	-webkit-transition: 0.2s;
 	transition: 0.2s;
 }
