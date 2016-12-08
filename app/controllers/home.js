@@ -204,7 +204,7 @@ define(
 						this.type = _options.type;
 
 						if (_options.type == "home1") {
-							this.order = "7day";
+							this.order = "3day";
 						}
 						else if (_options.type == "home2") {
 							this.category = "tips";
