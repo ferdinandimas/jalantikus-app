@@ -117,8 +117,8 @@ define(
 						);
 
 						this.collection = new Timeline({
-							order   : "3day",
-							limit   : 4,
+							order   : "24hour",
+							limit   : 10,
 						});
 
 						if (!jt.isOffline()) {
