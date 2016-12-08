@@ -446,6 +446,7 @@ define(
 					setTimeout(function () {
 						$(".app-load").css("display", "none");
 						$(".app-retry").css("display", "block");
+						$(".splash .app-loader").addClass("showbtn");
 
 						if (that.isConnected) {
 							$(".app-refreshed").html("Tidak ada jaringan.").fadeIn();
