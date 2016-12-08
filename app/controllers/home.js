@@ -438,6 +438,7 @@ define(
 						error  : function () {
 							$(".app-load").css("display", "none");
 							$(".app-retry").css("display", "block");
+							$(".splash .app-loader").addClass("showbtn");
 						}
 					});
 				}
