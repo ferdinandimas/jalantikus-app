@@ -70,60 +70,62 @@ require(
 			window.BackboneRouter = new Router();
 			Backbone.history.start({ pushState: false });
 
-			if (jt.isOffline()) {
-				setTimeout(function () {
-					$("#app-body .app-content-container").empty().append(
-							'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
-					);
-					$(".header-refresh").hide();
-
-					$(".app-load").css("display", "none");
-					$(".splash .app-loader").addClass("showbtn");
-
-					if ($(".no-splash").length >= 1) {
-						$(".splash").show().find(".splash-content").fadeIn();
-						$(".no-splash").fadeOut();
-					}
-
-					$(".app-retry").on("click touchend", function () {
-						$(".app-load").css("display", "block");
-						$(".splash .app-loader").removeClass("showbtn");
-
-						if (!jt.isOffline()) {
-							Backbone.history.loadUrl();
-						}
-						else {
-							setTimeout(function () {
-								$(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
-								setTimeout(function () {
-									$(".splash .app-refreshed").fadeOut();
-								}, 2000);
-
-								$("#app-body .app-content-container").empty().append(
-										'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
-								);
-								$(".header-refresh").hide();
-
-								$(".app-load").css("display", "none");
-								$(".splash .app-loader").addClass("showbtn");
-							}, 5000);
-						}
-					});
-
-					if ($(".splash").length >= 1) {
-						$(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
-						setTimeout(function () {
-							$(".splash .app-refreshed").fadeOut();
-						}, 2000);
-
-						$(".splash-content .app-loader").fadeIn();
-
-						$(".splash-quote").remove();
-						$(".splash-speaker").remove();
-						$(".splash-loading").hide();
-					}
-				}, 5000);
-			}
+			//if (jt.isOffline()) {
+			//	setTimeout(function () {
+			//		$("#app-body .app-content-container").empty().append(
+			//				'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
+			//		);
+			//		$(".header-refresh").hide();
+			//
+			//		$(".app-load").css("display", "none");
+			//		$(".splash .app-loader").addClass("showbtn");
+			//
+			//		if ($(".no-splash").length >= 1) {
+			//			$(".splash").show().find(".splash-content").fadeIn();
+			//			$(".no-splash").fadeOut();
+			//		}
+			//
+			//		$(".app-retry").on("click touchend", function () {
+			//			$(".app-load").css("display", "block");
+			//			$(".splash .app-loader").removeClass("showbtn");
+			//
+			//			Backbone.history.loadUrl();
+			//
+			//			//if (!jt.isOffline()) {
+			//			//	Backbone.history.loadUrl();
+			//			//}
+			//			//else {
+			//			//	setTimeout(function () {
+			//			//		$(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
+			//			//		setTimeout(function () {
+			//			//			$(".splash .app-refreshed").fadeOut();
+			//			//		}, 2000);
+			//			//
+			//			//		$("#app-body .app-content-container").empty().append(
+			//			//				'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
+			//			//		);
+			//			//		$(".header-refresh").hide();
+			//			//
+			//			//		$(".app-load").css("display", "none");
+			//			//		$(".splash .app-loader").addClass("showbtn");
+			//			//	}, 5000);
+			//			//}
+			//		});
+			//
+			//		if ($(".splash").length >= 1) {
+			//			$(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
+			//			setTimeout(function () {
+			//				$(".splash .app-refreshed").fadeOut();
+			//			}, 2000);
+			//
+			//			$(".splash-content .app-loader").fadeIn();
+			//
+			//			$(".splash-quote").remove();
+			//			$(".splash-speaker").remove();
+			//			$(".splash-loading").hide();
+			//		}
+			//	}, 5000);
+			//}
 
 			if ($("#app-body .app-refreshed").length == 0) {
 				$("#app-body").append(
