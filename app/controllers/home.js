@@ -48,8 +48,6 @@ define(
 				}
 
 				if (typeof _options != "undefined" && typeof _options.type != "undefined" && _options.type == "favorites") {
-					console.log("HERE FAV");
-
 					var _cachedArticle;
 
 					if (window.sessionStorage.getItem("cachedArticle") != null) {
@@ -110,14 +108,62 @@ define(
 							$(".app-content-container .app-index-card:first-child").css("margin-top", "0px");
 						}
 					}
-					else
-					{
+					else {
 						$("#app-body .app-content-container").empty().append(
 								'<div class="favorite-empty">' +
 								'Maaf, belum ada artikel yang kamu sukai' +
 								'</div>' +
-								'<div class="recommended-articles">REKOMENDASI UNTUK KAMU</div>' 
+								'<div class="recommended-articles">REKOMENDASI UNTUK KAMU</div>'
 						);
+
+						this.collection = new Timeline({
+							order   : "3day",
+							limit   : 4,
+						});
+
+						if (!jt.isOffline()) {
+							var that = this;
+							this.collection.fetch({
+								timeout: 5000,
+								success: function () {
+									var _data = that.collection.toJSON();
+
+									$.each(_data, function (key, val) {
+										if (window.sessionStorage.getItem("article/" + val.slug) == null) {
+											_cachedArticle.push("article/" + val.slug);
+
+											if (_cachedArticle.length > 60) {
+												window.sessionStorage.removeItem(_cachedArticle.shift());
+											}
+
+											window.sessionStorage.setItem("cachedArticle", _cachedArticle);
+
+											that.articleModel = new Article({
+												slug: val.slug
+											});
+
+											that.articleModel.fetch({
+												timeout: 5000,
+												success: function (_data) {
+													window.sessionStorage.setItem("article/" + val.slug, JSON.stringify(_data));
+												}
+											});
+										}
+									});
+
+									$("#app-body .app-content-container")
+											.append(that.timelineTemplate({
+												timelineArticle: _data
+											}));
+								},
+								error  : function () {
+									$(".recommended-articles").fadeOut();
+								}
+							});
+						}
+						else {
+							$(".recommended-articles").fadeOut();
+						}
 					}
 
 					if (window.localStorage.getItem("show_splash") === "true") {
@@ -202,18 +248,12 @@ define(
 
 					// $("a.usermenu-item").removeClass("active").each(function () {
 					// 	if ($(this).attr("href") == "#" + Backbone.history.getFragment()) {
-					// 		// $("#app-toolbar .header-description").html($(this).find(".usermenu-item-detail").html());
-					// 		if ($(this).find(".usermenu-item-detail").html().trim() != "Beranda") {
-					// 			$(".app-header .header-description").html($(this).find(".usermenu-item-detail").html());
-					// 			$(".app-logo").hide();
-					// 		}
-					// 		else {
-					// 			$(".app-logo").show();
-					// 			$(".app-toolbar").addClass("on-top");
-					// 		}
-					// 		$(this).addClass("active");
-					// 	}
-					// });
+					// 		// $("#app-toolbar
+					// .header-description").html($(this).find(".usermenu-item-detail").html()); if
+					// ($(this).find(".usermenu-item-detail").html().trim() != "Beranda") { $(".app-header
+					// .header-description").html($(this).find(".usermenu-item-detail").html()); $(".app-logo").hide();
+					// } else { $(".app-logo").show(); $(".app-toolbar").addClass("on-top"); }
+					// $(this).addClass("active"); } });
 
 					if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/page") != null) {
 						this.page = parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/page"));
