@@ -553,11 +553,20 @@ div, span, a
 .ui-panel-inner .jalantikus-copyright
 {
 	position: absolute;
+	margin-top: 20px;
     bottom: 20px;
     text-align: center;
     width: 100%;
     font-size: 12px;
     color: #9a9a9a;
+}
+@media(max-height: 560px){
+	.ui-panel-inner .jalantikus-copyright
+	{
+		position: relative;
+		bottom: 0;
+		margin-bottom: 20px;
+	}
 }
 .ripple
 {
@@ -777,7 +786,7 @@ div, span, a
 {
 	width: 100%;
 }
-.app-detail-body a, .app-detail-body a:hover, .app-detail-body a:active, .app-detail-body a:visited
+.app-detail-body a, .app-detail-body a:hover
 {
 	color: #c92737;
 	font-weight: 500;
