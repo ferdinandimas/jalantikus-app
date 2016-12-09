@@ -18,6 +18,9 @@ body, input
 	outline: none;
 	text-decoration: none;
 	font-family: "Roboto";
+	-webkit-text-size-adjust:100%;
+	text-size-adjust: 100%;
+	-ms-text-size-adjust:100%;
 }
 a[href], button {
     -ms-touch-action: manipulation;
@@ -421,6 +424,10 @@ div, span, a
 .app-article-more .app-index-card .card-description
 {
 	padding: 10px 0px 30px 0px;
+	height: 66px;
+	overflow: hidden;
+	display: block;
+	max-height: 66px;
 }
 .app-index-card .card-description .card-note {
     position: absolute;
