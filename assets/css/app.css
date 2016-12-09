@@ -1089,7 +1089,7 @@ div, span, a
 	left: 60px;
 	top: 15px;
 	line-height: 20px;
-	height: 18px;
+	height: 20px;
 	font-size: 19px;
 	font-weight: 500;
 	display: block;
@@ -2098,7 +2098,9 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 {
     width: 170px;
     height: 40px;
-    line-height: 42px;
+    line-height: 15px;
+    padding-top: 13px;
+    padding-bottom: 12px;
     color: #fff;
     background-color: #c92737;
     border-radius: 4px;
@@ -2112,8 +2114,8 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     margin-bottom: 20px;
     position: relative;
     -webkit-transition: 0.3s;
-	transition: 0.3s;
-	overflow: hidden;
+    transition: 0.3s;
+    overflow: hidden;
 }
 .app-gotoweb-description:after
 {
@@ -2133,13 +2135,15 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     margin: auto;
     margin-top: 5px;
     margin-bottom: 20px;
+    padding-top: 12px;
+    padding-bottom: 12px;
     position: relative;
     width: 120px;
     height: 40px;
     border: 1px solid #c6c6c6;
     border-radius: 20px;
     font-size: 16px;
-    line-height: 40px;
+    line-height: 16px;
     padding-left: 20px;
     box-sizing: border-box;
     color: #9d9d9d;
@@ -2191,6 +2195,10 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	transition: 0.2s;
 	background-size: 18px;
   	filter: drop-shadow(1px 1px 0 #cb2f3e) 
+          drop-shadow(1px -1px 0 #cb2f3e)
+          drop-shadow(-1px -1px 0 #cb2f3e)
+          drop-shadow(-1px 1px 0 #cb2f3e);
+    -webkit-filter: drop-shadow(1px 1px 0 #cb2f3e) 
           drop-shadow(1px -1px 0 #cb2f3e)
           drop-shadow(-1px -1px 0 #cb2f3e)
           drop-shadow(-1px 1px 0 #cb2f3e);
@@ -2279,7 +2287,9 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 {
     width: 225px;
     height: 40px;
-    line-height: 42px;
+    line-height: 15px;
+    padding-top: 13px;
+    padding-bottom: 12px;
     color: #fff;
     background-color: #c92737;
     border-radius: 4px;
@@ -2294,8 +2304,8 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     margin-bottom: 20px;
     position: relative;
     -webkit-transition: 0.3s;
-	transition: 0.3s;
-	overflow: hidden;
+    transition: 0.3s;
+    overflow: hidden;
 }
 .app-gotohome-description:after
 {
