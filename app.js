@@ -769,6 +769,10 @@ require(
 						}
 					}
 				}
+				else
+				{
+					$(".app-toolbar").removeClass("on-top");
+				}
 			}, 50);
 
 			if ($(window).height() < 560) {

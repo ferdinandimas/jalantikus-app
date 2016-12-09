@@ -425,12 +425,16 @@ div, span, a
     position: absolute;
     bottom: 15px;
     left: 15px;
-    height: 15px;
+    height: 20px;
     max-width: calc(100% - 140px);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     color: #bcbcbc;
+}
+.app-index-card.card-placeholder .card-description .card-note
+{
+	height: 15px;
 }
 .app-index-card .card-description .card-author, .app-index-card .card-description .card-published
 {

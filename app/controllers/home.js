@@ -113,7 +113,9 @@ define(
 								'<div class="favorite-empty">' +
 								'Maaf, belum ada artikel yang kamu sukai' +
 								'</div>' +
-								'<div class="recommended-articles">REKOMENDASI UNTUK KAMU</div>'
+								'<div class="recommended-articles">REKOMENDASI UNTUK KAMU</div>' +
+								'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>' + 
+					            '<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>'
 						);
 
 						this.collection = new Timeline({
@@ -150,7 +152,7 @@ define(
 											});
 										}
 									});
-
+									$("#app-body .app-content-container .card-placeholder").remove();
 									$("#app-body .app-content-container")
 											.append(that.timelineTemplate({
 												timelineArticle: _data
