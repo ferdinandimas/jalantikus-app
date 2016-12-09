@@ -290,8 +290,8 @@ div, span, a
 	left: 0;
 	width: 60px;
 	height: 100%;
-	background: linear-gradient(to right, transparent,#dadada,transparent);
-	animation: swipe 1s linear infinite;
+	background: linear-gradient(to right, transparent,#e8e8e8,transparent);
+	animation: swipe 0.6s linear infinite;
 	z-index: 4;
 }
 .app-index-card.card-placeholder:after
