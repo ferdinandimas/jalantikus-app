@@ -225,21 +225,43 @@ div, span, a
 {
 	max-height: 44px;
 }
+.app-index-card.card-placeholder
+{
+    background-color: #eee;
+    border-bottom: 1px solid #f0f0f0;
+    border-left: 0;
+    overflow: hidden;
+}
 .app-index-card.card-placeholder .card-description .card-title
 {
     width: 100%;
-    height: 15px;
-    background-color: #eee;
-    box-shadow: 0px 20px 0px #eee;
+    height: 100%;
+    max-height: 85px;
+    background-color: transparent;
+    z-index: 9;
+}
+.app-index-card.card-placeholder .card-description
+{
+	padding: 0 125px 0 0;
+	height: 100px;
+}
+@keyframes swipe
+{
+	0%, 100% {
+		left: -60px;
+	}
+	99.9% {
+		left: 100%;
+	}
 }
 .app-index-card.card-placeholder .card-note .card-author, .app-index-card.card-placeholder .card-note .card-published
 {
     width: 50px;
-    height: 12px;
+    height: 15px;
     background-color: #eee;
     display: inline-block;
 }
-.app-index-card .card-description .card-title:after
+.app-index-card:not(.card-placeholder) .card-description .card-title:after
 {
 	content    : '...';
 	text-align : right;
@@ -253,10 +275,57 @@ div, span, a
 }
 @supports (-webkit-line-clamp: 1)
 {
-	.app-index-card .card-description .card-title:after
+	.app-index-card:not(.card-placeholder) .card-description .card-title:after
 	{
 		display : none !important;
 	}
+}
+.app-index-card.card-placeholder:before
+{
+	position: absolute;
+	display: block;
+	content: "";
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 60px;
+	height: 100%;
+	background: linear-gradient(to right, transparent,#dadada,transparent);
+	animation: swipe 1s linear infinite;
+	z-index: 4;
+}
+.app-index-card.card-placeholder:after
+{
+	position: absolute;
+	display: block;
+	content: "";
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	border: 15px solid #fff;
+	box-sizing: border-box;
+	z-index: 4;
+}
+.app-index-card.card-placeholder .card-description .card-title:after, .app-index-card.card-placeholder .card-description .card-title:before
+{
+	width: 100%;
+	height: 15px;
+	top: 15px;
+	position: absolute;
+	display: block;
+	content: "";
+	bottom: 0;
+	left: 0;
+	background-color: #fff;
+}
+.app-index-card.card-placeholder .card-description .card-title:before
+{
+	top: 45px;
+	z-index: 9;
+	height: 40px;
 }
 .app-index-card .card-image
 {
@@ -277,10 +346,23 @@ div, span, a
 .app-index-card.card-placeholder .card-image
 {
 	background-image: url(../images/placeholder.png);
-    background-color: #eee;
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
+	background-color: #eee;
+	background-position: center center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.app-index-card.card-placeholder .card-image:after
+{
+	width: 25px;
+	height: 100%;
+	top: 0;
+	position: absolute;
+	display: block;
+	content: "";
+	bottom: 0;
+	right: 100%;
+	background-color: #fff;
+	z-index: 9;
 }
 .app-index-card.multi-image 
 {
@@ -333,6 +415,7 @@ div, span, a
 .app-index-card .card-description
 {
 	padding: 0 125px 15px 0;
+	z-index: 9;
 }
 .app-article-more .app-index-card .card-description
 {
@@ -342,6 +425,7 @@ div, span, a
     position: absolute;
     bottom: 15px;
     left: 15px;
+    height: 15px;
     max-width: calc(100% - 140px);
     overflow: hidden;
     text-overflow: ellipsis;
@@ -420,13 +504,28 @@ div, span, a
 	background-size: 11px 11px;
 	opacity: 0.3;
 }
-.app-index-card.card-placeholder .card-description .card-published
+.app-index-card.card-placeholder .card-description .card-note
 {
-	padding: 0;
+	width: 100%;
+	overflow: hidden;
 }
-.app-index-card.card-placeholder .card-description .card-published:after
+.app-index-card.card-placeholder .card-description .card-note:after, .app-index-card.card-placeholder .card-description .card-note:before
 {
-	display: none;
+	width: 100%;
+	height: 15px;
+	top: 0;
+	position: absolute;
+	display: block;
+	content: "";
+	bottom: 0;
+	left: 120px;
+	background-color: #fff;
+	z-index: 9;
+}
+.app-index-card.card-placeholder .card-description .card-note:before
+{
+	left: 50px;
+	width: 20px;
 }
 .card-link, .rating-link, .app-gotohome, .app-gotoweb, .app-addtofavorite .app-goto
 {
