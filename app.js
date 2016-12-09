@@ -559,84 +559,45 @@ require(
 			});
 
 			var trivia    = [
-				[
-					"\"Sukses adalah guru yang buruk. Itu hanya membuat orang pintar menjadi berpikir bahwa mereka tidak akan pernah gagal.\"",
-					"-- Bill Gates"
-				],
-				[ "\"Hidup memang tidak adil, jadi biasakanlah.\"", "-- Bill Gates" ],
-				[
-					"\"DNA manusia itu seperti program komputer, tapi jauh lebih maju daripada software apapun yang pernah dibuat.\"",
-					"-- Bill Gates"
-				],
-				[
-					"\"Jika kau terlahir miskin, itu bukan salahmu. Tapi jika kau mati dalam keadaan miskin, itu adalah kesalahanmu.\"",
-					"-- Bill Gates"
-				],
-				[ "\"Lakukan apa yang kamu suka dan jadikan itu sebagai pekerjaanmu.\"", "-- Bill Gates" ],
-				[
-					"\"Merayakan kesuksesan adalah hal yang baik, tapi lebih penting lagi jika dapat mengambil pelajaran dari kegagalan.\"",
-					"-- Bill Gates"
-				],
-				[
-					"\"Harapan adalah kenyataan yang paling nyata. Jika kau percaya, harapan itu akan menjadi nyata.\"",
-					"-- Bill Gates"
-				],
-				[
-					"\"Kualitas itu lebih penting daripada kuantitas. Satu home run jauh lebih baik daripada dua doubles.\"",
-					"-- Steve Jobs"
-				],
-				[
-					"\"Jika Saya mencoba yang terbaik dan saya gagal, yah, setidaknya saya sudah mencoba yang terbaik.\"",
-					"-- Steve Jobs"
-				],
-				[ "\"Stay Hungry, Stay Foolish.\"", "-- Steve Jobs" ],
-
-				[ "\"Inovasi lah yang membedakan seorang pemimpin dan seorang pengikut.\"", "-- Steve Jobs" ],
-
-				[
-					"\"Kamu bebas memilih. Tapi kamu tidak akan terbebas dari konsekuensi dari apa yang kamu pilih.\"",
-					"-- Epi Kusnara (Writer)"
-				],
-
-				[
-					"\"Keluarlah dari zona nyamanmu. Maka kamu akan mengetahui arti dari sebuah kehidupan.\"",
-					"-- Panji Galih (Videographer)"
-				],
-
-				[
-					"\"Kita tidaklah kalah dari sebuah permainan, kita hanya kehabisan waktu.\"",
-					"-- Em Yopik (Writer)"
-				],
-
-				[
-					"\"Key to a successful relationship is to clear your Internet browser history.\"",
-					"-- Malano (Content Specialist)"
-				],
-
-				[
-					"\"Jika tidak ada yang membencimu, maka kamu telah melakukan hal yang salah.\"",
-					"-- House"
-				],
-
-				[
-					"\"Hidup itu sederhana, tapi kita yang membuat hidup menjadi rumit.\"",
-					"-- Confucius"
-				],
-
-				[
-					"\"Tidak ada kata GAGAL, Gagal adalah ketika kita berhenti berusaha.\"",
-					"-- Amrillah (Writer)"
-				],
-
-				[
-					"\"Hasil dari Ilmu adalah TINDAKAN, bukan PENGETAHUAN.\"",
-					"-- Lukman Azis (Writer)"
-				],
-
-				[
-					"\"Life has no CTRL+Z.\"",
-					"-- Anonymous"
-				],
+				["\"Sukses adalah guru yang buruk. Itu hanya membuat orang pintar menjadi berpikir bahwa mereka tidak akan pernah gagal.\"", "-- Bill Gates"],
+				["\"Hidup memang tidak adil, jadi biasakanlah.\"", "-- Bill Gates" ],
+				["\"DNA manusia itu seperti program komputer, tapi jauh lebih maju daripada software apapun yang pernah dibuat.\"", "-- Bill Gates"],
+				["\"Jika kau terlahir miskin, itu bukan salahmu. Tapi jika kau mati dalam keadaan miskin, itu adalah kesalahanmu.\"", "-- Bill Gates"],
+				["\"Lakukan apa yang kamu suka dan jadikan itu sebagai pekerjaanmu.\"", "-- Bill Gates" ],
+				["\"Merayakan kesuksesan adalah hal yang baik, tapi lebih penting lagi jika dapat mengambil pelajaran dari kegagalan.\"", "-- Bill Gates"],
+				["\"Harapan adalah kenyataan yang paling nyata. Jika kau percaya, harapan itu akan menjadi nyata.\"", "-- Bill Gates"],
+				["\"Kualitas itu lebih penting daripada kuantitas. Satu home run jauh lebih baik daripada dua doubles.\"", "-- Steve Jobs"],
+				["\"Jika Saya mencoba yang terbaik dan saya gagal, yah, setidaknya saya sudah mencoba yang terbaik.\"", "-- Steve Jobs"],
+				["\"Stay Hungry, Stay Foolish.\"", "-- Steve Jobs" ],
+				["\"Inovasi lah yang membedakan seorang pemimpin dan seorang pengikut.\"", "-- Steve Jobs" ],
+				["\"Kamu bebas memilih. Tapi kamu tidak akan terbebas dari konsekuensi dari apa yang kamu pilih.\"", "-- Epi Kusnara (Writer)"],
+				["\"Keluarlah dari zona nyamanmu. Maka kamu akan mengetahui arti dari sebuah kehidupan.\"", "-- Panji Galih (Videographer)"],
+				["\"Kita tidaklah kalah dari sebuah permainan, kita hanya kehabisan waktu.\"", "-- Em Yopik (Writer)"],
+				["\"Key to a successful relationship is to clear your Internet browser history.\"", "-- Malano (Content Specialist)"],
+				["\"Jika tidak ada yang membencimu, maka kamu telah melakukan hal yang salah.\"", "-- House"],
+				["\"Hidup itu sangat sederhana, tapi kita yang membuat hidup menjadi rumit.\"", "-- Confucius"],
+				["\"Tidak ada kata GAGAL, Gagal adalah ketika kita berhenti berusaha.\"", "-- Amrillah (Writer)"],
+				["\"Hasil dari Ilmu adalah TINDAKAN, bukan PENGETAHUAN.\"", "-- Lukman Azis (Writer)"],
+				["\"Life has no CTRL+Z.\"", "-- Anonymous"],
+				["\"Persiapkan hari ini untuk keinginan hari esok.\"", "-- Aesop"],
+				["\"Kesenangan dalam sebuah pekerjaan membuat kesempurnaan pada hasil yang dicapai.\"", "-- Aristoteles"],
+				["\"Yang membuatku terus berkembang adalah tujuan-tujuan hidupku.\"", "-- Muhammad Ali"],
+				["\"Saya tidak berbicara dengan kata mungkin.\"", "-- Gusdur"],
+				["\"Orang sukses akan mengambil keuntungan dari kesalahan dan mencoba lagi dengan cara yang berbeda.\"", "-- Dale Carnegie"],
+				["\"Aku tidak suka mengulangi kesuksesan yang ada, aku lebih suka untuk mencari hal lain.\"", "-- Walt Disney"],
+				["\"Jangan menunggu setrika panas baru anda menyetrika; Tapi, buatlah setrika itu panas dengan menyetrika.\"", "-- W.B Yeats"],
+				["\"Ada sebuah cara untuk melakukannya lebih baik – temukanlah!\"", "-- Thomas A. Edison"],
+				["\"Satu-satunya sumber pengetahuan adalah pengalaman.\"", "-- Albert Einstein"],
+				["\"Anda mungkin bisa menunda, tapi waktu tidak akan menunggu.\"", "-- Benjamin Franklin"],
+				["\"Anda tidak akan bisa membangun sebuah reputasi dari apa yang akan anda lakukan.\"", "-- Henry Ford"],
+				["\"Percayalah Anda bisa. Anda sudah setengah jalan.\"", "-- Theodore Roosevelt"],
+				["\"Mulailah setiap hari dengan senyuman dan akhiri dengan senyuman.\"", "-- W. C. Field"],
+				["\"Inovasi adalah pergerakan yang sangat cepat.\"", "-- Bill Gates"],
+				["\"Kecemerlangan adalah melakukan hal yang biasa dengan cara yang sangat luar biasa.\"", "-- John W. Gardner"],
+				["\"Usaha akan membuahkan hasil setelah seseorang tidak menyerah.\"", "-- Napoleon Hill"],
+				["\"Saya tidak pernah takut untuk gagal.\"", "-- Michael Jordan"],
+				["\"Usaha dan keberanian tidak cukup tanpa tujuan dan arah perencanaan.\"", "-- John F. Kennedy"],
+				["\"Pamer adalah ide yang bodoh untuk sebuah kemenangan.\"", "-- Bruce Lee"],
 			];
 			var triviaidx = 0;
 

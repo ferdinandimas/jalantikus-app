@@ -160,7 +160,8 @@ div, span, a
 }
 .app-article-more .app-index-card
 {
-	height: 230px;
+	height: auto;
+	min-height: 230px;
 	display: inline-block;
 	width: calc(100% / 2);
 	padding: 15px;
