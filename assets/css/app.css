@@ -1560,7 +1560,7 @@ div, span, a
 {
 	display: none;
 }
-.app-scroll-button .scroll-up:after, .app-scroll-button .scroll-down:after
+.app-scroll-button .scroll-up, .app-scroll-button .scroll-down
 {
 	content: "";
 	position: absolute;
@@ -1573,7 +1573,7 @@ div, span, a
 	background-position: center center;
 	background-repeat: no-repeat;
 }
-.app-scroll-button .scroll-down:after
+.app-scroll-button .scroll-down
 {
 	-webkit-transform: rotate(180deg);
 	transform: rotate(180deg);
