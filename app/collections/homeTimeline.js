@@ -23,32 +23,42 @@ define(
                 var _buff        = 0;
                 var that         = this;
 
+                var _n = 1;
                 _.each(result.response, function (value) {
                     _buff++;
                     _test = _buff;
                     _test2 = false;
-                    if (_buff >= 3 || (_buff == 2 && reservedSlot == false)) {
-                        if (_buff == 2) {
-                            reservedSlot = true;
+
+                    if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/lastArticle") == null || (window.sessionStorage.getItem(Backbone.history.getFragment() + "/lastArticle") != null) && window.sessionStorage.getItem(Backbone.history.getFragment() + "/lastArticle") != value.slug) {
+                        if (_buff >= 3 || (_buff == 2 && reservedSlot == false)) {
+                            if (_buff == 2) {
+                                reservedSlot = true;
+                            }
+
+                            if (value.description_images.length >= 2) {
+                                value.multiple_images = true;
+                            }
+
+                            _test2 = true;
+
+                            _buff = 0;
                         }
 
-                        if (value.description_images.length >= 2) {
-                            value.multiple_images = true;
+                        if (!value.image.baseUrl.match(/https?\:\/\/assets\.jalantikus\.com\/.*/g)) {
+                            value.image.baseUrl = "https://assets.jalantikus.com/" + value.image.baseUrl;
                         }
 
-                        _test2 = true;
+                        var img = new Image();
+                        img.src = value.image.baseUrl + "9/3" + value.image.file;
 
-                        _buff = 0;
+                        buffResult.push(value);
                     }
 
-                    if (!value.image.baseUrl.match(/https?\:\/\/assets\.jalantikus\.com\/.*/g)) {
-                        value.image.baseUrl = "https://assets.jalantikus.com/" + value.image.baseUrl;
+                    if (_n++ >= result.response.length) {
+                        console.log("LAST", value.slug);
+
+                        window.sessionStorage.setItem(Backbone.history.getFragment() + "/lastArticle", value.slug);
                     }
-
-                    var img = new Image();
-                    img.src = value.image.baseUrl + "9/3" + value.image.file;
-
-                    buffResult.push(value);
                 });
 
                 return buffResult;
