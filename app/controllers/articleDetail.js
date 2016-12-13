@@ -174,6 +174,9 @@ define(
 					detail: _buff
 				}));
 
+				$("#app-userpanel").panel("close");
+				$("#app-searchpanel").panel("close");
+
 				$("#app-body .app-detail-container").scroll(function () {
 					window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
 							$(".app-detail-container").scrollTop());
