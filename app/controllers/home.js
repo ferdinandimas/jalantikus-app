@@ -351,58 +351,68 @@ define(
 					}
 
 					$(".header-refresh").on("click", function () {
-						if (!jt.isOffline()) {
-							if (!$(".header-refresh").hasClass("active")) {
+						if (!$(".app-content-container .app-load").hasClass("loading") && !$(this).hasClass("active")) {
+							if (!jt.isOffline()) {
 								$(".header-refresh").addClass("active");
-								setTimeout(function () {
-									$(".header-refresh").removeClass("active");
 
-									if (!jt.isOffline()) {
-										$(".app-refreshed").html("Refresh selesai").fadeIn();
+								$(".app-content-container .app-loader").fadeOut();
+
+								window.sessionStorage.removeItem(Backbone.history.getFragment());
+								window.sessionStorage.removeItem(Backbone.history.getFragment() + "/page");
+								window.sessionStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
+								window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
+
+								that.page = 1;
+
+								that.collection = new Timeline({
+									order   : typeof that.order != "undefined" ? that.order : "",
+									category: typeof that.category != "undefined" ? that.category : "",
+									search  : typeof that.search != "undefined" ? that.search : "",
+									page    : that.page,
+								});
+
+								that.collection.fetch({
+									timeout: 10000,
+									success: function () {
 										setTimeout(function () {
-											$(".app-refreshed").fadeOut();
-										}, 2000);
+											$(".header-refresh").removeClass("active");
+
+											$(".app-refreshed").html("Refresh selesai").fadeIn();
+
+											$(".app-content-container").scrollTop(0)
+
+											$("#app-body .app-content-container").empty();
+											$("#app-body .app-content-container").append('<div class="app-toolbar-placeholder"></div>');
+											that.render();
+
+											setTimeout(function () {
+												$(".app-refreshed").fadeOut();
+											}, 2000);
+										}, 1500);
+									},
+									error: function() {
+										setTimeout(function () {
+											$(".header-refresh").removeClass("active");
+											$(".app-content-container .app-loader").fadeIn();
+
+											$(".app-refreshed").html("Refresh selesai").fadeIn();
+											setTimeout(function () {
+												$(".app-refreshed").fadeOut();
+											}, 2000);
+										}, 1500);
 									}
-								}, 1500);
+								});
 							}
-						}
-						else {
-							if (that.isConnected) {
-								$(".app-refreshed").html("Tidak ada jaringan.").fadeIn();
-								setTimeout(function () {
-									$(".app-refreshed").fadeOut();
-								}, 2000);
+							else {
+								if (that.isConnected) {
+									$(".app-refreshed").html("Tidak ada jaringan.").fadeIn();
+									setTimeout(function () {
+										$(".app-refreshed").fadeOut();
+									}, 2000);
 
-								that.isConnected = false;
-							}
-						}
-
-						if (!jt.isOffline()) {
-							window.sessionStorage.removeItem(Backbone.history.getFragment());
-							window.sessionStorage.removeItem(Backbone.history.getFragment() + "/page");
-							window.sessionStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
-							window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
-
-							$(".app-content-container").scrollTop(0);
-
-							that.page = 1;
-
-							that.collection = new Timeline({
-								order   : typeof that.order != "undefined" ? that.order : "",
-								category: typeof that.category != "undefined" ? that.category : "",
-								search  : typeof that.search != "undefined" ? that.search : "",
-								page    : that.page,
-							});
-
-							that.collection.fetch({
-								timeout: 10000,
-								success: function () {
-									$("#app-body .app-content-container").empty();
-									$("#app-body .app-content-container")
-											.append('<div class="app-toolbar-placeholder"></div>')
-									that.render();
+									that.isConnected = false;
 								}
-							});
+							}
 						}
 					});
 				}
