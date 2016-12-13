@@ -161,7 +161,7 @@ define(
 
 				$(".app-detail-container .app-loader").remove();
 
-				if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null) {
+				if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null && window.sessionStorage.getItem(Backbone.history.getFragment()).length > 0) {
 					_buff = JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()));
 				}
 				else {
@@ -181,13 +181,13 @@ define(
 						detail: _buff
 					}));
 
-				$("#app-userpanel").panel("close");
-				$("#app-searchpanel").panel("close");
+					$("#app-userpanel").panel("close");
+					$("#app-searchpanel").panel("close");
 
-				$("#app-body .app-detail-container").scroll(function () {
-					window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
-							$(".app-detail-container").scrollTop());
-				});
+					$("#app-body .app-detail-container").scroll(function () {
+						window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
+								$(".app-detail-container").scrollTop());
+					});
 
 					$(".app-detail-body img").each(function (key, val) {
 						regExp = /(https?\:\/\/(.*?\.)?(jalantikus\.com|babe\.news)\/assets\/cache\/)(.*?\/.*?)(\/.*?)$/g;
