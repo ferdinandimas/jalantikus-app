@@ -505,41 +505,51 @@ define(
 				}
 
 				if (_data.length > 0) {
-					$("#app-body .app-content-container")
-						.append(this.timelineTemplate({
-							timelineArticle: _data
-						}));
+					if (typeof _data[0].id == "undefined") {
+						window.sessionStorage.removeItem(Backbone.history.getFragment());
+						window.sessionStorage.removeItem(Backbone.history.getFragment() + "/page");
+						window.sessionStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
+						window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
 
-					if (Backbone.history.getFragment().trim() != "") {
-						$(".app-toolbar").removeClass("on-top");
-						$(".app-content-container .app-index-card:first-child").css("margin-top", "0px");
+						Backbone.history.loadUrl();
 					}
+					else {
+						$("#app-body .app-content-container")
+								.append(this.timelineTemplate({
+									timelineArticle: _data
+								}));
 
-					$("#app-body .app-content-container").append(
-						'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
-					);
+						if (Backbone.history.getFragment().trim() != "") {
+							$(".app-toolbar").removeClass("on-top");
+							$(".app-content-container .app-index-card:first-child").css("margin-top", "0px");
+						}
 
-					$("#app-body .app-content-container").scroll(function () {
-						clearTimeout($.data(this, 'scrollTimer'));
-						$.data(this, 'scrollTimer', setTimeout(function () {
+						$("#app-body .app-content-container").append(
+								'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
+						);
+
+						$("#app-body .app-content-container").scroll(function () {
+							clearTimeout($.data(this, 'scrollTimer'));
+							$.data(this, 'scrollTimer', setTimeout(function () {
+								that.autoload();
+							}, 250));
+
+							window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
+									$(".app-content-container").scrollTop());
+						});
+
+						$("#app-body .app-content-container").on("touchend", function () {
 							that.autoload();
-						}, 250));
+						});
 
-						window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
-							$(".app-content-container").scrollTop());
-					});
+						$(".app-retry").on("click touchend", function () {
+							that.isConnected = true;
 
-					$("#app-body .app-content-container").on("touchend", function () {
-						that.autoload();
-					});
-
-					$(".app-retry").on("click touchend", function () {
-						that.isConnected = true;
-
-						$(".app-load").css("display", "block");
-						$(".app-retry").css("display", "none");
-						that.autoload();
-					});
+							$(".app-load").css("display", "block");
+							$(".app-retry").css("display", "none");
+							that.autoload();
+						});
+					}
 				}
 
 				if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/isLastPage") != null) {
