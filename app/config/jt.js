@@ -5,4 +5,5 @@ var _config = {
 	'jtURL'      : 'https://jalantikus.com/',
 	'jtAPI'      : 'https://api.jalantikus.com/',
 	'jtFiles'    : 'http://files.jalantikus.com/dde/',
+	'urlPostfix' : '?s=a',
 };
