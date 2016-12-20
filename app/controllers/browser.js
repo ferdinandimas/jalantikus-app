@@ -41,7 +41,7 @@ define(
 						setTimeout(function () {
 							$(".splash").fadeOut("fast", function () {
 								$(this).remove();
-							})
+							});
 						}, 2000);
 					}
 				}

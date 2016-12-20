@@ -13,9 +13,9 @@ define(
                 this.limit    = (typeof options != "undefined" && typeof options.limit != "undefined" && options.limit != "" ? options.limit : 6);
             },
             model     : Timeline,
-            urlRoot   : _config.jtAPI + (_config.environment == "dev" ? "live/" : "") + "getArticles/detail/id,title,slug,image,user,published,description_images" + _config.urlPostfix,
+            urlRoot   : _config.jtAPI + (_config.environment == "dev" ? "live/" : "") + "getArticles/detail/id,title,slug,image,user,published,description_images",
             url       : function () {
-                return this.urlRoot + "/limit/" + this.limit + "/page/" + this.page + "/order/" + this.order + (this.category != "" ? "/category/" + this.category : "") + (this.search != "" ? "/search/" + this.search : "");
+                return this.urlRoot + "/limit/" + this.limit + "/page/" + this.page + "/order/" + this.order + (this.category != "" ? "/category/" + this.category : "") + (this.search != "" ? "/search/" + this.search : "") + _config.urlPostfix;
             },
             parse     : function (result) {
                 var reservedSlot = false;
