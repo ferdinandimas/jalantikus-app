@@ -736,7 +736,7 @@ require(
 				}
 			}, 50);
 
-			if ($(window).height() < 560) {
+			if ($(window).height() < 620) {
 				$(".userpanel-body").innerHeight($(window).height() - 120);
 			}
 			var supportsOrientationChange = "onorientationchange" in window,

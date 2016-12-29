@@ -1475,6 +1475,16 @@ div, span, a
 {
 	background-color: #c92737; 
 }
+.usermenu-item .usermenu-item-detail.artikelku:after
+{
+	-webkit-mask-image: url(../images/artikelku-icon.svg);
+	mask-image: url(../images/artikelku-icon.svg);
+}
+.usermenu-item .usermenu-item-detail.terbaru:after
+{
+	-webkit-mask-image: url(../images/terbaru-icon.svg);
+	mask-image: url(../images/terbaru-icon.svg);
+}
 .usermenu-item .usermenu-item-detail.home:after
 {
 	-webkit-mask-image: url(../images/home-icon.svg);
@@ -2777,7 +2787,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
    	transition: 0.3s;
    	border: 2px solid #FFF;
 }
-@media(max-height: 560px){
+@media(max-height: 620px){
 	.ui-panel-inner .jalantikus-copyright
 	{
 		position: relative;
