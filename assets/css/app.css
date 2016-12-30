@@ -1475,10 +1475,10 @@ div, span, a
 {
 	background-color: #c92737; 
 }
-.usermenu-item .usermenu-item-detail.artikelku:after
+.usermenu-item .usermenu-item-detail.terbaik:after
 {
-	-webkit-mask-image: url(../images/artikelku-icon.svg);
-	mask-image: url(../images/artikelku-icon.svg);
+	-webkit-mask-image: url(../images/terbaik-icon.svg);
+	mask-image: url(../images/terbaik-icon.svg);
 }
 .usermenu-item .usermenu-item-detail.terbaru:after
 {
