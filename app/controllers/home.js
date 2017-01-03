@@ -425,7 +425,7 @@ define(
 						}
 						else {
 							$(".app-logo").show();
-							$(".app-toolbar").addClass("on-top");
+							// $(".app-toolbar").addClass("on-top");
 						}
 						$(this).addClass("active");
 					}

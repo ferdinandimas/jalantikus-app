@@ -382,7 +382,7 @@ require(
 			$(document).on("click", ".usermenu-item", function (e) {
 				if (!jt.isOffline()) {
 					if (!$(this).hasClass("item-pass")) {
-						jt.ripple($(this), e);
+						jt.ripple($(this), e, "slow");
 						setTimeout(function () {
 							$('#app-userpanel').panel('close')
 						}, 150);
@@ -713,22 +713,22 @@ require(
 
 			setInterval(function () {
 				if (Backbone.history.getFragment().trim() == "") {
-					$(".app-toolbar-placeholder").show(0);
-					if (!$(".app-toolbar-placeholder").is(":in-viewport")) {
-						if ($(".app-toolbar").hasClass("on-top")) {
-							$(".app-toolbar").removeClass("on-top");
-						}
-					}
-					else {
-						if (!$(".app-toolbar").hasClass("on-top") && $(".app-content-container")
-										.scrollTop() <= 45) {
-							$(".app-toolbar").addClass("on-top");
-						}
-						else if ($(".app-toolbar").hasClass("on-top") && $(".app-content-container")
-										.scrollTop() > 45) {
-							$(".app-toolbar").removeClass("on-top");
-						}
-					}
+					// $(".app-toolbar-placeholder").show(0);
+					// if (!$(".app-toolbar-placeholder").is(":in-viewport")) {
+					// 	if ($(".app-toolbar").hasClass("on-top")) {
+					// 		$(".app-toolbar").removeClass("on-top");
+					// 	}
+					// }
+					// else {
+					// 	if (!$(".app-toolbar").hasClass("on-top") && $(".app-content-container")
+					// 					.scrollTop() <= 45) {
+					// 		$(".app-toolbar").addClass("on-top");
+					// 	}
+					// 	else if ($(".app-toolbar").hasClass("on-top") && $(".app-content-container")
+					// 					.scrollTop() > 45) {
+					// 		$(".app-toolbar").removeClass("on-top");
+					// 	}
+					// }
 				}
 				else
 				{

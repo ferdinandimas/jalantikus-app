@@ -35,6 +35,10 @@ div, span, a
 {
 	text-shadow: 0px 0px 0px transparent
 }
+.clear
+{
+	clear: both;
+}
 .shadow-l1 {
     box-shadow: 0 1px 1px rgba(0,0,0,0.04), 0 1px 5px rgba(0,0,0,0.15)
 }
@@ -57,7 +61,7 @@ div, span, a
 	left: 0;
 	right: 0;
 	height: 50px;
-	max-height: 95px;
+	max-height: 50px;
 	width: 100%;
 	z-index: 12;
 	-webkit-transition: 0.2s linear;
@@ -118,7 +122,7 @@ div, span, a
 .app-content-container
 {
 	margin-top: 50px;
-	height: calc(100% - 50px);
+	height: calc(100% - 100px);
 	overflow-y: scroll;
 	-webkit-transition: 0.2s linear;
 	transition: 0.2s linear;
@@ -135,7 +139,7 @@ div, span, a
 .app-toolbar .app-logo 
 {
     position: absolute;
-    left: 60px;
+    left: 20px;
     transform: translate(0, 0);
     width: 120px;
     height: 50px;
@@ -1086,6 +1090,7 @@ div, span, a
 {
 	width: 100%;
 	height: 60px;
+	right: 0;
 	text-decoration: none;
 	z-index: 8;
 }
@@ -1093,7 +1098,7 @@ div, span, a
 {
 	color: #fff;
 	position: absolute;
-	left: 60px;
+	left: 20px;
 	top: 15px;
 	line-height: 20px;
 	height: 20px;
@@ -1102,6 +1107,10 @@ div, span, a
 	display: block;
 	text-shadow: 0px 0px 0px;
 	z-index: 8;
+}
+.detail .app-header .header-description
+{
+	left: 60px;
 }
 .app-header .header-menu
 {
@@ -1123,7 +1132,7 @@ div, span, a
 }
 .app-header .header-menu.index:after
 {
-    background: url(../images/menu-icon.svg) center center no-repeat;
+    background: url(../images/menu-icon-dots.svg) center center no-repeat;
     background-size: 24px 24px;
 }
 .app-header .header-menu.back:after
@@ -1147,6 +1156,10 @@ div, span, a
 	transition: 0.2s linear;
 	z-index: 8;
 }
+.app-toggle-searchpanel
+{
+	right: 50px;
+}
 .app-header .header-search:after
 {
 	content: "";
@@ -1164,7 +1177,7 @@ div, span, a
 	height: 50px;
 	width: 50px;
 	position: absolute;
-	right: 50px;
+	right: 100px;
 	top: 0;
 	-webkit-transition: 0.2s linear;
 	transition: 0.2s linear;
@@ -1236,10 +1249,13 @@ div, span, a
 {
 	position: absolute;
 	top: 0;
-	left: 0;
 	width: 50px;
 	height: 50px;
 	z-index: 7;
+}
+.app-header .app-toggle-back
+{
+	left: 0;
 }
 .app-header .app-toggle-back:after, .app-header .app-toggle-userpanel:after, .app-header .app-toggle-searchpanel:after, .app-header .header-refresh:before, .app-header .app-home:after
 {
@@ -1425,6 +1441,48 @@ div, span, a
 	padding-bottom: 10px;
 	border-bottom: 1px solid #eeeeee; 
 }
+.usermenu-lower
+{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 50px;
+	max-height: 50px;
+	width: 100%;
+	z-index: 12;
+	-webkit-transition: 0.2s linear;
+    transition: 0.2s linear;
+    overflow: visible;
+    background-color: #fff;
+    box-shadow: 0 -1px 3px rgba(0,0,0,0.16), 0 -1px 3px rgba(0,0,0,0.2);
+}
+.usermenu-lower .container
+{
+	position: relative;
+	display: block;
+	width: 320px;
+	margin: auto;
+}
+.usermenu-lower .container .usermenu-item
+{
+	position: relative;
+	width: 64px;
+	font-size: 10px;
+	line-height: 18px;
+	text-align: center;
+	color: #747474;
+	float: left;
+	overflow: hidden;
+}
+.usermenu-lower .container .usermenu-item .usermenu-item-detail
+{
+	padding-top: 32px;
+}
+.usermenu-lower .container .usermenu-item.active .usermenu-item-detail
+{
+	color: #c92737; 
+}
 .app-panel .userpanel-body .usermenu-item
 {
     text-decoration: none;
@@ -1454,16 +1512,16 @@ div, span, a
 .usermenu-item .usermenu-item-detail:after
 {
 	content: "";
-	width: 55px;
-	height: 55px;
+	width: 64px;
+	height: 24px;
 	position: absolute;
-	top: 0;
+	top: 8px;
 	left: 0;
 	background-color: #767676;
 	-webkit-mask-repeat: no-repeat;
 	mask-repeat: no-repeat;
-	-webkit-mask-size: 16px 16px;
-	mask-size: 16px 16px;
+	-webkit-mask-size: 24px 24px;
+	mask-size: 24px 24px;
 	-webkit-mask-position: center center;
 	mask-position: center center;
 	-webkit-transition: 0.3s;
@@ -1482,8 +1540,8 @@ div, span, a
 }
 .usermenu-item .usermenu-item-detail.terbaru:after
 {
-	-webkit-mask-image: url(../images/terbaru-icon.svg);
-	mask-image: url(../images/terbaru-icon.svg);
+	-webkit-mask-image: url(../images/new-icon.svg);
+	mask-image: url(../images/new-icon.svg);
 }
 .usermenu-item .usermenu-item-detail.home:after
 {
@@ -1495,15 +1553,20 @@ div, span, a
 	-webkit-mask-image: url(../images/hot-icon.svg);
 	mask-image: url(../images/hot-icon.svg);
 }
-.usermenu-item .usermenu-item-detail.tips:after
+.usermenu-item .usermenu-item-detail.populer:after
 {
-	-webkit-mask-image: url(../images/highlight-icon.svg);
-	mask-image: url(../images/highlight-icon.svg);
+	-webkit-mask-image: url(../images/populer-icon.svg);
+	mask-image: url(../images/populer-icon.svg);
 }
-.usermenu-item .usermenu-item-detail.unik:after
+.usermenu-item .usermenu-item-detail.favorit:after
 {
-	-webkit-mask-image: url(../images/unik-icon.svg);
-	mask-image: url(../images/unik-icon.svg);
+	-webkit-mask-image: url(../images/user-favorite-icon.svg);
+	mask-image: url(../images/user-favorite-icon.svg);
+}
+.usermenu-item.active .usermenu-item-detail.favorit:after
+{
+	-webkit-mask-image: url(../images/user-favorited-icon.svg);
+	mask-image: url(../images/user-favorited-icon.svg);
 }
 .usermenu-item .usermenu-item-detail.share:after
 {
