@@ -481,6 +481,14 @@ require(
 			$(document).on("click", ".app-header .app-toggle-userpanel", function (e) {
 				if (!jt.isOffline()) {
 					var _this = $(this);
+					if(!$(".popup-userpanel").hasClass("active"))
+					{
+						$(".popup-userpanel").addClass("active")
+					}
+					else
+					{
+						$(".popup-userpanel").removeClass("active")
+					}
 					_this.addClass("active");
 					var _userpanel = setTimeout(function () {
 						_this.removeClass("active");
