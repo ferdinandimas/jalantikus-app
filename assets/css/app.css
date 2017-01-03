@@ -1495,15 +1495,15 @@ div, span, a
 	-webkit-mask-image: url(../images/hot-icon.svg);
 	mask-image: url(../images/hot-icon.svg);
 }
-.usermenu-item .usermenu-item-detail.hack:after
+.usermenu-item .usermenu-item-detail.tips:after
 {
 	-webkit-mask-image: url(../images/highlight-icon.svg);
 	mask-image: url(../images/highlight-icon.svg);
 }
-.usermenu-item .usermenu-item-detail.game:after
+.usermenu-item .usermenu-item-detail.unik:after
 {
-	-webkit-mask-image: url(../images/stars-icon.svg);
-	mask-image: url(../images/stars-icon.svg);
+	-webkit-mask-image: url(../images/unik-icon.svg);
+	mask-image: url(../images/unik-icon.svg);
 }
 .usermenu-item .usermenu-item-detail.share:after
 {
