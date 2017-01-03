@@ -500,6 +500,28 @@ require(
 				}
 			});
 
+			$(document).on("click", ".app-kategori", function (e) {
+				if (!jt.isOffline()) {
+					var _this = $(this);
+					if(!$(".popup-kategori").hasClass("active"))
+					{
+						$(".popup-kategori").addClass("active")
+					}
+					else
+					{
+						$(".popup-kategori").removeClass("active")
+					}
+					_this.addClass("active");
+					var _userpanel = setTimeout(function () {
+						_this.removeClass("active");
+					}, 300)
+				}
+				else {
+					e.preventDefault();
+					showOffline();
+				}
+			});
+
 			$(document).on("click", ".card-link", function (e) {
 				if (!jt.isOffline()) {
 					jt.ripple($(this), e)

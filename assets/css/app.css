@@ -1145,7 +1145,7 @@ div, span, a
 	mask-position: center center;
     background: #fff;
 }
-.app-toggle-searchpanel, .app-header .header-search, .app-header .app-home .app-menu-home, .app-header .header-refresh
+.app-toggle-searchpanel, .detail .app-toggle-searchpanel, .app-header .header-search, .app-header .app-home .app-menu-home, .app-header .header-refresh
 {
 	height: 50px;
 	width: 50px;
@@ -1182,6 +1182,10 @@ div, span, a
 	-webkit-transition: 0.2s linear;
 	transition: 0.2s linear;
 	z-index: 8;
+}
+.detail .app-header .app-home
+{
+	right: 50px;
 }
 .app-body .app-refreshed, .splash .app-refreshed
 {
@@ -1441,6 +1445,10 @@ div, span, a
 	padding-bottom: 10px;
 	border-bottom: 1px solid #eeeeee; 
 }
+.detail ~ .usermenu-lower
+{
+	display: none;
+}
 .usermenu-lower
 {
 	position: fixed;
@@ -1479,9 +1487,19 @@ div, span, a
 {
 	padding-top: 32px;
 }
+.usermenu-lower .container .popup-kategori .usermenu-item .usermenu-item-detail
+{
+	text-align: left;
+	padding: 0;
+	padding-left: 60px;
+}
 .usermenu-lower .container .usermenu-item.active .usermenu-item-detail
 {
 	color: #c92737; 
+}
+.usermenu-lower .container .popup-kategori .usermenu-item
+{
+	width: 100%;
 }
 .app-panel .userpanel-body .usermenu-item
 {
@@ -1527,7 +1545,7 @@ div, span, a
     -webkit-transition: 0.2s;
     transition: 0.2s;
 }
-.popup-userpanel .usermenu-item, .popup-userpanel .usermenu-item:active
+.popup-userpanel .usermenu-item
 {
 	display: block;
 	position: relative;
@@ -1545,6 +1563,76 @@ div, span, a
 	-webkit-transform: scale(1);
 	transform: scale(1);
 }
+.popup-kategori
+{
+	position: absolute;
+    width: 210px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    bottom: 70px;
+    right: 40px;
+    background-color: #fff;
+    border-radius: 6px;
+    -webkit-transform-origin: bottom right;
+    transform-origin: bottom right;
+    -webkit-transform: scale(0);
+	transform: scale(0);
+    z-index: 9;
+    box-sizing: border-box;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+}
+.popup-kategori .usermenu-item
+{
+	display: block;
+	height: 32px;
+	position: relative;
+	color: #848484 !important;
+	font-size: 13px;
+	border-bottom: 1px solid #f3f3f3;
+	overflow: hidden;
+}
+.popup-kategori .usermenu-item:first-child
+{
+	border-top: 1px solid #f3f3f3;
+}
+.popup-kategori .usermenu-item-detail
+{
+	padding-left: 30px;
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 34px;
+}
+.popup-kategori.active
+{
+	-webkit-transform: scale(1);
+	transform: scale(1);
+}
+.popup-kategori:after
+{
+	position: absolute;
+	display: block;
+	bottom: -20px;
+	right: 35px;
+	height: 20px;
+	width: 20px;
+	border-top: 20px solid #fff;
+	border-right: 20px solid transparent;
+	border-left: 20px solid transparent;
+	content: "";
+	box-sizing: border-box;
+}
+/*.popup-kategori:before
+{
+	position: absolute;
+	display: block;
+	bottom: -20px;
+	right: 35px;
+	height: 20px;
+	width: 20px;
+	content: "";
+	box-shadow: 0 1px 3px rgba(0,0,0,0.16), 0 1px 3px rgba(0,0,0,0.2);
+}*/
 .usermenu-item .usermenu-item-detail:after
 {
 	content: "";
@@ -1609,11 +1697,50 @@ div, span, a
 	-webkit-mask-image: url(../images/share-icon.svg);
 	mask-image: url(../images/share-icon.svg);
 }
+.usermenu-item .usermenu-item-detail.tips:after
+{
+	top: 0;
+	left: 0;
+	height: 32px;
+	width: 60px;
+	background-color: #00a8ff;
+	-webkit-mask-image: url(../images/tips-icon.png);
+	mask-image: url(../images/tips-icon.png);
+}
+.usermenu-item .usermenu-item-detail.gokil:after
+{
+	top: 0;
+	left: 0;
+	height: 32px;
+	width: 60px;
+	background-color: #91ce29;
+	-webkit-mask-image: url(../images/gokil-icon.png);
+	mask-image: url(../images/gokil-icon.png);
+}
+.usermenu-item .usermenu-item-detail.gadget:after
+{
+	top: 0;
+	left: 0;
+	height: 32px;
+	width: 60px;
+	background-color: #fa1571;
+	-webkit-mask-image: url(../images/gadgets-icon.png);
+	mask-image: url(../images/gadgets-icon.png);
+}
+.usermenu-item .usermenu-item-detail.news:after
+{
+	top: 0;
+	left: 0;
+	height: 32px;
+	width: 60px;
+	background-color: #fa9300;
+	-webkit-mask-image: url(../images/news-icon.png);
+	mask-image: url(../images/news-icon.png);
+}
 .usermenu-item .usermenu-item-detail.rate:after
 {
 	top: 0;
 	left: 0;
-	width: 30px;
 	height: 24px;
 	width: 30px;
 	-webkit-mask-size: 16px 16px;
