@@ -680,7 +680,7 @@ div, span, a
 	opacity: 0;
 	z-index: 2;
 }
-.usermenu-lower .ripple{
+.usermenu-lower .usermenu-item:not(.item-pass) .ripple{
 	width: 150px;
 	height: 150px;
 }

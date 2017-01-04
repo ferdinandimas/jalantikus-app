@@ -397,7 +397,7 @@ require(
 					{
 						jt.ripple($(this), e, "", "");
 					}
-					if(!$(this).hasClass("app-kategori") && $(".app-kategori-overlay").hasClass("active"))
+					if(!$(this).hasClass("app-kategori") && !$(this).hasClass("item-kategori") && $(".app-kategori-overlay").hasClass("active"))
 					{	
 						$(".app-kategori-overlay").removeClass("active");
 						$(".app-kategori-overlay").fadeOut();
@@ -518,10 +518,18 @@ require(
 			$(document).on("click", ".app-kategori", function (e) {
 				if (!jt.isOffline()) {
 					var _this = $(this);
-					$(".app-kategori-overlay").fadeIn( 200, function(){
-						$(".app-kategori-overlay").addClass("active")
-					})
-					_this.addClass("active");
+					if(!$(".app-kategori-overlay").hasClass("active"))
+					{
+						$(".app-kategori-overlay").fadeIn( 200, function(){
+							$(".app-kategori-overlay").addClass("active")
+						})
+						_this.addClass("active");
+					}
+					else
+					{
+						$(".app-kategori-overlay").removeClass("active");
+						$(".app-kategori-overlay").fadeOut();
+					}
 				}
 				else {
 					e.preventDefault();
