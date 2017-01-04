@@ -201,6 +201,7 @@ div, span, a
 {
 	font-family: "Roboto Slab";
 	font-size: 18px;
+	line-height: 26px;
 	color: #fff;
 }
 .app-toolbar .app-logo 
@@ -1596,7 +1597,8 @@ div, span, a
 {
 	text-align: left;
 	padding: 0;
-	padding-left: 60px;
+	padding-left: 70px;
+	line-height: 40px;
 }
 .usermenu-lower .container .usermenu-item.active .usermenu-item-detail
 {
@@ -1605,6 +1607,7 @@ div, span, a
 .usermenu-lower .container .popup-kategori .usermenu-item
 {
 	width: 100%;
+	height: 40px;
 }
 .app-panel .userpanel-body .usermenu-item
 {
@@ -1680,10 +1683,9 @@ div, span, a
 }
 .popup-userpanel .usermenu-item-detail
 {
+	height: 36px;
 	padding-left: 45px;
-	line-height: 24px;
-	padding-top: 4px;
-	padding-bottom: 4px;
+	line-height: 36px;
 	font-weight: 700;
 }
 .popup-userpanel.active
@@ -1820,42 +1822,33 @@ div, span, a
 	-webkit-mask-image: url(../images/share-icon.svg);
 	mask-image: url(../images/share-icon.svg);
 }
-.usermenu-item .usermenu-item-detail.tips:after
+.usermenu-item .usermenu-item-detail.tips:after, .usermenu-item .usermenu-item-detail.gokil:after, .usermenu-item .usermenu-item-detail.gadget:after, .usermenu-item .usermenu-item-detail.news:after
 {
 	top: 0;
 	left: 0;
-	height: 32px;
-	width: 60px;
+	height: 40px;
+	width: 70px;
+}
+.usermenu-item .usermenu-item-detail.tips:after
+{
 	background-color: #00a8ff;
 	-webkit-mask-image: url(../images/tips-icon.png);
 	mask-image: url(../images/tips-icon.png);
 }
 .usermenu-item .usermenu-item-detail.gokil:after
 {
-	top: 0;
-	left: 0;
-	height: 32px;
-	width: 60px;
 	background-color: #91ce29;
 	-webkit-mask-image: url(../images/gokil-icon.png);
 	mask-image: url(../images/gokil-icon.png);
 }
 .usermenu-item .usermenu-item-detail.gadget:after
 {
-	top: 0;
-	left: 0;
-	height: 32px;
-	width: 60px;
 	background-color: #fa1571;
 	-webkit-mask-image: url(../images/gadgets-icon.png);
 	mask-image: url(../images/gadgets-icon.png);
 }
 .usermenu-item .usermenu-item-detail.news:after
 {
-	top: 0;
-	left: 0;
-	height: 32px;
-	width: 60px;
 	background-color: #fa9300;
 	-webkit-mask-image: url(../images/news-icon.png);
 	mask-image: url(../images/news-icon.png);
@@ -1866,8 +1859,8 @@ div, span, a
 	left: 0;
 	height: 32px;
 	width: 45px;
-	-webkit-mask-size: 16px 16px;
-	mask-size: 16px 16px;
+	-webkit-mask-size: 20px 20px;
+	mask-size: 20px 20px;
 	-webkit-mask-image: url(../images/rate-icon.svg);
 	mask-image: url(../images/rate-icon.svg);
 }
@@ -1881,9 +1874,9 @@ div, span, a
 	top: 0;
 	left: 0;
 	width: 45px;
-	height: 32px;
-	-webkit-mask-size: 16px 16px;
-	mask-size: 16px 16px;
+	height: 36px;
+	-webkit-mask-size: 20px 20px;
+	mask-size: 20px 20px;
 	-webkit-mask-image: url(../images/settings-icon.svg);
 	mask-image: url(../images/settings-icon.svg);
 }
