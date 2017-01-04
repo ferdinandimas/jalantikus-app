@@ -1669,7 +1669,7 @@ div, span, a
     width: 210px;
     padding-top: 12px;
     padding-bottom: 12px;
-    bottom: 70px;
+    bottom: 20px;
     right: 40px;
     background-color: #fff;
     border-radius: 6px;
@@ -1679,8 +1679,8 @@ div, span, a
 	transform: scale(0);
     z-index: 9;
     box-sizing: border-box;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
+    -webkit-transition:  0.2s;
+    transition: 0.2s;
 }
 .popup-kategori .usermenu-item
 {
@@ -2961,7 +2961,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 {
 	display: none;
 	width: 100vw;
-	height: 100vh;
+	height: calc(100vh - 50px);
 	top: 0;
 	left: 0;
 	position: fixed;
