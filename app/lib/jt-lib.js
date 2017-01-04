@@ -8,20 +8,33 @@ var jt = function () {
                 console.log(_text);
             }
         },
-        ripple   : function (t, e, sp) {
+        ripple   : function (t, e, sp, sz) {
             e.preventDefault();
             var _speed = [300, 100];
             var _currItem = t;
             var _href     = t.attr("href");
             var _ripple   = $(_currItem.children()[ 0 ]);
-            var rX        = e.offsetX - 225, rY = e.offsetY - 225;
+            var rX = e.offsetX - 225, rY = e.offsetY - 225;
+            if(typeof sz != "undefined")
+            {
+                switch(sz)
+                {
+                    case "s":
+                        rX = e.offsetX - 75;
+                        rY = e.offsetY - 75;
+                        break;
+                    default:
+                        rX = e.offsetX - 225;
+                        rY = e.offsetY - 225;
+                        break;
+                }
+            }
             if(typeof sp != "undefined")
             {
                 switch(sp){
                     case "slow":
-                        _speed[0] = 600;
-                        _speed[1] = 200;
-                        console.log('true');
+                        _speed[0] = 400;
+                        _speed[1] = 100;
                         break;
                     default:
                         _speed[0] = 300;

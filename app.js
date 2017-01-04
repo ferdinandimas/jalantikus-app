@@ -188,9 +188,11 @@ require(
 			$(document).on("click", ".usermenu-item", function (e) {
 				if (!jt.isOffline()) {
 					var _currUI = $(this);
-					if (!_currUI.hasClass("active") && !_currUI.hasClass("app-rate") && !_currUI.hasClass(
-									"app-share") && !_currUI.hasClass(
-									"item-pass")) {
+					if (!_currUI.hasClass("active") && 
+						!_currUI.hasClass("app-rate") && 
+						!_currUI.hasClass("app-setting") && 
+						!_currUI.hasClass("app-share") && 
+						!_currUI.hasClass("item-pass")) {
 						$('.usermenu-item').not(_currUI).removeClass("active");
 						_currUI.addClass("active");
 
@@ -361,6 +363,10 @@ require(
 			$(document).on("click", ".settings-close", function () {
 				$(".app-settings").fadeOut();
 			});
+			$(document).on("click", ".kategori-close", function () {
+				$(".app-kategori-overlay").removeClass("active")
+				$(".app-kategori-overlay").fadeOut();
+			});
 
 			$(document).on("click", ".app-rating-submit .rating-link", function (e) {
 				setTimeout(function () {
@@ -380,10 +386,19 @@ require(
 			$(document).on("click", ".usermenu-item", function (e) {
 				if (!jt.isOffline()) {
 					if (!$(this).hasClass("item-pass")) {
-						jt.ripple($(this), e, "slow");
-						setTimeout(function () {
-							$('#app-userpanel').panel('close')
-						}, 150);
+						jt.ripple($(this), e, "slow", "s");
+						// setTimeout(function () {
+						// 	$('#app-userpanel').panel('close')
+						// }, 150);
+					}
+					else
+					{
+						jt.ripple($(this), e, "", "");
+					}
+					if(!$(this).hasClass("app-kategori") && !$(this).hasClass("item-kategori") && $(".app-kategori-overlay").hasClass("active"))
+					{	
+						$(".app-kategori-overlay").removeClass("active");
+						$(".app-kategori-overlay").fadeOut();
 					}
 				}
 				else {
@@ -501,18 +516,18 @@ require(
 			$(document).on("click", ".app-kategori", function (e) {
 				if (!jt.isOffline()) {
 					var _this = $(this);
-					if(!$(".popup-kategori").hasClass("active"))
+					if(!$(".app-kategori-overlay").hasClass("active"))
 					{
-						$(".popup-kategori").addClass("active")
+						$(".app-kategori-overlay").fadeIn( 200, function(){
+							$(".app-kategori-overlay").addClass("active")
+						})
+						_this.addClass("active");
 					}
 					else
 					{
-						$(".popup-kategori").removeClass("active")
+						$(".app-kategori-overlay").removeClass("active");
+						$(".app-kategori-overlay").fadeOut();
 					}
-					_this.addClass("active");
-					var _userpanel = setTimeout(function () {
-						_this.removeClass("active");
-					}, 300)
 				}
 				else {
 					e.preventDefault();
