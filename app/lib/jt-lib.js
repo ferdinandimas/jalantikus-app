@@ -21,7 +21,6 @@ var jt = function () {
                     case "slow":
                         _speed[0] = 600;
                         _speed[1] = 200;
-                        console.log('true');
                         break;
                     default:
                         _speed[0] = 300;

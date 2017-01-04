@@ -1579,6 +1579,14 @@ div, span, a
 {
 	padding-top: 32px;
 }
+.usermenu-lower .container .popup-kategori-container
+{
+	position: relative;
+	display: block;
+	width: 320px;
+	height: 100%;
+	margin: auto;
+}
 .usermenu-lower .container .popup-kategori .usermenu-item .usermenu-item-detail
 {
 	text-align: left;
@@ -1671,8 +1679,8 @@ div, span, a
 	transform: scale(0);
     z-index: 9;
     box-sizing: border-box;
-    -webkit-transition: 0.2s;
-    transition: 0.2s;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
 }
 .popup-kategori .usermenu-item
 {
@@ -1695,10 +1703,15 @@ div, span, a
 	font-weight: 500;
 	line-height: 34px;
 }
-.popup-kategori.active
+.app-kategori-overlay.active .popup-kategori
 {
 	-webkit-transform: scale(1);
 	transform: scale(1);
+}
+.app-kategori-overlay .kategori-close
+{
+	width: 100%;
+	height: 100%;
 }
 .popup-kategori:after
 {
@@ -2944,6 +2957,16 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     width: 100%;
     height: 100%;
 }
+.app-kategori-overlay
+{
+	display: none;
+	width: 100vw;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	position: fixed;
+    background: rgba(0,0,0,0.46);
+}
 .app-rating .app-rating-body, .app-settings .app-settings-body
 {
     position: absolute;
@@ -2994,7 +3017,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	background-image: url(../images/close-icon.svg);
 	background-size: 16px 16px;
 	background-position: center center;
-	background-repeat: no-repeat;
+	background-repeat: no-repeat;	
 	background-color: #fff;
 	border-radius: 50%;
 }
