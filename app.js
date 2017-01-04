@@ -500,7 +500,7 @@ require(
 					var _this = $(this);
 					if(!$(".popup-userpanel").hasClass("active"))
 					{
-						$(".popup-userpanel-container").fadeIn(200, function()
+						$(".popup-userpanel-container").fadeIn(0 ,function()
 						{
 							$(".popup-userpanel").addClass("active")
 						})
