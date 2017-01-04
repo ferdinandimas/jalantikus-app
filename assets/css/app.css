@@ -179,7 +179,7 @@ div, span, a
     bottom: 0;
     right: 0;
     content: "";
-    background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.6) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.4) 70%, rgba(0,0,0,0.6) 100%);
     z-index: 9;
 }
 .app-index-card:nth-child(2) .card-description
@@ -1632,6 +1632,25 @@ div, span, a
 	background-color: #eeeeee; 
 	color: #c92737;
 }
+.popup-userpanel-container
+{
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	height: 100vh;
+	width: 100vw;
+	background-color: transparent;
+	z-index: 15
+}
+.popup-userpanel-container .userpanel-close
+{
+	display: block;
+	height: 100%;
+	width: 100%;
+}
 .popup-userpanel
 {
 	position: fixed;
@@ -1662,6 +1681,7 @@ div, span, a
 {
 	padding-left: 30px;
 	line-height: 24px;
+	font-weight: 700;
 }
 .popup-userpanel.active
 {

@@ -369,6 +369,10 @@ require(
 				$(".app-kategori-overlay").removeClass("active")
 				$(".app-kategori-overlay").fadeOut();
 			});
+			$(document).on("click", ".userpanel-close", function () {
+				$(".popup-userpanel").removeClass("active")
+				$(".popup-userpanel-container").fadeOut();
+			});
 
 			$(document).on("click", ".app-rating-submit .rating-link", function (e) {
 				setTimeout(function () {
@@ -498,10 +502,14 @@ require(
 					var _this = $(this);
 					if(!$(".popup-userpanel").hasClass("active"))
 					{
-						$(".popup-userpanel").addClass("active")
+						$(".popup-userpanel-container").fadeIn(200, function()
+						{
+							$(".popup-userpanel").addClass("active")
+						})
 					}
 					else
 					{
+						$(".popup-userpanel-container").fadeOut();
 						$(".popup-userpanel").removeClass("active")
 					}
 					_this.addClass("active");
