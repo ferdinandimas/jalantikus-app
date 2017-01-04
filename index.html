@@ -9,10 +9,61 @@
     <link rel="stylesheet" href="assets/css/lib/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" href="assets/css/app.css">
 
-    <script src="phonegap.js"></script>
-    <!--<script src="app/lib/socket.io-1.4.5.js"></script>-->
+    <script src="cordova.js"></script>
     <script src="app/config/jt.js"></script>
-    <script data-main="app" src="app/lib/require.min.js"></script>
+
+    <!--<script data-main="app" src="app/lib/require.min.js"></script>-->
+    <script>
+
+        /*
+         Phonegap Desktop Workaround
+         Comment this script on production release and use above script instead
+         */
+
+        function injectRequirejs() {
+            var h = document.getElementsByTagName('head')[0];
+            var s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src = 'app/lib/require.min.js';
+            s.setAttribute('data-main', 'app');
+            h.appendChild(s);
+        }
+
+        function fixConsole(callback) {
+            if (window.console.log.toString().match(/.*socket.*/gi) !== null) {
+                window.console.log = function (msg, format) {
+                    __console__.log(msg, format);
+                };
+
+                window.console.groupCollapsed = function (msg, template) {
+                    __console__.groupCollapsed(msg, template);
+                };
+
+                window.console.groupEnd = function () {
+                    __console__.groupEnd();
+                };
+
+                callback();
+            } else {
+                setTimeout(function () {
+                    fixConsole();
+                }, 500);
+            }
+        }
+
+        (function () {
+            window.__console__ = window.console;
+
+            setTimeout(function () {
+                if (typeof window.phonegap !== typeof undefined) {
+                    console.log('Monkey-patching phonegap... (This may take some time)');
+                    fixConsole(injectRequirejs);
+                } else {
+                    injectRequirejs();
+                }
+            }, 1000);
+        })();
+    </script>
 </head>
 <body>
 <div class="app-root" id="app-root" data-role="page">

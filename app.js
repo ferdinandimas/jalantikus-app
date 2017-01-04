@@ -102,14 +102,10 @@ require(
 						//		}, 2000);
 						//
 						//		$("#app-body .app-content-container").empty().append(
-						//				'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
-						//		);
-						//		$(".header-refresh").hide();
-						//
-						//		$(".app-load").css("display", "none");
-						//		$(".splash .app-loader").addClass("showbtn");
-						//	}, 5000);
-						//}
+						//				'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal
+						// memuat. Coba lagi?</a><div class="app-load"></div></div>' ); $(".header-refresh").hide();
+						// $(".app-load").css("display", "none"); $(".splash .app-loader").addClass("showbtn"); },
+						// 5000); }
 					});
 
 					if ($(".splash").length >= 1) {
@@ -133,9 +129,11 @@ require(
 				);
 			}
 
-			oneSignal.isSubscribed();
+			//oneSignal.isSubscribed();
 
 			document.addEventListener("deviceready", function () {
+				console.log("READY");
+
 				if (typeof window.StatusBar != "undefined") {
 					window.StatusBar.backgroundColorByHexString("#8F1F1F");
 				}
@@ -144,7 +142,7 @@ require(
 					navigator.splashscreen.hide();
 				}
 
-				oneSignal.init();
+				//oneSignal.init();
 			}, false);
 
 			$("#search-form").on("submit", function (e) {
