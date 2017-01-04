@@ -13,6 +13,21 @@
 	font-weight: 700;
     src: url('../fonts/Roboto-Bold.ttf') format('truetype');
 }
+@font-face {
+    font-family: 'Roboto Slab';
+    src: url('../fonts/RobotoSlab-Regular.ttf') format('truetype');
+    font-weight: 400;
+}
+@font-face {
+    font-family: 'Roboto Slab';
+	font-weight: 100;
+    src: url('../fonts/RobotoSlab-Thin.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Roboto Slab';
+	font-weight: 700;
+    src: url('../fonts/RobotoSlab-Bold.ttf') format('truetype');
+}
 body, input
 {
 	outline: none;
@@ -66,6 +81,7 @@ div, span, a
 	z-index: 12;
 	-webkit-transition: 0.2s linear;
     transition: 0.2s linear;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.19), 0 2px 2px rgba(0,0,0,0.23);
     overflow: visible;
 }
 .app-toolbar.detail .app-header:not(.browser):before, .app-toolbar.detail .app-header:not(.browser):after
@@ -135,6 +151,56 @@ div, span, a
     border-radius: 2px;
     padding: 15px;
     border-bottom: 1px solid #f0f0f0;
+}
+.app-index-card:nth-child(2)
+{
+	height: 165px;
+	padding: 0;
+}
+.app-index-card:nth-child(2) .card-image, .app-index-card:nth-child(2) .card-image img
+{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	z-index: 7;
+}
+.app-index-card:nth-child(2) .card-image:after
+{
+	display: block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    content: "";
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.6) 100%);
+    z-index: 9;
+}
+.app-index-card:nth-child(2) .card-description
+{
+	position: absolute;
+	bottom: 20px;
+	left: 15px;
+	right: 15px;
+	padding: 0;
+}
+.app-index-card:nth-child(2) .card-description .card-note
+{
+	position: relative;
+	bottom: 10px;
+	left: 0;
+}
+.app-index-card:nth-child(2) .card-description .card-title
+{
+	font-family: "Roboto Slab";
+	font-size: 18px;
+	color: #fff;
 }
 .app-toolbar .app-logo 
 {
@@ -516,9 +582,35 @@ div, span, a
 	top: 1px;
 	height: 11px;
 	width: 11px;
-	background: url(../images/time-icon.svg) no-repeat;
-	background-size: 11px 11px;
-	opacity: 0.3;
+	-webkit-mask-image: url(../images/label-icon.svg);
+	mask-image: url(../images/label-icon.svg);
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-size: 11px 11px;
+	mask-size: 11px 11px;
+	-webkit-mask-position: center;
+	mask-position: center;
+	background-color: #8d8d8d;
+}
+.app-index-card .card-description .card-published.populer
+{
+	color: #FF9800;
+}
+.app-index-card .card-description .card-published.wajibbaca
+{
+	color: #00BCD4;
+}
+.app-index-card .card-description .card-published.direkomendasikan
+{
+	color: #CDDC39;
+}
+.app-index-card .card-description .card-published.banyakdisukai
+{
+	color: #4CAF50;
+}
+.app-index-card .card-description .card-published.terbaru
+{
+	color: #2196F3;
 }
 .app-index-card.card-placeholder .card-description .card-note
 {
@@ -1573,8 +1665,8 @@ div, span, a
     right: 40px;
     background-color: #fff;
     border-radius: 6px;
-    -webkit-transform-origin: bottom right;
-    transform-origin: bottom right;
+    -webkit-transform-origin: 165px 180px;
+    transform-origin: 165px 180px;
     -webkit-transform: scale(0);
 	transform: scale(0);
     z-index: 9;
@@ -1611,28 +1703,18 @@ div, span, a
 .popup-kategori:after
 {
 	position: absolute;
-	display: block;
-	bottom: -20px;
-	right: 35px;
-	height: 20px;
-	width: 20px;
-	border-top: 20px solid #fff;
-	border-right: 20px solid transparent;
-	border-left: 20px solid transparent;
-	content: "";
-	box-sizing: border-box;
+    display: block;
+    bottom: -20px;
+    right: 35px;
+    height: 20px;
+    width: 20px;
+    border-top: 18px solid #fff;
+    border-right: 20px solid transparent;
+    border-left: 20px solid transparent;
+    content: "";
+    box-sizing: border-box;
+    filter: drop-shadow(2px 3px 1px rgba(0,0,0,0.3));
 }
-/*.popup-kategori:before
-{
-	position: absolute;
-	display: block;
-	bottom: -20px;
-	right: 35px;
-	height: 20px;
-	width: 20px;
-	content: "";
-	box-shadow: 0 1px 3px rgba(0,0,0,0.16), 0 1px 3px rgba(0,0,0,0.2);
-}*/
 .usermenu-item .usermenu-item-detail:after
 {
 	content: "";

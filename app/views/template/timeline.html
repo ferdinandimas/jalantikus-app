@@ -26,9 +26,6 @@
     <% } else { %>
         <div class="app-index-card">
             <div class="card-description">
-                <div class="card-title">
-                    <%= value.title %>
-                </div>
                 <div class="card-note">
                     <span class="card-author">
                         <%= value.user.name %>
@@ -36,6 +33,9 @@
                     <span class="card-published">
                         <%= jt.timeSince(value.published) %>
                     </span>
+                </div>
+                <div class="card-title">
+                    <%= value.title %>
                 </div>
             </div>
             <div class="card-image">
