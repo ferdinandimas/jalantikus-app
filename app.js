@@ -388,10 +388,14 @@ require(
 			$(document).on("click", ".usermenu-item", function (e) {
 				if (!jt.isOffline()) {
 					if (!$(this).hasClass("item-pass")) {
-						jt.ripple($(this), e, "slow");
-						setTimeout(function () {
-							$('#app-userpanel').panel('close')
-						}, 150);
+						jt.ripple($(this), e, "slow", "s");
+						// setTimeout(function () {
+						// 	$('#app-userpanel').panel('close')
+						// }, 150);
+					}
+					else
+					{
+						jt.ripple($(this), e, "", "");
 					}
 					if(!$(this).hasClass("app-kategori") && $(".app-kategori-overlay").hasClass("active"))
 					{	
@@ -514,11 +518,9 @@ require(
 			$(document).on("click", ".app-kategori", function (e) {
 				if (!jt.isOffline()) {
 					var _this = $(this);
-					$(".app-kategori-overlay").fadeIn()
-					setTimeout(function()
-					{
+					$(".app-kategori-overlay").fadeIn( 200, function(){
 						$(".app-kategori-overlay").addClass("active")
-					}, 200)
+					})
 					_this.addClass("active");
 				}
 				else {

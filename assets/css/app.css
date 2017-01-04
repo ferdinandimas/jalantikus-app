@@ -81,7 +81,7 @@ div, span, a
 	z-index: 12;
 	-webkit-transition: 0.2s linear;
     transition: 0.2s linear;
-    box-shadow: 0 2px 2px rgba(0,0,0,0.19), 0 2px 2px rgba(0,0,0,0.23);
+    box-shadow: 0 2px 2px rgba(0,0,0,0.10), 0 2px 2px rgba(0,0,0,0.10);
     overflow: visible;
 }
 .app-toolbar.detail .app-header:not(.browser):before, .app-toolbar.detail .app-header:not(.browser):after
@@ -195,6 +195,7 @@ div, span, a
 	position: relative;
 	bottom: 10px;
 	left: 0;
+	max-width: 100%;
 }
 .app-index-card:nth-child(2) .card-description .card-title
 {
@@ -668,8 +669,8 @@ div, span, a
 	width: 450px;
 	height: 450px;
 	position: absolute;
-	left: -225px;
-	top: -225px;
+	left: -50px;
+	top: -50px;
 	border-radius: 50%;
 	background-color: rgba(0,0,0,0.44);
 	-webkit-transform-origin: center;
@@ -678,6 +679,10 @@ div, span, a
 	transform: scale(0);
 	opacity: 0;
 	z-index: 2;
+}
+.usermenu-lower .ripple{
+	width: 150px;
+	height: 150px;
 }
 .fadedin .ripple
 {
@@ -1555,7 +1560,7 @@ div, span, a
     transition: 0.2s linear;
     overflow: visible;
     background-color: #fff;
-    box-shadow: 0 -1px 3px rgba(0,0,0,0.16), 0 -1px 3px rgba(0,0,0,0.2);
+    box-shadow: 0 -1px 2px rgba(0,0,0,0.06), 0 -1px 6px rgba(0,0,0,0.08);
 }
 .usermenu-lower .container
 {
