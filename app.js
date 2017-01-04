@@ -387,6 +387,15 @@ require(
 				}
 			});
 
+			$(document).on("click", ".item-kategori", function (e) {
+				var _this = $(this);
+				if(!_this.hasClass("active"))
+				{
+					$(".item-kategori").removeClass("active");
+					_this.addClass("active");
+				}
+			})
+
 			$(document).on("click", ".usermenu-item", function (e) {
 				if (!jt.isOffline()) {
 					if (!$(this).hasClass("item-pass")) {
@@ -401,6 +410,7 @@ require(
 					}
 					if(!$(this).hasClass("app-kategori") && !$(this).hasClass("item-kategori") && $(".app-kategori-overlay").hasClass("active"))
 					{	
+						$(".item-kategori").removeClass("active");
 						$(".app-kategori-overlay").removeClass("active");
 						$(".app-kategori-overlay").fadeOut();
 					}

@@ -1602,9 +1602,22 @@ div, span, a
 	padding-left: 70px;
 	line-height: 40px;
 }
+.usermenu-lower .container .usermenu-item.item-kategori
+{
+	-webkit-transition: 0.2s;
+	transition: 0.2s;
+}
 .usermenu-lower .container .usermenu-item.active .usermenu-item-detail
 {
 	color: #c92737; 
+}
+.usermenu-lower .container .usermenu-item.item-kategori.active .usermenu-item-detail
+{
+	color: #747474!important;
+}
+.usermenu-lower .container .usermenu-item.item-kategori.active
+{
+	background-color: #f3f3f3
 }
 .usermenu-lower .container .popup-kategori .usermenu-item
 {
