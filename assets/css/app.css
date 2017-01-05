@@ -152,12 +152,12 @@ div, span, a
     padding: 15px;
     border-bottom: 1px solid #f0f0f0;
 }
-.app-index-card:nth-child(2)
+.app-content-container .app-index-card:nth-child(2)
 {
 	height: 165px;
 	padding: 0;
 }
-.app-index-card:nth-child(2) .card-image, .app-index-card:nth-child(2) .card-image img
+.app-content-container .app-index-card:nth-child(2) .card-image, .app-index-card:nth-child(2) .card-image img
 {
 	position: absolute;
 	width: 100%;
@@ -168,7 +168,7 @@ div, span, a
 	bottom: 0;
 	z-index: 7;
 }
-.app-index-card:nth-child(2) .card-image:after
+.app-content-container .app-index-card:nth-child(2) .card-image:after
 {
 	display: block;
     position: absolute;
@@ -182,7 +182,7 @@ div, span, a
     background: linear-gradient(to bottom, rgba(0,0,0,0) ,rgba(0,0,0,0.6) 60%, rgba(0,0,0,0.9) 100%);
     z-index: 9;
 }
-.app-index-card:nth-child(2) .card-description
+.app-content-container .app-index-card:nth-child(2) .card-description
 {
 	position: absolute;
 	bottom: 20px;
@@ -190,14 +190,14 @@ div, span, a
 	right: 15px;
 	padding: 0;
 }
-.app-index-card:nth-child(2) .card-description .card-note
+.app-content-container .app-index-card:nth-child(2) .card-description .card-note
 {
 	position: relative;
 	bottom: 10px;
 	left: 0;
 	max-width: 100%;
 }
-.app-index-card:nth-child(2) .card-description .card-title
+.app-content-container .app-index-card:nth-child(2) .card-description .card-title
 {
 	font-family: "Roboto Slab";
 	font-size: 18px;
@@ -1208,7 +1208,7 @@ div, span, a
 	text-shadow: 0px 0px 0px;
 	z-index: 8;
 }
-.detail .app-header .header-description
+.detail .app-header .header-description, .search .app-header .header-description
 {
 	left: 60px;
 }
@@ -1260,6 +1260,10 @@ div, span, a
 {
 	right: 50px;
 }
+.search .app-toggle-searchpanel
+{
+	right: 0;
+}
 .app-header .header-search:after
 {
 	content: "";
@@ -1283,7 +1287,7 @@ div, span, a
 	transition: 0.2s linear;
 	z-index: 8;
 }
-.detail .app-header .app-home
+.detail .app-header .app-home, .search .app-header .app-home
 {
 	right: 50px;
 }
