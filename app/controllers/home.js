@@ -432,6 +432,7 @@ define(
 				}
 				$("a.usermenu-item").removeClass("active").each(function () {
 					if ($(this).attr("href") == "#" + Backbone.history.getFragment()) {
+						var isKategori = $(this).attr("href").split("/")[1];
 						// $("#app-toolbar .header-description").html($(this).find(".usermenu-item-detail").html());
 						if ($(this).find(".usermenu-item-detail").html().trim() != "Beranda") {
 							$(".app-header .header-description").html($(this).find(".usermenu-item-detail").html());
@@ -442,6 +443,10 @@ define(
 							// $(".app-toolbar").addClass("on-top");
 						}
 						$(this).addClass("active");
+						if(isKategori == "home3" || isKategori == "home4" || isKategori == "home5" || isKategori == "home6" )
+						{
+							$(".app-kategori").addClass("active");
+						}
 					}
 				});
 			},

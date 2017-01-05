@@ -10,7 +10,7 @@ var jt = function () {
 		},
 		ripple    : function (t, e, sp, sz) {
 			e.preventDefault();
-			var _speed    = [ 300, 100 ];
+			var _speed    = [ 200, 100 ];
 			var _currItem = t;
 			var _href     = t.attr("href");
 			var _ripple   = $(_currItem.children()[ 0 ]);
@@ -34,7 +34,7 @@ var jt = function () {
 						_speed[ 1 ] = 100;
 						break;
 					default:
-						_speed[ 0 ] = 300;
+						_speed[ 0 ] = 200;
 						_speed[ 1 ] = 100;
 						break;
 				}
