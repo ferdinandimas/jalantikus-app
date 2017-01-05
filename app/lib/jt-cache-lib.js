@@ -46,57 +46,63 @@ var jtCache = function () {
 
 			var size = jt.byteLength(cacheValue);
 
-			window.requestFileSystem(type, size, function (fs) {
-				fs.root.getFile(cacheKey, { create: true }, function (fileEntry) {
+			if (typeof window.requestFileSystem == "function") {
+				window.requestFileSystem(type, size, function (fs) {
+					fs.root.getFile(cacheKey, { create: true }, function (fileEntry) {
 
-					fileEntry.createWriter(function (fileWriter) {
-						fileWriter.onwriteend = function (e) {
-							jt.log("Write success: " + cacheKey);
-						};
+						fileEntry.createWriter(function (fileWriter) {
+							fileWriter.onwriteend = function (e) {
+								jt.log("Write success: " + cacheKey);
+							};
 
-						fileWriter.onerror = function (e) {
-							jt.log("Write failed: " + e.toString());
-						};
+							fileWriter.onerror = function (e) {
+								jt.log("Write failed: " + e.toString());
+							};
 
-						var blob = new Blob([ cacheValue ], { type: "text/plain" });
-						fileWriter.write(blob);
+							var blob = new Blob([ cacheValue ], { type: "text/plain" });
+							fileWriter.write(blob);
+						}, errorHandler.bind(null, cacheKey));
+
 					}, errorHandler.bind(null, cacheKey));
-
 				}, errorHandler.bind(null, cacheKey));
-			}, errorHandler.bind(null, cacheKey));
+			}
 		},
 		getItem: function (cacheKey, result) {
 			var type = window.TEMPORARY;
-			var size = 50 * 1024 * 1024;
+			var size = 1 * 1024 * 1024;
 
-			window.requestFileSystem(type, size, function (fs) {
-				fs.root.getFile(cacheKey, {}, function (fileEntry) {
+			if (typeof window.requestFileSystem == "function") {
+				window.requestFileSystem(type, size, function (fs) {
+					fs.root.getFile(cacheKey, {}, function (fileEntry) {
 
-					fileEntry.file(function (file) {
-						var reader = new FileReader();
+						fileEntry.file(function (file) {
+							var reader = new FileReader();
 
-						reader.onloadend = function (e) {
-							if (this.result.length > 0) {
-								//console.log("HERE", this.result);
-								buff = JSON.parse(this.result);
+							reader.onloadend = function (e) {
+								if (this.result.length > 0) {
+									buff = JSON.parse(this.result);
 
-								if (typeof buff.ttl != "undefined" && buff.ttl > Math.floor((new Date()).getTime() / 1000)) {
-									buff.expired = true
+									if (typeof buff.ttl != "undefined" && buff.ttl > Math.floor((new Date()).getTime() / 1000)) {
+										buff.expired = true
+									}
+
+									console.log("HERE", buff);
 								}
 
-								console.log("HERE", buff);
-							}
+								result(buff);
+							};
 
-							result(buff);
-						};
+							reader.readAsText(file);
+						}, errorHandler.bind(null, cacheKey));
 
-						reader.readAsText(file);
-					}, errorHandler.bind(null, cacheKey));
-
-				}, function() {
-					result(null);
-				})
-			}, errorHandler.bind(null, cacheKey));
+					}, function() {
+						result(null);
+					})
+				}, errorHandler.bind(null, cacheKey));
+			}
+			else {
+				result(null);
+			}
 		},
 	}
 }

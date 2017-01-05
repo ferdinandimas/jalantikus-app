@@ -36,17 +36,6 @@ define(
 				}
 
 				if (typeof _options != "undefined" && typeof _options.type != "undefined" && _options.type == "favorites") {
-					var _cachedArticle;
-
-					if (window.sessionStorage.getItem("cachedArticle") != null) {
-						_cachedArticle = window.sessionStorage.getItem("cachedArticle");
-						_cachedArticle = _cachedArticle.split(",");
-					}
-
-					if (_cachedArticle == null) {
-						_cachedArticle = [];
-					}
-
 					var _articles = [];
 
 					$.each(Object.keys(localStorage), function(key, val) {
@@ -64,14 +53,6 @@ define(
 						_buff[ key ] = val;
 
 						if (window.sessionStorage.getItem("article/" + val.slug) == null) {
-							_cachedArticle.push("article/" + val.slug);
-
-							if (_cachedArticle.length > 60) {
-								window.sessionStorage.removeItem(_cachedArticle.shift());
-							}
-
-							window.sessionStorage.setItem("cachedArticle", _cachedArticle);
-
 							that.articleModel = new Article({
 								slug: val.slug
 							});
@@ -129,37 +110,22 @@ define(
 									var _data = that.collection.toJSON();
 
 									$.each(_data, function (key, val) {
-										if (window.sessionStorage.getItem("article/" + val.slug) == null) {
-											_cachedArticle.push("article/" + val.slug);
+										jtCache.getItem(val.slug, function(_data) {
+											if (_data == null || _data.expired) {
+												that.articleModel = new Article({
+													slug: val.slug
+												});
 
-											if (_cachedArticle.length > 60) {
-												window.sessionStorage.removeItem(_cachedArticle.shift());
+												that.articleModel.fetch({
+													timeout: 5000,
+													success: function (_data) {
+														jtCache.setItem(val.slug, JSON.stringify(_data));
+													}
+												});
 											}
-
-											window.sessionStorage.setItem("cachedArticle", _cachedArticle);
-
-											that.articleModel = new Article({
-												slug: val.slug
-											});
-
-											that.articleModel.fetch({
-												timeout: 5000,
-												success: function (_data) {
-													window.sessionStorage.setItem("article/" + val.slug, JSON.stringify(_data));
-
-													jtCache.setItem(val.slug, JSON.stringify(_data));
-
-													jtCache.getItem(val.slug, function(_data) {
-														if (_data == null) {
-														}
-														else {
-															window.sessionStorage.setItem("article/" + val.slug, _data.value);
-														}
-													});
-												}
-											});
-										}
+										});
 									});
+
 									$("#app-body .app-content-container .card-placeholder").remove();
 									$("#app-body .app-content-container")
 											.append(that.timelineTemplate({
@@ -213,12 +179,11 @@ define(
 					if (typeof _options != "undefined" && typeof _options.type != "undefined") {
 						this.type = _options.type;
 
+						console.log("HERE", _options.type);
+
 						switch (_options.type) {
 							case "home1":
-								this.filter = "shuffle";
-								this.order  = "6hour";
-								this.limit  = 50;
-								this.cache  = 300;
+								this.order  = "published";
 								break;
 							case "home2":
 								/*
@@ -250,29 +215,27 @@ define(
 								$("#app-toolbar .header-description").html("Hasil Pencarian");
 								break;
 						}
-
-						this.collection = new Timeline({
-							order   : typeof this.order != "undefined" ? this.order : "",
-							category: typeof this.category != "undefined" ? this.category : "",
-							search  : typeof this.search != "undefined" ? this.search : "",
-							filter  : typeof this.filter != "undefined" ? this.filter : "",
-							limit   : typeof this.limit != "undefined" ? this.limit : "",
-							cache   : typeof this.cache != "undefined" ? this.cache : "",
-							page    : (window.sessionStorage.getItem(Backbone.history.getFragment() + "/page") != null ? window.sessionStorage.getItem(Backbone.history.getFragment() + "/page") : 1),
-						});
 					}
 					else {
+						console.log("HERE 2");
+
+						this.filter = "shuffle";
+						this.order  = "6hour";
+						this.limit  = 50;
+						this.cache  = 300;
+
 						$("#search-form [name='search']").val("");
 					}
 
-					if (this.type == "search") {
-						$("#app-body .app-content-container").empty().append(
-								'<div class="app-search">' +
-								'<span class="app-search-result">Hasil pencarian dari: </span>' +
-								'<span class="app-search-keyword">"' + this.search + '"</span>' +
-								'</div>'
-						);
-					}
+					this.collection = new Timeline({
+						order   : typeof this.order != "undefined" ? this.order : "",
+						category: typeof this.category != "undefined" ? this.category : "",
+						search  : typeof this.search != "undefined" ? this.search : "",
+						filter  : typeof this.filter != "undefined" ? this.filter : "",
+						limit   : typeof this.limit != "undefined" ? this.limit : "",
+						cache   : typeof this.cache != "undefined" ? this.cache : "",
+						page    : (window.sessionStorage.getItem(Backbone.history.getFragment() + "/page") != null ? window.sessionStorage.getItem(Backbone.history.getFragment() + "/page") : 1),
+					});
 
 					if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/page") != null) {
 						this.page = parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/page"));
@@ -366,14 +329,17 @@ define(
 							}, 5000);
 						}
 					}
-					if (typeof _options != "undefined" && typeof _options.type != "undefined") {
-						this.type = _options.type;
 
-						switch (_options.type) {
-							case "home1":
-								$(".app-loader").css("display", "none");
-								break;
-						}
+					if (typeof _options == "undefined") {
+						window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+					}
+					else if (this.type == "search") {
+						$("#app-body .app-content-container").empty().append(
+								'<div class="app-search">' +
+								'<span class="app-search-result">Hasil pencarian dari: </span>' +
+								'<span class="app-search-keyword">"' + this.search + '"</span>' +
+								'</div>'
+						);
 					}
 
 					$(".header-refresh").on("click", function () {
@@ -476,68 +442,17 @@ define(
 					window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 				}
 				else {
-					var _cachedArticle;
-
-					if (window.sessionStorage.getItem("cachedArticle") != null) {
-						_cachedArticle = window.sessionStorage.getItem("cachedArticle");
-						_cachedArticle = _cachedArticle.split(",");
-					}
-
-					if (_cachedArticle == null) {
-						_cachedArticle = [];
-					}
-
 					if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null && this.page > 1) {
 						_buff = JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()));
-
-						$.each(_data, function (key, val) {
-							_buff.push(val);
-
-							if (window.sessionStorage.getItem("article/" + val.slug) == null) {
-								_cachedArticle.push("article/" + val.slug);
-
-								if (_cachedArticle.length > 60) {
-									window.sessionStorage.removeItem(_cachedArticle.shift());
-								}
-
-								window.sessionStorage.setItem("cachedArticle", _cachedArticle);
-
-								that.articleModel = new Article({
-									slug: val.slug
-								});
-
-								that.articleModel.fetch({
-									timeout: 5000,
-									success: function (_data) {
-										window.sessionStorage.setItem("article/" + val.slug, JSON.stringify(_data));
-
-										jtCache.setItem(val.slug, JSON.stringify(_data));
-
-										jtCache.getItem(val.slug, function(_data) {
-											if (_data == null) {
-											}
-											else {
-												window.sessionStorage.setItem("article/" + val.slug, _data.value);
-											}
-										});
-									}
-								});
-							}
-						});
-
-						window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_buff));
 					}
-					else {
-						$.each(_data, function (key, val) {
-							if (window.sessionStorage.getItem("article/" + val.slug) == null) {
-								_cachedArticle.push("article/" + val.slug);
 
-								if (_cachedArticle.length > 60) {
-									window.sessionStorage.removeItem(_cachedArticle.shift());
-								}
+					$.each(_data, function (key, val) {
+						if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null && this.page > 1) {
+							_buff.push(val);
+						}
 
-								window.sessionStorage.setItem("cachedArticle", _cachedArticle);
-
+						jtCache.getItem(val.slug, function(_data) {
+							if (_data == null || _data.expired) {
 								that.articleModel = new Article({
 									slug: val.slug
 								});
@@ -545,23 +460,15 @@ define(
 								that.articleModel.fetch({
 									timeout: 5000,
 									success: function (_data) {
-										window.sessionStorage.setItem("article/" + val.slug, JSON.stringify(_data));
-
 										jtCache.setItem(val.slug, JSON.stringify(_data));
-
-										jtCache.getItem(val.slug, function(_data) {
-											if (_data == null) {
-											}
-											else {
-												window.sessionStorage.setItem("article/" + val.slug, _data.value);
-											}
-										});
 									}
 								});
 							}
 						});
+					});
 
-						window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
+					if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null && this.page > 1) {
+						window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_buff));
 					}
 				}
 
