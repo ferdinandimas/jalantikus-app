@@ -1801,8 +1801,8 @@ div, span, a
 	mask-size: 24px 24px;
 	-webkit-mask-position: center center;
 	mask-position: center center;
-	-webkit-transition: 0.3s;
-	transition: 0.3s;
+	-webkit-transition: 0s;
+	transition: 0s;
 	-webkit-transform: translate(0);
 	transform: translate(0);
 }
