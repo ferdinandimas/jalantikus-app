@@ -79,8 +79,8 @@ div, span, a
 	max-height: 50px;
 	width: 100%;
 	z-index: 12;
-	-webkit-transition: 0.2s linear;
-    transition: 0.2s linear;
+	-webkit-transition: 0s linear;
+    transition: 0s linear;
     box-shadow: 0 2px 2px rgba(0,0,0,0.10), 0 2px 2px rgba(0,0,0,0.10);
     overflow: visible;
 }
@@ -179,7 +179,7 @@ div, span, a
     bottom: 0;
     right: 0;
     content: "";
-    background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.6) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0) ,rgba(0,0,0,0.6) 60%, rgba(0,0,0,0.9) 100%);
     z-index: 9;
 }
 .app-index-card:nth-child(2) .card-description
@@ -201,7 +201,9 @@ div, span, a
 {
 	font-family: "Roboto Slab";
 	font-size: 18px;
+	line-height: 26px;
 	color: #fff;
+	text-shadow: 1px 1px 2px #242424;
 }
 .app-toolbar .app-logo 
 {
@@ -683,11 +685,12 @@ div, span, a
 .usermenu-lower .usermenu-item:not(.item-pass) .ripple{
 	width: 150px;
 	height: 150px;
+	background-color: rgba(0,0,0,0.1)
 }
 .fadedin .ripple
 {
-	-webkit-transition: opacity 300ms linear, -webkit-transform 300ms linear;
-    transition: opacity 300ms linear, transform 300ms linear;
+	-webkit-transition: opacity 200ms linear, -webkit-transform 20ms linear;
+    transition: opacity 200ms linear, transform 200ms linear;
 	-webkit-transform: scale(0.75);
 	transform: scale(0.75);
 	opacity: 0.7;
@@ -1596,15 +1599,30 @@ div, span, a
 {
 	text-align: left;
 	padding: 0;
-	padding-left: 60px;
+	padding-left: 70px;
+	line-height: 40px;
+}
+.usermenu-lower .container .usermenu-item.item-kategori
+{
+	-webkit-transition: 0.2s;
+	transition: 0.2s;
 }
 .usermenu-lower .container .usermenu-item.active .usermenu-item-detail
 {
 	color: #c92737; 
 }
+.usermenu-lower .container .usermenu-item.item-kategori.active .usermenu-item-detail
+{
+	color: #747474!important;
+}
+.usermenu-lower .container .usermenu-item.item-kategori.active
+{
+	background-color: #f3f3f3
+}
 .usermenu-lower .container .popup-kategori .usermenu-item
 {
 	width: 100%;
+	height: 40px;
 }
 .app-panel .userpanel-body .usermenu-item
 {
@@ -1632,12 +1650,32 @@ div, span, a
 	background-color: #eeeeee; 
 	color: #c92737;
 }
+.popup-userpanel-container
+{
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	height: 100vh;
+	width: 100vw;
+	background-color: transparent;
+	z-index: 15
+}
+.popup-userpanel-container .userpanel-close
+{
+	display: block;
+	height: 100%;
+	width: 100%;
+}
 .popup-userpanel
 {
 	position: fixed;
     width: 160px;
-    padding: 10px;
     top: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     right: 40px;
     background-color: #fff;
     border-radius: 4px;
@@ -1660,8 +1698,10 @@ div, span, a
 }
 .popup-userpanel .usermenu-item-detail
 {
-	padding-left: 30px;
-	line-height: 24px;
+	height: 36px;
+	padding-left: 45px;
+	line-height: 36px;
+	font-weight: 700;
 }
 .popup-userpanel.active
 {
@@ -1715,8 +1755,13 @@ div, span, a
 }
 .app-kategori-overlay .kategori-close
 {
+	position: absolute;
 	width: 100%;
 	height: 100%;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
 }
 .popup-kategori:after
 {
@@ -1797,42 +1842,33 @@ div, span, a
 	-webkit-mask-image: url(../images/share-icon.svg);
 	mask-image: url(../images/share-icon.svg);
 }
-.usermenu-item .usermenu-item-detail.tips:after
+.usermenu-item .usermenu-item-detail.tips:after, .usermenu-item .usermenu-item-detail.gokil:after, .usermenu-item .usermenu-item-detail.gadget:after, .usermenu-item .usermenu-item-detail.news:after
 {
 	top: 0;
 	left: 0;
-	height: 32px;
-	width: 60px;
+	height: 40px;
+	width: 70px;
+}
+.usermenu-item .usermenu-item-detail.tips:after
+{
 	background-color: #00a8ff;
 	-webkit-mask-image: url(../images/tips-icon.png);
 	mask-image: url(../images/tips-icon.png);
 }
 .usermenu-item .usermenu-item-detail.gokil:after
 {
-	top: 0;
-	left: 0;
-	height: 32px;
-	width: 60px;
 	background-color: #91ce29;
 	-webkit-mask-image: url(../images/gokil-icon.png);
 	mask-image: url(../images/gokil-icon.png);
 }
 .usermenu-item .usermenu-item-detail.gadget:after
 {
-	top: 0;
-	left: 0;
-	height: 32px;
-	width: 60px;
 	background-color: #fa1571;
 	-webkit-mask-image: url(../images/gadgets-icon.png);
 	mask-image: url(../images/gadgets-icon.png);
 }
 .usermenu-item .usermenu-item-detail.news:after
 {
-	top: 0;
-	left: 0;
-	height: 32px;
-	width: 60px;
 	background-color: #fa9300;
 	-webkit-mask-image: url(../images/news-icon.png);
 	mask-image: url(../images/news-icon.png);
@@ -1841,10 +1877,10 @@ div, span, a
 {
 	top: 0;
 	left: 0;
-	height: 24px;
-	width: 30px;
-	-webkit-mask-size: 16px 16px;
-	mask-size: 16px 16px;
+	height: 32px;
+	width: 45px;
+	-webkit-mask-size: 20px 20px;
+	mask-size: 20px 20px;
 	-webkit-mask-image: url(../images/rate-icon.svg);
 	mask-image: url(../images/rate-icon.svg);
 }
@@ -1857,10 +1893,10 @@ div, span, a
 {
 	top: 0;
 	left: 0;
-	width: 30px;
-	height: 24px;
-	-webkit-mask-size: 16px 16px;
-	mask-size: 16px 16px;
+	width: 45px;
+	height: 36px;
+	-webkit-mask-size: 20px 20px;
+	mask-size: 20px 20px;
 	-webkit-mask-image: url(../images/settings-icon.svg);
 	mask-image: url(../images/settings-icon.svg);
 }

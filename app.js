@@ -378,6 +378,10 @@ require(
 				$(".app-kategori-overlay").removeClass("active")
 				$(".app-kategori-overlay").fadeOut();
 			});
+			$(document).on("click", ".userpanel-close", function () {
+				$(".popup-userpanel").removeClass("active")
+				$(".popup-userpanel-container").fadeOut();
+			});
 
 			$(document).on("click", ".app-rating-submit .rating-link", function (e) {
 				setTimeout(function () {
@@ -394,6 +398,15 @@ require(
 				}
 			});
 
+			$(document).on("click", ".item-kategori", function (e) {
+				var _this = $(this);
+				if(!_this.hasClass("active"))
+				{
+					$(".item-kategori").removeClass("active");
+					_this.addClass("active");
+				}
+			})
+
 			$(document).on("click", ".usermenu-item", function (e) {
 				if (!jt.isOffline()) {
 					if (!$(this).hasClass("item-pass")) {
@@ -405,6 +418,7 @@ require(
 					}
 					if(!$(this).hasClass("app-kategori") && !$(this).hasClass("item-kategori") && $(".app-kategori-overlay").hasClass("active"))
 					{	
+						$(".item-kategori").removeClass("active");
 						$(".app-kategori-overlay").removeClass("active");
 						$(".app-kategori-overlay").fadeOut();
 					}
@@ -511,10 +525,14 @@ require(
 					var _this = $(this);
 					if(!$(".popup-userpanel").hasClass("active"))
 					{
-						$(".popup-userpanel").addClass("active")
+						$(".popup-userpanel-container").fadeIn(0 ,function()
+						{
+							$(".popup-userpanel").addClass("active")
+						})
 					}
 					else
 					{
+						$(".popup-userpanel-container").fadeOut();
 						$(".popup-userpanel").removeClass("active")
 					}
 					_this.addClass("active");
