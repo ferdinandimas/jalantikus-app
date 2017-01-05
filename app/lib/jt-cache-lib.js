@@ -69,6 +69,9 @@ var jtCache = function () {
 					}, errorHandler.bind(null, cacheKey));
 				}, errorHandler.bind(null, cacheKey));
 			}
+			else {
+				window.sessionStorage.setItem(cacheKey, cacheValue);
+			}
 		},
 		getItem: function (cacheKey, result, type) {
 			cacheKey += ".json";
@@ -89,7 +92,6 @@ var jtCache = function () {
 								if (this.result.length > 0) {
 									try {
 										buff       = JSON.parse(this.result);
-
 										buff.value = JSON.parse(decodeURI(buff.value));
 
 										if (typeof buff.ttl == "undefined" || (typeof buff.ttl != "undefined" && Math.floor((new Date()).getTime() / 1000) > buff.ttl)) {
@@ -115,7 +117,21 @@ var jtCache = function () {
 				}, errorHandler.bind(null, cacheKey));
 			}
 			else {
-				result(null);
+				buff = window.sessionStorage.getItem(cacheKey);
+
+				if (buff != null) {
+					buff       = JSON.parse(buff);
+					buff.value = JSON.parse(decodeURI(buff.value));
+
+					if (typeof buff.ttl == "undefined" || (typeof buff.ttl != "undefined" && Math.floor((new Date()).getTime() / 1000) > buff.ttl)) {
+						buff.expired = "true"
+					}
+
+					result(buff);
+				}
+				else {
+					result(null);
+				}
 			}
 		},
 		removeItem: function (cacheKey) {
@@ -134,13 +150,11 @@ var jtCache = function () {
 							jt.log("Remove success: " + cacheKey);
 						}, errorHandler.bind(null, cacheKey));
 
-					}, function() {
-						result(null);
-					})
+					}, errorHandler.bind(null, cacheKey))
 				}, errorHandler.bind(null, cacheKey));
 			}
 			else {
-				result(null);
+				window.sessionStorage.removeItem(cacheKey);
 			}
 		},
 	}

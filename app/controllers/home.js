@@ -326,6 +326,8 @@ define(
 
 					if (typeof _options == "undefined") {
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+
+						$(".app-toggle-refresh").hide();
 					}
 					else if (this.type == "search") {
 						$("#app-body .app-content-container").empty().append(
@@ -334,6 +336,9 @@ define(
 								'<span class="app-search-keyword">"' + this.search + '"</span>' +
 								'</div>'
 						);
+					}
+					else {
+						$(".app-toggle-refresh").show();
 					}
 
 					$(".header-refresh").on("click", function () {
