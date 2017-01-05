@@ -13,6 +13,7 @@ require.config({
 		fastclick             : './lib/fastclick-min',
 		prettify              : './lib/prettify',
 		jt                    : './lib/jt-lib',
+		jtCache               : './lib/jt-cache-lib',
 		oneSignal             : './lib/oneSignal-lib',
 		text                  : './lib/require/text',
 	},
@@ -20,25 +21,28 @@ require.config({
 		jt                    : {
 			exports: "jt",
 		},
+		jtCache               : {
+			exports: "jtCache",
+		},
 		underscore            : {
-			deps   : [ "jt" ],
+			deps   : [ "jt", "jtCache" ],
 			exports: "_",
 		},
 		jquery                : {
-			deps   : [ "jt" ],
+			deps   : [ "jt", "jtCache" ],
 			exports: "$",
 		},
-		"jquery.mobile-config": [ "jt", "jquery" ],
-		"jquery.mobile"       : [ "jt", "jquery", "jquery.mobile-config" ],
+		"jquery.mobile-config": [ "jt", "jtCache", "jquery" ],
+		"jquery.mobile"       : [ "jt", "jtCache", "jquery", "jquery.mobile-config" ],
 		isInViewport          : [ "jquery" ],
 		fastclick             : [ "jquery" ],
 		prettify              : [ "jquery" ],
 		backbone              : {
-			deps   : [ "jt", "underscore", "jquery" ],
+			deps   : [ "jt", "jtCache", "underscore", "jquery" ],
 			exports: "Backbone"
 		},
 		oneSignal             : {
-			deps   : [ "jt" ],
+			deps   : [ "jt", "jtCache" ],
 			exports: "oneSignal",
 		},
 	},
@@ -51,6 +55,45 @@ require(
 	[ "main", "backbone", "jquery", "jquery.mobile", "isInViewport", "oneSignal" ],
 	function (Router) {
 		$(function () {
+			document.addEventListener("deviceready", function () {
+				jt.log("Device Ready");
+
+				if (typeof window.StatusBar != "undefined") {
+					window.StatusBar.backgroundColorByHexString("#8F1F1F");
+				}
+
+				if (typeof navigator.splashscreen != "undefined") {
+					navigator.splashscreen.hide();
+				}
+
+				if (_config.environment != "dev") {
+					oneSignal.init();
+					oneSignal.isSubscribed();
+				}
+
+				document.addEventListener("backbutton", function (e) {
+					window.stop();
+
+					if (Backbone.history.getFragment() == "") {
+						if (typeof navigator.notification != "undefined") {
+							navigator.notification.confirm(
+									"Tutup JalanTikus?",
+									function (confirmation) {
+										if (confirmation == 1) {
+											navigator.app.exitApp();
+										}
+									},
+									"Keluar",
+									[ "Ya", "Tidak" ]
+							);
+						}
+					}
+					else {
+						navigator.app.backHistory()
+					}
+				});
+			});
+
 			$.mobile.loading().hide();
 
 			if (window.localStorage.getItem("show_splash") == null) {
@@ -90,22 +133,6 @@ require(
 						$(".splash .app-loader").removeClass("showbtn");
 
 						Backbone.history.loadUrl();
-
-						//if (!jt.isOffline()) {
-						//	Backbone.history.loadUrl();
-						//}
-						//else {
-						//	setTimeout(function () {
-						//		$(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
-						//		setTimeout(function () {
-						//			$(".splash .app-refreshed").fadeOut();
-						//		}, 2000);
-						//
-						//		$("#app-body .app-content-container").empty().append(
-						//				'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal
-						// memuat. Coba lagi?</a><div class="app-load"></div></div>' ); $(".header-refresh").hide();
-						// $(".app-load").css("display", "none"); $(".splash .app-loader").addClass("showbtn"); },
-						// 5000); }
 					});
 
 					if ($(".splash").length >= 1) {
@@ -128,22 +155,6 @@ require(
 						'<div class="app-refreshed"></div>'
 				);
 			}
-
-			//oneSignal.isSubscribed();
-
-			document.addEventListener("deviceready", function () {
-				console.log("READY");
-
-				if (typeof window.StatusBar != "undefined") {
-					window.StatusBar.backgroundColorByHexString("#8F1F1F");
-				}
-
-				if (typeof navigator.splashscreen != "undefined") {
-					navigator.splashscreen.hide();
-				}
-
-				//oneSignal.init();
-			}, false);
 
 			$("#search-form").on("submit", function (e) {
 				e.preventDefault();
@@ -387,9 +398,6 @@ require(
 				if (!jt.isOffline()) {
 					if (!$(this).hasClass("item-pass")) {
 						jt.ripple($(this), e, "slow", "s");
-						// setTimeout(function () {
-						// 	$('#app-userpanel').panel('close')
-						// }, 150);
 					}
 					else
 					{
@@ -417,7 +425,10 @@ require(
 										$("#notification").prop("checked", true);
 									}
 									else if (confirmation == 1) {
-										oneSignal.setSubscription(false);
+										if (typeof oneSignal == "object") {
+											oneSignal.setSubscription(false);
+										}
+
 										$("#app-userpanel").panel("close");
 										$(".app-refreshed").html("Notifikasi berhasil dimatikan").fadeIn();
 										setTimeout(function () {
@@ -430,15 +441,19 @@ require(
 						);
 					}
 					else {
-						oneSignal.setSubscription(true);
+						if (typeof oneSignal == "object") {
+							oneSignal.setSubscription(true);
+						}
 					}
 				}
 				else {
-					if (!$(this).is(":checked")) {
-						oneSignal.setSubscription(false);
-					}
-					else {
-						oneSignal.setSubscription(true);
+					if (typeof oneSignal == "object") {
+						if (!$(this).is(":checked")) {
+							oneSignal.setSubscription(false);
+						}
+						else {
+							oneSignal.setSubscription(true);
+						}
 					}
 				}
 			});
@@ -577,30 +592,6 @@ require(
 				e.preventDefault();
 			});
 
-			document.addEventListener("deviceready", function () {
-				document.addEventListener("backbutton", function (e) {
-					window.stop();
-
-					if (Backbone.history.getFragment() == "") {
-						if (typeof navigator.notification != "undefined") {
-							navigator.notification.confirm(
-									"Tutup JalanTikus?",
-									function (confirmation) {
-										if (confirmation == 1) {
-											navigator.app.exitApp();
-										}
-									},
-									"Keluar",
-									[ "Ya", "Tidak" ]
-							);
-						}
-					}
-					else {
-						navigator.app.backHistory()
-					}
-				});
-			});
-
 			var trivia    = [
 				["\"Sukses adalah guru yang buruk. Itu hanya membuat orang pintar menjadi berpikir bahwa mereka tidak akan pernah gagal.\"", "-- Bill Gates"],
 				["\"Hidup memang tidak adil, jadi biasakanlah.\"", "-- Bill Gates" ],
@@ -734,13 +725,6 @@ require(
 						$(".app-toolbar").addClass("online").removeClass("offline");
 
 						if (typeof window.StatusBar != "undefined") {
-							//if ($(".app-toolbar").hasClass("detail")) {
-							//    window.StatusBar.backgroundColorByHexString("#045f04");
-							//}
-							//else {
-							//    window.StatusBar.backgroundColorByHexString("#8f1f1f");
-							//}
-
 							window.StatusBar.backgroundColorByHexString("#8f1f1f");
 						}
 
@@ -755,28 +739,7 @@ require(
 			}, 250);
 
 			setInterval(function () {
-				if (Backbone.history.getFragment().trim() == "") {
-					// $(".app-toolbar-placeholder").show(0);
-					// if (!$(".app-toolbar-placeholder").is(":in-viewport")) {
-					// 	if ($(".app-toolbar").hasClass("on-top")) {
-					// 		$(".app-toolbar").removeClass("on-top");
-					// 	}
-					// }
-					// else {
-					// 	if (!$(".app-toolbar").hasClass("on-top") && $(".app-content-container")
-					// 					.scrollTop() <= 45) {
-					// 		$(".app-toolbar").addClass("on-top");
-					// 	}
-					// 	else if ($(".app-toolbar").hasClass("on-top") && $(".app-content-container")
-					// 					.scrollTop() > 45) {
-					// 		$(".app-toolbar").removeClass("on-top");
-					// 	}
-					// }
-				}
-				else
-				{
-					$(".app-toolbar").removeClass("on-top");
-				}
+				$(".app-toolbar").removeClass("on-top");
 			}, 50);
 
 			if ($(window).height() < 620) {

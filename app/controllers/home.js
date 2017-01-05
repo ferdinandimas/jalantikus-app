@@ -27,18 +27,6 @@ define(
 					.empty()
 					.append((_.template(headerLayout))());
 
-				//var statusBarChanged = 0;
-				//while (statusBarChanged != 1) {
-				//    if (typeof window.StatusBar != "undefined" && !$("#app-toolbar").hasClass("detail")) {
-				//        window.StatusBar.backgroundColorByHexString("#8f1f1f");
-				//
-				//        statusBarChanged = 1;
-				//    }
-				//    else if (!$("#app-toolbar").hasClass("detail")) {
-				//        statusBarChanged = 1;
-				//    }
-				//}
-
 				$("#app-body").empty().append(this.layout());
 
 				if ($("#app-body .app-refreshed").length == 0) {
@@ -84,14 +72,24 @@ define(
 
 							window.sessionStorage.setItem("cachedArticle", _cachedArticle);
 
-							this.articleModel = new Article({
+							that.articleModel = new Article({
 								slug: val.slug
 							});
 
-							this.articleModel.fetch({
+							that.articleModel.fetch({
 								timeout: 5000,
 								success: function (_data) {
 									window.sessionStorage.setItem("article/" + val.slug, JSON.stringify(_data));
+
+									jtCache.setItem(val.slug, JSON.stringify(_data));
+
+									jtCache.getItem(val.slug, function(_data) {
+										if (_data == null) {
+										}
+										else {
+											window.sessionStorage.setItem("article/" + val.slug, _data.value);
+										}
+									});
 								}
 							});
 						}
@@ -114,7 +112,7 @@ define(
 								'Maaf, belum ada artikel yang kamu sukai' +
 								'</div>' +
 								'<div class="recommended-articles">REKOMENDASI UNTUK KAMU</div>' +
-								'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>' + 
+								'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>' +
 					            '<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>'
 						);
 
@@ -148,6 +146,16 @@ define(
 												timeout: 5000,
 												success: function (_data) {
 													window.sessionStorage.setItem("article/" + val.slug, JSON.stringify(_data));
+
+													jtCache.setItem(val.slug, JSON.stringify(_data));
+
+													jtCache.getItem(val.slug, function(_data) {
+														if (_data == null) {
+														}
+														else {
+															window.sessionStorage.setItem("article/" + val.slug, _data.value);
+														}
+													});
 												}
 											});
 										}
@@ -247,15 +255,6 @@ define(
 								'</div>'
 						);
 					}
-
-					// $("a.usermenu-item").removeClass("active").each(function () {
-					// 	if ($(this).attr("href") == "#" + Backbone.history.getFragment()) {
-					// 		// $("#app-toolbar
-					// .header-description").html($(this).find(".usermenu-item-detail").html()); if
-					// ($(this).find(".usermenu-item-detail").html().trim() != "Beranda") { $(".app-header
-					// .header-description").html($(this).find(".usermenu-item-detail").html()); $(".app-logo").hide();
-					// } else { $(".app-logo").show(); $(".app-toolbar").addClass("on-top"); }
-					// $(this).addClass("active"); } });
 
 					if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/page") != null) {
 						this.page = parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/page"));
@@ -471,14 +470,24 @@ define(
 
 								window.sessionStorage.setItem("cachedArticle", _cachedArticle);
 
-								this.articleModel = new Article({
+								that.articleModel = new Article({
 									slug: val.slug
 								});
 
-								this.articleModel.fetch({
+								that.articleModel.fetch({
 									timeout: 5000,
 									success: function (_data) {
 										window.sessionStorage.setItem("article/" + val.slug, JSON.stringify(_data));
+
+										jtCache.setItem(val.slug, JSON.stringify(_data));
+
+										jtCache.getItem(val.slug, function(_data) {
+											if (_data == null) {
+											}
+											else {
+												window.sessionStorage.setItem("article/" + val.slug, _data.value);
+											}
+										});
 									}
 								});
 							}
@@ -497,14 +506,24 @@ define(
 
 								window.sessionStorage.setItem("cachedArticle", _cachedArticle);
 
-								this.articleModel = new Article({
+								that.articleModel = new Article({
 									slug: val.slug
 								});
 
-								this.articleModel.fetch({
+								that.articleModel.fetch({
 									timeout: 5000,
 									success: function (_data) {
 										window.sessionStorage.setItem("article/" + val.slug, JSON.stringify(_data));
+
+										jtCache.setItem(val.slug, JSON.stringify(_data));
+
+										jtCache.getItem(val.slug, function(_data) {
+											if (_data == null) {
+											}
+											else {
+												window.sessionStorage.setItem("article/" + val.slug, _data.value);
+											}
+										});
 									}
 								});
 							}

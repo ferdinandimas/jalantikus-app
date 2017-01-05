@@ -55,8 +55,6 @@ define(
                     }
 
                     if (_n++ >= result.response.length) {
-                        console.log("LAST", value.slug);
-
                         window.sessionStorage.setItem(Backbone.history.getFragment() + "/lastArticle", value.slug);
                     }
                 });
