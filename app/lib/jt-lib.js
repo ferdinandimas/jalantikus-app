@@ -33,9 +33,13 @@ var jt = function () {
 						_speed[ 0 ] = 400;
 						_speed[ 1 ] = 100;
 						break;
+                    case "instant":
+                        _speed[ 0 ] = 0;
+                        _speed[ 1 ] = 0;
+                        break;
 					default:
-						_speed[ 0 ] = 0;
-						_speed[ 1 ] = 0;
+						_speed[ 0 ] = 200;
+						_speed[ 1 ] = 100;
 						break;
 				}
 			}

@@ -415,7 +415,7 @@ require(
 			$(document).on("click", ".usermenu-item", function (e) {
 				if (!jt.isOffline()) {
 					if (!$(this).hasClass("item-pass")) {
-						jt.ripple($(this), e, "", "s");
+						jt.ripple($(this), e, "instant", "s");
 					}
 					else
 					{
