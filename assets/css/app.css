@@ -152,12 +152,12 @@ div, span, a
     padding: 15px;
     border-bottom: 1px solid #f0f0f0;
 }
-.app-content-container .app-index-card:nth-child(2):not(.card-placeholder)
+.app-toolbar:not(.disukai) ~ .app-content-container .app-index-card:nth-child(2):not(.card-placeholder)
 {
 	height: 165px;
 	padding: 0;
 }
-.app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-image, .app-index-card:nth-child(2) .card-image img
+.app-toolbar:not(.disukai) ~ .app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-image, .app-index-card:nth-child(2) .card-image img
 {
 	position: absolute;
 	width: 100%;
@@ -168,7 +168,7 @@ div, span, a
 	bottom: 0;
 	z-index: 7;
 }
-.app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-image:after
+.app-toolbar:not(.disukai) ~ .app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-image:after
 {
 	display: block;
     position: absolute;
@@ -182,7 +182,7 @@ div, span, a
     background: linear-gradient(to bottom, rgba(0,0,0,0) ,rgba(0,0,0,0.6) 60%, rgba(0,0,0,0.9) 100%);
     z-index: 9;
 }
-.app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-description
+.app-toolbar:not(.disukai) ~ .app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-description
 {
 	position: absolute;
 	bottom: 20px;
@@ -190,14 +190,14 @@ div, span, a
 	right: 15px;
 	padding: 0;
 }
-.app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-description .card-note
+.app-toolbar:not(.disukai) ~ .app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-description .card-note
 {
 	position: relative;
 	bottom: 10px;
 	left: 0;
 	max-width: 100%;
 }
-.app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-description .card-title
+.app-toolbar:not(.disukai) ~ .app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-description .card-title
 {
 	font-family: "Roboto Slab";
 	font-size: 18px;
@@ -1603,9 +1603,7 @@ div, span, a
 .usermenu-lower .container .popup-kategori .usermenu-item .usermenu-item-detail
 {
 	text-align: left;
-	padding: 0;
 	padding-left: 70px;
-	line-height: 40px;
 }
 .usermenu-lower .container .usermenu-item.item-kategori
 {
@@ -1704,9 +1702,12 @@ div, span, a
 .popup-userpanel .usermenu-item-detail
 {
 	height: 36px;
-	padding-left: 45px;
-	line-height: 36px;
-	font-weight: 700;
+    padding-left: 45px;
+    line-height: 14px;
+    font-weight: 700;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    box-sizing: border-box;
 }
 .popup-userpanel.active
 {
@@ -1746,12 +1747,15 @@ div, span, a
 {
 	border-top: 1px solid #f3f3f3;
 }
-.popup-kategori .usermenu-item-detail
+.usermenu-lower .container .popup-kategori .usermenu-item-detail
 {
 	padding-left: 30px;
+	padding-top: 13px;
+	padding-bottom: 13px;
 	font-size: 13px;
-	font-weight: 500;
-	line-height: 34px;
+	line-height: 14px;
+	font-weight: 700;
+	box-sizing: border-box;
 }
 .app-kategori-overlay.active .popup-kategori
 {

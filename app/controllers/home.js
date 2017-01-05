@@ -25,6 +25,7 @@ define(
 					.removeClass("detail")
 					.removeClass("search")
 					.removeClass("scroll")
+					.removeClass("disukai")
 					.empty()
 					.append((_.template(headerLayout))());
 
@@ -46,6 +47,8 @@ define(
 							}
 						}
 					});
+					$("#app-toolbar")
+					.addClass("disukai");
 
 					_buff = _articles;
 
@@ -71,6 +74,7 @@ define(
 
 					if (_buff.length > 0) {
 						$("#app-body .app-content-container").empty()
+								.append('<div class="app-toolbar-placeholder"></div>')
 								.append(this.timelineTemplate({
 									timelineArticle: _buff
 								}));

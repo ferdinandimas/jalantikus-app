@@ -34,8 +34,8 @@ var jt = function () {
 						_speed[ 1 ] = 100;
 						break;
 					default:
-						_speed[ 0 ] = 200;
-						_speed[ 1 ] = 100;
+						_speed[ 0 ] = 0;
+						_speed[ 1 ] = 0;
 						break;
 				}
 			}
