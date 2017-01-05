@@ -52,29 +52,21 @@ define(
 					$.each(_buff, function (key, val) {
 						val = JSON.parse(val);
 						_buff[ key ] = val;
+						
+						jtCache.getItem("article." + val.slug, function(_data) {
+							if (_data == null || _data.expired == "true") {
+								that.articleModel = new Article({
+									slug: val.slug
+								});
 
-						if (window.sessionStorage.getItem("article/" + val.slug) == null) {
-							that.articleModel = new Article({
-								slug: val.slug
-							});
-
-							that.articleModel.fetch({
-								timeout: 5000,
-								success: function (_data) {
-									window.sessionStorage.setItem("article/" + val.slug, JSON.stringify(_data));
-
-									jtCache.setItem(val.slug, JSON.stringify(_data));
-
-									jtCache.getItem(val.slug, function(_data) {
-										if (_data == null) {
-										}
-										else {
-											window.sessionStorage.setItem("article/" + val.slug, _data.value);
-										}
-									});
-								}
-							});
-						}
+								that.articleModel.fetch({
+									timeout: 5000,
+									success: function (_data) {
+										jtCache.setItem("article." + val.slug, JSON.stringify(_data));
+									}
+								});
+							}
+						});
 					});
 
 					if (_buff.length > 0) {
@@ -111,8 +103,8 @@ define(
 									var _data = that.collection.toJSON();
 
 									$.each(_data, function (key, val) {
-										jtCache.getItem(val.slug, function(_data) {
-											if (_data == null || _data.expired) {
+										jtCache.getItem("article." + val.slug, function(_data) {
+											if (_data == null || _data.expired == "true") {
 												that.articleModel = new Article({
 													slug: val.slug
 												});
@@ -120,7 +112,7 @@ define(
 												that.articleModel.fetch({
 													timeout: 5000,
 													success: function (_data) {
-														jtCache.setItem(val.slug, JSON.stringify(_data));
+														jtCache.setItem("article." + val.slug, JSON.stringify(_data));
 													}
 												});
 											}
@@ -180,8 +172,6 @@ define(
 					if (typeof _options != "undefined" && typeof _options.type != "undefined") {
 						this.type = _options.type;
 
-						console.log("HERE", _options.type);
-
 						switch (_options.type) {
 							case "home1":
 								this.order  = "published";
@@ -219,8 +209,6 @@ define(
 						}
 					}
 					else {
-						console.log("HERE 2");
-
 						this.filter = "shuffle";
 						this.order  = "6hour";
 						this.limit  = 50;
@@ -434,7 +422,7 @@ define(
 				var that  = this;
 				var _data = this.collection.toJSON();
 
-				if (_isUsingCache && window.sessionStorage.getItem(Backbone.history.getFragment()) != null && window.sessionStorage.getItem(Backbone.history.getFragment()).length > 0) {
+				if (_isUsingCache && window.sessionStorage.getItem(Backbone.history.getFragment()) != null && (JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()))).length > 0) {
 					_data = JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()));
 				}
 				else if (_data.length == 0) {
@@ -449,12 +437,13 @@ define(
 					}
 
 					$.each(_data, function (key, val) {
-						if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null && this.page > 1) {
+						if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null && that.page > 1) {
+							console.log("HERE SESSION", _buff);
 							_buff.push(val);
 						}
 
-						jtCache.getItem(val.slug, function(_data) {
-							if (_data == null || _data.expired) {
+						jtCache.getItem("article." + val.slug, function(_data) {
+							if (_data == null || _data.expired == "true") {
 								that.articleModel = new Article({
 									slug: val.slug
 								});
@@ -462,7 +451,7 @@ define(
 								that.articleModel.fetch({
 									timeout: 5000,
 									success: function (_data) {
-										jtCache.setItem(val.slug, JSON.stringify(_data));
+										jtCache.setItem("article." + val.slug, JSON.stringify(_data));
 									}
 								});
 							}
@@ -471,6 +460,9 @@ define(
 
 					if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null && this.page > 1) {
 						window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_buff));
+					}
+					else{
+						window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
 					}
 				}
 

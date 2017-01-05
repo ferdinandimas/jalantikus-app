@@ -595,17 +595,28 @@ require(
 
 			$(document).on("click", ".app-addtofavorite", function (e) {
 				if (!$(this).hasClass("active")) {
-					window.localStorage.setItem("favorite/" + Backbone.history.getFragment(),
-							window.sessionStorage.getItem(Backbone.history.getFragment()));
+					var that = this;
 
-					$(this).addClass("active");
-					$(".app-refreshed").html("Anda menyukai artikel ini").fadeIn();
-					setTimeout(function () {
-						$(".app-refreshed").fadeOut();
-					}, 2000);
+					jtCache.getItem(Backbone.history.getFragment(), function(_data) {
+						if (_data != null) {
+							jtCache.setItem("favorite/" + Backbone.history.getFragment(), JSON.stringify(_data), window.PERSISTENT);
+
+							$(that).addClass("active");
+							$(".app-refreshed").html("Anda menyukai artikel ini").fadeIn();
+							setTimeout(function () {
+								$(".app-refreshed").fadeOut();
+							}, 2000);
+						}
+						else {
+							$(".app-refreshed").html("Artikel tidak berhasil disukai").fadeIn();
+							setTimeout(function () {
+								$(".app-refreshed").fadeOut();
+							}, 2000);
+						}
+					});
 				}
 				else {
-					window.localStorage.removeItem("favorite/" + Backbone.history.getFragment());
+					jtCache.removeItem("favorite/" + Backbone.history.getFragment());
 
 					$(this).removeClass("active");
 				}
