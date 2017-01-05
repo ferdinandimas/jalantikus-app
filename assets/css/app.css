@@ -1604,6 +1604,7 @@ div, span, a
 {
 	text-align: left;
 	padding-left: 70px;
+	vertical-align: text-bottom;
 }
 .usermenu-lower .container .usermenu-item.item-kategori
 {
@@ -1702,11 +1703,12 @@ div, span, a
 .popup-userpanel .usermenu-item-detail
 {
 	height: 36px;
-    padding-left: 45px;
+    padding-left: 50px;
     line-height: 14px;
     font-weight: 700;
     padding-top: 11px;
     padding-bottom: 11px;
+    vertical-align: text-bottom;
     box-sizing: border-box;
 }
 .popup-userpanel.active
@@ -3012,7 +3014,6 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	top: 0;
 	left: 0;
 	position: fixed;
-    background: rgba(0,0,0,0.46);
 }
 .app-rating .app-rating-body, .app-settings .app-settings-body
 {

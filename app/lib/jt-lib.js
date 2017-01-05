@@ -15,6 +15,7 @@ var jt = function () {
 			var _href     = t.attr("href");
 			var _ripple   = $(_currItem.children()[ 0 ]);
 			var rX        = e.offsetX - 225, rY = e.offsetY - 225;
+            var ist = false;
 			if (typeof sz != "undefined") {
 				switch (sz) {
 					case "s":
@@ -34,33 +35,39 @@ var jt = function () {
 						_speed[ 1 ] = 100;
 						break;
                     case "instant":
-                        _speed[ 0 ] = 0;
-                        _speed[ 1 ] = 0;
-                        break;
+                        ist = true;
 					default:
 						_speed[ 0 ] = 200;
 						_speed[ 1 ] = 100;
 						break;
 				}
 			}
-			if (!_currItem.hasClass("fadedin") && !_currItem.hasClass("fadedout")) {
-				_ripple.css('top', rY);
-				_ripple.css('left', rX);
-				_currItem.addClass("fadedin");
-				var fdCurr = setTimeout(function () {
-					_currItem.addClass("fadedout");
-					clearTimeout(fdCurr);
-					var fdFd = setTimeout(function () {
-						_currItem.removeClass("fadedin");
-						_currItem.removeClass("fadedout");
-						clearTimeout(fdFd);
-						$(_currItem).data("complete", true);
-						window.stop();
-						window.location.href = _config.baseURL + _href;
+            if(!ist)
+    		{
+             	if (!_currItem.hasClass("fadedin") && !_currItem.hasClass("fadedout")) {
+    				_ripple.css('top', rY);
+    				_ripple.css('left', rX);
+    				_currItem.addClass("fadedin");
+    				var fdCurr = setTimeout(function () {
+    					_currItem.addClass("fadedout");
+    					clearTimeout(fdCurr);
+    					var fdFd = setTimeout(function () {
+    						_currItem.removeClass("fadedin");
+    						_currItem.removeClass("fadedout");
+    						clearTimeout(fdFd);
+    						$(_currItem).data("complete", true);
+    						window.stop();
+    						window.location.href = _config.baseURL + _href;
 
-					}, _speed[ 1 ])
-				}, _speed[ 0 ])
-			}
+    					}, _speed[ 1 ])
+    				}, _speed[ 0 ])
+    			}
+            }
+            else
+            {
+                window.stop();
+                window.location.href = _config.baseURL + _href;
+            }
 		},
 		isOffline : function () {
 			return 'onLine' in navigator && !navigator.onLine;
