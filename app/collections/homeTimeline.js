@@ -11,11 +11,12 @@ define(
                 this.order    = (typeof options != "undefined" && typeof options.order != "undefined" && options.order != "" ? options.order : "published");
                 this.search   = (typeof options != "undefined" && typeof options.search != "undefined" && options.search != "" ? options.search : "");
                 this.limit    = (typeof options != "undefined" && typeof options.limit != "undefined" && options.limit != "" ? options.limit : 6);
+                this.filter   = (typeof options != "undefined" && typeof options.filter != "undefined" && options.filter != "" ? options.filter : "");
             },
             model     : Timeline,
-            urlRoot   : _config.jtAPI + (_config.environment == "dev" ? "live/" : "") + "getArticles/detail/id,title,slug,image,user,published,description_images",
+            urlRoot   : _config.jtAPI + (_config.environment == "dev" ? "live/" : "") + "getArticles/detail/id,title,slug,image,user,published,description_images,views_last_6hour",
             url       : function () {
-                return this.urlRoot + "/limit/" + this.limit + "/page/" + this.page + "/order/" + this.order + (this.category != "" ? "/category/" + this.category : "") + (this.search != "" ? "/search/" + this.search : "") + _config.urlPostfix;
+                return this.urlRoot + "/limit/" + this.limit + "/page/" + this.page + "/order/" + this.order + (this.category != "" ? "/category/" + this.category : "") + (this.search != "" ? "/search/" + this.search : "") + (this.filter != "" ? "/filter/" + this.filter : "") + _config.urlPostfix;
             },
             parse     : function (result) {
                 var reservedSlot = false;

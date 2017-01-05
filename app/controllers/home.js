@@ -213,26 +213,41 @@ define(
 					if (typeof _options != "undefined" && typeof _options.type != "undefined") {
 						this.type = _options.type;
 
-						if (_options.type == "home1") {
-							this.order = "3day";
-						}
-						else if (_options.type == "home2") {
-							this.category = "tips";
-						}
-						else if (_options.type == "home3") {
-							this.category = "gokil";
-						}
-						else if (_options.type == "search") {
-							this.search = _options.search;
+						switch (_options.type) {
+							case "home1":
+								this.filter = "shuffle";
+								this.order  = "6hour";
+								this.limit  = 50;
+								break;
+							case "home2":
+								/*
+									populer
+								 */
+								break;
+							case "home3":
+								this.category = "tips";
+								break;
+							case "home4":
+								this.category = "gokil";
+								break;
+							case "home5":
+								this.category = "gadgets";
+								break;
+							case "home6":
+								this.category = "news";
+								break;
+							case "search":
+								this.search = _options.search;
 
-							$("#app-toolbar")
-									.removeClass("detail")
-									.removeClass("scroll")
-									.empty()
-									.append((_.template(headerDetailLayout))());
+								$("#app-toolbar")
+										.removeClass("detail")
+										.removeClass("scroll")
+										.empty()
+										.append((_.template(headerDetailLayout))());
 
-							$("#search-form [name='search']").val(_options.search);
-							$("#app-toolbar .header-description").html("Hasil Pencarian");
+								$("#search-form [name='search']").val(_options.search);
+								$("#app-toolbar .header-description").html("Hasil Pencarian");
+								break;
 						}
 
 						this.collection = new Timeline({
