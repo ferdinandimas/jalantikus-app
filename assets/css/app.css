@@ -2564,8 +2564,8 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	content: "";
 	top: 5px;
 	right: 15px;
-	-webkit-mask-image: url(../images/like-icon.png);
-	mask-image: url(../images/like-icon.png);
+	-webkit-mask-image: url(../images/user-favorited-icon.svg);
+	mask-image: url(../images/user-favorited-icon.svg);
 	-webkit-mask-position: center center;
 	mask-position: center center;
 	-webkit-mask-repeat: no-repeat;
@@ -2584,26 +2584,23 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	content: "";
 	top: 5px;
 	right: 15px;
-	background-image: url(../images/like-icon.png);
-	background-position: center center;
-	background-repeat: no-repeat;
+	background-color: #c92737;
+	-webkit-mask-image: url(../images/user-favorite-icon.svg);
+	mask-image: url(../images/user-favorite-icon.svg);
+	-webkit-mask-position: center center;
+	mask-position: center center;
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
 	transform-origin: center;
 	-webkit-transition: 0.2s;
 	transition: 0.2s;
-	background-size: 18px;
-  	filter: drop-shadow(1px 1px 0 #cb2f3e) 
-          drop-shadow(1px -1px 0 #cb2f3e)
-          drop-shadow(-1px -1px 0 #cb2f3e)
-          drop-shadow(-1px 1px 0 #cb2f3e);
-    -webkit-filter: drop-shadow(1px 1px 0 #cb2f3e) 
-          drop-shadow(1px -1px 0 #cb2f3e)
-          drop-shadow(-1px -1px 0 #cb2f3e)
-          drop-shadow(-1px 1px 0 #cb2f3e);
+	-webkit-mask-size: 20px;
+	mask-size: 20px;
 }
 .app-addtofavorite .app-goto:after
 {
-	-webkit-mask-size: 20px;
-	mask-size: 20px;
+	-webkit-mask-size: 21px;
+	mask-size: 21px;
 	background-color: #c92737;
 }
 .app-addtofavorite.active .app-goto:after
