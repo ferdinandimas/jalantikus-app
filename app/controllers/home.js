@@ -23,6 +23,7 @@ define(
 
 				$("#app-toolbar")
 					.removeClass("detail")
+					.removeClass("search")
 					.removeClass("scroll")
 					.empty()
 					.append((_.template(headerLayout))());
@@ -208,6 +209,7 @@ define(
 								$("#app-toolbar")
 										.removeClass("detail")
 										.removeClass("scroll")
+										.addClass("search")
 										.empty()
 										.append((_.template(headerDetailLayout))());
 
