@@ -203,6 +203,7 @@ define(
 								$("#app-toolbar")
 										.removeClass("detail")
 										.removeClass("scroll")
+										.removeClass("disukai")	
 										.addClass("search")
 										.empty()
 										.append((_.template(headerDetailLayout))());
