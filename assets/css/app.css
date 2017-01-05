@@ -1704,11 +1704,8 @@ div, span, a
 {
 	height: 36px;
     padding-left: 50px;
-    line-height: 13px;
+    line-height: 36px!important;
     font-weight: 700;
-    padding-top: 12px;
-    padding-bottom: 11px;
-    vertical-align: text-bottom;
     box-sizing: border-box;
 }
 .popup-userpanel.active
@@ -1752,10 +1749,10 @@ div, span, a
 .usermenu-lower .container .popup-kategori .usermenu-item-detail
 {
 	padding-left: 30px;
-	padding-top: 14px;
-	padding-bottom: 13px;
-	font-size: 13px;
-	line-height: 13px;
+	padding-top: 0;
+	padding-bottom: 0;
+	font-size: 15px;
+	line-height: 36px!important;
 	font-weight: 700;
 	box-sizing: border-box;
 }
@@ -1889,7 +1886,7 @@ div, span, a
 	top: 0;
 	left: 0;
 	height: 32px;
-	width: 45px;
+	width: 50px;
 	-webkit-mask-size: 20px 20px;
 	mask-size: 20px 20px;
 	-webkit-mask-image: url(../images/rate-icon.svg);
@@ -1904,7 +1901,7 @@ div, span, a
 {
 	top: 0;
 	left: 0;
-	width: 45px;
+	width: 50px;
 	height: 36px;
 	-webkit-mask-size: 20px 20px;
 	mask-size: 20px 20px;
