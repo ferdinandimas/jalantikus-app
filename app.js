@@ -204,7 +204,7 @@ require(
 						!_currUI.hasClass("app-setting") && 
 						!_currUI.hasClass("app-share") && 
 						!_currUI.hasClass("item-pass")) {
-						$('.usermenu-item').not(_currUI).removeClass("active");
+						$('.usermenu-item').not(_currUI).not(".item-kategori").removeClass("active");
 						_currUI.addClass("active");
 
 						// $(".app-header .header-description").html($(this).find(".usermenu-item-detail").html());
@@ -405,6 +405,11 @@ require(
 					$(".item-kategori").removeClass("active");
 					_this.addClass("active");
 				}
+				setTimeout(function(){
+					$(".app-kategori-overlay").removeClass("active");
+					$(".app-kategori-overlay").fadeOut();
+				}, 200)
+
 			})
 
 			$(document).on("click", ".usermenu-item", function (e) {
