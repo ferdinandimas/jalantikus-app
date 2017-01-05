@@ -218,6 +218,7 @@ define(
 								this.filter = "shuffle";
 								this.order  = "6hour";
 								this.limit  = 50;
+								this.cache  = 300;
 								break;
 							case "home2":
 								/*
@@ -254,8 +255,10 @@ define(
 							order   : typeof this.order != "undefined" ? this.order : "",
 							category: typeof this.category != "undefined" ? this.category : "",
 							search  : typeof this.search != "undefined" ? this.search : "",
-							page    : (window.sessionStorage.getItem(Backbone.history.getFragment() + "/page") != null ? window.sessionStorage.getItem(
-									Backbone.history.getFragment() + "/page") : 1),
+							filter  : typeof this.filter != "undefined" ? this.filter : "",
+							limit   : typeof this.limit != "undefined" ? this.limit : "",
+							cache   : typeof this.cache != "undefined" ? this.cache : "",
+							page    : (window.sessionStorage.getItem(Backbone.history.getFragment() + "/page") != null ? window.sessionStorage.getItem(Backbone.history.getFragment() + "/page") : 1),
 						});
 					}
 					else {
@@ -361,6 +364,15 @@ define(
 							setTimeout(function () {
 								offlineHandler();
 							}, 5000);
+						}
+					}
+					if (typeof _options != "undefined" && typeof _options.type != "undefined") {
+						this.type = _options.type;
+
+						switch (_options.type) {
+							case "home1":
+								$(".app-loader").css("display", "none");
+								break;
 						}
 					}
 
