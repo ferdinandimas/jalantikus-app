@@ -689,7 +689,7 @@ div, span, a
 }
 .fadedin .ripple
 {
-	-webkit-transition: opacity 200ms linear, -webkit-transform 20ms linear;
+	-webkit-transition: opacity 200ms linear, -webkit-transform 200ms linear;
     transition: opacity 200ms linear, transform 200ms linear;
 	-webkit-transform: scale(0.75);
 	transform: scale(0.75);
