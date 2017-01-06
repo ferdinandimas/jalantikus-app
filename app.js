@@ -788,11 +788,6 @@ require(
 
 			if ($(window).height() < 620) {
 				$(".userpanel-body").innerHeight($(window).height() - 120);
-				if($(".splash-content").length > 0)
-				{
-					$(".splash-content").addClass("landscape");
-				}
-				alert($(window).height() + " window is landscape")
 			}
 			var supportsOrientationChange = "onorientationchange" in window,
 			    orientationEvent          = supportsOrientationChange ? "orientationchange" : "resize";
@@ -810,23 +805,6 @@ require(
 						else {
 							$(".userpanel-body").innerHeight($(window).height() - 120);
 							orientationChanged = false;
-							if ($(window).height() < 620) {
-								$(".userpanel-body").innerHeight($(window).height() - 120);
-								if($(".splash-content").length > 0)
-								{
-									$(".splash-content").addClass("landscape");
-								}
-								alert($(window).height() + " window is landscape")
-							}
-							else
-							{
-								if($(".splash-content").length > 0)
-								{
-									$(".splash-content").removeClass("landscape");
-								}
-								alert($(window).height() + " window is portrait")
-
-							}
 							clearInterval(intEvt);
 						}
 					}, 200)

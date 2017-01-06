@@ -3192,17 +3192,17 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
    	transition: 0.3s;
    	border: 2px solid #FFF;
 }
-.splash-content.landscape
-{
-	margin: auto;
-	zoom: 0.8;
-}
-@media(max-device-height: 620px){
+@media(max-device-height: 600px) and (orientation: landscape){
 	.ui-panel-inner .jalantikus-copyright
 	{
 		position: relative;
 		bottom: 0;
 		margin-bottom: 20px;
+	}
+	.splash-content.landscape
+	{
+		margin: auto;
+		zoom: 0.8;
 	}
 }
 @media(min-width: 360px){
