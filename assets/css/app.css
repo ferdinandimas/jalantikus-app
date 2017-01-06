@@ -1599,12 +1599,6 @@ div, span, a
 	width: 320px;
 	height: 100%;
 	margin: auto;
-	-webkit-transform-origin: bottom ;
-    transform-origin: bottom ;
-    -webkit-transition:  0.2s;
-    transition: 0.2s;
-    -webkit-transform: scaleY(0);
-	transform: scaleY(0);
 }
 .usermenu-lower .container .popup-kategori .usermenu-item .usermenu-item-detail
 {
@@ -1725,12 +1719,18 @@ div, span, a
     width: 210px;
     padding-top: 12px;
     padding-bottom: 12px;
-    bottom: 20px;
+    bottom: 70px;
     right: 40px;
     background-color: #fff;
     border-radius: 6px;
     z-index: 9;
     box-sizing: border-box;
+	-webkit-transform-origin: 165px 180px ;
+    transform-origin: 165px 180px;
+    -webkit-transition:  0.2s;
+    transition: 0.2s;
+    -webkit-transform: scale(0);
+	transform: scale(0);
 }
 .popup-kategori .usermenu-item
 {
@@ -1760,10 +1760,10 @@ div, span, a
 {
 	display: block;
 }
-.app-kategori-overlay.active .popup-kategori-container
+.app-kategori-overlay.active .popup-kategori
 {
-	-webkit-transform: scaleY(1);
-	transform: scaleY(1);
+	-webkit-transform: scale(1);
+	transform: scale(1);
 }
 .app-kategori-overlay .kategori-close
 {
@@ -2793,7 +2793,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 {
 	opacity: 0;
 	text-align: center;
-	font-size: 20px !important;
+	font-size: 14px !important;
 	line-height: 24px;
 	height: 72px;
 	padding: 20px 20px 10px 20px;
@@ -3024,7 +3024,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 {
 	display: none;
 	width: 100vw;
-	height: calc(100vh - 50px);
+	height: 100vh;
 	top: 0;
 	left: 0;
 	position: fixed;
