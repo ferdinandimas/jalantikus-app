@@ -3193,7 +3193,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
    	transition: 0.3s;
    	border: 2px solid #FFF;
 }
-@media(max-height: 620px){
+@media(max-device-height: 620px){
 	.ui-panel-inner .jalantikus-copyright
 	{
 		position: relative;
