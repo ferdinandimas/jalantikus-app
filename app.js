@@ -556,7 +556,7 @@ require(
 					var _this = $(this);
 					if(!$(".app-kategori-overlay").hasClass("active"))
 					{
-						$(".app-kategori-overlay").fadeIn( 0, function(){
+						$(".app-kategori-overlay").show( 0, function(){
 							$(".app-kategori-overlay").addClass("active")
 						})
 						_this.addClass("active");

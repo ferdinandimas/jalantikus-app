@@ -1599,6 +1599,12 @@ div, span, a
 	width: 320px;
 	height: 100%;
 	margin: auto;
+	-webkit-transform-origin: bottom ;
+    transform-origin: bottom ;
+    -webkit-transition:  0.2s;
+    transition: 0.2s;
+    -webkit-transform: scaleY(0);
+	transform: scaleY(0);
 }
 .usermenu-lower .container .popup-kategori .usermenu-item .usermenu-item-detail
 {
@@ -1723,14 +1729,8 @@ div, span, a
     right: 40px;
     background-color: #fff;
     border-radius: 6px;
-    -webkit-transform-origin: 165px 180px;
-    transform-origin: 165px 180px;
-    -webkit-transform: scale(0);
-	transform: scale(0);
     z-index: 9;
     box-sizing: border-box;
-    -webkit-transition:  0.2s;
-    transition: 0.2s;
 }
 .popup-kategori .usermenu-item
 {
@@ -1756,10 +1756,14 @@ div, span, a
 	font-weight: 700;
 	box-sizing: border-box;
 }
-.app-kategori-overlay.active .popup-kategori
+.app-kategori-overlay.active
 {
-	-webkit-transform: scale(1);
-	transform: scale(1);
+	display: block;
+}
+.app-kategori-overlay.active .popup-kategori-container
+{
+	-webkit-transform: scaleY(1);
+	transform: scaleY(1);
 }
 .app-kategori-overlay .kategori-close
 {
@@ -1771,7 +1775,7 @@ div, span, a
 	bottom: 0;
 	right: 0;
 }
-.popup-kategori:after
+.popup-kategori:before
 {
 	position: absolute;
     display: block;
@@ -1784,7 +1788,20 @@ div, span, a
     border-left: 20px solid transparent;
     content: "";
     box-sizing: border-box;
-    filter: drop-shadow(2px 3px 1px rgba(0,0,0,0.3));
+    -webkit-filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.3));
+    filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.3))
+}
+.popup-kategori:after
+{
+    position: absolute;
+    display: block;
+    bottom: 0px;
+    right: 35px;
+    height: 10px;
+    width: 40px;
+    background-color: #fff;
+    content: "";
+    box-sizing: border-box;
 }
 .usermenu-item .usermenu-item-detail:after
 {
@@ -2776,7 +2793,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 {
 	opacity: 0;
 	text-align: center;
-	font-size: 14px;
+	font-size: 14px !important;
 	line-height: 24px;
 	height: 72px;
 	padding: 20px 20px 10px 20px;
