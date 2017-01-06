@@ -61,6 +61,10 @@ require(
 	[ "main", "backbone", "jquery", "jquery.mobile", "isInViewport", "oneSignal" ],
 	function (Router) {
 		$(function () {
+			if(typeof MobileAccessibility != "undefined")
+			{
+				MobileAccessibility.usePreferredTextZoom(false);
+			}	
 			document.addEventListener("deviceready", function () {
 				jt.log("Device Ready");
 

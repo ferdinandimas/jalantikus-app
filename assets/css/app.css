@@ -1725,8 +1725,8 @@ div, span, a
     border-radius: 6px;
     z-index: 9;
     box-sizing: border-box;
-	-webkit-transform-origin: 165px 180px ;
-    transform-origin: 165px 180px;
+	-webkit-transform-origin: 155px 210px ;
+    transform-origin: 155px 210px;
     -webkit-transition:  0.2s;
     transition: 0.2s;
     -webkit-transform: scale(0);
