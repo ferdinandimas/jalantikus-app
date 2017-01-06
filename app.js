@@ -788,6 +788,10 @@ require(
 
 			if ($(window).height() < 620) {
 				$(".userpanel-body").innerHeight($(window).height() - 120);
+				if($(".splash-content").length > 0)
+				{
+					$(".splash-content").addClass("landscape");
+				}
 			}
 			var supportsOrientationChange = "onorientationchange" in window,
 			    orientationEvent          = supportsOrientationChange ? "orientationchange" : "resize";
@@ -805,6 +809,20 @@ require(
 						else {
 							$(".userpanel-body").innerHeight($(window).height() - 120);
 							orientationChanged = false;
+							if ($(window).height() < 620) {
+								$(".userpanel-body").innerHeight($(window).height() - 120);
+								if($(".splash-content").length > 0)
+								{
+									$(".splash-content").addClass("landscape");
+								}
+							}
+							else
+							{
+								if($(".splash-content").length > 0)
+								{
+									$(".splash-content").removeClass("landscape");
+								}
+							}
 							clearInterval(intEvt);
 						}
 					}, 200)
