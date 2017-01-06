@@ -792,6 +792,7 @@ require(
 				{
 					$(".splash-content").addClass("landscape");
 				}
+				alert($(window).height + "window is landscape")
 			}
 			var supportsOrientationChange = "onorientationchange" in window,
 			    orientationEvent          = supportsOrientationChange ? "orientationchange" : "resize";
@@ -815,6 +816,7 @@ require(
 								{
 									$(".splash-content").addClass("landscape");
 								}
+								alert($(window).height + "window is landscape")
 							}
 							else
 							{
@@ -822,6 +824,7 @@ require(
 								{
 									$(".splash-content").removeClass("landscape");
 								}
+								alert($(window).height + "window is portrait")
 							}
 							clearInterval(intEvt);
 						}
