@@ -157,6 +157,49 @@ var jtCache = function () {
 				window.sessionStorage.removeItem(cacheKey);
 			}
 		},
+		listItem: function (result, find, type) {
+			function toArray(list) {
+				return Array.prototype.slice.call(list || [], 0);
+			}
+
+			type = (typeof type == "undefined" ? window.TEMPORARY : type);
+
+			var size = 1 * 1024 * 1024;
+
+			window.requestFileSystem(type, size, function (fs) {
+				var dirReader = fs.root.createReader();
+				var entries   = [];
+
+				var readEntries = function (callback) {
+					dirReader.readEntries (function (results) {
+						if (!results.length) {
+							result = [];
+
+							$.each(entries.sort(), function (key, val) {
+								if (typeof find == "undefined" || (typeof find != "undefined" && typeof val.name != "undefined" && (val.name.toLowerCase()).search(find.toLowerCase()) >= 0)) {
+									this.getItem(val.name, function() {
+
+									}, window.PERSISTENT);
+									result.push(val.name);
+								}
+							});
+
+							callback(result);
+						}
+						else {
+							entries = entries.concat(toArray(results));
+							readEntries(function (_data) {
+								callback(_data);
+							});
+						}
+					}, errorHandler.bind());
+				};
+
+				readEntries(function (_data) {
+					result(_data);
+				});
+			}, errorHandler.bind());
+		},
 	}
 }
 var jtCache = jtCache();

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0"
-        xmlns:android="http://schemas.android.com/apk/res/android" id="com.jalantikus.app"
+        xmlns:android="http://schemas.android.com/apk/res/android" id="app.jalantikus.com"
         versionCode="6" version="2.0.0">
     <name>JalanTikus</name>
     <description>
@@ -72,6 +72,7 @@
     </gap:config-file>
 
     <gap:plugin name="onesignal-cordova-plugin" spec="^2.0.6" source="npm" />
+    <gap:plugin name="phonegap-plugin-mobile-accessibility" spec="~1.0.5" source="npm"/>
 
     <!--<plugin name="cordova-plugin-camera" spec="~2.1.1" source="npm"/>-->
     <!--<plugin name="cordova-plugin-device" spec="~1.1.1" source="npm"/>-->

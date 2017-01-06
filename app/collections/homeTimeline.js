@@ -12,12 +12,13 @@ define(
                 this.search   = (typeof options != "undefined" && typeof options.search != "undefined" && options.search != "" ? options.search : "");
                 this.limit    = (typeof options != "undefined" && typeof options.limit != "undefined" && options.limit != "" ? options.limit : 6);
                 this.filter   = (typeof options != "undefined" && typeof options.filter != "undefined" && options.filter != "" ? options.filter : "");
-                this.cache   = (typeof options != "undefined" && typeof options.cache != "undefined" && options.cache != "" ? options.cache : "");
+                this.cache    = (typeof options != "undefined" && typeof options.cache != "undefined" && options.cache != "" ? options.cache : "");
+                this.where    = (typeof options != "undefined" && typeof options.where != "undefined" && options.where != "" ? options.where : "");
             },
             model     : Timeline,
-            urlRoot   : _config.jtAPI + (_config.environment == "dev" ? "live/" : "") + "getArticles/detail/id,title,slug,image,user,published,description_images,views_last_6hour",
+            urlRoot   : _config.jtAPI + (_config.environment == "dev" ? "live/" : "") + "getArticles/detail/id,title,slug,image,user,published,description_images,views_last_6hour,views_last_24hour",
             url       : function () {
-                return this.urlRoot + "/limit/" + this.limit + "/page/" + this.page + "/order/" + this.order + (this.category != "" ? "/category/" + this.category : "") + (this.search != "" ? "/search/" + this.search : "") + (this.filter != "" ? "/filter/" + this.filter : "") + (this.cache != "" ? "/cache/" + this.cache : "") + _config.urlPostfix;
+                return this.urlRoot + "/limit/" + this.limit + "/page/" + this.page + "/order/" + this.order + (this.category != "" ? "/category/" + this.category : "") + (this.search != "" ? "/search/" + this.search : "") + (this.filter != "" ? "/filter/" + this.filter : "") + (this.cache != "" ? "/cache/" + this.cache : "") + (this.where != "" ? "/where/" + this.where : "") + _config.urlPostfix;
             },
             parse     : function (result) {
                 var reservedSlot = false;

@@ -7,12 +7,14 @@ define(
 		"text!views/home_layout.html",
 		"text!views/header_layout.html",
 		"text!views/template/timeline.html",
+		"text!views/template/timeline-beranda.html",
 		"text!views/header_detail_layout.html",
 		"models/article",
 	],
-	function (_, Backbone, $, Timeline, homeLayout, headerLayout, timelineTemplate, headerDetailLayout, Article) {
+	function (_, Backbone, $, Timeline, homeLayout, headerLayout, timelineTemplate, berandaTemplate, headerDetailLayout, Article) {
 		var homeView = Backbone.View.extend({
 			timelineTemplate: _.template(timelineTemplate),
+			berandaTemplate : _.template(berandaTemplate),
 			layout          : _.template(homeLayout),
 			collection      : new Timeline(),
 			articleModel    : new Article(),
@@ -37,136 +39,142 @@ define(
 				}
 
 				if (typeof _options != "undefined" && typeof _options.type != "undefined" && _options.type == "favorites") {
-					var _articles = [];
+					//var _articles = [];
 
-					$.each(Object.keys(localStorage), function(key, val) {
-						if (val.indexOf("favorite/") != -1) {
-							if (window.localStorage.getItem(val) != null) {
-								_articles.push(window.localStorage.getItem(val));
+					//$.each(Object.keys(localStorage), function(key, val) {
+					//	if (val.indexOf("favorite/") != -1) {
+					//		if (window.localStorage.getItem(val) != null) {
+					//			_articles.push(window.localStorage.getItem(val));
+					//		}
+					//	}
+					//});
+
+					jtCache.listItem(function(_articles) {
+						_buff = _articles;
+
+						if (_buff.length > 0) {
+							function getArticle(callback) {
+
+							}
+
+							$.each(_buff, function (key, val) {
+								val = JSON.parse(val);
+								_buff[ key ] = val;
+
+								jtCache.getItem("article." + val.slug, function(_data) {
+									if (_data == null || _data.expired == "true") {
+										that.articleModel = new Article({
+											slug: val.slug
+										});
+
+										that.articleModel.fetch({
+											timeout: 5000,
+											success: function (_data) {
+												jtCache.setItem("article." + val.slug, JSON.stringify(_data));
+											}
+										});
+									}
+								});
+							});
+
+							$("#app-body .app-content-container").empty()
+									.append(this.timelineTemplate({
+										timelineArticle: _buff
+									}));
+
+							if (Backbone.history.getFragment().trim() != "") {
+								$(".app-toolbar").removeClass("on-top");
+								$(".app-content-container .app-index-card:first-child").css("margin-top", "0px");
 							}
 						}
-					});
+						else {
+							$("#app-body .app-content-container").empty().append(
+									'<div class="favorite-empty">' +
+									'Maaf, belum ada artikel yang kamu sukai' +
+									'</div>' +
+									'<div class="recommended-articles">REKOMENDASI UNTUK KAMU</div>' +
+									'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>' +
+									'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>'
+							);
 
-					_buff = _articles;
+							this.collection = new Timeline({
+								order   : "24hour",
+								limit   : 10,
+							});
 
-					$.each(_buff, function (key, val) {
-						val = JSON.parse(val);
-						_buff[ key ] = val;
-						
-						jtCache.getItem("article." + val.slug, function(_data) {
-							if (_data == null || _data.expired == "true") {
-								that.articleModel = new Article({
-									slug: val.slug
-								});
-
-								that.articleModel.fetch({
+							if (!jt.isOffline()) {
+								var that = this;
+								this.collection.fetch({
 									timeout: 5000,
-									success: function (_data) {
-										jtCache.setItem("article." + val.slug, JSON.stringify(_data));
+									success: function () {
+										var _data = that.collection.toJSON();
+
+										$.each(_data, function (key, val) {
+											jtCache.getItem("article." + val.slug, function(_data) {
+												if (_data == null || _data.expired == "true") {
+													that.articleModel = new Article({
+														slug: val.slug
+													});
+
+													that.articleModel.fetch({
+														timeout: 5000,
+														success: function (_data) {
+															jtCache.setItem("article." + val.slug, JSON.stringify(_data));
+														}
+													});
+												}
+											});
+										});
+
+										$("#app-body .app-content-container .card-placeholder").remove();
+										$("#app-body .app-content-container")
+												.append(that.timelineTemplate({
+													timelineArticle: _data
+												}));
+									},
+									error  : function () {
+										$(".recommended-articles").fadeOut();
 									}
 								});
 							}
-						});
-					});
-
-					if (_buff.length > 0) {
-						$("#app-body .app-content-container").empty()
-								.append(this.timelineTemplate({
-									timelineArticle: _buff
-								}));
-
-						if (Backbone.history.getFragment().trim() != "") {
-							$(".app-toolbar").removeClass("on-top");
-							$(".app-content-container .app-index-card:first-child").css("margin-top", "0px");
+							else {
+								$(".recommended-articles").fadeOut();
+							}
 						}
-					}
-					else {
-						$("#app-body .app-content-container").empty().append(
-								'<div class="favorite-empty">' +
-								'Maaf, belum ada artikel yang kamu sukai' +
-								'</div>' +
-								'<div class="recommended-articles">REKOMENDASI UNTUK KAMU</div>' +
-								'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>' +
-					            '<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>'
-						);
 
-						this.collection = new Timeline({
-							order   : "24hour",
-							limit   : 10,
-						});
+						if (window.localStorage.getItem("show_splash") === "true") {
+							$(".no-splash").hide();
 
-						if (!jt.isOffline()) {
-							var that = this;
-							this.collection.fetch({
-								timeout: 5000,
-								success: function () {
-									var _data = that.collection.toJSON();
-
-									$.each(_data, function (key, val) {
-										jtCache.getItem("article." + val.slug, function(_data) {
-											if (_data == null || _data.expired == "true") {
-												that.articleModel = new Article({
-													slug: val.slug
-												});
-
-												that.articleModel.fetch({
-													timeout: 5000,
-													success: function (_data) {
-														jtCache.setItem("article." + val.slug, JSON.stringify(_data));
-													}
-												});
-											}
-										});
-									});
-
-									$("#app-body .app-content-container .card-placeholder").remove();
-									$("#app-body .app-content-container")
-											.append(that.timelineTemplate({
-												timelineArticle: _data
-											}));
-								},
-								error  : function () {
-									$(".recommended-articles").fadeOut();
-								}
-							});
+							if ($(".splash").length >= 1) {
+								setTimeout(function () {
+									$(".splash").fadeOut("fast", function () {
+										$(this).remove();
+									})
+								}, 2000);
+							}
 						}
 						else {
-							$(".recommended-articles").fadeOut();
+							$(".splash").fadeOut(350, function() {
+								$(this).remove();
+							});
+							$(".no-splash").fadeOut(350, function() {
+								$(this).remove();
+							});
 						}
-					}
 
-					if (window.localStorage.getItem("show_splash") === "true") {
-						$(".no-splash").hide();
-
-						if ($(".splash").length >= 1) {
-							setTimeout(function () {
-								$(".splash").fadeOut("fast", function () {
-									$(this).remove();
-								})
-							}, 2000);
+						if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
+							$(".app-content-container")
+									.scrollTop(parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop")));
 						}
-					}
-					else {
-						$(".splash").fadeOut(350, function() {
-							$(this).remove();
+
+						$(".app-toggle-refresh").remove();
+
+						$("#app-body .app-content-container").scroll(function () {
+							window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
+									$(".app-content-container").scrollTop());
 						});
-						$(".no-splash").fadeOut(350, function() {
-							$(this).remove();
-						});
-					}
-
-					if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
-						$(".app-content-container")
-								.scrollTop(parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop")));
-					}
-
-					$(".app-toggle-refresh").remove();
-
-					$("#app-body .app-content-container").scroll(function () {
-						window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
-								$(".app-content-container").scrollTop());
-					});
-					$(".app-toolbar").removeClass("on-top");
+						$(".app-toolbar").removeClass("on-top");
+					}, 'favorite.article.', window.PERSISTENT);
 				}
 				else {
 					if (typeof _options != "undefined" && typeof _options.type != "undefined") {
@@ -174,12 +182,12 @@ define(
 
 						switch (_options.type) {
 							case "home1":
-								this.order  = "published";
+								this.order = "published";
 								break;
 							case "home2":
-								/*
-									populer
-								 */
+								this.order = "24hour";
+								this.where = "published>=" + date('Y-m-d H:i:s', time() - 86400) + "&&published<=" + date('Y-m-d H:i:s', time());
+									console.log("THERE", this.where);
 								break;
 							case "home3":
 								this.category = "tips";
@@ -211,7 +219,7 @@ define(
 					else {
 						this.filter = "shuffle";
 						this.order  = "6hour";
-						this.limit  = 50;
+						//this.limit  = 50;
 						this.cache  = 300;
 
 						$("#search-form [name='search']").val("");
@@ -224,6 +232,7 @@ define(
 						filter  : typeof this.filter != "undefined" ? this.filter : "",
 						limit   : typeof this.limit != "undefined" ? this.limit : "",
 						cache   : typeof this.cache != "undefined" ? this.cache : "",
+						where   : typeof this.where != "undefined" ? this.where : "",
 						page    : (window.sessionStorage.getItem(Backbone.history.getFragment() + "/page") != null ? window.sessionStorage.getItem(Backbone.history.getFragment() + "/page") : 1),
 					});
 
@@ -321,7 +330,7 @@ define(
 					}
 
 					if (typeof _options == "undefined") {
-						window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+						//window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 
 						$(".app-toggle-refresh").hide();
 					}
@@ -443,7 +452,6 @@ define(
 
 					$.each(_data, function (key, val) {
 						if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null && that.page > 1) {
-							console.log("HERE SESSION", _buff);
 							_buff.push(val);
 						}
 
@@ -571,6 +579,10 @@ define(
 						order   : typeof this.order != "undefined" ? this.order : "",
 						category: typeof this.category != "undefined" ? this.category : "",
 						search  : typeof this.search != "undefined" ? this.search : "",
+						filter  : typeof this.filter != "undefined" ? this.filter : "",
+						limit   : typeof this.limit != "undefined" ? this.limit : "",
+						cache   : typeof this.cache != "undefined" ? this.cache : "",
+						where   : typeof this.where != "undefined" ? this.where : "",
 						page    : this.page + 1,
 					});
 
