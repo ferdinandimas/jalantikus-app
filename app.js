@@ -386,7 +386,7 @@ require(
 			});
 			$(document).on("click", ".kategori-close", function () {
 				$(".app-kategori-overlay").removeClass("active")
-				$(".app-kategori-overlay").hide();
+				$(".app-kategori-overlay").fadeOut(200);
 			});
 			$(document).on("click", ".userpanel-close", function () {
 				$(".popup-userpanel").removeClass("active")
@@ -417,7 +417,7 @@ require(
 				}
 				setTimeout(function(){
 					$(".app-kategori-overlay").removeClass("active");
-					$(".app-kategori-overlay").hide();
+					$(".app-kategori-overlay").fadeOut(200);
 				}, 200)
 
 			})
@@ -435,7 +435,7 @@ require(
 					{	
 						$(".item-kategori").removeClass("active");
 						$(".app-kategori-overlay").removeClass("active");
-						$(".app-kategori-overlay").hide();
+						$(".app-kategori-overlay").fadeOut(200);
 					}
 				}
 				else {
@@ -574,7 +574,7 @@ require(
 					else
 					{
 						$(".app-kategori-overlay").removeClass("active");
-						$(".app-kategori-overlay").hide();
+						$(".app-kategori-overlay").fadeOut(200);
 					}
 				}
 				else {
