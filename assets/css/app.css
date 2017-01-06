@@ -152,12 +152,12 @@ div, span, a
     padding: 15px;
     border-bottom: 1px solid #f0f0f0;
 }
-.app-content-container .app-index-card:nth-child(2):not(.card-placeholder)
+.app-toolbar:not(.disukai) ~ .app-body .app-content-container .app-index-card:nth-child(2):not(.card-placeholder)
 {
 	height: 165px;
 	padding: 0;
 }
-.app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-image, .app-index-card:nth-child(2) .card-image img
+.app-toolbar:not(.disukai) ~ .app-body .app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-image, .app-index-card:nth-child(2) .card-image img
 {
 	position: absolute;
 	width: 100%;
@@ -168,7 +168,7 @@ div, span, a
 	bottom: 0;
 	z-index: 7;
 }
-.app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-image:after
+.app-toolbar:not(.disukai) ~ .app-body .app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-image:after
 {
 	display: block;
     position: absolute;
@@ -182,7 +182,7 @@ div, span, a
     background: linear-gradient(to bottom, rgba(0,0,0,0) ,rgba(0,0,0,0.6) 60%, rgba(0,0,0,0.9) 100%);
     z-index: 9;
 }
-.app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-description
+.app-toolbar:not(.disukai) ~ .app-body .app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-description
 {
 	position: absolute;
 	bottom: 20px;
@@ -190,14 +190,14 @@ div, span, a
 	right: 15px;
 	padding: 0;
 }
-.app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-description .card-note
+.app-toolbar:not(.disukai) ~ .app-body .app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-description .card-note
 {
 	position: relative;
 	bottom: 10px;
 	left: 0;
 	max-width: 100%;
 }
-.app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-description .card-title
+.app-toolbar:not(.disukai) ~ .app-body .app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-description .card-title
 {
 	font-family: "Roboto Slab";
 	font-size: 18px;
@@ -1599,13 +1599,18 @@ div, span, a
 	width: 320px;
 	height: 100%;
 	margin: auto;
+	-webkit-transform-origin: bottom ;
+    transform-origin: bottom ;
+    -webkit-transition:  0.2s;
+    transition: 0.2s;
+    -webkit-transform: scaleY(0);
+	transform: scaleY(0);
 }
 .usermenu-lower .container .popup-kategori .usermenu-item .usermenu-item-detail
 {
 	text-align: left;
-	padding: 0;
 	padding-left: 70px;
-	line-height: 40px;
+	vertical-align: text-bottom;
 }
 .usermenu-lower .container .usermenu-item.item-kategori
 {
@@ -1704,9 +1709,10 @@ div, span, a
 .popup-userpanel .usermenu-item-detail
 {
 	height: 36px;
-	padding-left: 45px;
-	line-height: 36px;
-	font-weight: 700;
+    padding-left: 50px;
+    line-height: 38px;
+    font-weight: 700;
+    box-sizing: border-box;
 }
 .popup-userpanel.active
 {
@@ -1723,14 +1729,8 @@ div, span, a
     right: 40px;
     background-color: #fff;
     border-radius: 6px;
-    -webkit-transform-origin: 165px 180px;
-    transform-origin: 165px 180px;
-    -webkit-transform: scale(0);
-	transform: scale(0);
     z-index: 9;
     box-sizing: border-box;
-    -webkit-transition:  0.2s;
-    transition: 0.2s;
 }
 .popup-kategori .usermenu-item
 {
@@ -1746,17 +1746,24 @@ div, span, a
 {
 	border-top: 1px solid #f3f3f3;
 }
-.popup-kategori .usermenu-item-detail
+.usermenu-lower .container .popup-kategori .usermenu-item-detail
 {
 	padding-left: 30px;
-	font-size: 13px;
-	font-weight: 500;
-	line-height: 34px;
+	padding-top: 0;
+	padding-bottom: 0;
+	font-size: 15px;
+	line-height: 42px;
+	font-weight: 700;
+	box-sizing: border-box;
 }
-.app-kategori-overlay.active .popup-kategori
+.app-kategori-overlay.active
 {
-	-webkit-transform: scale(1);
-	transform: scale(1);
+	display: block;
+}
+.app-kategori-overlay.active .popup-kategori-container
+{
+	-webkit-transform: scaleY(1);
+	transform: scaleY(1);
 }
 .app-kategori-overlay .kategori-close
 {
@@ -1768,7 +1775,7 @@ div, span, a
 	bottom: 0;
 	right: 0;
 }
-.popup-kategori:after
+.popup-kategori:before
 {
 	position: absolute;
     display: block;
@@ -1781,7 +1788,20 @@ div, span, a
     border-left: 20px solid transparent;
     content: "";
     box-sizing: border-box;
-    filter: drop-shadow(2px 3px 1px rgba(0,0,0,0.3));
+    -webkit-filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.3));
+    filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.3))
+}
+.popup-kategori:after
+{
+    position: absolute;
+    display: block;
+    bottom: 0px;
+    right: 35px;
+    height: 10px;
+    width: 40px;
+    background-color: #fff;
+    content: "";
+    box-sizing: border-box;
 }
 .usermenu-item .usermenu-item-detail:after
 {
@@ -1798,8 +1818,8 @@ div, span, a
 	mask-size: 24px 24px;
 	-webkit-mask-position: center center;
 	mask-position: center center;
-	-webkit-transition: 0.3s;
-	transition: 0.3s;
+	-webkit-transition: 0s;
+	transition: 0s;
 	-webkit-transform: translate(0);
 	transform: translate(0);
 }
@@ -1883,7 +1903,7 @@ div, span, a
 	top: 0;
 	left: 0;
 	height: 32px;
-	width: 45px;
+	width: 50px;
 	-webkit-mask-size: 20px 20px;
 	mask-size: 20px 20px;
 	-webkit-mask-image: url(../images/rate-icon.svg);
@@ -1898,7 +1918,7 @@ div, span, a
 {
 	top: 0;
 	left: 0;
-	width: 45px;
+	width: 50px;
 	height: 36px;
 	-webkit-mask-size: 20px 20px;
 	mask-size: 20px 20px;
@@ -2773,7 +2793,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 {
 	opacity: 0;
 	text-align: center;
-	font-size: 14px;
+	font-size: 20px !important;
 	line-height: 24px;
 	height: 72px;
 	padding: 20px 20px 10px 20px;
@@ -3008,7 +3028,6 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	top: 0;
 	left: 0;
 	position: fixed;
-    background: rgba(0,0,0,0.46);
 }
 .app-rating .app-rating-body, .app-settings .app-settings-body
 {

@@ -27,6 +27,7 @@ define(
 					.removeClass("detail")
 					.removeClass("search")
 					.removeClass("scroll")
+					.removeClass("disukai")
 					.empty()
 					.append((_.template(headerLayout))());
 
@@ -78,6 +79,7 @@ define(
 							});
 
 							$("#app-body .app-content-container").empty()
+									.append('<div class="app-toolbar-placeholder"></div>')
 									.append(this.timelineTemplate({
 										timelineArticle: _buff
 									}));
@@ -207,6 +209,7 @@ define(
 								$("#app-toolbar")
 										.removeClass("detail")
 										.removeClass("scroll")
+										.removeClass("disukai")
 										.addClass("search")
 										.empty()
 										.append((_.template(headerDetailLayout))());
@@ -331,8 +334,7 @@ define(
 
 					if (typeof _options == "undefined") {
 						//window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
-
-						$(".app-toggle-refresh").hide();
+						//$(".app-toggle-refresh").hide();
 					}
 					else if (this.type == "search") {
 						$("#app-body .app-content-container").empty().append(

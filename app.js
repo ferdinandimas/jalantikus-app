@@ -421,7 +421,7 @@ require(
 			$(document).on("click", ".usermenu-item", function (e) {
 				if (!jt.isOffline()) {
 					if (!$(this).hasClass("item-pass")) {
-						jt.ripple($(this), e, "", "s");
+						jt.ripple($(this), e, "instant", "s");
 					}
 					else
 					{
@@ -562,7 +562,7 @@ require(
 					var _this = $(this);
 					if(!$(".app-kategori-overlay").hasClass("active"))
 					{
-						$(".app-kategori-overlay").fadeIn( 200, function(){
+						$(".app-kategori-overlay").show( 0, function(){
 							$(".app-kategori-overlay").addClass("active")
 						})
 						_this.addClass("active");
