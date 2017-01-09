@@ -41,6 +41,8 @@ define(
 
 				if (typeof _options != "undefined" && typeof _options.type != "undefined" && _options.type == "favorites") {
 					var those = this;
+					
+					$("#app-toolbar").addClass("disukai");
 
 					jtCache.getItem("favorite.list", function(_data) {
 						_data = _data.value;
