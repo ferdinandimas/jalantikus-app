@@ -43,15 +43,16 @@ define(
 				}
 
 				if (typeof _options != "undefined" && typeof _options.type != "undefined" && _options.type == "favorites") {
-					var those = this;
+					var those = that = this;
 					
 					$("#app-toolbar").addClass("disukai");
 
 					jtCache.getItem("favorite.list", function(_data) {
-						_data = _data.value;
+						_data = (_data != null && typeof _data.value != "undefined" ? _data.value : "[]");
 						_buff = JSON.parse(_data);
 
 						if (_buff.length > 0) {
+							console.log("HERE 1", _buff);
 							key = 0;
 							Promise.all(_buff.map(function (val) {
 								_buff[ key ] = val;
@@ -98,20 +99,21 @@ define(
 									'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>'
 							);
 
-							this.collection = new Timeline({
+							that.collection = new Timeline({
 								order   : "24hour",
 								limit   : 10,
 							});
 
 							if (!jt.isOffline()) {
-								var that = this;
-
-								this.collection.fetch({
+								that.collection.fetch({
 									timeout: 5000,
 									success: function () {
 										var _data = that.collection.toJSON();
+										console.log("RECOMENDATION", _data);
 
 										$.each(_data, function (key, val) {
+											_data[ key ].type = "favorite";
+
 											jtCache.getItem("article." + val.slug, function(_data) {
 												if (_data == null || _data.expired == "true") {
 													that.articleModel = new Article({
