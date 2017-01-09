@@ -169,16 +169,15 @@ define(
 								});
 							}
 
-							if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
+							if (window.localStorage.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
 								$(".app-content-container")
-										.scrollTop(parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop")));
+										.scrollTop(parseInt(window.localStorage.getItem(Backbone.history.getFragment() + "/scrollTop")));
 							}
 
 							$(".app-toggle-refresh").remove();
 
 							$("#app-body .app-content-container").scroll(function () {
-								window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
-										$(".app-content-container").scrollTop());
+								window.localStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-content-container").scrollTop());
 							});
 							$(".app-toolbar").removeClass("on-top");
 						}
@@ -232,8 +231,8 @@ define(
 
 						$("#search-form [name='search']").val("");
 
-						if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/page") >= 8) {
-							window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+						if (window.localStorage.getItem(Backbone.history.getFragment() + "/page") >= 8) {
+							window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 							$(".app-toggle-refresh").hide();
 						}
 					}
@@ -246,22 +245,22 @@ define(
 						limit   : typeof this.limit != "undefined" ? this.limit : "",
 						cache   : typeof this.cache != "undefined" ? this.cache : "",
 						where   : typeof this.where != "undefined" ? this.where : "",
-						page    : (window.sessionStorage.getItem(Backbone.history.getFragment() + "/page") != null ? window.sessionStorage.getItem(Backbone.history.getFragment() + "/page") : 1),
+						page    : (window.localStorage.getItem(Backbone.history.getFragment() + "/page") != null ? window.localStorage.getItem(Backbone.history.getFragment() + "/page") : 1),
 					});
 
-					if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/page") != null) {
-						this.page = parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/page"));
+					if (window.localStorage.getItem(Backbone.history.getFragment() + "/page") != null) {
+						this.page = parseInt(window.localStorage.getItem(Backbone.history.getFragment() + "/page"));
 					}
 					else {
 						this.page = 1;
 
-						window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", this.page);
-						window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
+						window.localStorage.setItem(Backbone.history.getFragment() + "/page", this.page);
+						window.localStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
 								$(".app-content-container").scrollTop());
 					}
 
-					if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null) {
-						window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", this.page);
+					if (window.localStorage.getItem(Backbone.history.getFragment()) != null) {
+						window.localStorage.setItem(Backbone.history.getFragment() + "/page", this.page);
 
 						$(".header-refresh").show();
 
@@ -343,7 +342,7 @@ define(
 					}
 
 					if (typeof _options == "undefined") {
-						//window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+						//window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 						//$(".app-toggle-refresh").hide();
 					}
 					else if (this.type == "search") {
@@ -365,10 +364,10 @@ define(
 
 								$(".app-content-container .app-loader").fadeOut();
 
-								window.sessionStorage.removeItem(Backbone.history.getFragment());
-								window.sessionStorage.removeItem(Backbone.history.getFragment() + "/page");
-								window.sessionStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
-								window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
+								window.localStorage.removeItem(Backbone.history.getFragment());
+								window.localStorage.removeItem(Backbone.history.getFragment() + "/page");
+								window.localStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
+								window.localStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
 
 								that.page = 1;
 
@@ -448,22 +447,22 @@ define(
 				var that  = this;
 				var _data = this.collection.toJSON();
 
-				if (_isUsingCache && window.sessionStorage.getItem(Backbone.history.getFragment()) != null && (JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()))).length > 0) {
-					_data = JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()));
+				if (_isUsingCache && window.localStorage.getItem(Backbone.history.getFragment()) != null && (JSON.parse(window.localStorage.getItem(Backbone.history.getFragment()))).length > 0) {
+					_data = JSON.parse(window.localStorage.getItem(Backbone.history.getFragment()));
 				}
 				else if (_data.length == 0) {
 					that.page = that.page - 1;
 
-					window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
-					window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+					window.localStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
+					window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 				}
 				else {
-					if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null && this.page > 1) {
-						_buff = JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()));
+					if (window.localStorage.getItem(Backbone.history.getFragment()) != null && this.page > 1) {
+						_buff = JSON.parse(window.localStorage.getItem(Backbone.history.getFragment()));
 					}
 
 					$.each(_data, function (key, val) {
-						if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null && that.page > 1) {
+						if (window.localStorage.getItem(Backbone.history.getFragment()) != null && that.page > 1) {
 							_buff.push(val);
 						}
 
@@ -483,20 +482,20 @@ define(
 						});
 					});
 
-					if (window.sessionStorage.getItem(Backbone.history.getFragment()) != null && this.page > 1) {
-						window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_buff));
+					if (window.localStorage.getItem(Backbone.history.getFragment()) != null && this.page > 1) {
+						window.localStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_buff));
 					}
 					else{
-						window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
+						window.localStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
 					}
 				}
 
 				if (_data.length > 0) {
 					if (typeof _data[0].id == "undefined") {
-						window.sessionStorage.removeItem(Backbone.history.getFragment());
-						window.sessionStorage.removeItem(Backbone.history.getFragment() + "/page");
-						window.sessionStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
-						window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
+						window.localStorage.removeItem(Backbone.history.getFragment());
+						window.localStorage.removeItem(Backbone.history.getFragment() + "/page");
+						window.localStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
+						window.localStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
 
 						Backbone.history.loadUrl();
 					}
@@ -541,7 +540,7 @@ define(
 								that.autoload();
 							}, 250));
 
-							window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
+							window.localStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
 									$(".app-content-container").scrollTop());
 						});
 
@@ -559,15 +558,15 @@ define(
 					}
 				}
 				else if (_isUsingCache) {
-					window.sessionStorage.removeItem(Backbone.history.getFragment());
-					window.sessionStorage.removeItem(Backbone.history.getFragment() + "/page");
-					window.sessionStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
-					window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
+					window.localStorage.removeItem(Backbone.history.getFragment());
+					window.localStorage.removeItem(Backbone.history.getFragment() + "/page");
+					window.localStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
+					window.localStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
 
 					Backbone.history.loadUrl();
 				}
 
-				if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/isLastPage") != null) {
+				if (window.localStorage.getItem(Backbone.history.getFragment() + "/isLastPage") != null) {
 					$(".app-content-container .app-loader").remove();
 				}
 
@@ -591,9 +590,8 @@ define(
 					});
 				}
 
-				if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
-					$(".app-content-container")
-							.scrollTop(parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop")));
+				if (window.localStorage.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
+					$(".app-content-container").scrollTop(parseInt(window.localStorage.getItem(Backbone.history.getFragment() + "/scrollTop")));
 				}
 
 				this.collection.reset();
@@ -605,10 +603,10 @@ define(
 						.hasClass("loading") && !jt.isOffline()) {
 					$(".app-content-container .app-load").addClass("loading");
 
-					window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", this.page + 1);
+					window.localStorage.setItem(Backbone.history.getFragment() + "/page", this.page + 1);
 
-					if (typeof this.options.type == "undefined" && window.sessionStorage.getItem(Backbone.history.getFragment() + "/page") >= 8) {
-						window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+					if (typeof this.options.type == "undefined" && window.localStorage.getItem(Backbone.history.getFragment() + "/page") >= 8) {
+						window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 						$(".app-toggle-refresh").hide();
 					}
 
