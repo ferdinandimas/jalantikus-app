@@ -21,6 +21,7 @@ define(
 			options         : "",
 			cacheSource     : window.sessionStorage,
 			initialize      : function (_options) {
+				alert('HOME JS');
 				if ($(".splash").length >= 1) {
 					if (jt.isOffline()) {
 						alert('home - offline - localstorage');
