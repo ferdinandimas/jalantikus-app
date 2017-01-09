@@ -501,13 +501,13 @@ define(
 					else {
 						if (typeof this.options.type == "undefined") {
 							$.each(_data, function (key, value) {
-								if (value.views_last_24hour >= 3000) {
+								if (value.views_last_24hour >= 2100) {
 									value.label = "populer";
 								}
-								else if (value.views_last_24hour >= 1200 && value.views_last_24hour < 3000) {
+								else if (value.views_last_24hour >= 1200 && value.views_last_24hour < 2100) {
 									value.label = "wajibbaca";
 								}
-								else if (value.views_last_24hour >= 500 && value.views_last_24hour < 1199) {
+								else if (value.views_last_24hour >= 500 && value.views_last_24hour < 1200) {
 									value.label = "banyakdisukai";
 								}
 								else if (Math.floor((new Date() - new Date(value.published)) / 1000) < 18000) {
