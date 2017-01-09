@@ -1,4 +1,4 @@
-<% _.each(timelineArticle, function(value) { %>
+<% n = 1; _.each(timelineArticle, function(value) { %>
     <% if(value.multiple_images == true) { %>
         <div class="app-index-card multi-image">
             <div class="card-description">
@@ -9,14 +9,29 @@
                     <span class="card-author">
                         <%= value.user.name %>
                     </span>
-                    <span class="card-published">
-                        <%= jt.timeSince(value.published) %>
+                    <span class="card-published <% if(value.label) { %> <%= value.label %> <% } %>">
+                        <% if(value.label == "populer") { %>
+                            POPULER
+                        <% } else if (value.label == "wajibbaca") { %>
+                            WAJIB BACA
+                        <% } else if (value.label == "banyakdisukai") { %>
+                            BANYAK DISUKAI
+                        <% } else if (value.label == "direkomendasikan") { %>
+                            DIREKOMENDASIKAN
+                        <% } else if (value.label == "terbaru") { %>
+                            TERBARU
+                        <% } else { %>
+                            <%= jt.timeSince(value.published) %>
+                        <% } %>
                     </span>
                 </div>
             </div>
             <div class="card-image">
-                <img src="<%= value.image.baseUrl %>115/81<%= value.image.file %>" alt="<%= value.title %>" /><img src="<%= value.description_images[0].baseUrl %>114/81/<%= value.description_images[0].file %>" alt="<%= value.title %>" /><img
-                    src="<%= value.description_images[1].baseUrl %>115/81/<%= value.description_images[1].file %>" alt="<%= value.title %>" />
+                <% if(n++ == 1 && value.type != "favorite") { %>
+                    <img src="<%= value.image.baseUrl %>360/0<%= value.image.file %>" alt="<%= value.title %>" />
+                <% } else { %>
+                    <img src="<%= value.image.baseUrl %>115/81<%= value.image.file %>" alt="<%= value.title %>" /><img src="<%= value.description_images[0].baseUrl %>114/81/<%= value.description_images[0].file %>" alt="<%= value.title %>" /><img src="<%= value.description_images[1].baseUrl %>115/81/<%= value.description_images[1].file %>" alt="<%= value.title %>" />
+                <% } %>
             </div>
             <a href="#article/<%= value.slug %>" class="card-link">
                 <div class="ripple"></div>
@@ -30,8 +45,20 @@
                     <span class="card-author">
                         <%= value.user.name %>
                     </span>
-                    <span class="card-published">
-                        <%= jt.timeSince(value.published) %>
+                    <span class="card-published <% if(value.label) { %> <%= value.label %> <% } %>">
+                        <% if(value.label == "populer") { %>
+                            POPULER
+                        <% } else if (value.label == "wajibbaca") { %>
+                            WAJIB BACA
+                        <% } else if (value.label == "banyakdisukai") { %>
+                            BANYAK DISUKAI
+                        <% } else if (value.label == "direkomendasikan") { %>
+                            DIREKOMENDASIKAN
+                        <% } else if (value.label == "terbaru") { %>
+                            TERBARU
+                        <% } else { %>
+                            <%= jt.timeSince(value.published) %>
+                        <% } %>
                     </span>
                 </div>
                 <div class="card-title">
@@ -39,7 +66,11 @@
                 </div>
             </div>
             <div class="card-image">
-                <img src="<%= value.image.baseUrl %>120/120<%= value.image.file %>" alt="<%= value.title %>" />
+                <% if(n++ == 1 && value.type != "favorite") { %>
+                    <img src="<%= value.image.baseUrl %>360/0<%= value.image.file %>" alt="<%= value.title %>" />
+                <% } else { %>
+                    <img src="<%= value.image.baseUrl %>120/120<%= value.image.file %>" alt="<%= value.title %>" />
+                <% } %>
                 <img src="<%= value.image.baseUrl %>300/129<%= value.image.file %>" style="display: none;">
                 <img src="<%= value.image.baseUrl %>9/3<%= value.image.file %>" style="display: none;">
             </div>

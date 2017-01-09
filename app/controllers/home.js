@@ -7,20 +7,23 @@ define(
 		"text!views/home_layout.html",
 		"text!views/header_layout.html",
 		"text!views/template/timeline.html",
-		"text!views/template/timeline-beranda.html",
 		"text!views/header_detail_layout.html",
 		"models/article",
 	],
-	function (_, Backbone, $, Timeline, homeLayout, headerLayout, timelineTemplate, berandaTemplate, headerDetailLayout, Article) {
+	function (_, Backbone, $, Timeline, homeLayout, headerLayout, timelineTemplate, headerDetailLayout, Article) {
 		var homeView = Backbone.View.extend({
 			timelineTemplate: _.template(timelineTemplate),
-			berandaTemplate : _.template(berandaTemplate),
 			layout          : _.template(homeLayout),
 			collection      : new Timeline(),
 			articleModel    : new Article(),
 			isConnected     : true,
 			page            : 1,
+			options         : "",
 			initialize      : function (_options) {
+				if (typeof _options != "undefined") {
+					this.options = _options;
+				}
+
 				var that = this;
 
 				$("#app-toolbar")
@@ -51,8 +54,8 @@ define(
 						if (_buff.length > 0) {
 							key = 0;
 							Promise.all(_buff.map(function (val) {
-								//val = JSON.parse(val);
 								_buff[ key ] = val;
+								_buff[ key ].type = "favorite";
 
 								jtCache.getItem("article." + val.slug, function(_data) {
 									if (_data == null || _data.expired == "true") {
@@ -226,6 +229,11 @@ define(
 						this.cache  = 300;
 
 						$("#search-form [name='search']").val("");
+
+						if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/page") >= 8) {
+							window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+							$(".app-toggle-refresh").hide();
+						}
 					}
 
 					this.collection = new Timeline({
@@ -491,6 +499,26 @@ define(
 						Backbone.history.loadUrl();
 					}
 					else {
+						if (typeof this.options.type == "undefined") {
+							$.each(_data, function (key, value) {
+								if (value.views_last_24hour >= 3000) {
+									value.label = "populer";
+								}
+								else if (value.views_last_24hour >= 1200 && value.views_last_24hour < 3000) {
+									value.label = "wajibbaca";
+								}
+								else if (value.views_last_24hour >= 500 && value.views_last_24hour < 1199) {
+									value.label = "banyakdisukai";
+								}
+								else if (Math.floor((new Date() - new Date(value.published)) / 1000) < 18000) {
+									value.label = "terbaru";
+								}
+								else {
+									value.label = "direkomendasikan";
+								}
+							});
+						}
+
 						$("#app-body .app-content-container")
 								.append(this.timelineTemplate({
 									timelineArticle: _data
@@ -576,6 +604,11 @@ define(
 					$(".app-content-container .app-load").addClass("loading");
 
 					window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", this.page + 1);
+
+					if (typeof this.options.type == "undefined" && window.sessionStorage.getItem(Backbone.history.getFragment() + "/page") >= 8) {
+						window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+						$(".app-toggle-refresh").hide();
+					}
 
 					this.collection = new Timeline({
 						order   : typeof this.order != "undefined" ? this.order : "",
