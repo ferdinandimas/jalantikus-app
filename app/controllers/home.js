@@ -29,6 +29,7 @@ define(
 				$("#app-toolbar")
 					.removeClass("detail")
 					.removeClass("search")
+					.removeClass("beranda")
 					.removeClass("scroll")
 					.removeClass("disukai")
 					.empty()
@@ -82,7 +83,7 @@ define(
 										}));
 
 								if (Backbone.history.getFragment().trim() != "") {
-									$(".app-toolbar").removeClass("on-top");
+									$(".app-toolbar").removeClass("beranda");
 									$(".app-content-container .app-index-card:first-child").css("margin-top", "0px");
 								}
 
@@ -179,7 +180,7 @@ define(
 							$("#app-body .app-content-container").scroll(function () {
 								window.localStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-content-container").scrollTop());
 							});
-							$(".app-toolbar").removeClass("on-top");
+							$(".app-toolbar").removeClass("beranda");
 						}
 					}, window.PERSISTENT);
 				}
@@ -214,6 +215,7 @@ define(
 										.removeClass("detail")
 										.removeClass("scroll")
 										.removeClass("disukai")
+										.removeClass("beranda")
 										.addClass("search")
 										.empty()
 										.append((_.template(headerDetailLayout))());
@@ -429,11 +431,15 @@ define(
 						// $("#app-toolbar .header-description").html($(this).find(".usermenu-item-detail").html());
 						if ($(this).find(".usermenu-item-detail").html().trim() != "Beranda") {
 							$(".app-header .header-description").html($(this).find(".usermenu-item-detail").html());
+							if(isKategori == "favorites")
+							{
+								$(".app-header .header-description").html("Artikel Favorit");
+							}
 							$(".app-logo").hide();
 						}
 						else {
 							$(".app-logo").show();
-							// $(".app-toolbar").addClass("on-top");
+							$(".app-toolbar").addClass("beranda");
 						}
 						$(this).addClass("active");
 						if(isKategori == "home3" || isKategori == "home4" || isKategori == "home5" || isKategori == "home6" )
