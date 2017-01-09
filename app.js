@@ -61,6 +61,7 @@ require(
 	[ "main", "backbone", "jquery", "jquery.mobile", "isInViewport", "oneSignal" ],
 	function (Router) {
 		$(function () {
+			try {
 			if(typeof MobileAccessibility != "undefined")
 			{
 				MobileAccessibility.usePreferredTextZoom(false);
@@ -868,6 +869,10 @@ require(
 					}, 200)
 				}
 			});
+			}
+			catch (e) {
+				alert(e);
+			}
 		});
 	}
 );
