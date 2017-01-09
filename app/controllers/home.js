@@ -23,6 +23,7 @@ define(
 			initialize      : function (_options) {
 				if ($(".splash").length >= 1) {
 					if (jt.isOffline()) {
+						alert('home - offline - localstorage');
 						this.cacheSource = window.localStorage;
 					}
 				}
@@ -272,6 +273,7 @@ define(
 					}
 
 					if (that.cacheSource.getItem(Backbone.history.getFragment()) != null) {
+						alert('HERE 1');
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", this.page);
 						window.localStorage.setItem(Backbone.history.getFragment() + "/page", this.page);
 
@@ -286,6 +288,7 @@ define(
 						that.render(true);
 					}
 					else {
+						alert('HERE 2');
 						function offlineHandler() {
 							$("#app-body .app-content-container").empty().append(
 									'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
@@ -448,7 +451,7 @@ define(
 						}
 					});
 				}
-				
+
 				$("a.usermenu-item").removeClass("active").each(function () {
 					if ($(this).attr("href") == "#" + Backbone.history.getFragment()) {
 						var isKategori = $(this).attr("href").split("/")[1];
@@ -474,6 +477,7 @@ define(
 				});
 			},
 			render          : function (_isUsingCache) {
+				alert('HERE 3');
 				var that  = this;
 				var _data = this.collection.toJSON();
 

@@ -120,11 +120,14 @@ require(
 				$(".splash").fadeOut("fast");
 			}
 
+			alert('THERE 0');
 			window.BackboneRouter = new Router();
 			Backbone.history.start({ pushState: false });
 
-			if (jt.isOffline()) {
+			if (jt.isOffline())
+				alert('THERE 1');
 				if (window.localStorage.getItem(Backbone.history.getFragment()) == null) {
+					alert('THERE 2');
 					setTimeout(function () {
 						$("#app-body .app-content-container").empty().append(
 								'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
