@@ -136,9 +136,12 @@ var jt = function () {
 							if (interval >= 1) {
 								intervalType = "menit";
 							}
-							else {
+							else if (seconds >= 0) {
 								interval     = seconds;
 								intervalType = "detik";
+							}
+							else {
+								realDate = "Akan terbit";
 							}
 						}
 					}
