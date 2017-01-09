@@ -23,7 +23,7 @@ define(
 			initialize      : function (_options) {
 				if ($(".splash").length >= 1) {
 					if (jt.isOffline()) {
-						this.cacheSource = localStorage;
+						this.cacheSource = window.localStorage;
 					}
 				}
 
