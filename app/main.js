@@ -26,6 +26,8 @@ define(
                     require(
                         [ 'controllers/home' ],
                         function (Home) {
+                            alert("HOME MAIN");
+
                             new Home();
                         }
                     );

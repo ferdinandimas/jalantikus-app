@@ -61,11 +61,10 @@ require(
 	[ "main", "backbone", "jquery", "jquery.mobile", "isInViewport", "oneSignal" ],
 	function (Router) {
 		$(function () {
-			try {
-			if(typeof MobileAccessibility != "undefined")
-			{
+			if (typeof MobileAccessibility != "undefined") {
 				MobileAccessibility.usePreferredTextZoom(false);
-			}	
+			}
+
 			document.addEventListener("deviceready", function () {
 				jt.log("Device Ready");
 
@@ -121,7 +120,6 @@ require(
 				$(".splash").fadeOut("fast");
 			}
 
-			alert('THERE 0');
 			window.BackboneRouter = new Router();
 			Backbone.history.start({ pushState: false });
 
@@ -869,10 +867,6 @@ require(
 					}, 200)
 				}
 			});
-			}
-			catch (e) {
-				alert(e);
-			}
 		});
 	}
 );

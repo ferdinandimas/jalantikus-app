@@ -21,10 +21,10 @@ define(
 			options         : "",
 			cacheSource     : window.sessionStorage,
 			initialize      : function (_options) {
-				alert('HOME JS');
+				alert("HOME JS");
+
 				if ($(".splash").length >= 1) {
 					if (jt.isOffline()) {
-						alert('home - offline - localstorage');
 						this.cacheSource = window.localStorage;
 					}
 				}
@@ -109,12 +109,12 @@ define(
 									'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>'
 							);
 
-							that.collection = new Timeline({
-								order   : "24hour",
-								limit   : 10,
-							});
-
 							if (!jt.isOffline()) {
+								that.collection = new Timeline({
+									order   : "24hour",
+									limit   : 10,
+								});
+
 								that.collection.fetch({
 									timeout: 5000,
 									success: function () {
@@ -238,28 +238,31 @@ define(
 					else {
 						this.filter = "shuffle";
 						this.order  = "6hour";
-						//this.limit  = 50;
+						this.limit  = 12;
 						this.cache  = 300;
 
 						$("#search-form [name='search']").val("");
 
-						if (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") >= 8) {
+						if (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") >= 5) {
 							window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 							window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 							$(".app-toggle-refresh").hide();
 						}
 					}
 
-					this.collection = new Timeline({
-						order   : typeof this.order != "undefined" ? this.order : "",
-						category: typeof this.category != "undefined" ? this.category : "",
-						search  : typeof this.search != "undefined" ? this.search : "",
-						filter  : typeof this.filter != "undefined" ? this.filter : "",
-						limit   : typeof this.limit != "undefined" ? this.limit : "",
-						cache   : typeof this.cache != "undefined" ? this.cache : "",
-						where   : typeof this.where != "undefined" ? this.where : "",
-						page    : (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") != null ? that.cacheSource.getItem(Backbone.history.getFragment() + "/page") : 1),
-					});
+					if (!jt.isOffline()) {
+						this.collection = new Timeline({
+							order: typeof this.order != "undefined" ? this.order : "",
+							category: typeof this.category != "undefined" ? this.category : "",
+							search: typeof this.search != "undefined" ? this.search : "",
+							filter: typeof this.filter != "undefined" ? this.filter : "",
+							limit: typeof this.limit != "undefined" ? this.limit : "",
+							cache: typeof this.cache != "undefined" ? this.cache : "",
+							where: typeof this.where != "undefined" ? this.where : "",
+							page: (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") != null ? that.cacheSource.getItem(
+									Backbone.history.getFragment() + "/page") : 1),
+						});
+					}
 
 					if (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") != null) {
 						this.page = parseInt(that.cacheSource.getItem(Backbone.history.getFragment() + "/page"));
@@ -274,7 +277,6 @@ define(
 					}
 
 					if (that.cacheSource.getItem(Backbone.history.getFragment()) != null) {
-						alert('HERE 1');
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", this.page);
 						window.localStorage.setItem(Backbone.history.getFragment() + "/page", this.page);
 
@@ -289,7 +291,6 @@ define(
 						that.render(true);
 					}
 					else {
-						alert('HERE 2');
 						function offlineHandler() {
 							$("#app-body .app-content-container").empty().append(
 									'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
@@ -478,7 +479,6 @@ define(
 				});
 			},
 			render          : function (_isUsingCache) {
-				alert('HERE 3');
 				var that  = this;
 				var _data = this.collection.toJSON();
 
@@ -645,39 +645,43 @@ define(
 					window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", this.page + 1);
 					window.localStorage.setItem(Backbone.history.getFragment() + "/page", this.page + 1);
 
-					if (typeof this.options.type == "undefined" && that.cacheSource.getItem(Backbone.history.getFragment() + "/page") >= 8) {
+					if (typeof this.options.type == "undefined" && that.cacheSource.getItem(Backbone.history.getFragment() + "/page") >= 5) {
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 						window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 						$(".app-toggle-refresh").hide();
 					}
 
-					this.collection = new Timeline({
-						order   : typeof this.order != "undefined" ? this.order : "",
-						category: typeof this.category != "undefined" ? this.category : "",
-						search  : typeof this.search != "undefined" ? this.search : "",
-						filter  : typeof this.filter != "undefined" ? this.filter : "",
-						limit   : typeof this.limit != "undefined" ? this.limit : "",
-						cache   : typeof this.cache != "undefined" ? this.cache : "",
-						where   : typeof this.where != "undefined" ? this.where : "",
-						page    : this.page + 1,
-					});
+					if (!jt.isOffline()) {
+						this.collection = new Timeline({
+							order: typeof this.order != "undefined" ? this.order : "",
+							category: typeof this.category != "undefined" ? this.category : "",
+							search: typeof this.search != "undefined" ? this.search : "",
+							filter: typeof this.filter != "undefined" ? this.filter : "",
+							limit: typeof this.limit != "undefined" ? this.limit : "",
+							cache: typeof this.cache != "undefined" ? this.cache : "",
+							where: typeof this.where != "undefined" ? this.where : "",
+							page: this.page + 1,
+						});
+					}
 
-					this.collection.fetch({
-						timeout: 10000,
-						success: function () {
-							that.page = that.page + 1;
+					if (!jt.isOffline()) {
+						this.collection.fetch({
+							timeout: 10000,
+							success: function () {
+								that.page = that.page + 1;
 
-							$(".header-refresh").show();
-							$(".app-content-container .app-loader").remove();
+								$(".header-refresh").show();
+								$(".app-content-container .app-loader").remove();
 
-							that.render();
-						},
-						error  : function () {
-							$(".app-load").css("display", "none");
-							$(".app-retry").css("display", "block");
-							$(".splash .app-loader").addClass("showbtn");
-						}
-					});
+								that.render();
+							},
+							error  : function () {
+								$(".app-load").css("display", "none");
+								$(".app-retry").css("display", "block");
+								$(".splash .app-loader").addClass("showbtn");
+							}
+						});
+					}
 				}
 				else if (jt.isOffline()) {
 					setTimeout(function () {
