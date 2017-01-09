@@ -348,9 +348,22 @@ define(
 							});
 						}
 						else {
-							setTimeout(function () {
-								offlineHandler();
-							}, 5000);
+							if (window.localStorage.getItem(Backbone.history.getFragment()) == null) {
+								setTimeout(function () {
+									offlineHandler();
+								}, 5000);
+							}
+							else {
+								$(".header-refresh").show();
+
+								if (that.type != "search") {
+									$("#app-body .app-content-container").empty();
+								}
+								$("#app-body .app-content-container")
+										.append('<div class="app-toolbar-placeholder"></div>')
+
+								that.render();
+							}
 						}
 					}
 
@@ -435,6 +448,7 @@ define(
 						}
 					});
 				}
+				
 				$("a.usermenu-item").removeClass("active").each(function () {
 					if ($(this).attr("href") == "#" + Backbone.history.getFragment()) {
 						var isKategori = $(this).attr("href").split("/")[1];
