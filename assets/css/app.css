@@ -762,8 +762,8 @@ div, span, a
     mask-image: url(../images/jalantikus-logo.svg);
     -webkit-mask-position: left center;
     mask-position: left center;
-    -webkit-mask-size: auto 25px;
-    mask-size: auto 25px;
+    -webkit-mask-size: auto 24px;
+    mask-size: auto 24px;
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     background-color: #c92737;
