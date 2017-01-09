@@ -124,7 +124,7 @@ require(
 			window.BackboneRouter = new Router();
 			Backbone.history.start({ pushState: false });
 
-			if (jt.isOffline())
+			if (jt.isOffline()) {
 				alert('THERE 1');
 				if (window.localStorage.getItem(Backbone.history.getFragment()) == null) {
 					alert('THERE 2');
