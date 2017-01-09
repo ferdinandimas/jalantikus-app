@@ -19,6 +19,7 @@ define(
 
             initialize: function () {
                 jt.log("App Initialized");
+                alert("App Initialized");
             },
 
             home: function () {
