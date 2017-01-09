@@ -108,8 +108,8 @@ var jtCache = function () {
 										}
 									}
 									catch (e) {
-										//console.log("Read failed: " + e.toString(), e);
-										jt.log("Read failed: " + e.toString());
+										console.log("Read failed: " + e.toString(), e);
+										//jt.log("Read failed: " + e.toString());
 
 										callback(null);
 									}
