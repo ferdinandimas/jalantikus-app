@@ -586,8 +586,8 @@ div, span, a
 	top: 1px;
 	height: 11px;
 	width: 11px;
-	-webkit-mask-image: url(../images/label-icon.svg);
-	mask-image: url(../images/label-icon.svg);
+	-webkit-mask-image: url(../images/time-icon.svg);
+	mask-image: url(../images/time-icon.svg);
 	-webkit-mask-repeat: no-repeat;
 	mask-repeat: no-repeat;
 	-webkit-mask-size: 11px 11px;
@@ -595,6 +595,13 @@ div, span, a
 	-webkit-mask-position: center;
 	mask-position: center;
 	background-color: #8d8d8d;
+	opacity: 0.6
+}
+.app-toolbar.beranda ~ #app-body .app-index-card .card-description .card-published:after
+{
+	-webkit-mask-image: url(../images/label-icon.svg);
+	mask-image: url(../images/label-icon.svg);
+	opacity: 0.8
 }
 .app-index-card .card-description .card-published.populer
 {
@@ -1177,7 +1184,6 @@ div, span, a
 .app-header:after
 {
 	height: 45px;
-	box-shadow: 0 1px 3px rgba(0,0,0,0.16), 0 1px 3px rgba(0,0,0,0.2);
 }
 .app-header:before
 {
