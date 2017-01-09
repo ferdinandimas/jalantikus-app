@@ -40,26 +40,16 @@ define(
 				}
 
 				if (typeof _options != "undefined" && typeof _options.type != "undefined" && _options.type == "favorites") {
-					//var _articles = [];
+					var those = this;
 
-					//$.each(Object.keys(localStorage), function(key, val) {
-					//	if (val.indexOf("favorite/") != -1) {
-					//		if (window.localStorage.getItem(val) != null) {
-					//			_articles.push(window.localStorage.getItem(val));
-					//		}
-					//	}
-					//});
-
-					jtCache.listItem(function(_articles) {
-						_buff = _articles;
+					jtCache.getItem("favorite.list", function(_data) {
+						_data = _data.value;
+						_buff = JSON.parse(_data);
 
 						if (_buff.length > 0) {
-							function getArticle(callback) {
-
-							}
-
-							$.each(_buff, function (key, val) {
-								val = JSON.parse(val);
+							key = 0;
+							Promise.all(_buff.map(function (val) {
+								//val = JSON.parse(val);
 								_buff[ key ] = val;
 
 								jtCache.getItem("article." + val.slug, function(_data) {
@@ -76,18 +66,22 @@ define(
 										});
 									}
 								});
+
+								key++;
+							})).then(function () {
+								$("#app-body .app-content-container").empty()
+										.append('<div class="app-toolbar-placeholder"></div>')
+										.append(those.timelineTemplate({
+											timelineArticle: _buff
+										}));
+
+								if (Backbone.history.getFragment().trim() != "") {
+									$(".app-toolbar").removeClass("on-top");
+									$(".app-content-container .app-index-card:first-child").css("margin-top", "0px");
+								}
+
+								finishedRendering()
 							});
-
-							$("#app-body .app-content-container").empty()
-									.append('<div class="app-toolbar-placeholder"></div>')
-									.append(this.timelineTemplate({
-										timelineArticle: _buff
-									}));
-
-							if (Backbone.history.getFragment().trim() != "") {
-								$(".app-toolbar").removeClass("on-top");
-								$(".app-content-container .app-index-card:first-child").css("margin-top", "0px");
-							}
 						}
 						else {
 							$("#app-body .app-content-container").empty().append(
@@ -106,6 +100,7 @@ define(
 
 							if (!jt.isOffline()) {
 								var that = this;
+
 								this.collection.fetch({
 									timeout: 5000,
 									success: function () {
@@ -142,41 +137,45 @@ define(
 							else {
 								$(".recommended-articles").fadeOut();
 							}
+
+							finishedRendering();
 						}
 
-						if (window.localStorage.getItem("show_splash") === "true") {
-							$(".no-splash").hide();
+						function finishedRendering() {
+							if (window.localStorage.getItem("show_splash") === "true") {
+								$(".no-splash").hide();
 
-							if ($(".splash").length >= 1) {
-								setTimeout(function () {
-									$(".splash").fadeOut("fast", function () {
-										$(this).remove();
-									})
-								}, 2000);
+								if ($(".splash").length >= 1) {
+									setTimeout(function () {
+										$(".splash").fadeOut("fast", function () {
+											$(this).remove();
+										})
+									}, 2000);
+								}
 							}
-						}
-						else {
-							$(".splash").fadeOut(350, function() {
-								$(this).remove();
+							else {
+								$(".splash").fadeOut(350, function() {
+									$(this).remove();
+								});
+								$(".no-splash").fadeOut(350, function() {
+									$(this).remove();
+								});
+							}
+
+							if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
+								$(".app-content-container")
+										.scrollTop(parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop")));
+							}
+
+							$(".app-toggle-refresh").remove();
+
+							$("#app-body .app-content-container").scroll(function () {
+								window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
+										$(".app-content-container").scrollTop());
 							});
-							$(".no-splash").fadeOut(350, function() {
-								$(this).remove();
-							});
+							$(".app-toolbar").removeClass("on-top");
 						}
-
-						if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
-							$(".app-content-container")
-									.scrollTop(parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop")));
-						}
-
-						$(".app-toggle-refresh").remove();
-
-						$("#app-body .app-content-container").scroll(function () {
-							window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
-									$(".app-content-container").scrollTop());
-						});
-						$(".app-toolbar").removeClass("on-top");
-					}, 'favorite.article.', window.PERSISTENT);
+					}, window.PERSISTENT);
 				}
 				else {
 					if (typeof _options != "undefined" && typeof _options.type != "undefined") {
@@ -189,7 +188,6 @@ define(
 							case "home2":
 								this.order = "24hour";
 								this.where = "published>=" + date('Y-m-d H:i:s', time() - 86400) + "&&published<=" + date('Y-m-d H:i:s', time());
-									console.log("THERE", this.where);
 								break;
 							case "home3":
 								this.category = "tips";
