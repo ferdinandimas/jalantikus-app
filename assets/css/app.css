@@ -193,9 +193,12 @@ div, span, a
 .app-toolbar:not(.disukai) ~ .app-body .app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-description .card-note
 {
 	position: relative;
+	display: inline-block;
+	padding: 0 6px;
 	bottom: 10px;
 	left: 0;
 	max-width: 100%;
+	background-color: rgba(0,0,0,0.1)
 }
 .app-toolbar:not(.disukai) ~ .app-body .app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-description .card-title
 {
