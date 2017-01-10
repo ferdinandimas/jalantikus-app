@@ -747,6 +747,7 @@ require(
 						//}
 
 						lastFragment = Backbone.history.getFragment();
+						
 						$("#app-searchpanel").panel({
 							disabled: true
 						})
