@@ -797,24 +797,24 @@ require(
 					isOnline = !jt.isOffline();
 
 					if (jt.isOffline()) {
-						$(".app-index-card img").css("filter", "grayscale(100%)");
-						$(".app-index-card .ripple")
-								.removeClass("ripple")
-								.addClass("ripple-disabled")
-								.parent()
-								.addClass("disabled");
-						$(".app-toolbar").removeClass("online").addClass("offline");
-
-						if ($(".splash").length < 1 && typeof window.StatusBar != "undefined") {
-							window.StatusBar.backgroundColorByHexString("#474747");
-						}
-
-						lastFragment = Backbone.history.getFragment();
-
-						$("#app-userpanel").panel("close");
-						$('#app-userpanel').panel({ disabled: true });
-						$("#app-searchpanel").panel("close");
-						$('#app-searchpanel').panel({ disabled: true });
+						//$(".app-index-card img").css("filter", "grayscale(100%)");
+						//$(".app-index-card .ripple")
+						//		.removeClass("ripple")
+						//		.addClass("ripple-disabled")
+						//		.parent()
+						//		.addClass("disabled");
+						//$(".app-toolbar").removeClass("online").addClass("offline");
+						//
+						//if ($(".splash").length < 1 && typeof window.StatusBar != "undefined") {
+						//	window.StatusBar.backgroundColorByHexString("#474747");
+						//}
+						//
+						//lastFragment = Backbone.history.getFragment();
+						//
+						//$("#app-userpanel").panel("close");
+						//$('#app-userpanel').panel({ disabled: true });
+						//$("#app-searchpanel").panel("close");
+						//$('#app-searchpanel').panel({ disabled: true });
 					}
 					else {
 						$(".app-index-card img").css("filter", "none");
