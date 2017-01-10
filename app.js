@@ -193,61 +193,39 @@ require(
 			});
 
 			$(document).on("click", ".app-toggle-searchpanel", function (e) {
-				if (!jt.isOffline()) {
+				var _this = $(this);
+				_this.addClass("active");
 
-					var _this = $(this);
-					_this.addClass("active");
+				var _searchpanel = setTimeout(function () {
+					_this.removeClass("active");
+				}, 300);
 
-					var _searchpanel = setTimeout(function () {
-						_this.removeClass("active");
-					}, 300)
-
-					var _focus = setTimeout(function () {
-						$(".searchbar").focus();
-					}, 500)
-				}
-				else {
-					e.preventDefault();
-					showOffline();
-					return false;
-				}
+				var _focus = setTimeout(function () {
+					$(".searchbar").focus();
+				}, 500);
 			});
 
 			$(document).on("click", ".usermenu-item", function (e) {
-				if (!jt.isOffline()) {
-					var _currUI = $(this);
-					if (!_currUI.hasClass("active") && 
-						!_currUI.hasClass("app-rate") && 
-						!_currUI.hasClass("app-setting") && 
-						!_currUI.hasClass("app-share") && 
+				var _currUI = $(this);
+				if (!_currUI.hasClass("active") &&
+						!_currUI.hasClass("app-rate") &&
+						!_currUI.hasClass("app-setting") &&
+						!_currUI.hasClass("app-share") &&
 						!_currUI.hasClass("item-pass")) {
-						$('.usermenu-item').not(_currUI).not(".item-kategori").removeClass("active");
-						_currUI.addClass("active");
-
-						// $(".app-header .header-description").html($(this).find(".usermenu-item-detail").html());
-					}
-				}
-				else {
-					e.preventDefault();
-					showOffline();
+					$('.usermenu-item').not(_currUI).not(".item-kategori").removeClass("active");
+					_currUI.addClass("active");
 				}
 			});
 
 			$(document).on("click", ".app-header .app-toggle-back", function (e) {
-				if (!jt.isOffline()) {
-					window.stop();
+				window.stop();
 
-					e.preventDefault();
+				e.preventDefault();
 
-					$(this).addClass("active");
-					var _history = setTimeout(function () {
-						window.history.back();
-					}, 250)
-				}
-				else {
-					e.preventDefault();
-					showOffline();
-				}
+				$(this).addClass("active");
+				var _history = setTimeout(function () {
+					window.history.back();
+				}, 250);
 			});
 
 			var _slideSt, _slideCur, _slideFlag = false, _slideVt, _slideVtCur;
@@ -312,17 +290,11 @@ require(
 			});
 
 			$(document).on("click", ".app-header .app-home", function (e) {
-				if (!jt.isOffline()) {
-					var _this = $(this);
-					_this.addClass("active");
-					var _searchpanel = setTimeout(function () {
-						_this.removeClass("active");
-					}, 300)
-				}
-				else {
-					e.preventDefault();
-					showOffline();
-				}
+				var _this = $(this);
+				_this.addClass("active");
+				var _searchpanel = setTimeout(function () {
+					_this.removeClass("active");
+				}, 300);
 			});
 
 			$(document).on("focus", ".quick-search", function (e) {
@@ -407,13 +379,7 @@ require(
 					window.open("https://play.google.com/store/apps/details?id=com.jalantikus.app", "_blank");
 				}, 500);
 
-				if (!jt.isOffline()) {
-					jt.ripple($(this), e, "slow")
-				}
-				else {
-					e.preventDefault();
-					showOffline();
-				}
+				jt.ripple($(this), e, "slow");
 			});
 
 			$(document).on("click", ".item-kategori", function (e) {
@@ -431,24 +397,17 @@ require(
 			})
 
 			$(document).on("click", ".usermenu-item", function (e) {
-				if (!jt.isOffline()) {
-					if (!$(this).hasClass("item-pass")) {
-						jt.ripple($(this), e, "instant", "s");
-					}
-					else
-					{
-						jt.ripple($(this), e, "", "");
-					}
-					if(!$(this).hasClass("app-kategori") && !$(this).hasClass("item-kategori") && $(".app-kategori-overlay").hasClass("active"))
-					{	
-						$(".item-kategori").removeClass("active");
-						$(".app-kategori-overlay").removeClass("active");
-						$(".app-kategori-overlay").fadeOut(200);
-					}
+				if (!$(this).hasClass("item-pass")) {
+					jt.ripple($(this), e, "instant", "s");
 				}
 				else {
-					e.preventDefault();
-					showOffline();
+					jt.ripple($(this), e, "", "");
+				}
+				if (!$(this).hasClass("app-kategori") && !$(this).hasClass("item-kategori") && $(
+								".app-kategori-overlay").hasClass("active")) {
+					$(".item-kategori").removeClass("active");
+					$(".app-kategori-overlay").removeClass("active");
+					$(".app-kategori-overlay").fadeOut(200);
 				}
 			});
 
@@ -544,71 +503,42 @@ require(
 			});
 
 			$(document).on("click", ".app-header .app-toggle-userpanel", function (e) {
-				if (!jt.isOffline()) {
-					var _this = $(this);
-					if(!$(".popup-userpanel").hasClass("active"))
-					{
-						$(".popup-userpanel-container").fadeIn(0 ,function()
-						{
-							$(".popup-userpanel").addClass("active")
-						})
-					}
-					else
-					{
-						$(".popup-userpanel-container").fadeOut();
-						$(".popup-userpanel").removeClass("active")
-					}
-					_this.addClass("active");
-					var _userpanel = setTimeout(function () {
-						_this.removeClass("active");
-					}, 300)
+				var _this = $(this);
+				if (!$(".popup-userpanel").hasClass("active")) {
+					$(".popup-userpanel-container").fadeIn(0, function () {
+						$(".popup-userpanel").addClass("active")
+					})
 				}
 				else {
-					e.preventDefault();
-					showOffline();
+					$(".popup-userpanel-container").fadeOut();
+					$(".popup-userpanel").removeClass("active")
 				}
+				_this.addClass("active");
+				var _userpanel = setTimeout(function () {
+					_this.removeClass("active");
+				}, 300);
 			});
 
 			$(document).on("click", ".app-kategori", function (e) {
-				if (!jt.isOffline()) {
-					var _this = $(this);
-					if(!$(".app-kategori-overlay").hasClass("active"))
-					{
-						$(".app-kategori-overlay").show( 0, function(){
-							$(".app-kategori-overlay").addClass("active")
-						})
-						_this.addClass("active");
-					}
-					else
-					{
-						$(".app-kategori-overlay").removeClass("active");
-						$(".app-kategori-overlay").fadeOut(200);
-					}
+				var _this = $(this);
+				if (!$(".app-kategori-overlay").hasClass("active")) {
+					$(".app-kategori-overlay").show(0, function () {
+						$(".app-kategori-overlay").addClass("active")
+					})
+					_this.addClass("active");
 				}
 				else {
-					e.preventDefault();
-					showOffline();
+					$(".app-kategori-overlay").removeClass("active");
+					$(".app-kategori-overlay").fadeOut(200);
 				}
 			});
 
 			$(document).on("click", ".card-link", function (e) {
-				if (!jt.isOffline()) {
-					jt.ripple($(this), e)
-				}
-				else {
-					e.preventDefault();
-					showOffline();
-				}
+				jt.ripple($(this), e);
 			});
 
 			$(document).on("click", ".app-goto", function (e) {
-				if (!jt.isOffline()) {
-					jt.ripple($(this), e)
-				}
-				else {
-					e.preventDefault();
-					showOffline();
-				}
+				jt.ripple($(this), e);
 			});
 
 			$(document).on("click", ".app-addtofavorite", function (e) {
@@ -808,9 +738,9 @@ require(
 						//if ($(".splash").length < 1 && typeof window.StatusBar != "undefined") {
 						//	window.StatusBar.backgroundColorByHexString("#474747");
 						//}
-						//
-						//lastFragment = Backbone.history.getFragment();
-						//
+
+						lastFragment = Backbone.history.getFragment();
+
 						//$("#app-userpanel").panel("close");
 						//$('#app-userpanel').panel({ disabled: true });
 						//$("#app-searchpanel").panel("close");
