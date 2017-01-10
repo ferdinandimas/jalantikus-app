@@ -3,7 +3,9 @@ define(
         'backbone'
     ],
     function (Backbone) {
-        var Timeline = Backbone.Model.extend();
+        var Timeline = Backbone.Model.extend({
+
+        });
 
         return Timeline;
     }

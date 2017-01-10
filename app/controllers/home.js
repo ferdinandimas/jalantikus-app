@@ -62,7 +62,7 @@ define(
 						_buff = JSON.parse(_data);
 
 						if (_buff.length > 0) {
-							console.log("HERE 1", _buff);
+							alert("HERE 1", _buff);
 							key = 0;
 							Promise.all(_buff.map(function (val) {
 								_buff[ key ] = val;
@@ -119,7 +119,6 @@ define(
 									timeout: 5000,
 									success: function () {
 										var _data = that.collection.toJSON();
-										console.log("RECOMENDATION", _data);
 
 										$.each(_data, function (key, val) {
 											_data[ key ].type = "favorite";

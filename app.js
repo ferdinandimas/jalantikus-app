@@ -7,21 +7,21 @@ function time(){return Math.floor((new Date).getTime()/1e3)}
 require.config({
 	baseUrl: 'app',
 	paths  : {
-		app                   : './',
-		lib                   : './lib',
-		underscore            : './lib/underscore-min',
-		backbone              : './lib/backbone-min',
-		jquery                : './lib/jquery-2.x.min',
-		"jquery.mobile-config": './config/jquery.mobile',
-		"jquery.mobile"       : './lib/jquery.mobile-1.4.5.min',
-		"jquery.mobile"       : './lib/jquery.mobile-1.4.5.min',
-		isInViewport          : './lib/isInViewport.min',
-		fastclick             : './lib/fastclick-min',
-		prettify              : './lib/prettify',
-		jt                    : './lib/jt-lib',
-		jtCache               : './lib/jt-cache-lib',
-		oneSignal             : './lib/oneSignal-lib',
-		text                  : './lib/require/text',
+		app                   : '',
+		lib                   : 'lib',
+		underscore            : 'lib/underscore-min',
+		backbone              : 'lib/backbone-min',
+		jquery                : 'lib/jquery-2.x.min',
+		"jquery.mobile-config": 'config/jquery.mobile',
+		"jquery.mobile"       : 'lib/jquery.mobile-1.4.5.min',
+		"jquery.mobile"       : 'lib/jquery.mobile-1.4.5.min',
+		isInViewport          : 'lib/isInViewport.min',
+		fastclick             : 'lib/fastclick-min',
+		prettify              : 'lib/prettify',
+		jt                    : 'lib/jt-lib',
+		jtCache               : 'lib/jt-cache-lib',
+		oneSignal             : 'lib/oneSignal-lib',
+		text                  : 'lib/require/text',
 	},
 	shim   : {
 		jt                    : {
@@ -60,6 +60,8 @@ require.config({
 require(
 	[ "main", "backbone", "jquery", "jquery.mobile", "isInViewport", "oneSignal" ],
 	function (Router) {
+		window.BackboneRouter = new Router();
+
 		$(function () {
 			if (typeof MobileAccessibility != "undefined") {
 				MobileAccessibility.usePreferredTextZoom(false);
@@ -120,9 +122,6 @@ require(
 				$(".splash").fadeOut("fast");
 			}
 
-			window.BackboneRouter = new Router();
-			Backbone.history.start({ pushState: false });
-
 			if (jt.isOffline()) {
 				alert('THERE 1');
 				if (window.localStorage.getItem(Backbone.history.getFragment()) == null) {
@@ -179,16 +178,14 @@ require(
 			$("#search-form").on("submit", function (e) {
 				e.preventDefault();
 
-				window.BackboneRouter.navigate("search/" + $("#search-form [name='search']").val(),
-						{ trigger: true })
+				window.BackboneRouter.navigate("search/" + $("#search-form [name='search']").val(), { trigger: true });
 
 				$("#app-searchpanel").panel("close");
 			});
 
 			$(document).on("submit", "#quick-search-form", function (e) {
 				e.preventDefault();
-				window.BackboneRouter.navigate("search/" + $("#quick-search-form [name='quick-search']").val(),
-						{ trigger: true })
+				window.BackboneRouter.navigate("search/" + $("#quick-search-form [name='quick-search']").val(), { trigger: true });
 			});
 
 			$(document).on("click", ".app-logo .card-link", function () {
@@ -362,7 +359,8 @@ require(
 						$(".app-rating-subtitle").html(_displayRate[ 4 ]);
 						break;
 					default:
-						console.log("ERROR");
+						console.log("Error Rate");
+						break;
 				}
 				stars(rate);
 			});
@@ -791,6 +789,8 @@ require(
 			$(".jalantikus-copyright span").html(new Date().getFullYear());
 			var isInBeranda = true;
 			var isOnline, lastFragment;
+
+			lastFragment = Backbone.history.getFragment();
 
 			setInterval(function () {
 				if (isOnline != !jt.isOffline()) {
