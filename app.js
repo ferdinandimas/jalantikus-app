@@ -747,6 +747,9 @@ require(
 						//}
 
 						lastFragment = Backbone.history.getFragment();
+						$("#app-searchpanel").panel({
+							disabled: true
+						})
 
 						//$("#app-userpanel").panel("close");
 						//$('#app-userpanel').panel({ disabled: true });
@@ -754,6 +757,9 @@ require(
 						//$('#app-searchpanel').panel({ disabled: true });
 					}
 					else {
+						$("#app-searchpanel").panel({
+							disabled: false
+						})
 						$(".app-index-card img").css("filter", "none");
 						$(".app-index-card .ripple-disabled")
 								.removeClass("ripple-disabled")
