@@ -14,30 +14,23 @@ define(
 
             initialize: function () {
                 jt.log("App Initialized");
-                alert("App Initialized");
 
                 Backbone.history.start({ pushState: false });
             },
 
             home: function () {
-                alert("HOME MAIN 1");
                 require(
                     [ 'controllers/home' ],
                     function (Home) {
-                        alert("HOME MAIN 2");
-
                         new Home();
                     }
                 );
             },
 
             index: function (_options) {
-                alert("HOME MAIN 1");
                 require(
                     [ 'controllers/home' ],
                     function (Home) {
-                        alert("HOME MAIN 2");
-
                         _options = { type: _options };
                         new Home(_options);
                     }

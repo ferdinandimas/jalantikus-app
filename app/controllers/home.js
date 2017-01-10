@@ -21,12 +21,9 @@ define(
 			options         : "",
 			cacheSource     : window.sessionStorage,
 			initialize      : function (_options) {
-				alert("HOME JS");
-
-				if ($(".splash").length >= 1) {
-					if (jt.isOffline()) {
-						this.cacheSource = window.localStorage;
-					}
+				if (jt.isOffline()) {
+					this.cacheSource = window.localStorage;
+					this.isConnected = false;
 				}
 
 				if (typeof _options != "undefined") {
@@ -62,7 +59,6 @@ define(
 						_buff = JSON.parse(_data);
 
 						if (_buff.length > 0) {
-							alert("HERE 1", _buff);
 							key = 0;
 							Promise.all(_buff.map(function (val) {
 								_buff[ key ] = val;
@@ -194,6 +190,7 @@ define(
 					}, window.PERSISTENT);
 				}
 				else {
+					console.log("HERE 1");
 					if (typeof _options != "undefined" && typeof _options.type != "undefined") {
 						this.type = _options.type;
 
@@ -245,7 +242,7 @@ define(
 						if (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") >= 5) {
 							window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 							window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
-							$(".app-toggle-refresh").hide();
+							$(".app-loader").remove();
 						}
 					}
 
@@ -258,8 +255,7 @@ define(
 							limit: typeof this.limit != "undefined" ? this.limit : "",
 							cache: typeof this.cache != "undefined" ? this.cache : "",
 							where: typeof this.where != "undefined" ? this.where : "",
-							page: (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") != null ? that.cacheSource.getItem(
-									Backbone.history.getFragment() + "/page") : 1),
+							page: (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") != null ? that.cacheSource.getItem(Backbone.history.getFragment() + "/page") : 1),
 						});
 					}
 
@@ -276,45 +272,37 @@ define(
 					}
 
 					if (that.cacheSource.getItem(Backbone.history.getFragment()) != null) {
+						console.log("HERE 2");
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", this.page);
 						window.localStorage.setItem(Backbone.history.getFragment() + "/page", this.page);
+
+						window.sessionStorage.setItem(Backbone.history.getFragment(), that.cacheSource.getItem(Backbone.history.getFragment()));
+						window.localStorage.setItem(Backbone.history.getFragment(), that.cacheSource.getItem(Backbone.history.getFragment()));
 
 						$(".header-refresh").show();
 
 						if (that.type != "search") {
 							$("#app-body .app-content-container").empty();
 						}
-						$("#app-body .app-content-container")
-								.append('<div class="app-toolbar-placeholder"></div>')
+						$("#app-body .app-content-container").append('<div class="app-toolbar-placeholder"></div>');
 
 						that.render(true);
 					}
 					else {
+						console.log("HERE 3");
 						function offlineHandler() {
+							console.log("HERE 4");
 							$("#app-body .app-content-container").empty().append(
 									'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
 							);
-							$(".header-refresh").hide();
 
 							$(".app-load").css("display", "none");
-							$(".splash .app-loader").addClass("showbtn");
-
-							$(".app-retry").on("click touchend", function () {
-								that.isConnected = true;
-
-								$(".app-load").css("display", "block");
-								$(".app-retry").css("display", "none");
-								$(".splash .app-loader").removeClass("showbtn");
-
-								that.autoload();
-							});
+							$(".app-retry").css("display", "block");
 
 							if ($(".no-splash").length >= 1) {
 								$(".splash").show().find(".splash-content").fadeIn();
 								$(".no-splash").fadeOut();
-							}
 
-							if ($(".splash").length >= 1) {
 								if (that.isConnected) {
 									$(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
 									setTimeout(function () {
@@ -326,10 +314,21 @@ define(
 
 								$(".splash-content .app-loader").fadeIn();
 
+								$(".app-load").css("display", "none");
+								$(".splash .app-loader").addClass("showbtn");
+
 								$(".splash-quote").remove();
 								$(".splash-speaker").remove();
 								$(".splash-loading").hide();
 							}
+
+							$(".app-retry").on("click touchend", function () {
+								$(".app-load").css("display", "block");
+								$(".app-retry").css("display", "none");
+								$(".splash .app-loader").removeClass("showbtn");
+
+								that.autoload();
+							});
 						}
 
 						if (!jt.isOffline()) {
@@ -341,8 +340,9 @@ define(
 									if (that.type != "search") {
 										$("#app-body .app-content-container").empty();
 									}
-									$("#app-body .app-content-container")
-											.append('<div class="app-toolbar-placeholder"></div>')
+									$("#app-body .app-content-container").append('<div class="app-toolbar-placeholder"></div>');
+
+									that.isConnected = true;
 
 									that.render();
 								},
@@ -352,19 +352,20 @@ define(
 							});
 						}
 						else {
-							if (window.localStorage.getItem(Backbone.history.getFragment()) == null) {
+							if (that.cacheSource.getItem(Backbone.history.getFragment()) == null) {
+								console.log("HERE 5");
 								setTimeout(function () {
 									offlineHandler();
 								}, 5000);
 							}
 							else {
+								console.log("HERE 6");
 								$(".header-refresh").show();
 
 								if (that.type != "search") {
 									$("#app-body .app-content-container").empty();
 								}
-								$("#app-body .app-content-container")
-										.append('<div class="app-toolbar-placeholder"></div>')
+								$("#app-body .app-content-container").append('<div class="app-toolbar-placeholder"></div>');
 
 								that.render();
 							}
@@ -393,10 +394,15 @@ define(
 
 								$(".app-content-container .app-loader").fadeOut();
 
-								that.cacheSource.removeItem(Backbone.history.getFragment());
-								that.cacheSource.removeItem(Backbone.history.getFragment() + "/page");
-								that.cacheSource.removeItem(Backbone.history.getFragment() + "/scrollTop");
-								that.cacheSource.removeItem(Backbone.history.getFragment() + "/isLastPage");
+								window.sessionStorage.removeItem(Backbone.history.getFragment());
+								window.sessionStorage.removeItem(Backbone.history.getFragment() + "/page");
+								window.sessionStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
+								window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
+
+								window.localStorage.removeItem(Backbone.history.getFragment());
+								window.localStorage.removeItem(Backbone.history.getFragment() + "/page");
+								window.localStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
+								window.localStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
 
 								that.page = 1;
 
@@ -530,10 +536,15 @@ define(
 
 				if (_data.length > 0) {
 					if (typeof _data[0].id == "undefined") {
-						that.cacheSource.removeItem(Backbone.history.getFragment());
-						that.cacheSource.removeItem(Backbone.history.getFragment() + "/page");
-						that.cacheSource.removeItem(Backbone.history.getFragment() + "/scrollTop");
-						that.cacheSource.removeItem(Backbone.history.getFragment() + "/isLastPage");
+						window.sessionStorage.removeItem(Backbone.history.getFragment());
+						window.sessionStorage.removeItem(Backbone.history.getFragment() + "/page");
+						window.sessionStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
+						window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
+
+						window.localStorage.removeItem(Backbone.history.getFragment());
+						window.localStorage.removeItem(Backbone.history.getFragment() + "/page");
+						window.localStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
+						window.localStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
 
 						Backbone.history.loadUrl();
 					}
@@ -587,8 +598,6 @@ define(
 						});
 
 						$(".app-retry").on("click touchend", function () {
-							that.isConnected = true;
-
 							$(".app-load").css("display", "block");
 							$(".app-retry").css("display", "none");
 							that.autoload();
@@ -596,10 +605,15 @@ define(
 					}
 				}
 				else if (_isUsingCache) {
-					that.cacheSource.removeItem(Backbone.history.getFragment());
-					that.cacheSource.removeItem(Backbone.history.getFragment() + "/page");
-					that.cacheSource.removeItem(Backbone.history.getFragment() + "/scrollTop");
-					that.cacheSource.removeItem(Backbone.history.getFragment() + "/isLastPage");
+					window.sessionStorage.removeItem(Backbone.history.getFragment());
+					window.sessionStorage.removeItem(Backbone.history.getFragment() + "/page");
+					window.sessionStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
+					window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
+
+					window.localStorage.removeItem(Backbone.history.getFragment());
+					window.localStorage.removeItem(Backbone.history.getFragment() + "/page");
+					window.localStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
+					window.localStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
 
 					Backbone.history.loadUrl();
 				}
@@ -637,8 +651,7 @@ define(
 			autoload        : function () {
 				var that = this;
 
-				if ($(".app-content-container .app-load").is(":in-viewport") && !$(".app-content-container .app-load")
-						.hasClass("loading") && !jt.isOffline()) {
+				if ($(".app-content-container .app-load").is(":in-viewport") && !$(".app-content-container .app-load").hasClass("loading") && !jt.isOffline()) {
 					$(".app-content-container .app-load").addClass("loading");
 
 					window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", this.page + 1);
@@ -671,6 +684,8 @@ define(
 
 								$(".header-refresh").show();
 								$(".app-content-container .app-loader").remove();
+
+								that.isConnected = true;
 
 								that.render();
 							},

@@ -123,9 +123,7 @@ require(
 			}
 
 			if (jt.isOffline()) {
-				alert('THERE 1');
 				if (window.localStorage.getItem(Backbone.history.getFragment()) == null) {
-					alert('THERE 2');
 					setTimeout(function () {
 						$("#app-body .app-content-container").empty().append(
 								'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
@@ -713,13 +711,6 @@ require(
 				}
 			}
 
-			function showOffline() {
-				$(".app-refreshed").html("Tidak ada jaringan").fadeIn();
-				setTimeout(function () {
-					$(".app-refreshed").fadeOut();
-				}, 2000);
-			}
-
 			shuffle(trivia);
 			slowType();
 
@@ -747,7 +738,7 @@ require(
 						//}
 
 						lastFragment = Backbone.history.getFragment();
-						
+
 						$("#app-searchpanel").panel({
 							disabled: true
 						})

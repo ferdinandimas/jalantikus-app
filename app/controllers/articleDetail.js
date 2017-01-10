@@ -11,7 +11,7 @@ define(
 	],
 	function (_, Backbone, $, Article, App, articleLayout, headerLayout) {
 		var articleDetailView = Backbone.View.extend({
-			layout     : _.template(articleLayout),
+			layout: _.template(articleLayout),
 			model : new Article(),
 			initialize: function (_articleSlug) {
 				var that = this;
@@ -29,7 +29,6 @@ define(
 
 				$(".app-home").on("click", function (e) {
 					window.stop();
-					that.showOffline();
 				});
 
 				if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop") == null) {
@@ -345,13 +344,13 @@ define(
 						});
 					}
 
-					//$("a").on("click", function (e) {
-					//	if (jt.isOffline()) {
-					//		e.preventDefault();
-					//
-					//		that.showOffline();
-					//	}
-					//});
+					$("a").on("click", function (e) {
+						if (jt.isOffline() && !$(this).hasClass("app-home")) {
+							e.preventDefault();
+
+							that.showOffline();
+						}
+					});
 
 					$(".app-retry").on("touchend click", function () {
 						$(".app-load").css("display", "block");
