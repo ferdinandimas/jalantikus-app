@@ -13,7 +13,12 @@ define(
 		var articleDetailView = Backbone.View.extend({
 			layout: _.template(articleLayout),
 			model : new Article(),
+			isConnected: true,
 			initialize: function (_articleSlug) {
+				if (jt.isOffline()) {
+					this.isConnected = false;
+				}
+
 				var that = this;
 
 				$("#app-toolbar")
@@ -27,6 +32,23 @@ define(
 					'<div class="app-detail-container"><div class="app-toolbar-placeholder"></div><div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div></div>'
 				);
 
+				if ($("#app-body .app-refreshed").length == 0) {
+					$("#app-body").append(
+							'<div class="app-refreshed"></div>'
+					);
+				}
+
+				$(".app-retry").on("touchend click", function () {
+					that.isConnected = true;
+
+					$(".app-load").css("display", "block");
+					$(".app-retry").css("display", "none");
+
+					$(".splash .app-loader").removeClass("showbtn");
+
+					that.fetch({ timeout: 10000 });
+				});
+
 				$(".app-home").on("click", function (e) {
 					window.stop();
 				});
@@ -35,11 +57,11 @@ define(
 					window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-detail-container").scrollTop());
 				}
 
-				this.model = new Article({
+				that.model = new Article({
 					slug: _articleSlug
 				});
 
-				this.fetch();
+				that.fetch();
 			},
 			fetch     : function (options) {
 				var that = this;
@@ -63,8 +85,11 @@ define(
 									$(".splash .app-loader").addClass("showbtn");
 
 									$(".app-retry").on("touchend click", function () {
+										that.isConnected = true;
+
 										$(".app-load").css("display", "block");
 										$(".app-retry").css("display", "none");
+
 										$(".splash .app-loader").removeClass("showbtn");
 
 										that.fetch({ timeout: 10000 });
@@ -86,6 +111,15 @@ define(
 										$(".splash-quote").remove();
 										$(".splash-speaker").remove();
 										$(".splash-loading").hide();
+									}
+
+									if (that.isConnected) {
+										$(".app-refreshed").html("Tidak ada jaringan.").fadeIn();
+										setTimeout(function () {
+											$(".app-refreshed").fadeOut();
+										}, 2000);
+
+										that.isConnected = false;
 									}
 								}
 							});
@@ -113,6 +147,15 @@ define(
 									$(".splash-quote").remove();
 									$(".splash-speaker").remove();
 									$(".splash-loading").hide();
+								}
+
+								if (that.isConnected) {
+									$(".app-refreshed").html("Tidak ada jaringan.").fadeIn();
+									setTimeout(function () {
+										$(".app-refreshed").fadeOut();
+									}, 2000);
+
+									that.isConnected = false;
 								}
 							}, 2000);
 						}
@@ -154,23 +197,17 @@ define(
 					Backbone.history.loadUrl();
 				}
 				else {
-					try {
-						$(".app-detail-container .app-loader").remove();
+					$(".app-detail-container .app-loader").remove();
 
-						$("#app-body").empty().append(that.layout({
-							detail: _data
-						}));
-					}
-					catch (e) {
-						jt.log(e);
-					}
+					$("#app-body").empty().append(that.layout({
+						detail: _data
+					}));
 
 					$("#app-userpanel").panel("close");
 					$("#app-searchpanel").panel("close");
 
 					$("#app-body .app-detail-container").scroll(function () {
-						window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
-								$(".app-detail-container").scrollTop());
+						window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-detail-container").scrollTop());
 					});
 
 					$(".app-detail-body img").each(function (key, val) {
@@ -353,12 +390,16 @@ define(
 					});
 
 					$(".app-retry").on("touchend click", function () {
+						that.isConnected = true;
+
 						$(".app-load").css("display", "block");
 						$(".app-retry").css("display", "none");
+
 						$(".splash .app-loader").removeClass("showbtn");
 
 						that.fetch({ timeout: 10000 });
 					});
+
 					$(".prettify-copy-selected").on("touchend click", function (e) {
 						document.execCommand('copy');
 						validateTooltip(e)
@@ -445,8 +486,7 @@ define(
 					PR.prettyPrint();
 
 					if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
-						$(".app-detail-container")
-								.scrollTop(parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop")));
+						$(".app-detail-container").scrollTop(parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop")));
 					}
 
 					jtCache.getItem("favorite/" + Backbone.history.getFragment(), function(_data) {

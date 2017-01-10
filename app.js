@@ -192,6 +192,8 @@ require(
 
 			$(document).on("click", ".app-toggle-searchpanel", function (e) {
 				if (jt.isOffline()) {
+					e.preventDefault();
+
 					$(".app-refreshed").html("Tidak ada jaringan.").fadeIn();
 					setTimeout(function () {
 						$(".app-refreshed").fadeOut();
@@ -741,7 +743,8 @@ require(
 
 						$("#app-searchpanel").panel({
 							disabled: true
-						})
+						});
+						$(".app-toggle-searchpanel").attr("href", "javascript:void(0)");
 
 						//$("#app-userpanel").panel("close");
 						//$('#app-userpanel').panel({ disabled: true });
@@ -749,9 +752,11 @@ require(
 						//$('#app-searchpanel').panel({ disabled: true });
 					}
 					else {
+						$(".app-toggle-searchpanel").attr("href", "#app-searchpanel");
 						$("#app-searchpanel").panel({
 							disabled: false
-						})
+						});
+
 						$(".app-index-card img").css("filter", "none");
 						$(".app-index-card .ripple-disabled")
 								.removeClass("ripple-disabled")

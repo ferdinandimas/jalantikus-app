@@ -190,7 +190,6 @@ define(
 					}, window.PERSISTENT);
 				}
 				else {
-					console.log("HERE 1");
 					if (typeof _options != "undefined" && typeof _options.type != "undefined") {
 						this.type = _options.type;
 
@@ -272,7 +271,6 @@ define(
 					}
 
 					if (that.cacheSource.getItem(Backbone.history.getFragment()) != null) {
-						console.log("HERE 2");
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", this.page);
 						window.localStorage.setItem(Backbone.history.getFragment() + "/page", this.page);
 
@@ -289,9 +287,7 @@ define(
 						that.render(true);
 					}
 					else {
-						console.log("HERE 3");
 						function offlineHandler() {
-							console.log("HERE 4");
 							$("#app-body .app-content-container").empty().append(
 									'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
 							);
@@ -323,8 +319,11 @@ define(
 							}
 
 							$(".app-retry").on("click touchend", function () {
+								that.isConnected = true;
+
 								$(".app-load").css("display", "block");
 								$(".app-retry").css("display", "none");
+
 								$(".splash .app-loader").removeClass("showbtn");
 
 								that.autoload();
@@ -353,13 +352,9 @@ define(
 						}
 						else {
 							if (that.cacheSource.getItem(Backbone.history.getFragment()) == null) {
-								console.log("HERE 5");
-								setTimeout(function () {
-									offlineHandler();
-								}, 5000);
+								offlineHandler();
 							}
 							else {
-								console.log("HERE 6");
 								$(".header-refresh").show();
 
 								if (that.type != "search") {
@@ -598,8 +593,11 @@ define(
 						});
 
 						$(".app-retry").on("click touchend", function () {
+							that.isConnected = true;
+
 							$(".app-load").css("display", "block");
 							$(".app-retry").css("display", "none");
+
 							that.autoload();
 						});
 					}

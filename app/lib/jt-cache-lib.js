@@ -79,6 +79,10 @@ var jtCache = function () {
 			}
 			else {
 				window.sessionStorage.setItem(cacheKey, cacheValue);
+
+				if (typeof callback == "function") {
+					callback(null);
+				}
 			}
 		},
 		getItem: function (cacheKey, callback, type) {
@@ -170,6 +174,10 @@ var jtCache = function () {
 			}
 			else {
 				window.sessionStorage.removeItem(cacheKey);
+
+				if (typeof callback == "function") {
+					callback();
+				}
 			}
 		},
 	}
