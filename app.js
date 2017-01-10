@@ -193,16 +193,24 @@ require(
 			});
 
 			$(document).on("click", ".app-toggle-searchpanel", function (e) {
-				var _this = $(this);
-				_this.addClass("active");
+				if (jt.isOffline()) {
+					$(".app-refreshed").html("Tidak ada jaringan.").fadeIn();
+					setTimeout(function () {
+						$(".app-refreshed").fadeOut();
+					}, 2000);
+				}
+				else {
+					var _this = $(this);
+					_this.addClass("active");
 
-				var _searchpanel = setTimeout(function () {
-					_this.removeClass("active");
-				}, 300);
+					var _searchpanel = setTimeout(function () {
+						_this.removeClass("active");
+					}, 300);
 
-				var _focus = setTimeout(function () {
-					$(".searchbar").focus();
-				}, 500);
+					var _focus = setTimeout(function () {
+						$(".searchbar").focus();
+					}, 500);
+				}
 			});
 
 			$(document).on("click", ".usermenu-item", function (e) {
@@ -403,8 +411,7 @@ require(
 				else {
 					jt.ripple($(this), e, "", "");
 				}
-				if (!$(this).hasClass("app-kategori") && !$(this).hasClass("item-kategori") && $(
-								".app-kategori-overlay").hasClass("active")) {
+				if (!$(this).hasClass("app-kategori") && !$(this).hasClass("item-kategori") && $(".app-kategori-overlay").hasClass("active")) {
 					$(".item-kategori").removeClass("active");
 					$(".app-kategori-overlay").removeClass("active");
 					$(".app-kategori-overlay").fadeOut(200);

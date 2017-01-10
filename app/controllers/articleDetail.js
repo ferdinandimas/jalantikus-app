@@ -29,12 +29,7 @@ define(
 
 				$(".app-home").on("click", function (e) {
 					window.stop();
-
-					if (jt.isOffline()) {
-						e.preventDefault();
-
-						that.showOffline();
-					}
+					that.showOffline();
 				});
 
 				if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop") == null) {
@@ -350,13 +345,13 @@ define(
 						});
 					}
 
-					$("a").on("click", function (e) {
-						if (jt.isOffline()) {
-							e.preventDefault();
-
-							that.showOffline();
-						}
-					});
+					//$("a").on("click", function (e) {
+					//	if (jt.isOffline()) {
+					//		e.preventDefault();
+					//
+					//		that.showOffline();
+					//	}
+					//});
 
 					$(".app-retry").on("touchend click", function () {
 						$(".app-load").css("display", "block");
