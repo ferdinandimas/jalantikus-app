@@ -25,8 +25,8 @@ var errorHandler = function (cacheKey, e) {
 			break;
 	}
 
-	//console.log("Error (" + cacheKey + "): " + msg, e);
-	jt.log("Error (" + cacheKey + "): " + msg);
+	console.log("Error (" + cacheKey + "): " + msg, e);
+	//jt.log("Error (" + cacheKey + "): " + msg);
 
 	return false;
 }
@@ -37,45 +37,94 @@ var jtCache = function () {
 			cacheKey += ".json";
 			cacheKey = cacheKey.replace(/\//g, ".");
 
+			var data = {
+				"type"    : "",
+				"fileType": "",
+			};
+
 			if (typeof ttl == "undefined" || ttl == null) {
 				ttl = (60 * 60);
 			}
 
 			type = (typeof type == "undefined" || type == null ? window.TEMPORARY : type);
 
-			buffValue = JSON.parse(cacheValue);
+			if (typeof cacheValue == "object" && typeof cacheValue.type != "undefined" && typeof cacheValue.value != "undefined") {
+				if (cacheValue.type == "blob") {
 
-			cacheValue = JSON.stringify({
-				"ttl"  : Math.floor((new Date()).getTime() / 1000) + ttl,
-				"value": encodeURI(JSON.stringify(cacheValue)),
-			});
+					data.type     = cacheValue.type;
+					data.fileType = cacheValue.fileType;
+
+					cacheKey   = cacheKey.replace(".json", "." + cacheValue.extension);
+					cacheValue = cacheValue.value;
+				}
+			}
+			else {
+				if (typeof cacheValue == "object") {
+					cacheValue = JSON.stringify(cacheValue);
+				}
+
+				buffValue = JSON.parse(cacheValue);
+
+				cacheValue = JSON.stringify({
+					"ttl"  : Math.floor((new Date()).getTime() / 1000) + ttl,
+					"value": encodeURI(JSON.stringify(cacheValue)),
+				});
+			}
 
 			var size = jt.byteLength(cacheValue);
 
 			if (typeof window.requestFileSystem == "function") {
-				window.requestFileSystem(type, size, function (fs) {
-					fs.root.getFile(cacheKey, { create: true }, function (fileEntry) {
-
-						fileEntry.createWriter(function (fileWriter) {
-							fileWriter.onwriteend = function (e) {
-								//console.log("Write success: " + cacheKey, buffValue);
-								jt.log("Write success: " + cacheKey);
-
-								if (typeof callback == "function") {
-									callback();
-								}
-							};
-
-							fileWriter.onerror = function (e) {
-								jt.log("Write failed: " + e.toString());
-							};
-
-							var blob = new Blob([ cacheValue ], { type: "application/json" });
-							fileWriter.write(blob);
+				_segment = cacheKey.split(".");
+				if (_segment.length > 2) {
+					window.requestFileSystem(type, 0, function (fs) {
+						fs.root.getDirectory(_segment[ 0 ], {create: true, exclusive: false}, function(fs) {
+							createFile(fs);
 						}, errorHandler.bind(null, cacheKey));
-
 					}, errorHandler.bind(null, cacheKey));
-				}, errorHandler.bind(null, cacheKey));
+				}
+				else {
+					createFile();
+				}
+
+				function createFile(_fs) {
+					if (typeof _fs == "undefined") {
+						window.requestFileSystem(type, size, function (fs) {
+							create(fs.root);
+						}, errorHandler.bind(null, cacheKey));
+					}
+					else {
+						create(_fs);
+					}
+
+					function create(fs) {
+						fs.getFile(cacheKey, { create: true }, function (fileEntry) {
+							fileEntry.createWriter(function (fileWriter) {
+								fileWriter.onwriteend = function (e) {
+									//console.log("Write success: " + cacheKey, buffValue);
+									jt.log("Write success: " + cacheKey);
+
+									if (typeof callback == "function") {
+										callback();
+									}
+								};
+
+								fileWriter.onerror = function (e) {
+									jt.log("Write failed: " + e.toString());
+								};
+
+								if (data.type == "blob") {
+									//var blob = new Blob([ cacheValue ], { type: data.fileType });
+									var blob = cacheValue;
+								}
+								else {
+									var blob = new Blob([ cacheValue ], { type: "application/json" });
+								}
+
+								fileWriter.write(blob);
+							}, errorHandler.bind(null, cacheKey));
+						}, errorHandler.bind(null, cacheKey));
+					}
+				}
 			}
 			else {
 				window.sessionStorage.setItem(cacheKey, cacheValue);
@@ -92,40 +141,65 @@ var jtCache = function () {
 			type = (typeof type == "undefined" || type == null ? window.TEMPORARY : type);
 
 			if (typeof window.requestFileSystem == "function") {
-				window.requestFileSystem(type, 0, function (fs) {
-					fs.root.getFile(cacheKey, {}, function (fileEntry) {
-						fileEntry.file(function (file) {
-							var reader = new FileReader();
+				_segment = cacheKey.split(".");
+				if (_segment.length > 2) {
+					window.requestFileSystem(type, 0, function (fs) {
+						fs.root.getDirectory(_segment[ 0 ], {}, function(fs) {
+							readFile(fs);
+						}, function () {
+							callback(null);
+						});
+					}, errorHandler.bind(null, cacheKey));
+				}
+				else {
+					readFile();
+				}
 
-							reader.onloadend = function (e) {
-								if (this.result.length > 0) {
-									try {
-										buff       = JSON.parse(this.result);
-										buff.value = JSON.parse(decodeURI(buff.value));
-
-										if (typeof buff.ttl == "undefined" || (typeof buff.ttl != "undefined" && Math.floor((new Date()).getTime() / 1000) > buff.ttl)) {
-											buff.expired = "true"
-										}
-
-										if (typeof callback == "function") {
-											callback(buff);
-										}
-									}
-									catch (e) {
-										console.log("Read failed: " + e.toString(), e);
-										//jt.log("Read failed: " + e.toString());
-
-										callback(null);
-									}
-								}
-							};
-
-							reader.readAsText(file);
+				function readFile(_fs) {
+					if (typeof _fs == "undefined") {
+						window.requestFileSystem(type, size, function (fs) {
+							read(fs.root);
 						}, errorHandler.bind(null, cacheKey));
-					}, function () {
-						callback(null);
-					});
-				}, errorHandler.bind(null, cacheKey));
+					}
+					else {
+						read(_fs);
+					}
+
+					function read(fs) {
+						fs.getFile(cacheKey, {}, function (fileEntry) {
+							fileEntry.file(function (file) {
+								var reader = new FileReader();
+
+								reader.onloadend = function (e) {
+									if (this.result.length > 0) {
+										try {
+											buff       = JSON.parse(this.result);
+											buff.value = JSON.parse(decodeURI(buff.value));
+
+											if (typeof buff.ttl == "undefined" || (typeof buff.ttl != "undefined" && Math.floor((new Date()).getTime() / 1000) > buff.ttl)) {
+												buff.expired = "true"
+											}
+
+											if (typeof callback == "function") {
+												callback(buff);
+											}
+										}
+										catch (e) {
+											console.log("Read failed: " + e.toString(), e);
+											//jt.log("Read failed: " + e.toString());
+
+											callback(null);
+										}
+									}
+								};
+
+								reader.readAsText(file);
+							}, errorHandler.bind(null, cacheKey));
+						}, function () {
+							callback(null);
+						});
+					}
+				}
 			}
 			else {
 				buff = window.sessionStorage.getItem(cacheKey);
@@ -158,19 +232,45 @@ var jtCache = function () {
 			var size = 1 * 1024 * 1024;
 
 			if (typeof window.requestFileSystem == "function") {
-				window.requestFileSystem(type, size, function (fs) {
-					fs.root.getFile(cacheKey, {}, function (fileEntry) {
-
-						fileEntry.remove(function (file) {
-							jt.log("Remove success: " + cacheKey);
-
-							if (typeof callback == "function") {
-								callback();
-							}
+				_segment = cacheKey.split(".");
+				if (_segment.length > 2) {
+					window.requestFileSystem(type, 0, function (fs) {
+						fs.root.getDirectory(_segment[ 0 ], {}, function(fs) {
+							console.log("HERE", _segment[ 0 ], fs);
+							removeFile(fs);
 						}, errorHandler.bind(null, cacheKey));
+					}, errorHandler.bind(null, cacheKey));
+				}
+				else {
+					removeFile();
+				}
 
-					}, errorHandler.bind(null, cacheKey))
-				}, errorHandler.bind(null, cacheKey));
+				function removeFile(_fs) {
+					if (typeof _fs == "undefined") {
+						window.requestFileSystem(type, size, function (fs) {
+							remove(fs.root);
+						}, errorHandler.bind(null, cacheKey));
+					}
+					else {
+						remove(_fs);
+					}
+
+					function remove(fs) {
+						fs.getFile(cacheKey, {}, function (fileEntry) {
+
+							fileEntry.remove(function (file) {
+								jt.log("Remove success: " + cacheKey);
+
+								if (typeof callback == "function") {
+									callback();
+								}
+							}, errorHandler.bind(null, cacheKey));
+
+						}, function () {
+							callback(null);
+						});
+					}
+				}
 			}
 			else {
 				window.sessionStorage.removeItem(cacheKey);

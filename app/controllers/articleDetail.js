@@ -210,28 +210,105 @@ define(
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-detail-container").scrollTop());
 					});
 
-					$(".app-detail-body img").each(function (key, val) {
-						regExp = /(https?\:\/\/(.*?\.)?(jalantikus\.com|babe\.news)\/assets\/cache\/)(.*?\/.*?)(\/.*?)$/g;
-						value  = $(val).attr("src");
+					$("img").error(function () {
+						$(this).attr("src", "").attr("alt", "");
+					}).load(function () {
+						if ($(this).attr("src").indexOf("filesystem") < 0) {
+							var that = this;
+							var xhr  = new XMLHttpRequest();
+							xhr.onreadystatechange = function(){
+								if (this.readyState == 4 && this.status == 200){
+									cacheKey = "image.article.";
+									url      = btoa($(that).attr("src"));
 
-						if (typeof value != "undefined" && value.match(regExp)) {
-							var matches = regExp.exec(value);
-
-							_images      = matches[ 1 ] + $(".app-detail-body").width() + "/0" + matches[ 5 ];
-							_placeholder = matches[ 1 ] + Math.ceil($(".app-detail-body")
-													.width() / 100) + "/0" + matches[ 5 ];
-
-							$(val).data("src", _images);
-							$(val).prop("src", _placeholder);
+									jtCache.setItem(cacheKey + url, {
+										"type"     : "blob",
+										"value"    : this.response,
+										"extension": "",
+										"fileType" : this.response.type
+									}, window.TEMPORARY);
+								}
+							}
+							xhr.open('GET', $(this).attr("src"));
+							xhr.responseType = 'blob';
+							xhr.send();
 						}
 					});
 
-					$(".app-detail-body img").each(function (key, val) {
+					//$(".app-detail-body img").each(function (key, val) {
+					//	regExp = /(https?\:\/\/(.*?\.)?(jalantikus\.com|babe\.news)\/assets\/cache\/)(.*?\/.*?)(\/.*?)$/g;
+					//	value  = $(val).attr("src");
+					//
+					//	if (typeof value != "undefined" && value.match(regExp)) {
+					//		var matches = regExp.exec(value);
+					//
+					//		_images      = matches[ 1 ] + $(".app-detail-body").width() + "/0" + matches[ 5 ];
+					//		_placeholder = matches[ 1 ] + Math.ceil($(".app-detail-body").width() / 100) + "/0" + matches[ 5 ];
+					//
+					//		$(val).data("src", _images);
+					//		$(val).attr("src", _placeholder);
+					//	}
+					//});
+
+					$("img").each(function(key, val){
+						regExp = /(https?\:\/\/(.*?\.)?(jalantikus\.com|babe\.news)\/assets\/cache\/)(.*?\/.*?)(\/.*?)$/g;
+						value  = $(val).attr("src");
+
+						$(val).attr("alt", "");
+
+						var _placeholder = "";
+
+						if (typeof value != "undefined" && value.match(regExp) && !$(val).hasClass("banner")) {
+							var matches = regExp.exec(value);
+
+							_images      = matches[ 1 ] + $(".app-detail-body").width() + "/0" + matches[ 5 ];
+							_placeholder = matches[ 1 ] + Math.ceil($(".app-detail-body").width() / 100) + "/0" + matches[ 5 ];
+
+							$(val).data("src", _images);
+
+							if (typeof window.resolveLocalFileSystemURL == "function") {
+								window.resolveLocalFileSystemURL("cdvfile://localhost/temporary/image/image.article." + btoa(_placeholder) + ".", function (entry) {
+									var nativePath = entry.toURL();
+									if (typeof nativePath != "undefined") {
+										$(val).attr("src", nativePath);
+									}
+									else {
+										$(val).attr("src", _placeholder);
+									}
+								}, function (e) {
+									$(val).attr("src", _placeholder);
+								});
+							}
+							else {
+								$(val).attr("src", _placeholder);
+							}
+						}
+						else if (typeof value != "undefined") {
+							$(val).data("src", $(val).attr("src"));
+							$(val).attr("src", "");
+						}
+
 						var img = new Image();
-						img.src = $(val).data("src");
 						$(img).on("load", img, function () {
-							$(val).prop("src", $(val).data("src"));
+							$(val).attr("src", $(val).data("src"));
 						});
+
+						if (typeof window.resolveLocalFileSystemURL == "function") {
+							window.resolveLocalFileSystemURL("cdvfile://localhost/temporary/image/image.article." + btoa($(val).data("src")) + ".", function (entry) {
+								var nativePath = entry.toURL();
+								if (typeof nativePath != "undefined") {
+									$(val).attr("src", nativePath);
+								}
+								else {
+									img.src = $(val).data("src");
+								}
+							}, function (e) {
+								img.src = $(val).data("src");
+							});
+						}
+						else {
+							img.src = $(val).data("src");
+						}
 					});
 
 					$("#app-toolbar").addClass("detail").addClass("scroll");
@@ -367,19 +444,7 @@ define(
 
 					$("#iframe-jalantikus").on("load", function () {
 						$(".app-scroll-button").fadeIn();
-					})
-
-					/*
-					 Preaload Banner Image
-					 */
-					if ($(".app-detail-header .header-image img").length > 0) {
-						var img = new Image();
-						img.src = $(".app-detail-header .header-image img").data("src");
-						$(img).on("load", img, function () {
-							$(".app-detail-header .header-image img")
-									.prop("src", $(".app-detail-header .header-image img").data("src"));
-						});
-					}
+					});
 
 					$("a").on("click", function (e) {
 						if (jt.isOffline() && !$(this).hasClass("app-home")) {
