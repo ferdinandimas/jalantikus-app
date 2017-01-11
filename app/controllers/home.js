@@ -603,6 +603,7 @@ define(
 
 							$(".app-load").css("display", "block");
 							$(".app-retry").css("display", "none");
+							$(".splash .app-loader").removeClass("showbtn");
 
 							that.autoload();
 						});

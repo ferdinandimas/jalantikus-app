@@ -2900,6 +2900,10 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 {
 	display: block;
 }
+.splash-content .app-loader.showbtn .app-load
+{
+	display: none;
+}
 .splash-content .app-loader.showbtn:before
 {
 	display: none;
