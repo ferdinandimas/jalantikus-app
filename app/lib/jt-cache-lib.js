@@ -185,8 +185,8 @@ var jtCache = function () {
 											}
 										}
 										catch (e) {
-											console.log("Read failed: " + e.toString(), e);
-											//jt.log("Read failed: " + e.toString());
+											//console.log("Read failed: " + e.toString(), e);
+											jt.log("Read failed: " + e.toString());
 
 											callback(null);
 										}
@@ -236,7 +236,6 @@ var jtCache = function () {
 				if (_segment.length > 2) {
 					window.requestFileSystem(type, 0, function (fs) {
 						fs.root.getDirectory(_segment[ 0 ], {}, function(fs) {
-							console.log("HERE", _segment[ 0 ], fs);
 							removeFile(fs);
 						}, errorHandler.bind(null, cacheKey));
 					}, errorHandler.bind(null, cacheKey));

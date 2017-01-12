@@ -1,6 +1,6 @@
 var _config = {
-	'environment': 'dev', // [dev, live]
-	'timestamp'  : '170109-1', // [dev, live]
+	'environment': 'live', // [dev, live]
+	'timestamp'  : '170112-1', // [dev, live]
 	'baseURL'    : '',
 	'jtURL'      : 'https://jalantikus.com/',
 	'jtAPI'      : 'https://api.jalantikus.com/',

@@ -210,117 +210,81 @@ define(
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-detail-container").scrollTop());
 					});
 
-					//$("img").error(function () {
-					//	$(this).attr("src", "").attr("alt", "");
-					//}).load(function () {
-					//	if ($(this).attr("src").indexOf("filesystem") < 0) {
-					//		var that = this;
-					//		var xhr  = new XMLHttpRequest();
-					//		xhr.onreadystatechange = function(){
-					//			if (this.readyState == 4 && this.status == 200){
-					//				cacheKey = "image.article.";
-					//				url      = btoa($(that).attr("src"));
-					//
-					//				jtCache.setItem(cacheKey + url, {
-					//					"type"     : "blob",
-					//					"value"    : this.response,
-					//					"extension": "",
-					//					"fileType" : this.response.type
-					//				}, window.TEMPORARY);
-					//			}
-					//		}
-					//		xhr.open('GET', $(this).attr("src"));
-					//		xhr.responseType = 'blob';
-					//		xhr.send();
-					//	}
-					//}
-
-					$(".app-detail-body img").error(function()
-					{
-						var _this = $(this);
-						var parent = _this.closest("p");
-						var src = _this.attr("src");
-						console.log(parent.find(".image-refresh"))
-						if(parent.find(".image-refresh").length == 0)
-						{
-							parent.append("<div class='image-refresh'>Muat ulang gambar</div>");
-						}
-						else
-						{
-							parent.find(".image-refresh").removeClass("active");
-						}
-						// _this.attr("src", "");
-						_this.hide();
-
-						$(parent, ".image-refresh").on("click", function()
-						{
-							if(!parent.find(".image-refresh").hasClass("active"))
-							{
-								parent.find(".image-refresh").addClass("active");
-							}
-							_this.show();
-							_this.attr("src", src).load(function(){
-								parent.find(".image-refresh").remove();
-							});
-						})
-					})
-
-					//$(".app-detail-body img").each(function (key, val) {
-					//	regExp = /(https?\:\/\/(.*?\.)?(jalantikus\.com|babe\.news)\/assets\/cache\/)(.*?\/.*?)(\/.*?)$/g;
-					//	value  = $(val).attr("src");
-					//
-					//	if (typeof value != "undefined" && value.match(regExp)) {
-					//		var matches = regExp.exec(value);
-					//
-					//		_images      = matches[ 1 ] + $(".app-detail-body").width() + "/0" + matches[ 5 ];
-					//		_placeholder = matches[ 1 ] + Math.ceil($(".app-detail-body").width() / 100) + "/0" + matches[ 5 ];
-					//
-					//		$(val).data("src", _images);
-					//		$(val).attr("src", _placeholder);
-					//	}
-					//});
-
-					$("img").each(function(key, val){
+					$("img").each(function (key, val) {
 						regExp = /(https?\:\/\/(.*?\.)?(jalantikus\.com|babe\.news)\/assets\/cache\/)(.*?\/.*?)(\/.*?)$/g;
 						value  = $(val).attr("src");
 
 						$(val).attr("alt", "");
 
-						var _placeholder = "";
+						/*
+						 Using Placeholder
+						 */
+						if (isUsingPlaceholder = true) {
+							var _placeholder = "";
 
-						if (typeof value != "undefined" && value.match(regExp) && !$(val).hasClass("banner")) {
-							var matches = regExp.exec(value);
+							if (typeof value != "undefined" && value.match(regExp) && !$(val).hasClass("banner")) {
+								var matches = regExp.exec(value);
 
-							_images      = matches[ 1 ] + $(".app-detail-body").width() + "/0" + matches[ 5 ];
-							_placeholder = matches[ 1 ] + Math.ceil($(".app-detail-body").width() / 100) + "/0" + matches[ 5 ];
+								_images = matches[ 1 ] + $(".app-detail-body").width() + "/0" + matches[ 5 ];
+								_placeholder = matches[ 1 ] + Math.ceil($(".app-detail-body")
+														.width() / 100) + "/0" + matches[ 5 ];
 
-							$(val).data("src", _images);
+								$(val).data("src", _images);
 
-							if (typeof window.resolveLocalFileSystemURL == "function") {
-								window.resolveLocalFileSystemURL("cdvfile://localhost/temporary/image/image.article." + btoa(_placeholder) + ".", function (entry) {
-									var nativePath = entry.toURL();
-									if (typeof nativePath != "undefined") {
-										$(val).attr("src", nativePath);
-									}
-									else {
+								if (typeof window.resolveLocalFileSystemURL == "function") {
+									window.resolveLocalFileSystemURL("cdvfile://localhost/temporary/image/image.article." + btoa(
+													_placeholder) + ".", function (entry) {
+										var nativePath = entry.toURL();
+										if (typeof nativePath != "undefined") {
+											$(val).attr("src", nativePath);
+										}
+										else {
+											$(val).attr("src", _placeholder);
+										}
+									}, function (e) {
 										$(val).attr("src", _placeholder);
-									}
-								}, function (e) {
+									});
+								}
+								else {
 									$(val).attr("src", _placeholder);
-								});
+								}
 							}
-							else {
-								$(val).attr("src", _placeholder);
+							else if (typeof value != "undefined") {
+								$(val).data("src", $(val).attr("src"));
+								//$(val).attr("src", "");
 							}
 						}
-						else if (typeof value != "undefined") {
-							$(val).data("src", $(val).attr("src"));
-							$(val).attr("src", "");
-						}
+						/*
+						 Using Placeholder
+						 */
+
+						var that = this;
+
+						$(val).load(function () {
+							if ($(that).attr("src").indexOf("filesystem") < 0) {
+								var xhr  = new XMLHttpRequest();
+								xhr.onreadystatechange = function(){
+									if (this.readyState == 4 && this.status == 200) {
+										cacheKey = "image.article.";
+										url      = btoa($(that).attr("src"));
+
+										jtCache.setItem(cacheKey + url, {
+											"type"     : "blob",
+											"value"    : this.response,
+											"extension": "",
+											"fileType" : this.response.type
+										}, window.TEMPORARY);
+									}
+								}
+								xhr.open('GET', $(this).attr("src"));
+								xhr.responseType = 'blob';
+								xhr.send();
+							}
+						});
 
 						var img = new Image();
-						$(img).on("load", img, function () {
-							$(val).attr("src", $(val).data("src"));
+						$(img).on("load", function () {
+							$(val).attr("src", $(img).attr("src"));
 						});
 
 						if (typeof window.resolveLocalFileSystemURL == "function") {
@@ -339,6 +303,30 @@ define(
 						else {
 							img.src = $(val).data("src");
 						}
+					});
+
+					$(".app-detail-body img").error(function () {
+						var _this = $(this);
+						var parent = _this.closest("p");
+
+						if (parent.find(".image-refresh").length == 0) {
+							parent.append("<div class='image-refresh'>Muat ulang gambar</div>");
+						}
+						else {
+							parent.find(".image-refresh").removeClass("active");
+						}
+
+						_this.hide();
+
+						$(parent, ".image-refresh").on("click", function () {
+							if (!parent.find(".image-refresh").hasClass("active")) {
+								parent.find(".image-refresh").addClass("active");
+							}
+							_this.attr("src", _this.data("src")).load(function () {
+								parent.find(".image-refresh").remove();
+								_this.fadeIn(200);
+							});
+						})
 					});
 
 					$("#app-toolbar").addClass("detail").addClass("scroll");
@@ -384,6 +372,10 @@ define(
 						regExp = /https?\:\/\/app\.jalantikus\.com\/(gadgets|tips|news|gokil)\/(.*?)(\/|$|\?)/gim;
 						value  = $(val).attr("href");
 
+						if (typeof value != "undefined") {
+							$(val).attr("href", value.replace("https://jalantikus.com", "https://app.jalantikus.com").replace("http://jalantikus.com", "https://app.jalantikus.com"));
+						}
+
 						if (typeof value != "undefined" && value.match(regExp)) {
 							var matches = regExp.exec(value);
 
@@ -391,13 +383,12 @@ define(
 						}
 					});
 
-					$("a").each(function (key, val) {
-						if ($(val).length > 0) {
-							attr = $(val).attr("href");
+					$("#app-body .app-detail-container a").each(function (key, val) {
+						regExp = /(https?\:\/\/app\.jalantikus\.com\/(gadgets|tips|news|gokil)\/(.*?)(\/|$|\?)|\#)/gim;
+						value  = $(val).attr("href");
 
-							if (typeof attr != "undefined") {
-								$(val).attr("href", attr.replace("https://app.jalantikus.com", "https://jalantikus.com").replace("http://app.jalantikus.com", "https://jalantikus.com"));
-							}
+						if (typeof value != "undefined" && !value.match(regExp) && !$(this).hasClass("share") && !$(this).hasClass("scroll-button") && !$(this).hasClass("download-btn") && !$(this).hasClass("googleplay-btn")) {
+							$(this).attr("href", "#browser/" + encodeURIComponent(value));
 						}
 					});
 
@@ -452,17 +443,6 @@ define(
 									$(_that).parent().parent().remove();
 								}
 							});
-						}
-					});
-
-					$("#app-body .app-detail-container a").each(function (key, val) {
-						regExp = /(https?\:\/\/app\.jalantikus\.com\/(gadgets|tips|news|gokil)\/(.*?)(\/|$|\?)|\#)/gim;
-						value  = $(val).attr("href");
-
-						if (typeof value != "undefined" && !value.match(regExp) && !$(this).hasClass("share") && !$(this)
-										.hasClass("scroll-button") && !$(
-										this).hasClass("download-btn") && !$(this).hasClass("googleplay-btn")) {
-							$(this).attr("href", "#browser/" + encodeURIComponent(value));
 						}
 					});
 
