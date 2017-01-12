@@ -235,21 +235,6 @@ define(
 						}
 					});
 
-					//$(".app-detail-body img").each(function (key, val) {
-					//	regExp = /(https?\:\/\/(.*?\.)?(jalantikus\.com|babe\.news)\/assets\/cache\/)(.*?\/.*?)(\/.*?)$/g;
-					//	value  = $(val).attr("src");
-					//
-					//	if (typeof value != "undefined" && value.match(regExp)) {
-					//		var matches = regExp.exec(value);
-					//
-					//		_images      = matches[ 1 ] + $(".app-detail-body").width() + "/0" + matches[ 5 ];
-					//		_placeholder = matches[ 1 ] + Math.ceil($(".app-detail-body").width() / 100) + "/0" + matches[ 5 ];
-					//
-					//		$(val).data("src", _images);
-					//		$(val).attr("src", _placeholder);
-					//	}
-					//});
-
 					$("img").each(function(key, val){
 						regExp = /(https?\:\/\/(.*?\.)?(jalantikus\.com|babe\.news)\/assets\/cache\/)(.*?\/.*?)(\/.*?)$/g;
 						value  = $(val).attr("src");
@@ -447,7 +432,7 @@ define(
 					});
 
 					$("a").on("click", function (e) {
-						if (jt.isOffline() && !$(this).hasClass("app-home")) {
+						if (jt.isOffline() && !$(this).hasClass("app-home") && !$(this).hasClass("app-toggle-back")) {
 							e.preventDefault();
 
 							that.showOffline();
