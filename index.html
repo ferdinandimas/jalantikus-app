@@ -21,13 +21,12 @@
     <script src="app/config/jt.js"></script>
 
     <!--<script data-main="app" src="app/lib/require.min.js"></script>-->
+
+    <!--
+        Phonegap Desktop Workaround
+        Comment this script on production release and use above script instead
+    -->
     <script>
-
-        /*
-         Phonegap Desktop Workaround
-         Comment this script on production release and use above script instead
-         */
-
         function injectRequirejs() {
             var h = document.getElementsByTagName('head')[0];
             var s = document.createElement('script');
@@ -64,7 +63,6 @@
 
             setTimeout(function () {
                 if (typeof window.phonegap !== typeof undefined) {
-                    console.log('Monkey-patching phonegap... (This may take some time)');
                     fixConsole(injectRequirejs);
                 } else {
                     injectRequirejs();

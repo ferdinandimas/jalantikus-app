@@ -101,7 +101,7 @@ define(
 											$(".no-splash").fadeOut();
 										}
 
-										$(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
+										$(".splash .app-refreshed").html("Tidak ada jaringan").fadeIn();
 										setTimeout(function () {
 											$(".splash .app-refreshed").fadeOut();
 										}, 2000);
@@ -114,7 +114,7 @@ define(
 									}
 
 									if (that.isConnected) {
-										$(".app-refreshed").html("Tidak ada jaringan.").fadeIn();
+										$(".app-refreshed").html("Tidak ada jaringan").fadeIn();
 										setTimeout(function () {
 											$(".app-refreshed").fadeOut();
 										}, 2000);
@@ -137,7 +137,7 @@ define(
 										$(".no-splash").fadeOut();
 									}
 
-									$(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
+									$(".splash .app-refreshed").html("Tidak ada jaringan").fadeIn();
 									setTimeout(function () {
 										$(".splash .app-refreshed").fadeOut();
 									}, 2000);
@@ -150,7 +150,7 @@ define(
 								}
 
 								if (that.isConnected) {
-									$(".app-refreshed").html("Tidak ada jaringan.").fadeIn();
+									$(".app-refreshed").html("Tidak ada jaringan").fadeIn();
 									setTimeout(function () {
 										$(".app-refreshed").fadeOut();
 									}, 2000);

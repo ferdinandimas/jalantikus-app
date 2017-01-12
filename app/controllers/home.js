@@ -203,8 +203,7 @@ define(
 								this.order = "published";
 								break;
 							case "home2":
-								this.order = "24hour";
-								this.where = "published>=" + date('Y-m-d H:i:s', time() - 86400) + "&&published<=" + date('Y-m-d H:i:s', time());
+								this.order = "12hour";
 								break;
 							case "home3":
 								this.category = "tips";
@@ -306,7 +305,7 @@ define(
 								$(".no-splash").fadeOut();
 
 								if (that.isConnected) {
-									$(".splash .app-refreshed").html("Tidak ada jaringan.").fadeIn();
+									$(".splash .app-refreshed").html("Tidak ada jaringan").fadeIn();
 									setTimeout(function () {
 										$(".splash .app-refreshed").fadeOut();
 									}, 2000);
@@ -408,10 +407,14 @@ define(
 								that.page = 1;
 
 								that.collection = new Timeline({
-									order   : typeof that.order != "undefined" ? that.order : "",
+									order: typeof that.order != "undefined" ? that.order : "",
 									category: typeof that.category != "undefined" ? that.category : "",
-									search  : typeof that.search != "undefined" ? that.search : "",
-									page    : that.page,
+									search: typeof that.search != "undefined" ? that.search : "",
+									filter: typeof that.filter != "undefined" ? that.filter : "",
+									limit: typeof that.limit != "undefined" ? that.limit : "",
+									cache: typeof that.cache != "undefined" ? that.cache : "",
+									where: typeof that.where != "undefined" ? that.where : "",
+									page: (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") != null ? that.cacheSource.getItem(Backbone.history.getFragment() + "/page") : 1),
 								});
 
 								that.collection.fetch({
@@ -448,7 +451,7 @@ define(
 							}
 							else {
 								if (that.isConnected) {
-									$(".app-refreshed").html("Tidak ada jaringan.").fadeIn();
+									$(".app-refreshed").html("Tidak ada jaringan").fadeIn();
 									setTimeout(function () {
 										$(".app-refreshed").fadeOut();
 									}, 2000);
@@ -711,7 +714,7 @@ define(
 						$(".splash .app-loader").addClass("showbtn");
 
 						if (that.isConnected) {
-							$(".app-refreshed").html("Tidak ada jaringan.").fadeIn();
+							$(".app-refreshed").html("Tidak ada jaringan").fadeIn();
 							setTimeout(function () {
 								$(".app-refreshed").fadeOut();
 							}, 2000);
