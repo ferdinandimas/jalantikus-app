@@ -210,30 +210,75 @@ define(
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-detail-container").scrollTop());
 					});
 
-					$("img").error(function () {
-						$(this).attr("src", "").attr("alt", "");
-					}).load(function () {
-						if ($(this).attr("src").indexOf("filesystem") < 0) {
-							var that = this;
-							var xhr  = new XMLHttpRequest();
-							xhr.onreadystatechange = function(){
-								if (this.readyState == 4 && this.status == 200){
-									cacheKey = "image.article.";
-									url      = btoa($(that).attr("src"));
+					//$("img").error(function () {
+					//	$(this).attr("src", "").attr("alt", "");
+					//}).load(function () {
+					//	if ($(this).attr("src").indexOf("filesystem") < 0) {
+					//		var that = this;
+					//		var xhr  = new XMLHttpRequest();
+					//		xhr.onreadystatechange = function(){
+					//			if (this.readyState == 4 && this.status == 200){
+					//				cacheKey = "image.article.";
+					//				url      = btoa($(that).attr("src"));
+					//
+					//				jtCache.setItem(cacheKey + url, {
+					//					"type"     : "blob",
+					//					"value"    : this.response,
+					//					"extension": "",
+					//					"fileType" : this.response.type
+					//				}, window.TEMPORARY);
+					//			}
+					//		}
+					//		xhr.open('GET', $(this).attr("src"));
+					//		xhr.responseType = 'blob';
+					//		xhr.send();
+					//	}
+					//}
 
-									jtCache.setItem(cacheKey + url, {
-										"type"     : "blob",
-										"value"    : this.response,
-										"extension": "",
-										"fileType" : this.response.type
-									}, window.TEMPORARY);
-								}
-							}
-							xhr.open('GET', $(this).attr("src"));
-							xhr.responseType = 'blob';
-							xhr.send();
+					$(".app-detail-body img").error(function()
+					{
+						var _this = $(this);
+						var parent = _this.closest("p");
+						var src = _this.attr("src");
+						console.log(parent.find(".image-refresh"))
+						if(parent.find(".image-refresh").length == 0)
+						{
+							parent.append("<div class='image-refresh'>Muat ulang gambar</div>");
 						}
-					});
+						else
+						{
+							parent.find(".image-refresh").removeClass("active");
+						}
+						// _this.attr("src", "");
+						_this.hide();
+
+						$(parent, ".image-refresh").on("click", function()
+						{
+							if(!parent.find(".image-refresh").hasClass("active"))
+							{
+								parent.find(".image-refresh").addClass("active");
+							}
+							_this.show();
+							_this.attr("src", src).load(function(){
+								parent.find(".image-refresh").remove();
+							});
+						})
+					})
+
+					//$(".app-detail-body img").each(function (key, val) {
+					//	regExp = /(https?\:\/\/(.*?\.)?(jalantikus\.com|babe\.news)\/assets\/cache\/)(.*?\/.*?)(\/.*?)$/g;
+					//	value  = $(val).attr("src");
+					//
+					//	if (typeof value != "undefined" && value.match(regExp)) {
+					//		var matches = regExp.exec(value);
+					//
+					//		_images      = matches[ 1 ] + $(".app-detail-body").width() + "/0" + matches[ 5 ];
+					//		_placeholder = matches[ 1 ] + Math.ceil($(".app-detail-body").width() / 100) + "/0" + matches[ 5 ];
+					//
+					//		$(val).data("src", _images);
+					//		$(val).attr("src", _placeholder);
+					//	}
+					//});
 
 					$("img").each(function(key, val){
 						regExp = /(https?\:\/\/(.*?\.)?(jalantikus\.com|babe\.news)\/assets\/cache\/)(.*?\/.*?)(\/.*?)$/g;

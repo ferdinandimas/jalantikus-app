@@ -790,6 +790,46 @@ div, span, a
     animation: refresh 1.2s linear infinite;
     box-sizing: border-box;
 }
+.image-refresh
+{
+    width: auto;
+    display: inline-block;
+    height: 30px;
+    left: 50%;
+    padding: 0 15px 0 55px;
+    position: relative;
+    line-height: 30px;
+    border: 1px solid #c92737;
+    border-radius: 4px;
+    transform: translate(-50%, 0);
+    background-color: transparent;
+    cursor: pointer;
+}
+.image-refresh:after
+{
+	position: absolute;
+	height: 30px;
+	width: 55px;
+	left: 0;
+	top: 0;
+	content: "";
+	-webkit-mask-image: url(../images/refresh-icon.svg);
+    mask-image: url(../images/refresh-icon.svg);
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: auto 24px;
+    mask-size: auto 24px;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    background-color: #c92737;
+    -webkit-transform-origin: center;
+    transform-origin: center;
+}
+.image-refresh.active:after
+{
+	animation: refresh 1s linear 1;
+}
+
 .app-loader .app-retry, .splash-content .app-retry 
 {
     display: none;
@@ -2593,7 +2633,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	width: 30px;
 	height: 30px;
 	content: "";
-	top: 5px;
+	top: 4px;
 	right: 15px;
 	-webkit-mask-image: url(../images/user-favorited-icon.svg);
 	mask-image: url(../images/user-favorited-icon.svg);
@@ -2609,29 +2649,29 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 }
 .app-addtofavorite:before
 {
-	position: absolute;
-	width: 30px;
-	height: 30px;
-	content: "";
-	top: 5px;
-	right: 15px;
-	background-color: #c92737;
-	-webkit-mask-image: url(../images/user-favorite-icon.svg);
-	mask-image: url(../images/user-favorite-icon.svg);
-	-webkit-mask-position: center center;
-	mask-position: center center;
-	-webkit-mask-repeat: no-repeat;
-	mask-repeat: no-repeat;
-	transform-origin: center;
-	-webkit-transition: 0.2s;
-	transition: 0.2s;
-	-webkit-mask-size: 20px;
-	mask-size: 20px;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    content: "";
+    top: 4px;
+    right: 15px;
+    background-color: #c92737;
+    -webkit-mask-image: url(../images/user-favorite-icon.svg);
+    mask-image: url(../images/user-favorite-icon.svg);
+    -webkit-mask-position: center center;
+    mask-position: center center;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    transform-origin: center;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+    -webkit-mask-size: 24px;
+    mask-size: 24px;
 }
 .app-addtofavorite .app-goto:after
 {
-	-webkit-mask-size: 21px;
-	mask-size: 21px;
+	-webkit-mask-size: 24px;
+	mask-size: 24px;
 	background-color: #c92737;
 }
 .app-addtofavorite.active .app-goto:after
@@ -2898,15 +2938,15 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 }
 .splash-content .app-loader.showbtn .app-retry
 {
-	display: block;
+	display: block!important;
 }
 .splash-content .app-loader.showbtn .app-load
 {
-	display: none;
+	display: none!important;
 }
 .splash-content .app-loader.showbtn:before
 {
-	display: none;
+	display: none!important;
 }
 .no-splash .app-loader:before, .splash-content .app-loader:before
 {
