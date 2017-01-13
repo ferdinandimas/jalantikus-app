@@ -340,7 +340,7 @@ define(
 						var parent = _this.closest("p");
 
 						if (parent.find(".image-refresh").length == 0) {
-							parent.append("<div class='image-refresh'>Muat ulang gambar</div>");
+							parent.append("<div class='image-refresh'>Muat ulang gambar<a href='javascript:void(0);' class='card-link'><div class='ripple'></div></a></div>");
 						}
 						else {
 							parent.find(".image-refresh").removeClass("active");
@@ -348,7 +348,7 @@ define(
 
 						_this.hide();
 
-						$(parent, ".image-refresh").on("click", function () {
+						parent.find(".image-refresh").on("click", function () {
 							if (!parent.find(".image-refresh").hasClass("active")) {
 								parent.find(".image-refresh").addClass("active");
 							}
