@@ -50,8 +50,20 @@
                             <%= value.title %>
                         </div>
                         <div class="card-note">
-                            <div class="card-category category-wajibbaca" data-id="<%= value.id %>">
-                                Populer
+                            <div class="card-category <% if(value.label) { %> <%= value.label %> <% } %>" data-id="<%= value.id %>">
+                                <% if(value.label == "populer") { %>
+                                    POPULER
+                                <% } else if (value.label == "wajibbaca") { %>
+                                    WAJIB BACA
+                                <% } else if (value.label == "banyakdisukai") { %>
+                                    BANYAK DISUKAI
+                                <% } else if (value.label == "direkomendasikan") { %>
+                                    DIREKOMENDASIKAN
+                                <% } else if (value.label == "terbaru") { %>
+                                    TERBARU
+                                <% } else { %>
+                                    <%= jt.timeSince(value.published) %>
+                                <% } %>
                             </div>
                         </div>
                     </div>

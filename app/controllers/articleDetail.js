@@ -200,6 +200,7 @@ define(
 					$(".app-detail-container .app-loader").remove();
 
 					$.each(_data.related.article, function (key, value) {
+						console.log(value.views_last_24h);
 						if (value.views_last_24h >= 2100) {
 							value.label = "populer";
 						}
@@ -215,7 +216,6 @@ define(
 						else {
 							value.label = "direkomendasikan";
 						}
-						console.log("HERE", value);
 					});
 
 					$("#app-body").empty().append(that.layout({
@@ -550,15 +550,6 @@ define(
 						document.execCommand("copy");
 						document.body.removeChild(dummy);
 						validateTooltip(e)
-					});
-
-					$('.card-category').each(function (index, val) {
-						if (parseInt($(val).data("id")) % 2 == 0) {
-							$(val).html("Wajib Baca");
-						}
-						else {
-							$(val).removeClass("category-wajibbaca").addClass("category-populer").html("Populer");
-						}
 					});
 
 					function validateTooltip(e) {
