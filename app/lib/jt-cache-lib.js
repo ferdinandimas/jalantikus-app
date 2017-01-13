@@ -279,6 +279,52 @@ var jtCache = function () {
 				}
 			}
 		},
+		listItem: function (location, callback, type) {
+			type = (typeof type == "undefined" || type == null ? window.TEMPORARY : type);
+
+			var size = 1 * 1024 * 1024;
+
+			if (typeof window.requestFileSystem == "function") {
+				window.requestFileSystem(type, 0, function (fs) {
+					fs.root.getDirectory(location, {}, function (fs) {
+						var reader = fs.createReader();
+
+						reader.readEntries(function (entries) {
+							var result = [];
+
+							Promise.all(entries.map(function (val) {
+								var deferred = $.Deferred();
+
+								jtCache.getItem(val.name.replace(".json", ""), function (article) {
+									result.push(article);
+
+									deferred.resolve();
+								}, type);
+
+								return deferred.promise();
+							})).then(function () {
+								if (typeof callback == "function") {
+									callback(result);
+								}
+							});
+						}, function () {
+							if (typeof callback == "function") {
+								callback([]);
+							}
+						});
+					}, function () {
+						if (typeof callback == "function") {
+							callback([]);
+						}
+					});
+				});
+			}
+			else {
+				if (typeof callback == "function") {
+					callback([]);
+				}
+			}
+		},
 	}
 }
 var jtCache = jtCache();

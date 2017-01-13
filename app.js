@@ -545,107 +545,30 @@ require(
 			$(document).on("click", ".app-addtofavorite .app-goto", function (e) {
 				var that = this;
 
-				if ($(this).data("status") != "processing") {
-					$(this).data("status", "processing");
+				if (!$(that).parent().hasClass("active")) {
+					jtCache.getItem(Backbone.history.getFragment(), function(_data) {
+						if (_data != null) {
+							jtCache.setItem("favorite/" + Backbone.history.getFragment(), _data.value, window.PERSISTENT, null, function () {
+								$(that).parent().addClass("active");
 
-					if (!$(that).parent().hasClass("active")) {
-						jtCache.getItem("favorite.list", function(_data) {
-							var _articles = [];
-
-							if (_data != null) {
-								_articles = JSON.parse(_data.value);
-							}
-
-							jtCache.getItem(Backbone.history.getFragment(), function(_data) {
-								if (_data != null) {
-									_buff = JSON.parse(_data.value);
-
-									delete _buff.description;
-									delete _buff.related;
-									delete _buff.keywords;
-
-									_buff.file = "favorite/" + Backbone.history.getFragment();
-									_buff.file = _buff.file.replace(/\//g, ".");
-
-									_articles.push(_buff);
-
-									jtCache.setItem("favorite.list", JSON.stringify(_articles), window.PERSISTENT, null, function () {
-										jtCache.setItem("favorite/" + Backbone.history.getFragment(), JSON.stringify(_data), window.PERSISTENT);
-									});
-
-									$(that).parent().addClass("active");
-
-									setTimeout(function () {
-										$(that).data("status", "");
-									}, 2000);
-
-									$(".app-refreshed").html("Anda menyukai artikel ini").fadeIn();
-									setTimeout(function () {
-										$(".app-refreshed").fadeOut();
-									}, 2000);
-								}
-								else {
-									setTimeout(function () {
-										$(that).data("status", "");
-									}, 2000);
-
-									$(".app-refreshed").html("Artikel tidak berhasil disukai").fadeIn();
-									setTimeout(function () {
-										$(".app-refreshed").fadeOut();
-									}, 2000);
-								}
+								$(".app-refreshed").html("Anda menyukai artikel ini").fadeIn();
+								setTimeout(function () {
+									$(".app-refreshed").fadeOut();
+								}, 2000);
 							});
-						}, window.PERSISTENT);
-					}
-					else {
-						jtCache.getItem("favorite.list", function(_data) {
-							var _articles = [];
-
-							if (_data != null) {
-								_articles = JSON.parse(_data.value);
-							}
-
-							_buff = "favorite/" + Backbone.history.getFragment();
-							_buff = _buff.replace(/\//g, ".");
-
-							$.each(_articles, function (key, value) {
-								if (typeof value != "undefined" && typeof value.file != "undefined" && value.file == _buff) {
-									_articles.splice(key, 1);
-								}
-							});
-
-							jtCache.removeItem("favorite/" + Backbone.history.getFragment(), window.PERSISTENT, function () {
-								if (_articles.length > 0) {
-									jtCache.removeItem("favorite.list", window.PERSISTENT, function () {
-
-										setTimeout(function () {
-											$(that).data("status", "");
-										}, 2000);
-
-										jtCache.setItem("favorite.list", JSON.stringify(_articles), window.PERSISTENT);
-									});
-								}
-								else {
-									jtCache.removeItem("favorite.list", window.PERSISTENT, function () {
-										setTimeout(function () {
-											$(that).data("status", "");
-										}, 2000);
-									});
-								}
-							});
-
-							$(that).parent().removeClass("active");
-						}, window.PERSISTENT);
-					}
+						}
+						else {
+							$(".app-refreshed").html("Artikel tidak berhasil disukai").fadeIn();
+							setTimeout(function () {
+								$(".app-refreshed").fadeOut();
+							}, 2000);
+						}
+					});
 				}
-				else if ($(this).data("status") == "processing" && $(this).data("alert") != "showing") {
-					$(this).data("alert", "showing");
-
-					$(".app-refreshed").html("Silahkan ulangi beberapa saat lagi").fadeIn();
-					setTimeout(function () {
-						$(that).data("alert", "");
-						$(".app-refreshed").fadeOut();
-					}, 2000);
+				else {
+					jtCache.removeItem("favorite/" + Backbone.history.getFragment(), window.PERSISTENT, function () {
+						$(that).parent().removeClass("active");
+					});
 				}
 			});
 

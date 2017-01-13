@@ -54,47 +54,73 @@ define(
 					
 					$("#app-toolbar").addClass("disukai");
 
-					jtCache.getItem("favorite.list", function(_data) {
-						_data = (_data != null && typeof _data.value != "undefined" ? _data.value : "[]");
-						_buff = JSON.parse(_data);
+					jtCache.listItem("favorite", function(_data) {
+						if (_data.length > 0) {
+							var _buff = [];
 
-						if (_buff.length > 0) {
+							$.each(_data, function (key, val) {
+								_buff.push(val);
+							});
+
 							key = 0;
 							Promise.all(_buff.map(function (val) {
-								_buff[ key ] = val;
-								_buff[ key ].type = "favorite";
+								var deferred = $.Deferred();
 
-								jtCache.getItem("article." + val.slug, function(_data) {
-									if (_data == null || _data.expired == "true") {
-										that.articleModel = new Article({
-											slug: val.slug
-										});
+								if (val.expired == "true") {
+									jtCache.getItem("article." + val.slug, function(_data) {
+										if (_data == null || _data.expired == "true") {
+											that.articleModel = new Article({
+												slug: val.slug
+											});
 
-										that.articleModel.fetch({
-											timeout: 5000,
-											success: function (_data) {
-												jtCache.setItem("article." + val.slug, JSON.stringify(_data));
-											}
-										});
-									}
-								});
+											that.articleModel.fetch({
+												timeout: 5000,
+												success: function (_data) {
+													jtCache.setItem("article." + val.slug, JSON.stringify(_data));
+													jtCache.setItem("favorite/article." + val.slug, JSON.stringify(_data));
 
-								key++;
-							})).then(function () {
-								$("#app-body .app-content-container .card-placeholder").remove();
-								$("#app-body .app-content-container").empty()
-										.append('<div class="app-toolbar-placeholder"></div>')
-										.append(those.timelineTemplate({
-											timelineArticle: _buff
-										}));
+													_buff[ key ] = _data;
 
-								if (Backbone.history.getFragment().trim() != "") {
-									$(".app-toolbar").removeClass("beranda");
-									$(".app-content-container .app-index-card:first-child").css("margin-top", "0px");
+													deferred.resolve();
+												},
+												error  : function () {
+													deferred.resolve();
+												}
+											});
+										}
+										else {
+											jtCache.setItem("favorite/article." + val.slug, _data.value);
+
+											_buff[ key ] = JSON.parse(_data.value);
+
+											deferred.resolve();
+										}
+									});
+								}
+								else {
+									_buff[ key ] = JSON.parse(val.value);
 								}
 
-								finishedRendering()
-							});
+								_buff[ key ].type = "favorite";
+
+								key++;
+
+								return deferred.promise();
+							}));
+
+							$("#app-body .app-content-container .card-placeholder").remove();
+							$("#app-body .app-content-container").empty()
+									.append('<div class="app-toolbar-placeholder"></div>')
+									.append(those.timelineTemplate({
+										timelineArticle: _buff
+									}));
+
+							if (Backbone.history.getFragment().trim() != "") {
+								$(".app-toolbar").removeClass("beranda");
+								$(".app-content-container .app-index-card:first-child").css("margin-top", "0px");
+							}
+
+							finishedRendering()
 						}
 						else {
 							$("#app-body .app-content-container").empty().append(
