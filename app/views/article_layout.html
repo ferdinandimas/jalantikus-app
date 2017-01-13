@@ -43,7 +43,9 @@
         <div class="app-article-more">
             <% _.each(detail.related.article, function(value) { %><div class="app-index-card">
                     <div class="card-image">
-                        <img data-src="<%= value.image.baseUrl %>168/100<%= value.image.file %>" alt="<%= value.title %>">
+                        <div class="image-overflow">
+                            <img data-src="<%= value.image.baseUrl %>168/100<%= value.image.file %>" alt="<%= value.title %>">
+                       </div>
                     </div>
                     <div class="card-description">
                         <div class="card-title">
