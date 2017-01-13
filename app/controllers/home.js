@@ -266,11 +266,8 @@ define(
 								this.order = "published";
 								break;
 							case "home2":
-								this.filter = "shuffle";
-								this.order  = "24hour";
-								this.where  = "views_last_24hour>=2100";
-								this.cache  = 300;
-								this.limit  = 12;
+								this.where = "published>=" + date('Y-m-d H:00:00', strtotime('-24 hour'));
+								this.orderBy = "[views_last_24h,desc]";
 								break;
 							case "home3":
 								this.category = "tips";
@@ -302,11 +299,11 @@ define(
 						}
 					}
 					else {
-						this.filter = "shuffle";
-						this.order  = "6hour";
-						this.limit  = 12;
-						this.cache  = 300;
-						this.where  = "views_last_24hour>=250";
+						this.filter  = "shuffle";
+						this.order = "6hour";
+						this.limit   = 12;
+						this.cache   = 300;
+						this.where   = "published>=" + date('Y-m-d H:00:00', strtotime('-1 month'));
 
 						$("#search-form [name='search']").val("");
 
@@ -319,14 +316,15 @@ define(
 
 					if (!jt.isOffline()) {
 						this.collection = new Timeline({
-							order: typeof this.order != "undefined" ? this.order : "",
+							order   : typeof this.order != "undefined" ? this.order : "",
+							orderBy : typeof this.orderBy != "undefined" ? this.orderBy : "",
 							category: typeof this.category != "undefined" ? this.category : "",
-							search: typeof this.search != "undefined" ? this.search : "",
-							filter: typeof this.filter != "undefined" ? this.filter : "",
-							limit: typeof this.limit != "undefined" ? this.limit : "",
-							cache: typeof this.cache != "undefined" ? this.cache : "",
-							where: typeof this.where != "undefined" ? this.where : "",
-							page: (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") != null ? that.cacheSource.getItem(Backbone.history.getFragment() + "/page") : 1),
+							search  : typeof this.search != "undefined" ? this.search : "",
+							filter  : typeof this.filter != "undefined" ? this.filter : "",
+							limit   : typeof this.limit != "undefined" ? this.limit : "",
+							cache   : typeof this.cache != "undefined" ? this.cache : "",
+							where   : typeof this.where != "undefined" ? this.where : "",
+							page    : (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") != null ? that.cacheSource.getItem(Backbone.history.getFragment() + "/page") : 1),
 						});
 					}
 
@@ -478,6 +476,7 @@ define(
 
 								that.collection = new Timeline({
 									order: typeof that.order != "undefined" ? that.order : "",
+									orderBy: typeof that.orderBy != "undefined" ? that.orderBy : "",
 									category: typeof that.category != "undefined" ? that.category : "",
 									search: typeof that.search != "undefined" ? that.search : "",
 									filter: typeof that.filter != "undefined" ? that.filter : "",
@@ -558,13 +557,15 @@ define(
 				});
 			},
 			render          : function (_isUsingCache) {
-				var that  = this;
+				var that = this;
 				var _data = this.collection.toJSON();
+
+				this.limit = (typeof this.limit == "undefined" ? 6 : this.limit);
 
 				if (_isUsingCache && that.cacheSource.getItem(Backbone.history.getFragment()) != null && (JSON.parse(that.cacheSource.getItem(Backbone.history.getFragment()))).length > 0) {
 					_data = JSON.parse(that.cacheSource.getItem(Backbone.history.getFragment()));
 				}
-				else if (_data.length == 0) {
+				else if (_data.length == 0 || _data.length < this.limit) {
 					that.page = that.page - 1;
 
 					window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
@@ -625,10 +626,10 @@ define(
 					else {
 						if (typeof that.options.type == "undefined") {
 							$.each(_data, function (key, value) {
-								if (value.views_last_24hour >= 2100) {
+								if (value.views_last_24hour >= 3100) {
 									value.label = "populer";
 								}
-								else if (value.views_last_24hour >= 1200 && value.views_last_24hour < 2100) {
+								else if (value.views_last_24hour >= 1200 && value.views_last_24hour < 3100) {
 									value.label = "wajibbaca";
 								}
 								else if (value.views_last_24hour >= 500 && value.views_last_24hour < 1200) {
@@ -696,6 +697,9 @@ define(
 
 					Backbone.history.loadUrl();
 				}
+				else {
+					$("#app-body .app-content-container .card-placeholder").remove();
+				}
 
 				if (that.cacheSource.getItem(Backbone.history.getFragment() + "/isLastPage") != null) {
 					$(".app-content-container .app-loader").remove();
@@ -746,14 +750,15 @@ define(
 
 					if (!jt.isOffline()) {
 						this.collection = new Timeline({
-							order: typeof this.order != "undefined" ? this.order : "",
+							order   : typeof this.order != "undefined" ? this.order : "",
+							orderBy : typeof this.orderBy != "undefined" ? this.orderBy : "",
 							category: typeof this.category != "undefined" ? this.category : "",
-							search: typeof this.search != "undefined" ? this.search : "",
-							filter: typeof this.filter != "undefined" ? this.filter : "",
-							limit: typeof this.limit != "undefined" ? this.limit : "",
-							cache: typeof this.cache != "undefined" ? this.cache : "",
-							where: typeof this.where != "undefined" ? this.where : "",
-							page: this.page + 1,
+							search  : typeof this.search != "undefined" ? this.search : "",
+							filter  : typeof this.filter != "undefined" ? this.filter : "",
+							limit   : typeof this.limit != "undefined" ? this.limit : "",
+							cache   : typeof this.cache != "undefined" ? this.cache : "",
+							where   : typeof this.where != "undefined" ? this.where : "",
+							page    : this.page + 1,
 						});
 					}
 
