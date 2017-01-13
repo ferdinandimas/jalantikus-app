@@ -1,7 +1,7 @@
 <div class="app-detail-container">
     <div class="app-detail-header">
         <div class="header-image">
-            <img class="banner" data-src="<%= detail.image.baseUrl %>300/129<%= detail.image.file %>" />
+            <img class="banner" src="<%= detail.image.baseUrl %>300/129<%= detail.image.file %>" />
         </div>
         <div class="header-detail">
             <div class="header-title shadow-l2">
@@ -43,7 +43,7 @@
         <div class="app-article-more">
             <% _.each(detail.related.article, function(value) { %><div class="app-index-card">
                     <div class="card-image">
-                        <img data-src="<%= value.image.baseUrl %>168/100<%= value.image.file %>" alt="<%= value.title %>">
+                        <img src="<%= value.image.baseUrl %>168/100<%= value.image.file %>" alt="<%= value.title %>">
                     </div>
                     <div class="card-description">
                         <div class="card-title">

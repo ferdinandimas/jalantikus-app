@@ -199,6 +199,25 @@ define(
 				else {
 					$(".app-detail-container .app-loader").remove();
 
+					$.each(_data.related.article, function (key, value) {
+						if (value.views_last_24h >= 2100) {
+							value.label = "populer";
+						}
+						else if (value.views_last_24h >= 1200 && value.views_last_24h < 2100) {
+							value.label = "wajibbaca";
+						}
+						else if (value.views_last_24h >= 500 && value.views_last_24h < 1200) {
+							value.label = "banyakdisukai";
+						}
+						else if (Math.floor((new Date() - new Date(value.published)) / 1000) < 18000) {
+							value.label = "terbaru";
+						}
+						else {
+							value.label = "direkomendasikan";
+						}
+						console.log("HERE", value);
+					});
+
 					$("#app-body").empty().append(that.layout({
 						detail: _data
 					}));
@@ -211,54 +230,9 @@ define(
 					});
 
 					$("img").each(function (key, val) {
-						regExp = /(https?\:\/\/(.*?\.)?(jalantikus\.com|babe\.news)\/assets\/cache\/)(.*?\/.*?)(\/.*?)$/g;
-						value  = $(val).attr("src");
+						var that = this;
 
 						$(val).attr("alt", "");
-
-						/*
-						 Using Placeholder
-						 */
-						if (isUsingPlaceholder = true) {
-							var _placeholder = "";
-
-							if (typeof value != "undefined" && value.match(regExp) && !$(val).hasClass("banner")) {
-								var matches = regExp.exec(value);
-
-								_images = matches[ 1 ] + $(".app-detail-body").width() + "/0" + matches[ 5 ];
-								_placeholder = matches[ 1 ] + Math.ceil($(".app-detail-body")
-														.width() / 100) + "/0" + matches[ 5 ];
-
-								$(val).data("src", _images);
-
-								if (typeof window.resolveLocalFileSystemURL == "function") {
-									window.resolveLocalFileSystemURL("cdvfile://localhost/temporary/image/image.article." + btoa(
-													_placeholder) + ".", function (entry) {
-										var nativePath = entry.toURL();
-										if (typeof nativePath != "undefined") {
-											$(val).attr("src", nativePath);
-										}
-										else {
-											$(val).attr("src", _placeholder);
-										}
-									}, function (e) {
-										$(val).attr("src", _placeholder);
-									});
-								}
-								else {
-									$(val).attr("src", _placeholder);
-								}
-							}
-							else if (typeof value != "undefined") {
-								$(val).data("src", $(val).attr("src"));
-								//$(val).attr("src", "");
-							}
-						}
-						/*
-						 Using Placeholder
-						 */
-
-						var that = this;
 
 						$(val).load(function () {
 							if ($(that).attr("src").indexOf("filesystem") < 0) {
@@ -282,26 +256,82 @@ define(
 							}
 						});
 
-						var img = new Image();
-						$(img).on("load", function () {
-							$(val).attr("src", $(img).attr("src"));
-						});
+						/*
+						 Using Placeholder
+						 */
+						if (isUsingPlaceholder = true) {
+							regExp = /(https?\:\/\/(.*?\.)?(jalantikus\.com|babe\.news)\/assets\/cache\/)(.*?\/.*?)(\/.*?)$/g;
+							value  = $(val).attr("src");
 
-						if (typeof window.resolveLocalFileSystemURL == "function") {
-							window.resolveLocalFileSystemURL("cdvfile://localhost/temporary/image/image.article." + btoa($(val).data("src")) + ".", function (entry) {
-								var nativePath = entry.toURL();
-								if (typeof nativePath != "undefined") {
-									$(val).attr("src", nativePath);
+							var _placeholder = "";
+
+							if (typeof value != "undefined" && value.match(regExp) && !$(val).hasClass("banner")) {
+								var matches = regExp.exec(value);
+
+								_images = matches[ 1 ] + $(".app-detail-body").width() + "/0" + matches[ 5 ];
+								_placeholder = matches[ 1 ] + Math.ceil($(".app-detail-body").width() / 100) + "/0" + matches[ 5 ];
+
+								$(val).data("src", _images);
+
+								if (typeof window.resolveLocalFileSystemURL == "function") {
+									window.resolveLocalFileSystemURL("cdvfile://localhost/temporary/image/image.article." + btoa(_placeholder) + ".", function (entry) {
+										var nativePath = entry.toURL();
+										if (typeof nativePath != "undefined") {
+											$(val).attr("src", nativePath);
+										}
+										else {
+											$(val).attr("src", _placeholder);
+										}
+
+										loadImage();
+									}, function (e) {
+										$(val).attr("src", _placeholder);
+
+										loadImage();
+									});
 								}
 								else {
-									img.src = $(val).data("src");
+									$(val).attr("src", _placeholder);
+
+									loadImage();
 								}
-							}, function (e) {
-								img.src = $(val).data("src");
-							});
+							}
+							else if (typeof value != "undefined") {
+								$(val).data("src", $(val).attr("src"));
+								//$(val).attr("src", "");
+
+								loadImage();
+							}
 						}
 						else {
-							img.src = $(val).data("src");
+							loadImage();
+						}
+						/*
+						 Using Placeholder
+						 */
+
+						function loadImage() {
+							var img = new Image();
+							$(img).on("load", function () {
+								$(val).attr("src", $(img).attr("src"));
+							});
+
+							if (typeof window.resolveLocalFileSystemURL == "function") {
+								window.resolveLocalFileSystemURL("cdvfile://localhost/temporary/image/image.article." + btoa($(val).data("src")) + ".", function (entry) {
+									var nativePath = entry.toURL();
+									if (typeof nativePath != "undefined") {
+										$(val).attr("src", nativePath);
+									}
+									else {
+										img.src = $(val).data("src");
+									}
+								}, function (e) {
+									img.src = $(val).data("src");
+								});
+							}
+							else {
+								img.src = $(val).data("src");
+							}
 						}
 					});
 
@@ -373,7 +403,7 @@ define(
 						value  = $(val).attr("href");
 
 						if (typeof value != "undefined") {
-							$(val).attr("href", value.replace("https://jalantikus.com", "https://app.jalantikus.com").replace("http://jalantikus.com", "https://app.jalantikus.com"));
+							$(val).attr("href", value.replace("https://app.jalantikus.com", "https://jalantikus.com").replace("https://app.jalantikus.com", "http://jalantikus.com"));
 						}
 
 						if (typeof value != "undefined" && value.match(regExp)) {
@@ -384,6 +414,15 @@ define(
 					});
 
 					$("#app-body .app-detail-container a").each(function (key, val) {
+						regExp = /(https?\:\/\/app\.jalantikus\.com\/(gadgets|tips|news|gokil)\/(.*?)(\/|$|\?)|\#)/gim;
+						value  = $(val).attr("href");
+
+						if (typeof value != "undefined" && !value.match(regExp) && !$(this).hasClass("share") && !$(this).hasClass("scroll-button") && !$(this).hasClass("download-btn") && !$(this).hasClass("googleplay-btn")) {
+							$(this).attr("href", "#browser/" + encodeURIComponent(value));
+						}
+					});
+
+					$(".app-gotoweb").each(function (key, val) {
 						regExp = /(https?\:\/\/app\.jalantikus\.com\/(gadgets|tips|news|gokil)\/(.*?)(\/|$|\?)|\#)/gim;
 						value  = $(val).attr("href");
 
