@@ -157,7 +157,7 @@ div, span, a
 	height: 165px;
 	padding: 0;
 }
-.app-toolbar:not(.disukai) ~ .app-body .app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-image, .app-index-card:nth-child(2) .card-image img
+.app-toolbar:not(.disukai) ~ .app-body .app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-image, .app-index-card:nth-child(2) .card-image img, .app-index-card:nth-child(2) .card-image object
 {
 	position: absolute;
 	width: 100%;
@@ -460,7 +460,7 @@ div, span, a
 	width: auto;
 	padding: 0 0 25px;
 }
-.app-index-card .card-image img
+.app-index-card .card-image img, .app-index-card .card-image object
 {
 	height: 100px;
 	width: 100px;
@@ -471,7 +471,7 @@ div, span, a
     background-size: cover;
     background-repeat: no-repeat;
 }
-.app-index-card.multi-image .card-image img
+.app-index-card.multi-image .card-image img, .app-index-card.multi-image .card-image object
 {
 	margin-right: 10px;
 	border-radius: 0;
@@ -483,7 +483,7 @@ div, span, a
     background-size: cover;
     background-repeat: no-repeat;
 }
-.app-article-more .app-index-card .card-image img
+.app-article-more .app-index-card .card-image img, .app-article-more .app-index-card .card-image object
 {
 	display: block;
 	width: 100%;
@@ -491,7 +491,7 @@ div, span, a
 	position: relative;
 	z-index: 2
 }
-.app-index-card.multi-image .card-image img:nth-child(3)
+.app-index-card.multi-image .card-image img:nth-child(3), .app-index-card.multi-image .card-image object:nth-child(3)
 {
 	margin-right: 0
 }
