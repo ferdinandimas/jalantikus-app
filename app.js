@@ -384,6 +384,10 @@ require(
 				jt.ripple($(this), e, "slow");
 			});
 
+			$(document).on("click", ".image-refresh .card-link", function(e){
+				jt.ripple($(this), e, "", "");
+			});
+
 			$(document).on("click", ".item-kategori", function (e) {
 				var _this = $(this);
 				if(!_this.hasClass("active"))
