@@ -81,6 +81,7 @@ define(
 
 								key++;
 							})).then(function () {
+								$("#app-body .app-content-container .card-placeholder").remove();
 								$("#app-body .app-content-container").empty()
 										.append('<div class="app-toolbar-placeholder"></div>')
 										.append(those.timelineTemplate({
@@ -380,7 +381,10 @@ define(
 								'<div class="app-search">' +
 								'<span class="app-search-result">Hasil pencarian dari: </span>' +
 								'<span class="app-search-keyword">"' + this.search + '"</span>' +
-								'</div>'
+								'</div>' +
+								'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>' +
+								'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>' +
+								'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>'
 						);
 					}
 					else {
@@ -573,6 +577,7 @@ define(
 							});
 						}
 
+						$("#app-body .app-content-container .card-placeholder").remove();
 						$("#app-body .app-content-container")
 								.append(this.timelineTemplate({
 									timelineArticle: _data
