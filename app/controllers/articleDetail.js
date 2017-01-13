@@ -200,7 +200,6 @@ define(
 					$(".app-detail-container .app-loader").remove();
 
 					$.each(_data.related.article, function (key, value) {
-						console.log(value.views_last_24h);
 						if (value.views_last_24h >= 2100) {
 							value.label = "populer";
 						}
@@ -214,7 +213,8 @@ define(
 							value.label = "terbaru";
 						}
 						else {
-							value.label = "direkomendasikan";
+							_label = [ 'populer', 'wajibbaca', 'banyakdisukai', 'direkomendasikan' ];
+							value.label = _label[ Math.floor(Math.random() * _label.length) ];
 						}
 					});
 
@@ -586,7 +586,7 @@ define(
 
 					$(".prettyprint").each(function (key, value) {
 						$(this).text(decodeHtml($(this).text()));
-					})
+					});
 
 					PR.prettyPrint();
 

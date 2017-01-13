@@ -545,8 +545,6 @@ require(
 			$(document).on("click", ".app-addtofavorite .app-goto", function (e) {
 				var that = this;
 
-				console.log("HERE", $(this).data("status"));
-
 				if ($(this).data("status") != "processing") {
 					$(this).data("status", "processing");
 
@@ -579,7 +577,7 @@ require(
 
 									setTimeout(function () {
 										$(that).data("status", "");
-									}, 5000);
+									}, 2000);
 
 									$(".app-refreshed").html("Anda menyukai artikel ini").fadeIn();
 									setTimeout(function () {
@@ -589,7 +587,7 @@ require(
 								else {
 									setTimeout(function () {
 										$(that).data("status", "");
-									}, 5000);
+									}, 2000);
 
 									$(".app-refreshed").html("Artikel tidak berhasil disukai").fadeIn();
 									setTimeout(function () {
@@ -622,7 +620,7 @@ require(
 
 										setTimeout(function () {
 											$(that).data("status", "");
-										}, 5000);
+										}, 2000);
 
 										jtCache.setItem("favorite.list", JSON.stringify(_articles), window.PERSISTENT);
 									});
@@ -631,7 +629,7 @@ require(
 									jtCache.removeItem("favorite.list", window.PERSISTENT, function () {
 										setTimeout(function () {
 											$(that).data("status", "");
-										}, 5000);
+										}, 2000);
 									});
 								}
 							});

@@ -108,8 +108,9 @@ define(
 
 							if (!jt.isOffline()) {
 								that.collection = new Timeline({
-									order   : "24hour",
-									limit   : 10,
+									order: "random",
+									limit: 10,
+									where: "views_last_24hour>=2100",
 								});
 
 								that.collection.fetch({
@@ -142,6 +143,9 @@ define(
 													timelineArticle: _data
 												}));
 
+										window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
+										window.localStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
+
 										that.loadImages();
 									},
 									error  : function () {
@@ -151,7 +155,39 @@ define(
 								});
 							}
 							else {
-								$(".recommended-articles").fadeOut();
+								if (that.cacheSource.getItem(Backbone.history.getFragment()) != null && (JSON.parse(that.cacheSource.getItem(Backbone.history.getFragment()))).length > 0) {
+									_data = JSON.parse(that.cacheSource.getItem(Backbone.history.getFragment()));
+
+									$.each(_data, function (key, val) {
+										_data[ key ].type = "favorite";
+
+										jtCache.getItem("article." + val.slug, function(_data) {
+											if (_data == null || _data.expired == "true") {
+												that.articleModel = new Article({
+													slug: val.slug
+												});
+
+												that.articleModel.fetch({
+													timeout: 5000,
+													success: function (_data) {
+														jtCache.setItem("article." + val.slug, JSON.stringify(_data));
+													}
+												});
+											}
+										});
+									});
+
+									$("#app-body .app-content-container .card-placeholder").remove();
+									$("#app-body .app-content-container")
+											.append(that.timelineTemplate({
+												timelineArticle: _data
+											}));
+
+									that.loadImages();
+								}
+								else {
+									$(".recommended-articles").fadeOut();
+								}
 							}
 
 							finishedRendering();
@@ -204,7 +240,11 @@ define(
 								this.order = "published";
 								break;
 							case "home2":
-								this.order = "12hour";
+								this.filter = "shuffle";
+								this.order  = "24hour";
+								this.where  = "views_last_24hour>=2100";
+								this.cache  = 300;
+								this.limit  = 12;
 								break;
 							case "home3":
 								this.category = "tips";
