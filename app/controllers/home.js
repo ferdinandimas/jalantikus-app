@@ -81,6 +81,7 @@ define(
 
 								key++;
 							})).then(function () {
+								$("#app-body .app-content-container .card-placeholder").remove();
 								$("#app-body .app-content-container").empty()
 										.append('<div class="app-toolbar-placeholder"></div>')
 										.append(those.timelineTemplate({
@@ -380,7 +381,10 @@ define(
 								'<div class="app-search">' +
 								'<span class="app-search-result">Hasil pencarian dari: </span>' +
 								'<span class="app-search-keyword">"' + this.search + '"</span>' +
-								'</div>'
+								'</div>' +
+								'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>' +
+								'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>' +
+								'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>'
 						);
 					}
 					else {
@@ -573,6 +577,7 @@ define(
 							});
 						}
 
+						$("#app-body .app-content-container .card-placeholder").remove();
 						$("#app-body .app-content-container")
 								.append(this.timelineTemplate({
 									timelineArticle: _data
@@ -725,16 +730,16 @@ define(
 				}
 			},
 			loadImages: function () {
-				$("object").error(function () {
+				$("img").error(function () {
 					$(this).attr("src", "").attr("alt", "");
 				}).load(function () {
-					if ($(this).attr("data").indexOf("filesystem") < 0) {
+					if ($(this).attr("src").indexOf("filesystem") < 0) {
 						var that = this;
 						var xhr  = new XMLHttpRequest();
 						xhr.onreadystatechange = function(){
 							if (this.readyState == 4 && this.status == 200){
 								cacheKey = "image.article.";
-								url      = btoa($(that).attr("data"));
+								url      = btoa($(that).attr("src"));
 
 								jtCache.setItem(cacheKey + url, {
 									"type"     : "blob",
@@ -744,16 +749,13 @@ define(
 								}, window.TEMPORARY);
 							}
 						}
-						xhr.open('GET', $(this).attr("data"));
+						xhr.open('GET', $(this).attr("src"));
 						xhr.responseType = 'blob';
 						xhr.send();
-						// fetch($(that).attr("data")).then(function(response){
-						// 	return response.blob();
-						// })
 					}
 				});
 
-				$("object").each(function (key, val) {
+				$("img").each(function (key, val) {
 					var img = new Image();
 					$(img).on("load", img, function () {
 						$(val).attr("src", $(val).data("src"));
@@ -763,17 +765,17 @@ define(
 						window.resolveLocalFileSystemURL("cdvfile://localhost/temporary/image/image.article." + btoa($(val).data("src")) + ".", function (entry) {
 							var nativePath = entry.toURL();
 							if (typeof nativePath != "undefined") {
-								$(val).attr("data", nativePath);
+								$(val).attr("src", nativePath);
 							}
 							else {
-								$(this). attr("data", $(val).data("src"));
+								img.src = $(val).data("src");
 							}
 						}, function (e) {
-							$(this). attr("data", $(val).data("src"));
+							img.src = $(val).data("src");
 						});
 					}
 					else {
-						$(this).attr("data", $(val).data("src"));
+						img.src = $(val).data("src");
 					}
 				});
 			}

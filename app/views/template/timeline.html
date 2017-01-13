@@ -28,13 +28,12 @@
             </div>
             <div class="card-image">
                 <% if(n++ == 1 && value.type != "favorite") { %>
-                    <object data-src="<%= value.image.baseUrl %>360/0<%= value.image.file %>" /></object>
+                    <div class="image-overflow"><img data-src="<%= value.image.baseUrl %>360/0<%= value.image.file %>" /></div>
                 <% } else { %>
-                    <object data-src="<%= value.image.baseUrl %>115/81<%= value.image.file %>" /></object><object data-src="<%= value.description_images[0].baseUrl %>114/81/<%= value.description_images[0].file %>" /></object><object data-src="<%= value.description_images[1].baseUrl %>115/81/<%= value.description_images[1].file %>" /></object>
+                    <div class="image-overflow"><img data-src="<%= value.image.baseUrl %>115/81<%= value.image.file %>" /></div><div class="image-overflow"><img data-src="<%= value.description_images[0].baseUrl %>114/81/<%= value.description_images[0].file %>" /></div><div class="image-overflow"><img data-src="<%= value.description_images[1].baseUrl %>115/81/<%= value.description_images[1].file %>" /></div>
                 <% } %>
-                <object data-src="<%= value.image.baseUrl %>300/129<%= value.image.file %>" style="display: none;"></object>
-                <object data-src="<%= value.image.baseUrl %>168/100<%= value.image.file %>" style="display: none;"></object>
-                <object data-src="<%= value.image.baseUrl %>9/3<%= value.image.file %>" style="display: none;"></object>
+                <img data-src="<%= value.image.baseUrl %>300/129<%= value.image.file %>" style="display: none;">
+                <img data-src="<%= value.image.baseUrl %>9/3<%= value.image.file %>" style="display: none;">
             </div>
             <a href="#article/<%= value.slug %>" class="card-link">
                 <div class="ripple"></div>
@@ -69,13 +68,12 @@
             </div>
             <div class="card-image">
                 <% if(n++ == 1 && value.type != "favorite") { %>
-                    <object data-src="<%= value.image.baseUrl %>360/0<%= value.image.file %>" /></object>
+                    <div class="image-overflow"><img data-src="<%= value.image.baseUrl %>360/0<%= value.image.file %>" /></div>
                 <% } else { %>
-                    <object data-src="<%= value.image.baseUrl %>120/120<%= value.image.file %>" /></object>
+                    <div class="image-overflow"><img data-src="<%= value.image.baseUrl %>120/120<%= value.image.file %>" /></div>
                 <% } %>
-                <object data-src="<%= value.image.baseUrl %>300/129<%= value.image.file %>" style="display: none;"></object>
-                <object data-src="<%= value.image.baseUrl %>168/100<%= value.image.file %>" style="display: none;"></object>
-                <object data-src="<%= value.image.baseUrl %>9/3<%= value.image.file %>" style="display: none;"></object>
+                <img data-src="<%= value.image.baseUrl %>300/129<%= value.image.file %>" style="display: none;">
+                <img data-src="<%= value.image.baseUrl %>9/3<%= value.image.file %>" style="display: none;">
             </div>
             <a href="#article/<%= value.slug %>" class="card-link">
                 <div class="ripple"></div>
