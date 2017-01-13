@@ -542,14 +542,15 @@ require(
 				jt.ripple($(this), e);
 			});
 
-			$(document).on("click", ".app-addtofavorite", function (e) {
+			$(document).on("click", ".app-addtofavorite .app-goto", function (e) {
 				var that = this;
 
-				//$(this).data("status", "processing");
-				//
-				//if ($(this).data("status") != "processing") {
-					console.log("HERE", $(this).data("status"));
-					if (!$(that).hasClass("active")) {
+				console.log("HERE", $(this).data("status"));
+
+				if ($(this).data("status") != "processing") {
+					$(this).data("status", "processing");
+
+					if (!$(that).parent().hasClass("active")) {
 						jtCache.getItem("favorite.list", function(_data) {
 							var _articles = [];
 
@@ -574,16 +575,22 @@ require(
 										jtCache.setItem("favorite/" + Backbone.history.getFragment(), JSON.stringify(_data), window.PERSISTENT);
 									});
 
-									$(that).addClass("active");
+									$(that).parent().addClass("active");
 
-									$(that).data("status", "");
+									setTimeout(function () {
+										$(that).data("status", "");
+									}, 5000);
+
 									$(".app-refreshed").html("Anda menyukai artikel ini").fadeIn();
 									setTimeout(function () {
 										$(".app-refreshed").fadeOut();
 									}, 2000);
 								}
 								else {
-									$(that).data("status", "");
+									setTimeout(function () {
+										$(that).data("status", "");
+									}, 5000);
+
 									$(".app-refreshed").html("Artikel tidak berhasil disukai").fadeIn();
 									setTimeout(function () {
 										$(".app-refreshed").fadeOut();
@@ -612,20 +619,36 @@ require(
 							jtCache.removeItem("favorite/" + Backbone.history.getFragment(), window.PERSISTENT, function () {
 								if (_articles.length > 0) {
 									jtCache.removeItem("favorite.list", window.PERSISTENT, function () {
-										$(that).data("status", "");
+
+										setTimeout(function () {
+											$(that).data("status", "");
+										}, 5000);
 
 										jtCache.setItem("favorite.list", JSON.stringify(_articles), window.PERSISTENT);
 									});
 								}
 								else {
-									jtCache.removeItem("favorite.list", window.PERSISTENT);
+									jtCache.removeItem("favorite.list", window.PERSISTENT, function () {
+										setTimeout(function () {
+											$(that).data("status", "");
+										}, 5000);
+									});
 								}
 							});
 
-							$(that).removeClass("active");
+							$(that).parent().removeClass("active");
 						}, window.PERSISTENT);
 					}
-				//}
+				}
+				else if ($(this).data("status") == "processing" && $(this).data("alert") != "showing") {
+					$(this).data("alert", "showing");
+
+					$(".app-refreshed").html("Silahkan ulangi beberapa saat lagi").fadeIn();
+					setTimeout(function () {
+						$(that).data("alert", "");
+						$(".app-refreshed").fadeOut();
+					}, 2000);
+				}
 			});
 
 			$(document).on("touchend click", ".app-index-card a.disabled", function (e) {
