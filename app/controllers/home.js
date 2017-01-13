@@ -725,16 +725,16 @@ define(
 				}
 			},
 			loadImages: function () {
-				$("img").error(function () {
+				$("object").error(function () {
 					$(this).attr("src", "").attr("alt", "");
 				}).load(function () {
-					if ($(this).attr("src").indexOf("filesystem") < 0) {
+					if ($(this).attr("data").indexOf("filesystem") < 0) {
 						var that = this;
 						var xhr  = new XMLHttpRequest();
 						xhr.onreadystatechange = function(){
 							if (this.readyState == 4 && this.status == 200){
 								cacheKey = "image.article.";
-								url      = btoa($(that).attr("src"));
+								url      = btoa($(that).attr("data"));
 
 								jtCache.setItem(cacheKey + url, {
 									"type"     : "blob",
@@ -744,13 +744,16 @@ define(
 								}, window.TEMPORARY);
 							}
 						}
-						xhr.open('GET', $(this).attr("src"));
+						xhr.open('GET', $(this).attr("data"));
 						xhr.responseType = 'blob';
 						xhr.send();
+						// fetch($(that).attr("data")).then(function(response){
+						// 	return response.blob();
+						// })
 					}
 				});
 
-				$("img").each(function (key, val) {
+				$("object").each(function (key, val) {
 					var img = new Image();
 					$(img).on("load", img, function () {
 						$(val).attr("src", $(val).data("src"));
@@ -760,17 +763,17 @@ define(
 						window.resolveLocalFileSystemURL("cdvfile://localhost/temporary/image/image.article." + btoa($(val).data("src")) + ".", function (entry) {
 							var nativePath = entry.toURL();
 							if (typeof nativePath != "undefined") {
-								$(val).attr("src", nativePath);
+								$(val).attr("data", nativePath);
 							}
 							else {
-								img.src = $(val).data("src");
+								$(this). attr("data", $(val).data("src"));
 							}
 						}, function (e) {
-							img.src = $(val).data("src");
+							$(this). attr("data", $(val).data("src"));
 						});
 					}
 					else {
-						img.src = $(val).data("src");
+						$(this).attr("data", $(val).data("src"));
 					}
 				});
 			}
