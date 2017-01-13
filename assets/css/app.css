@@ -562,13 +562,14 @@ div, span, a
 	/* bottom: 5px; */
 	/* left: 10px; */
 	max-width: calc(100% - 20px);
+	text-transform: uppercase;
 }
 .app-article-more .app-index-card .card-description .card-category
 {
 	font-size: 11px;
 	font-weight: 700;
 	line-height: 22px;
-	padding-left: 25px;
+	/*padding-left: 25px;*/
 }
 .app-article-more .app-index-card .card-description .card-category.category-populer
 {
@@ -581,7 +582,7 @@ div, span, a
 	top: 0;
 	width: 20px;
 	height: 20px;
-	content: "";
+	/*content: "";*/
 	-webkit-mask-repeat: no-repeat;
 	mask-repeat: no-repeat;
 	-webkit-mask-size: 16px 16px;
@@ -636,23 +637,23 @@ div, span, a
 	mask-image: url(../images/label-icon.svg);
 	opacity: 0.8
 }
-.app-index-card .card-description .card-published.populer
+.app-index-card .card-description .card-published.populer, .app-article-more .app-index-card .card-description .card-note .populer
 {
 	color: #FF9800;
 }
-.app-index-card .card-description .card-published.wajibbaca
+.app-index-card .card-description .card-published.wajibbaca, .app-article-more .app-index-card .card-description .card-note .wajibbaca
 {
 	color: #00BCD4;
 }
-.app-index-card .card-description .card-published.direkomendasikan
+.app-index-card .card-description .card-published.direkomendasikan, .app-article-more .app-index-card .card-description .card-note .direkomendasikan
 {
 	color: #CDDC39;
 }
-.app-index-card .card-description .card-published.banyakdisukai
+.app-index-card .card-description .card-published.banyakdisukai, .app-article-more .app-index-card .card-description .card-note .banyakdisukai
 {
 	color: #4CAF50;
 }
-.app-index-card .card-description .card-published.terbaru
+.app-index-card .card-description .card-published.terbaru, .app-article-more .app-index-card .card-description .card-note .terbaru
 {
 	color: #2196F3;
 }
