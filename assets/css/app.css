@@ -157,7 +157,7 @@ div, span, a
 	height: 165px;
 	padding: 0;
 }
-.app-toolbar:not(.disukai) ~ .app-body .app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-image, .app-index-card:nth-child(2) .card-image img, .app-index-card:nth-child(2) .card-image object
+.app-toolbar:not(.disukai) ~ .app-body .app-content-container .app-index-card:nth-child(2):not(.card-placeholder) .card-image, .app-index-card:nth-child(2) .card-image .image-overflow
 {
 	position: absolute;
 	width: 100%;
@@ -460,8 +460,9 @@ div, span, a
 	width: auto;
 	padding: 0 0 25px;
 }
-.app-index-card .card-image img, .app-index-card .card-image object
+.app-index-card .card-image .image-overflow
 {
+	position: relative;
 	height: 100px;
 	width: 100px;
 	border-radius: 0 2px 2px 0;
@@ -470,9 +471,20 @@ div, span, a
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
+    overflow: hidden;
 }
-.app-index-card.multi-image .card-image img, .app-index-card.multi-image .card-image object
+.app-index-card .card-image .image-overflow  img
 {
+	position: absolute;
+	height: calc(100% + 4px);
+	width: calc(100% + 4px);
+	top: -2px;
+	left: -2px;
+}
+.app-index-card.multi-image .card-image .image-overflow
+{
+	position: relative;
+	display: inline-block;
 	margin-right: 10px;
 	border-radius: 0;
 	width: calc((100% - 20px) / 3);
@@ -483,7 +495,15 @@ div, span, a
     background-size: cover;
     background-repeat: no-repeat;
 }
-.app-article-more .app-index-card .card-image img, .app-article-more .app-index-card .card-image object
+.app-index-card.multi-image .card-image .image-overflow img
+{
+	position: absolute;
+	width: calc(100% + 4px);
+	height: calc(100% + 4px);
+	top: -2px;
+	left: -2px;
+}
+.app-article-more .app-index-card .card-image img
 {
 	display: block;
 	width: 100%;
@@ -491,7 +511,7 @@ div, span, a
 	position: relative;
 	z-index: 2
 }
-.app-index-card.multi-image .card-image img:nth-child(3), .app-index-card.multi-image .card-image object:nth-child(3)
+.app-index-card.multi-image .card-image .image-overflow:nth-child(3)
 {
 	margin-right: 0
 }
