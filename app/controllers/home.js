@@ -588,6 +588,10 @@ define(
 						_buff = JSON.parse(that.cacheSource.getItem(Backbone.history.getFragment()));
 					}
 
+					if (this.page == 1) {
+						_data[ 0 ].isFirst = true;
+					}
+
 					$.each(_data, function (key, val) {
 						if (that.cacheSource.getItem(Backbone.history.getFragment()) != null && that.page > 1) {
 							_buff.push(val);
@@ -657,8 +661,6 @@ define(
 							else {
 								value.type = that.options.type;
 							}
-
-							value.page = that.page;
 						});
 
 						$("#app-body .app-content-container .card-placeholder").remove();
