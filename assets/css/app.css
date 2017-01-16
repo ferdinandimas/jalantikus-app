@@ -628,14 +628,12 @@ div, span, a
 	mask-size: 11px 11px;
 	-webkit-mask-position: center;
 	mask-position: center;
-	background-color: #8d8d8d;
-	opacity: 0.6
+	background-color: #bcbcbc;
 }
 .app-toolbar.beranda ~ #app-body .app-index-card .card-description .card-published:after
 {
 	-webkit-mask-image: url(../images/label-icon.svg);
 	mask-image: url(../images/label-icon.svg);
-	opacity: 0.8
 }
 .app-index-card .card-description .card-published.populer, .app-article-more .app-index-card .card-description .card-note .populer
 {
@@ -1957,26 +1955,26 @@ div, span, a
 .usermenu-item .usermenu-item-detail.tips:after
 {
 	background-color: #00a8ff;
-	-webkit-mask-image: url(../images/tips-icon.png);
-	mask-image: url(../images/tips-icon.png);
+	-webkit-mask-image: url(../images/tips-icon.svg);
+	mask-image: url(../images/tips-icon.svg);
 }
 .usermenu-item .usermenu-item-detail.gokil:after
 {
 	background-color: #91ce29;
-	-webkit-mask-image: url(../images/gokil-icon.png);
-	mask-image: url(../images/gokil-icon.png);
+	-webkit-mask-image: url(../images/gokil-icon.svg);
+	mask-image: url(../images/gokil-icon.svg);
 }
 .usermenu-item .usermenu-item-detail.gadget:after
 {
 	background-color: #fa1571;
-	-webkit-mask-image: url(../images/gadgets-icon.png);
-	mask-image: url(../images/gadgets-icon.png);
+	-webkit-mask-image: url(../images/gadgets-icon.svg);
+	mask-image: url(../images/gadgets-icon.svg);
 }
 .usermenu-item .usermenu-item-detail.news:after
 {
 	background-color: #fa9300;
-	-webkit-mask-image: url(../images/news-icon.png);
-	mask-image: url(../images/news-icon.png);
+	-webkit-mask-image: url(../images/news-icon.svg);
+	mask-image: url(../images/news-icon.svg);
 }
 .usermenu-item .usermenu-item-detail.rate:after
 {
@@ -3029,17 +3027,17 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 @keyframes grow
 {
 	0% {
-		-webkit-transform: translate(0) scale(0);
-		transform: translate(0) scale(0);
+		-webkit-transform: translateZ(0) scale(0);
+		transform: translateZ(0) scale(0);
 	}
 	60%, 65% {
-		-webkit-transform: translate(0) scale(2);
-		transform: translate(0) scale(2);
+		-webkit-transform: translateZ(0) scale(2);
+		transform: translateZ(0) scale(2);
     	
 	}
 	100% {
-		-webkit-transform: translate(0)  scale(1);
-		transform: translate(0)  scale(1);
+		-webkit-transform: translateZ(0)  scale(1);
+		transform: translateZ(0)  scale(1);
 	}
 }
 
