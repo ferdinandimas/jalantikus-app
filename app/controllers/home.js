@@ -134,9 +134,9 @@ define(
 
 							if (!jt.isOffline()) {
 								that.collection = new Timeline({
-									order: "random",
+									order: "24hour",
 									limit: 10,
-									where: "views_last_24hour>=2100",
+									where: "views_last_24hour>=4000&&published>=" + date('Y-m-d H:00:00', strtotime('-1 month')),
 								});
 
 								that.collection.fetch({
@@ -266,8 +266,8 @@ define(
 								this.order = "published";
 								break;
 							case "home2":
-								this.where = "published>=" + date('Y-m-d H:00:00', strtotime('-24 hour'));
-								this.orderBy = "[views_last_24h,desc]";
+								this.orderBy = "[[views_last_24hour,desc]]";
+								this.where   = "published>=" + date('Y-m-d H:00:00', strtotime('-3 days'));
 								break;
 							case "home3":
 								this.category = "tips";
@@ -300,10 +300,10 @@ define(
 					}
 					else {
 						this.filter  = "shuffle";
-						this.order = "6hour";
+						this.order   = "6hour";
 						this.limit   = 12;
 						this.cache   = 300;
-						this.where   = "published>=" + date('Y-m-d H:00:00', strtotime('-1 month'));
+						//this.where   = "published>=" + date('Y-m-d H:00:00', strtotime('-1 month'));
 
 						$("#search-form [name='search']").val("");
 
@@ -338,6 +338,24 @@ define(
 						window.localStorage.setItem(Backbone.history.getFragment() + "/page", this.page);
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-content-container").scrollTop());
 						window.localStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-content-container").scrollTop());
+					}
+
+					if (typeof _options == "undefined") {
+
+					}
+					else if (this.type == "search") {
+						$("#app-body .app-content-container").empty().append(
+								'<div class="app-search">' +
+								'<span class="app-search-result">Hasil pencarian dari: </span>' +
+								'<span class="app-search-keyword">"' + this.search + '"</span>' +
+								'</div>' +
+								'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>' +
+								'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>' +
+								'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>'
+						);
+					}
+					else {
+						$(".app-toggle-refresh").show();
 					}
 
 					if (that.cacheSource.getItem(Backbone.history.getFragment()) != null) {
@@ -437,24 +455,6 @@ define(
 						}
 					}
 
-					if (typeof _options == "undefined") {
-
-					}
-					else if (this.type == "search") {
-						$("#app-body .app-content-container").empty().append(
-								'<div class="app-search">' +
-								'<span class="app-search-result">Hasil pencarian dari: </span>' +
-								'<span class="app-search-keyword">"' + this.search + '"</span>' +
-								'</div>' +
-								'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>' +
-								'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>' +
-								'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>'
-						);
-					}
-					else {
-						$(".app-toggle-refresh").show();
-					}
-
 					$(".header-refresh").on("click", function () {
 						if (!$(".app-content-container .app-load").hasClass("loading") && !$(this).hasClass("active")) {
 							if (!jt.isOffline()) {
@@ -534,12 +534,10 @@ define(
 
 				$("a.usermenu-item").removeClass("active").each(function () {
 					if ($(this).attr("href") == "#" + Backbone.history.getFragment()) {
-						var isKategori = $(this).attr("href").split("/")[1];
-						// $("#app-toolbar .header-description").html($(this).find(".usermenu-item-detail").html());
+						var isKategori = $(this).attr("href").split("/")[ 1 ];
 						if ($(this).find(".usermenu-item-detail").html().trim() != "Beranda") {
 							$(".app-header .header-description").html($(this).find(".usermenu-item-detail").html());
-							if(isKategori == "favorites")
-							{
+							if (isKategori == "favorites") {
 								$(".app-header .header-description").html("Artikel Favorit");
 							}
 							$(".app-logo").hide();
@@ -549,8 +547,7 @@ define(
 							$(".app-toolbar").addClass("beranda");
 						}
 						$(this).addClass("active");
-						if(isKategori == "home3" || isKategori == "home4" || isKategori == "home5" || isKategori == "home6" )
-						{
+						if (isKategori == "home3" || isKategori == "home4" || isKategori == "home5" || isKategori == "home6") {
 							$(".app-kategori").addClass("active");
 						}
 					}
@@ -558,15 +555,19 @@ define(
 			},
 			render          : function (_isUsingCache) {
 				var that = this;
-				var _data = this.collection.toJSON();
+				var _data = [];
 
 				this.limit = (typeof this.limit == "undefined" ? 6 : this.limit);
 
 				if (_isUsingCache && that.cacheSource.getItem(Backbone.history.getFragment()) != null && (JSON.parse(that.cacheSource.getItem(Backbone.history.getFragment()))).length > 0) {
 					_data = JSON.parse(that.cacheSource.getItem(Backbone.history.getFragment()));
 				}
-				else if (_data.length == 0 || _data.length < this.limit) {
-					that.page = that.page - 1;
+				else {
+					_data = this.collection.toJSON();
+				}
+
+				if (_data.length == 0) {
+					that.page = (that.page > 1 ? that.page - 1 : 1);
 
 					window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
 					window.localStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
@@ -574,6 +575,15 @@ define(
 					window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 				}
 				else {
+					if (_data.length < this.limit) {
+						that.page = (that.page > 1 ? that.page - 1 : 1);
+
+						window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
+						window.localStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
+						window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+						window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+					}
+
 					if (that.cacheSource.getItem(Backbone.history.getFragment()) != null && this.page > 1) {
 						_buff = JSON.parse(that.cacheSource.getItem(Backbone.history.getFragment()));
 					}
@@ -624,8 +634,8 @@ define(
 						Backbone.history.loadUrl();
 					}
 					else {
-						if (typeof that.options.type == "undefined") {
-							$.each(_data, function (key, value) {
+						$.each(_data, function (key, value) {
+							if (typeof that.options.type == "undefined") {
 								if (value.views_last_24hour >= 3100) {
 									value.label = "populer";
 								}
@@ -641,12 +651,25 @@ define(
 								else {
 									value.label = "direkomendasikan";
 								}
-							});
-						}
+
+								value.type = 'beranda';
+							}
+							else {
+								value.type = that.options.type;
+							}
+
+							value.page = that.page;
+						});
 
 						$("#app-body .app-content-container .card-placeholder").remove();
+
+						if (typeof that.options.type != "undefined" && that.options.type == "search") {
+							$("#app-body .app-content-container")
+									.append('<div class="app-toolbar-placeholder"></div>');
+						}
+
 						$("#app-body .app-content-container")
-								.append(this.timelineTemplate({
+								.append(that.timelineTemplate({
 									timelineArticle: _data
 								}));
 

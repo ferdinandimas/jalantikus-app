@@ -436,9 +436,10 @@ define(
 						var _that      = this;
 						var _appSlug;
 
-						$(this).find("a").attr("href", "javascript:void()").click(function (e) {
-							e.preventDefault()
-						});
+						//$(this).find("a").attr("href", "javascript:void()").click(function (e) {
+						//	e.preventDefault()
+						//});
+
 						$(this)
 								.find(".info-container .info h3")
 								.replaceWith(
