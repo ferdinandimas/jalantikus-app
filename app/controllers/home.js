@@ -64,63 +64,74 @@ define(
 
 							key = 0;
 							Promise.all(_buff.map(function (val) {
-								var deferred = $.Deferred();
+								if (typeof val != "undefined" && val != null) {
+									article = JSON.parse(val.value);
 
-								if (val.expired == "true") {
-									jtCache.getItem("article." + val.slug, function(_data) {
-										if (_data == null || _data.expired == "true") {
-											that.articleModel = new Article({
-												slug: val.slug
-											});
+									if (typeof article != "object") {
+										article = JSON.parse(article);
+									}
 
-											that.articleModel.fetch({
-												timeout: 5000,
-												success: function (_data) {
-													jtCache.setItem("article." + val.slug, JSON.stringify(_data));
-													jtCache.setItem("favorite/article." + val.slug, JSON.stringify(_data));
+									if ((val.expired == "true" && !jt.isOffline() && typeof article.slug != "undefined") || 1 == 1) {
+										updateFavoriteArticle (article.slug);
+									}
 
-													_buff[ key ] = _data;
+									_buff[ key ] = article;
+									_buff[ key ].type = "favorite";
 
-													deferred.resolve();
-												},
-												error  : function () {
-													deferred.resolve();
-												}
-											});
-										}
-										else {
-											jtCache.setItem("favorite/article." + val.slug, _data.value);
-
-											_buff[ key ] = JSON.parse(_data.value);
-
-											deferred.resolve();
-										}
-									});
+									key++;
 								}
-								else {
-									_buff[ key ] = JSON.parse(val.value);
+							})).then(function () {
+								$("#app-body .app-content-container .card-placeholder").remove();
+								$("#app-body .app-content-container").empty()
+										.append('<div class="app-toolbar-placeholder"></div>')
+										.append(those.timelineTemplate({
+											timelineArticle: _buff
+										}));
+
+								if (Backbone.history.getFragment().trim() != "") {
+									$(".app-toolbar").removeClass("beranda");
+									$(".app-content-container .app-index-card:first-child").css("margin-top", "0px");
 								}
 
-								_buff[ key ].type = "favorite";
+								finishedRendering();
+							});
 
-								key++;
+							function updateFavoriteArticle (_slug) {
+								var dfd = jQuery.Deferred();
 
-								return deferred.promise();
-							}));
+								jtCache.getItem("article." + _slug, function (_data) {
+									if (_data == null || _data.expired == "true") {
+										that.articleModel = new Article({
+											slug: _slug
+										});
 
-							$("#app-body .app-content-container .card-placeholder").remove();
-							$("#app-body .app-content-container").empty()
-									.append('<div class="app-toolbar-placeholder"></div>')
-									.append(those.timelineTemplate({
-										timelineArticle: _buff
-									}));
+										that.articleModel.fetch({
+											timeout: 5000,
+											success: function (_data) {
+												jtCache.setItem("article." + _slug,
+														JSON.stringify(_data));
+												jtCache.setItem("favorite/article." + _slug,
+														JSON.stringify(_data),
+														window.PERSISTENT);
 
-							if (Backbone.history.getFragment().trim() != "") {
-								$(".app-toolbar").removeClass("beranda");
-								$(".app-content-container .app-index-card:first-child").css("margin-top", "0px");
+												dfd.resolve();
+											},
+											error  : function () {
+												dfd.resolve();
+											}
+										});
+									}
+									else {
+										jtCache.setItem("favorite/article." + _slug,
+												_data.value,
+												window.PERSISTENT);
+
+										dfd.resolve();
+									}
+								});
+
+								return dfd.promise();
 							}
-
-							finishedRendering()
 						}
 						else {
 							$("#app-body .app-content-container").empty().append(
