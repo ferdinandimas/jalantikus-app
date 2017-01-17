@@ -477,11 +477,13 @@ define(
 								window.sessionStorage.removeItem(Backbone.history.getFragment() + "/page");
 								window.sessionStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
 								window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
+								window.sessionStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
 
 								window.localStorage.removeItem(Backbone.history.getFragment());
 								window.localStorage.removeItem(Backbone.history.getFragment() + "/page");
 								window.localStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
 								window.localStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
+								window.localStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
 
 								that.page = 1;
 
@@ -588,6 +590,8 @@ define(
 				else {
 					if (_data.length < this.limit) {
 						that.page = (that.page > 1 ? that.page - 1 : 1);
+
+						console.log("HERE 1", _data.length, this.limit);
 
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
 						window.localStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
