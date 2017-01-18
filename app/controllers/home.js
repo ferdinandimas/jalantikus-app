@@ -108,13 +108,11 @@ define(
 										that.articleModel.fetch({
 											timeout: 5000,
 											success: function (_data) {
-												jtCache.setItem("article." + _slug,
-														JSON.stringify(_data));
-												jtCache.setItem("favorite/article." + _slug,
-														JSON.stringify(_data),
-														window.PERSISTENT);
-
-												dfd.resolve();
+												jtCache.setItem("article." + _slug, JSON.stringify(_data), null, null, function () {
+													jtCache.setItem("favorite/article." + _slug, JSON.stringify(_data), window.PERSISTENT, null, function () {
+														dfd.resolve();
+													});
+												});
 											},
 											error  : function () {
 												dfd.resolve();
@@ -122,11 +120,9 @@ define(
 										});
 									}
 									else {
-										jtCache.setItem("favorite/article." + _slug,
-												_data.value,
-												window.PERSISTENT);
-
-										dfd.resolve();
+										jtCache.setItem("favorite/article." + _slug, _data.value, window.PERSISTENT, null, function () {
+											dfd.resolve();
+										});
 									}
 								});
 
