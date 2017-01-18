@@ -591,8 +591,6 @@ define(
 					if (_data.length < this.limit) {
 						that.page = (that.page > 1 ? that.page - 1 : 1);
 
-						console.log("HERE 1", _data.length, this.limit);
-
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
 						window.localStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);

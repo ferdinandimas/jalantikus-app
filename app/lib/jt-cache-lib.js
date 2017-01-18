@@ -297,8 +297,6 @@ var jtCache = function () {
 
 								jtCache.getItem(val.name.replace(".json", ""), function (article) {
 
-									console.log("GET", val.name.replace(".json", ""), article);
-
 									result.push(article);
 
 									deferred.resolve();
@@ -306,8 +304,6 @@ var jtCache = function () {
 
 								return deferred.promise();
 							})).then(function () {
-								console.log("ENTRIES", entries, result);
-
 								if (typeof callback == "function") {
 									callback(result);
 								}
