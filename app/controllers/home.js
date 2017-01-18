@@ -779,7 +779,6 @@ define(
 					if (typeof this.options.type == "undefined" && that.cacheSource.getItem(Backbone.history.getFragment() + "/page") >= 5) {
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 						window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
-						$(".app-toggle-refresh").hide();
 					}
 
 					if (!jt.isOffline()) {
