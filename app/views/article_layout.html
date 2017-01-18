@@ -37,42 +37,44 @@
         </a>
     </div>
     <% if (detail.related.article.length > 0) { %>
-        <div class="more-title shadow-l1">
-            KAMU PASTI SUKA
-        </div>
-        <div class="app-article-more">
-            <% _.each(detail.related.article, function(value) { %><div class="app-index-card">
-                    <div class="card-image">
-                        <div class="image-overflow">
-                            <img src="<%= value.image.baseUrl %>168/100<%= value.image.file %>" alt="<%= value.title %>">
-                       </div>
-                    </div>
-                    <div class="card-description">
-                        <div class="card-title">
-                            <%= value.title %>
+        <div class="more-article-frame">
+            <div class="more-title shadow-l1">
+                KAMU PASTI SUKA
+            </div>
+            <div class="app-article-more">
+                <% _.each(detail.related.article, function(value) { %><div class="app-index-card">
+                        <div class="card-image">
+                            <div class="image-overflow">
+                                <img src="<%= value.image.baseUrl %>168/100<%= value.image.file %>" alt="<%= value.title %>">
+                           </div>
                         </div>
-                        <div class="card-note">
-                            <div class="card-category <% if(value.label) { %> <%= value.label %> <% } %>" data-id="<%= value.id %>">
-                                <% if(value.label == "populer") { %>
-                                    POPULER
-                                <% } else if (value.label == "wajibbaca") { %>
-                                    WAJIB BACA
-                                <% } else if (value.label == "banyakdisukai") { %>
-                                    BANYAK DISUKAI
-                                <% } else if (value.label == "direkomendasikan") { %>
-                                    DIREKOMENDASIKAN
-                                <% } else if (value.label == "terbaru") { %>
-                                    TERBARU
-                                <% } else { %>
-                                    <%= jt.timeSince(value.published) %>
-                                <% } %>
+                        <div class="card-description">
+                            <div class="card-title">
+                                <%= value.title %>
+                            </div>
+                            <div class="card-note">
+                                <div class="card-category <% if(value.label) { %> <%= value.label %> <% } %>" data-id="<%= value.id %>">
+                                    <% if(value.label == "populer") { %>
+                                        POPULER
+                                    <% } else if (value.label == "wajibbaca") { %>
+                                        WAJIB BACA
+                                    <% } else if (value.label == "banyakdisukai") { %>
+                                        BANYAK DISUKAI
+                                    <% } else if (value.label == "direkomendasikan") { %>
+                                        DIREKOMENDASIKAN
+                                    <% } else if (value.label == "terbaru") { %>
+                                        TERBARU
+                                    <% } else { %>
+                                        <%= jt.timeSince(value.published) %>
+                                    <% } %>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <a href="#article/<%= value.slug %>" class="card-link">
-                        <div class="ripple"></div>
-                    </a>
-                </div><% }) %>
+                        <a href="#article/<%= value.slug %>" class="card-link">
+                            <div class="ripple"></div>
+                        </a>
+                    </div><% }) %>
+            </div>
         </div>
     <% } %>
     <div class="app-gotohome-description">

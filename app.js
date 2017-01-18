@@ -679,18 +679,6 @@ require(
 					isOnline = !jt.isOffline();
 
 					if (jt.isOffline()) {
-						//$(".app-index-card img").css("filter", "grayscale(100%)");
-						//$(".app-index-card .ripple")
-						//		.removeClass("ripple")
-						//		.addClass("ripple-disabled")
-						//		.parent()
-						//		.addClass("disabled");
-						//$(".app-toolbar").removeClass("online").addClass("offline");
-						//
-						//if ($(".splash").length < 1 && typeof window.StatusBar != "undefined") {
-						//	window.StatusBar.backgroundColorByHexString("#474747");
-						//}
-
 						lastFragment = Backbone.history.getFragment();
 
 						$("#app-searchpanel").panel({
@@ -698,10 +686,7 @@ require(
 						});
 						$(".app-toggle-searchpanel").attr("href", "javascript:void(0)");
 
-						//$("#app-userpanel").panel("close");
-						//$('#app-userpanel').panel({ disabled: true });
-						//$("#app-searchpanel").panel("close");
-						//$('#app-searchpanel').panel({ disabled: true });
+						$(".more-article-frame").hide();
 					}
 					else {
 						$(".app-toggle-searchpanel").attr("href", "#app-searchpanel");
@@ -727,6 +712,8 @@ require(
 
 						$('#app-userpanel').panel({ disabled: false });
 						$('#app-searchpanel').panel({ disabled: false });
+
+						$(".more-article-frame").show();
 					}
 				}
 			}, 250);

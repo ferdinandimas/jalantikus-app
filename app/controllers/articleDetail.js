@@ -222,6 +222,10 @@ define(
 						detail: _data
 					}));
 
+					if (jt.isOffline()) {
+						$(".more-article-frame").hide();
+					}
+
 					$("#app-userpanel").panel("close");
 					$("#app-searchpanel").panel("close");
 
