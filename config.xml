@@ -34,13 +34,13 @@
     <!--Splashscreen Plugin-->
 
     <!--Whitelist Plugin-->
-        <!--<access origin="*" subdomains="true"/>-->
+        <access origin="*" subdomains="true"/>
 
-        <!--<allow-intent href="http://*"/>-->
-        <!--<allow-intent href="https://*"/>-->
-        <!--<allow-intent href="whatsapp:*"/>-->
-        <!--<allow-intent href="line:*"/>-->
-        <!--<allow-intent href="bbmi:*"/>-->
+        <allow-intent href="http://*"/>
+        <allow-intent href="https://*"/>
+        <allow-intent href="whatsapp:*"/>
+        <allow-intent href="line:*"/>
+        <allow-intent href="bbmi:*"/>
     <!--Whitelist Plugin-->
 
     <!--Multi-Platform Preferences-->
@@ -85,7 +85,7 @@
 
     <!--<plugin name="cordova-plugin-dialogs" spec="~1.2.0" source="npm"/>-->
     <!--<plugin name="cordova-plugin-network-information" spec="1.2.0" source="npm"/>-->
-    <!--<plugin name="cordova-plugin-whitelist" spec="~1.2.1" source="npm"/>-->
+    <plugin name="cordova-plugin-whitelist" spec="~1.2.1" source="npm"/>
     <plugin name="cordova-plugin-splashscreen" spec="~3.2.1" source="npm"/>
     <plugin name="cordova-plugin-statusbar" spec="~2.1.2" source="npm"/>
     <plugin name="cordova-plugin-file" spec="~4.3.1" source="npm"/>
