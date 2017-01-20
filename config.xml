@@ -34,13 +34,27 @@
     <!--Splashscreen Plugin-->
 
     <!--Whitelist Plugin-->
-        <access origin="*" subdomains="true"/>
+        <allow-navigation href="*://*.jalantikus.com/*"/>
+        <allow-navigation href="*://jalantikus.com/*"/>
+        <allow-navigation href="*://*.babe.news/*"/>
 
-        <allow-intent href="http://*"/>
-        <allow-intent href="https://*"/>
+        <allow-intent href="*://*.jalantikus.com/*"/>
+        <allow-intent href="*://jalantikus.com/*"/>
+        <allow-intent href="*://*.babe.news/*"/>
+
+        <access origin="*://*.jalantikus.com/*"/>
+        <access origin="*://jalantikus.com/*"/>
+        <access origin="*://*.babe.news/*"/>
+
         <allow-intent href="whatsapp:*"/>
         <allow-intent href="line:*"/>
         <allow-intent href="bbmi:*"/>
+
+        <!--Additional Domain-->
+            <allow-navigation href="*://www.playbuzz.com/*"/>
+            <allow-intent href="*://www.playbuzz.com/*"/>
+            <access origin="*://www.playbuzz.com/*"/>
+        <!--Additional Domain-->
     <!--Whitelist Plugin-->
 
     <!--Multi-Platform Preferences-->
@@ -67,15 +81,6 @@
         </platform>
     <!-- Android Preferences -->
 
-    <!-- iOS only -->
-    <!--<preference name="target-device" value="universal"/>-->
-    <!--<preference name="prerendered-icon" value="false"/>-->
-    <!--<preference name="detect-data-types" value="true"/>-->
-    <!--<preference name="exit-on-suspend" value="false"/>-->
-    <!--<preference name="deployment-target" value="5.0"/>-->
-    <!--<preference name="webviewbounce" value="false"/>-->
-    <!--<preference name="DisallowOverscroll" value="true"/>-->
-
     <gap:config-file platform="android" parent="/manifest">
         <application android:theme="@android:style/Theme.Material.Light.NoActionBar"></application>
     </gap:config-file>
@@ -83,8 +88,6 @@
     <gap:plugin name="onesignal-cordova-plugin" spec="^2.0.6" source="npm" />
     <gap:plugin name="phonegap-plugin-mobile-accessibility" spec="~1.0.5" source="npm"/>
 
-    <!--<plugin name="cordova-plugin-dialogs" spec="~1.2.0" source="npm"/>-->
-    <!--<plugin name="cordova-plugin-network-information" spec="1.2.0" source="npm"/>-->
     <plugin name="cordova-plugin-whitelist" spec="~1.2.1" source="npm"/>
     <plugin name="cordova-plugin-splashscreen" spec="~3.2.1" source="npm"/>
     <plugin name="cordova-plugin-statusbar" spec="~2.1.2" source="npm"/>
