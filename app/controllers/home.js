@@ -22,7 +22,7 @@ define(
 			cacheSource     : window.sessionStorage,
 			articleList     : null,
 			initialize      : function (_options) {
-				if (jt.isOffline()) {
+				if (jt.isOffline() && that.type != "search") {
 					this.cacheSource = window.localStorage;
 					this.isConnected = false;
 				}
@@ -199,7 +199,11 @@ define(
 											that._articleList = JSON.stringify(_data);
 											jtCache.setItem("list.article" + (Backbone.history.getFragment() != "" ? "." : "") + Backbone.history.getFragment(), JSON.stringify(_data), null, null, function () {
 												window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
-												window.localStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
+
+												if (that.type != "search") {
+													window.localStorage.setItem(Backbone.history.getFragment(),
+															JSON.stringify(_data));
+												}
 
 												that.loadImages();
 											});
@@ -279,7 +283,11 @@ define(
 
 								$("#app-body .app-content-container").scroll(function () {
 									window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-content-container").scrollTop());
-									window.localStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-content-container").scrollTop());
+
+									if (that.type != "search") {
+										window.localStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
+												$(".app-content-container").scrollTop());
+									}
 								});
 								$(".app-toolbar").removeClass("beranda");
 
@@ -339,7 +347,10 @@ define(
 
 							if (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") >= 5) {
 								window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
-								window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+
+								if (that.type != "search") {
+									window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+								}
 								$(".app-loader").remove();
 							}
 						}
@@ -365,9 +376,12 @@ define(
 							that.page = 1;
 
 							window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
-							window.localStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
 							window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-content-container").scrollTop());
-							window.localStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-content-container").scrollTop());
+
+							if (that.type != "search") {
+								window.localStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
+								window.localStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-content-container").scrollTop());
+							}
 
 							window.sessionStorage.setItem(Backbone.history.getFragment() + "/lastArticle", "");
 							window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
@@ -393,7 +407,10 @@ define(
 
 						if (that._articleList != null) {
 							window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
-							window.localStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
+
+							if (that.type != "search") {
+								window.localStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
+							}
 
 							$(".header-refresh").show();
 
@@ -499,11 +516,13 @@ define(
 										window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
 										window.sessionStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
 
-										window.localStorage.removeItem(Backbone.history.getFragment());
-										window.localStorage.removeItem(Backbone.history.getFragment() + "/page");
-										window.localStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
-										window.localStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
-										window.localStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
+										if (that.type != "search") {
+											window.localStorage.removeItem(Backbone.history.getFragment());
+											window.localStorage.removeItem(Backbone.history.getFragment() + "/page");
+											window.localStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
+											window.localStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
+											window.localStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
+										}
 
 										that.page = 1;
 
@@ -605,9 +624,12 @@ define(
 					that.page = (that.page > 1 ? that.page - 1 : 1);
 
 					window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
-					window.localStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
 					window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
-					window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+
+					if (that.type != "search") {
+						window.localStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
+						window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+					}
 
 					window.sessionStorage.setItem(Backbone.history.getFragment() + "/lastArticle", "");
 				}
@@ -616,9 +638,12 @@ define(
 						that.page = (that.page > 1 ? that.page - 1 : 1);
 
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
-						window.localStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
-						window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+
+						if (that.type != "search") {
+							window.localStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
+							window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+						}
 
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/lastArticle", "");
 					}
@@ -657,7 +682,10 @@ define(
 						that._articleList = JSON.stringify(_data);
 						jtCache.setItem("list.article" + (Backbone.history.getFragment() != "" ? "." : "") + Backbone.history.getFragment(), JSON.stringify(_data), null, null, function () {
 							window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
-							window.localStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
+
+							if (that.type != "search") {
+								window.localStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
+							}
 
 							dfd.resolve();
 						});
@@ -680,10 +708,12 @@ define(
 							window.sessionStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
 							window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
 
-							window.localStorage.removeItem(Backbone.history.getFragment());
-							window.localStorage.removeItem(Backbone.history.getFragment() + "/page");
-							window.localStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
-							window.localStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
+							if (that.type != "search") {
+								window.localStorage.removeItem(Backbone.history.getFragment());
+								window.localStorage.removeItem(Backbone.history.getFragment() + "/page");
+								window.localStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
+								window.localStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
+							}
 
 							Backbone.history.loadUrl();
 						});
@@ -742,7 +772,11 @@ define(
 							}, 250));
 
 							window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-content-container").scrollTop());
-							window.localStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-content-container").scrollTop());
+
+							if (that.type != "search") {
+								window.localStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
+										$(".app-content-container").scrollTop());
+							}
 						});
 
 						$("#app-body .app-content-container").on("touchend", function () {
@@ -768,11 +802,13 @@ define(
 						window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
 						window.sessionStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
 
-						window.localStorage.removeItem(Backbone.history.getFragment());
-						window.localStorage.removeItem(Backbone.history.getFragment() + "/page");
-						window.localStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
-						window.localStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
-						window.localStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
+						if (that.type != "search") {
+							window.localStorage.removeItem(Backbone.history.getFragment());
+							window.localStorage.removeItem(Backbone.history.getFragment() + "/page");
+							window.localStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
+							window.localStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
+							window.localStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
+						}
 
 						Backbone.history.loadUrl();
 					});
@@ -820,11 +856,17 @@ define(
 					$(".app-content-container .app-load").addClass("loading");
 
 					window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", this.page + 1);
-					window.localStorage.setItem(Backbone.history.getFragment() + "/page", this.page + 1);
+
+					if (that.type != "search") {
+						window.localStorage.setItem(Backbone.history.getFragment() + "/page", this.page + 1);
+					}
 
 					if (typeof this.options.type == "undefined" && that.cacheSource.getItem(Backbone.history.getFragment() + "/page") >= 5) {
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
-						window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+
+						if (that.type != "search") {
+							window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+						}
 					}
 
 					if (!jt.isOffline()) {

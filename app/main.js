@@ -17,19 +17,15 @@ define(
 
                 Backbone.history.start({ pushState: false });
 
-                //jtCache.listItem("data", function(_list) {
-                //    if (_list.length > 0) {
-                //        Promise.all(_list.map(function (val) {
-                //            var deferred = $.Deferred();
-                //
-                //            jtCache.removeItem(val.name.replace(".json", ""), null, function() {
-                //                deferred.resolve();
-                //            });
-                //
-                //            return deferred.promise();
-                //        }));
-                //    }
-                //}, null, 'list.article', true);
+                if (!jt.isOffline()) {
+                    for (var key in localStorage){
+                        if (key != "show_splash" && key != "push_subscription") {
+                            window.localStorage.removeItem(key);
+                        }
+                    }
+
+                    sessionStorage.clear();
+                }
             },
 
             home: function () {

@@ -402,6 +402,13 @@ define(
 						}
 					});
 
+					$(".app-detail-body script").each(function (index, element) {
+						url = $(element).attr("src");
+						if (typeof url != "undefined" && url != "null") {
+							$.getScript(url);
+						}
+					});
+
 					$("a").each(function (key, val) {
 						regExp = /https?\:\/\/app\.jalantikus\.com\/(gadgets|tips|news|gokil)\/(.*?)(\/|$|\?)/gim;
 						value  = $(val).attr("href");

@@ -154,12 +154,6 @@ require(
 					}, 5000);
 				}
 			}
-			else if (!jt.isOffline()) {
-				window.localStorage.removeItem(Backbone.history.getFragment());
-				window.localStorage.removeItem(Backbone.history.getFragment() + "/page");
-				window.localStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
-				window.localStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
-			}
 
 			if ($("#app-body .app-refreshed").length == 0) {
 				$("#app-body").append(
