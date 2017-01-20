@@ -41,10 +41,10 @@ define(
 				$(".app-retry").on("touchend click", function () {
 					that.isConnected = true;
 
-					$(".app-load").css("display", "block");
-					$(".app-retry").css("display", "none");
+					// $(".app-load").css("display", "block");
+					// $(".app-retry").css("display", "none");
 
-					$(".splash .app-loader").removeClass("showbtn");
+					$(".app-loader").removeClass("showbtn");
 
 					that.fetch({ timeout: 10000 });
 				});
@@ -79,18 +79,18 @@ define(
 									});
 								},
 								error  : function () {
-									$(".app-load").css("display", "none");
-									$(".app-retry").css("display", "block");
+									// $(".app-load").css("display", "none");
+									// $(".app-retry").css("display", "block");
 
-									$(".splash .app-loader").addClass("showbtn");
+									$(".app-loader").addClass("showbtn");
 
 									$(".app-retry").on("touchend click", function () {
 										that.isConnected = true;
 
-										$(".app-load").css("display", "block");
-										$(".app-retry").css("display", "none");
+										// $(".app-load").css("display", "block");
+										// $(".app-retry").css("display", "none");
 
-										$(".splash .app-loader").removeClass("showbtn");
+										$(".app-loader").removeClass("showbtn");
 
 										that.fetch({ timeout: 10000 });
 									});
@@ -128,10 +128,10 @@ define(
 						}
 						else {
 							setTimeout(function () {
-								$(".app-load").css("display", "none");
-								$(".app-retry").css("display", "block");
+								// $(".app-load").css("display", "none");
+								// $(".app-retry").css("display", "block");
 
-								$(".splash .app-loader").addClass("showbtn");
+								$(".app-loader").addClass("showbtn");
 
 								if ($(".splash").length >= 1) {
 									if ($(".no-splash").length >= 1) {
@@ -522,10 +522,10 @@ define(
 					$(".app-retry").on("touchend click", function () {
 						that.isConnected = true;
 
-						$(".app-load").css("display", "block");
-						$(".app-retry").css("display", "none");
+						// $(".app-load").css("display", "block");
+						// $(".app-retry").css("display", "none");
 
-						$(".splash .app-loader").removeClass("showbtn");
+						$(".app-loader").removeClass("showbtn");
 
 						that.fetch({ timeout: 10000 });
 					});
