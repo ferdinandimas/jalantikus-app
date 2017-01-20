@@ -493,17 +493,7 @@ define(
 									$(".app-content-container .app-loader").fadeOut();
 
 									jtCache.removeItem("list.article" + (Backbone.history.getFragment() != "" ? "." : "") + Backbone.history.getFragment(), null, function () {
-										window.sessionStorage.removeItem(Backbone.history.getFragment());
-										window.sessionStorage.removeItem(Backbone.history.getFragment() + "/page");
-										window.sessionStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
-										window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
-										window.sessionStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
-
-										window.localStorage.removeItem(Backbone.history.getFragment());
-										window.localStorage.removeItem(Backbone.history.getFragment() + "/page");
-										window.localStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
-										window.localStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
-										window.localStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
+										
 
 										that.page = 1;
 
@@ -531,8 +521,21 @@ define(
 
 													$("#app-body .app-content-container").empty();
 													$("#app-body .app-content-container").append('<div class="app-toolbar-placeholder"></div>');
-													that.render();
 
+													window.sessionStorage.removeItem(Backbone.history.getFragment());
+													window.sessionStorage.removeItem(Backbone.history.getFragment() + "/page");
+													window.sessionStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
+													window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
+													window.sessionStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
+
+													window.localStorage.removeItem(Backbone.history.getFragment());
+													window.localStorage.removeItem(Backbone.history.getFragment() + "/page");
+													window.localStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
+													window.localStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
+													window.localStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
+
+													that.render();
+													
 													setTimeout(function () {
 														$(".app-refreshed").fadeOut();
 													}, 2000);
