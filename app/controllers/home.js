@@ -433,10 +433,10 @@ define(
 									$(".splash").show().find(".splash-content").fadeIn();
 									$(".no-splash").fadeOut();
 
-									if (that.isConnected) {
-										$(".splash .app-refreshed").html("Tidak ada jaringan").fadeIn();
+									if (!$(".splash .app-refreshed").hasClass("active")) {
+										$(".splash .app-refreshed").html("Tidak ada jaringan").addClass("active").fadeIn();
 										setTimeout(function () {
-											$(".splash .app-refreshed").fadeOut();
+											$(".splash .app-refreshed").removeClass("active").fadeOut();
 										}, 2000);
 
 										that.isConnected = false;
@@ -575,10 +575,10 @@ define(
 									});
 								}
 								else {
-									if (that.isConnected) {
-										$(".app-refreshed").html("Tidak ada jaringan").fadeIn();
+									if (!$(".app-refreshed").hasClass("active")) {
+										$(".app-refreshed").html("Tidak ada jaringan").addClass("active").fadeIn();
 										setTimeout(function () {
-											$(".app-refreshed").fadeOut();
+											$(".app-refreshed").removeClass("active").fadeOut();
 										}, 2000);
 
 										that.isConnected = false;
@@ -913,10 +913,10 @@ define(
 						$(".app-retry").css("display", "block");
 						$(".splash .app-loader").addClass("showbtn");
 
-						if (that.isConnected) {
-							$(".app-refreshed").html("Tidak ada jaringan").fadeIn();
+						if (!$(".app-refreshed").hasClass("active")) {
+							$(".app-refreshed").html("Tidak ada jaringan").addClass("active").fadeIn();
 							setTimeout(function () {
-								$(".app-refreshed").fadeOut();
+								$(".app-refreshed").removeClass("active").fadeOut();
 							}, 2000);
 
 							that.isConnected = false;
