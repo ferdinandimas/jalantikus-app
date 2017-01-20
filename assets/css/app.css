@@ -2963,11 +2963,11 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 {
 	width: 100%;
 }
-.splash-content .app-loader.showbtn .app-retry
+.app-loader.showbtn .app-retry
 {
 	display: block!important;
 }
-.splash-content .app-loader.showbtn .app-load
+.app-loader.showbtn .app-load
 {
 	display: none!important;
 }
