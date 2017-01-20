@@ -80,13 +80,13 @@ require(
 				document.addEventListener("backbutton", function (e) {
 					window.stop();
 
-					if (Backbone.history.getFragment() == "") {
+					if (Backbone.history.getFragment() == "" || window.history.length == 1) {
 						if (typeof navigator.notification != "undefined") {
 							navigator.notification.confirm(
 									"Tutup JalanTikus?",
 									function (confirmation) {
 										if (confirmation == 1) {
-											navigator.app.exitApp();
+											device.exitApp();
 										}
 									},
 									"Keluar",
@@ -95,7 +95,7 @@ require(
 						}
 					}
 					else {
-						navigator.app.backHistory()
+						window.history.back();
 					}
 				});
 			});
