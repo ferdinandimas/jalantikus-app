@@ -51,9 +51,9 @@
         <allow-intent href="bbmi:*"/>
 
         <!--Additional Domain-->
-            <allow-navigation href="*://www.playbuzz.com/*"/>
-            <allow-intent href="*://www.playbuzz.com/*"/>
-            <access origin="*://www.playbuzz.com/*"/>
+            <allow-navigation href="*://*.playbuzz.com/*"/>
+            <allow-intent href="*://*.playbuzz.com/*"/>
+            <access origin="*://*.playbuzz.com/*"/>
         <!--Additional Domain-->
     <!--Whitelist Plugin-->
 
