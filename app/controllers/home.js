@@ -22,7 +22,7 @@ define(
 			cacheSource     : window.sessionStorage,
 			articleList     : null,
 			initialize      : function (_options) {
-				if (jt.isOffline() && that.type != "search") {
+				if (jt.isOffline() && this.type != "search") {
 					this.cacheSource = window.localStorage;
 					this.isConnected = false;
 				}
