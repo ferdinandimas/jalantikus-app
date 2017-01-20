@@ -49,6 +49,7 @@
         <allow-intent href="whatsapp:*"/>
         <allow-intent href="line:*"/>
         <allow-intent href="bbmi:*"/>
+        <!-- <allow-intent href="market:*"/> -->
 
         <!--Additional Domain-->
             <allow-navigation href="*://*.playbuzz.com/*"/>
@@ -92,4 +93,5 @@
     <plugin name="cordova-plugin-splashscreen" spec="~3.2.1" source="npm"/>
     <plugin name="cordova-plugin-statusbar" spec="~2.1.2" source="npm"/>
     <plugin name="cordova-plugin-file" spec="~4.3.1" source="npm"/>
+    <plugin name="cordova-plugin-market" spec="~1.2" source="npm"/>
 </widget>
