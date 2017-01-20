@@ -372,7 +372,8 @@ require(
 			$(document).on("click", ".app-rating-submit .rating-link", function (e) {
 				setTimeout(function () {
 					$(".app-rating").fadeOut(300);
-					window.open("https://play.google.com/store/apps/details?id=com.jalantikus.app", "_blank");
+					cordova.plugins.market.open('com.jalantikus.app')
+					// window.open('market://details?id=com.jalantikus.app', '_system');
 				}, 500);
 
 				jt.ripple($(this), e, "slow");
