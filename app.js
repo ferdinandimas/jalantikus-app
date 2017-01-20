@@ -142,10 +142,12 @@ require(
 						});
 
 						if ($(".splash").length >= 1) {
-							$(".splash .app-refreshed").html("Tidak ada jaringan").fadeIn();
-							setTimeout(function () {
-								$(".splash .app-refreshed").fadeOut();
-							}, 2000);
+							if (!$(".splash .app-refreshed").hasClass("active")) {
+								$(".splash .app-refreshed").html("Tidak ada jaringan").addClass("active").fadeIn();
+								setTimeout(function () {
+									$(".splash .app-refreshed").removeClass("active").fadeOut();
+								}, 2000);
+							}
 
 							$(".splash-content .app-loader").fadeIn();
 
@@ -185,10 +187,12 @@ require(
 					if (isConnected) {
 						e.preventDefault();
 
-						$(".app-refreshed").html("Tidak ada jaringan").fadeIn();
-						setTimeout(function () {
-							$(".app-refreshed").fadeOut();
-						}, 2000);
+						if (!$(".app-refreshed").hasClass("active")) {
+							$(".app-refreshed").html("Tidak ada jaringan").addClass("active").fadeIn();
+							setTimeout(function () {
+								$(".app-refreshed").removeClass("active").fadeOut();
+							}, 2000);
+						}
 
 						isConnected = false;
 					}
