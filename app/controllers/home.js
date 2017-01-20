@@ -544,7 +544,6 @@ define(
 
 													$(".app-refreshed").html("Refresh selesai").fadeIn();
 
-
 													$("#app-body .app-content-container").empty();
 													$("#app-body .app-content-container").append('<div class="app-toolbar-placeholder"></div>');
 
@@ -553,9 +552,9 @@ define(
 														window.localStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
 													}
 
-													that.render();
-
 													$(".app-content-container").scrollTop(0)
+
+													that.render();
 
 													setTimeout(function () {
 														$(".app-refreshed").fadeOut();
