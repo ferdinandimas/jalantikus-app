@@ -354,6 +354,8 @@ require(
 				setTimeout(function () {
 					$(".app-rating").fadeIn();
 					$("#app-userpanel").panel("close");
+					$(".popup-userpanel").removeClass("active")
+					$(".popup-userpanel-container").fadeOut();
 				}, 150);
 			});
 
@@ -361,6 +363,8 @@ require(
 				setTimeout(function () {
 					$(".app-settings").fadeIn();
 					$("#app-userpanel").panel("close");
+					$(".popup-userpanel").removeClass("active")
+					$(".popup-userpanel-container").fadeOut();
 				}, 150);
 			});
 
