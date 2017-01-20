@@ -378,7 +378,7 @@ require(
 			$(document).on("click", ".app-rating-submit .rating-link", function (e) {
 				setTimeout(function () {
 					$(".app-rating").fadeOut(300);
-					window.open('market://details?id=com.jalantikus.app');
+					window.open('market://details?id=com.jalantikus.app', '_system');
 				}, 500);
 
 				jt.ripple($(this), e, "slow");
