@@ -690,6 +690,8 @@ require(
 						$(".app-toggle-searchpanel").attr("href", "javascript:void(0)");
 
 						$(".more-article-frame").hide();
+						$(".app-gotoweb-description").hide();
+						$(".app-gotohome-description").css("margin-top", "5px");
 					}
 					else {
 						$(".app-toggle-searchpanel").attr("href", "#app-searchpanel");
@@ -717,6 +719,8 @@ require(
 						$('#app-searchpanel').panel({ disabled: false });
 
 						$(".more-article-frame").show();
+						$(".app-gotoweb-description").show();
+						$(".app-gotohome-description").css("margin-top", "");
 					}
 				}
 			}, 250);
