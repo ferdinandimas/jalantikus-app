@@ -406,11 +406,8 @@ define(
 						}
 					});
 
-					$(".app-detail-body script").each(function (index, element) {
-						url = $(element).attr("src");
-						if (typeof url != "undefined" && url != "null") {
-							$.getScript(url);
-						}
+					$(".app-detail-body iframe").each(function (index, element) {
+						$(element).attr("width", "100%").attr("height", "");
 					});
 
 					$("a").each(function (key, val) {

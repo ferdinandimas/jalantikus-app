@@ -49,12 +49,15 @@
         <allow-intent href="whatsapp:*"/>
         <allow-intent href="line:*"/>
         <allow-intent href="bbmi:*"/>
-        <!-- <allow-intent href="market:*"/> -->
 
         <!--Additional Domain-->
             <allow-navigation href="*://*.playbuzz.com/*"/>
             <allow-intent href="*://*.playbuzz.com/*"/>
             <access origin="*://*.playbuzz.com/*"/>
+
+            <allow-navigation href="*://giphy.com/*"/>
+            <allow-intent href="*://giphy.com/*"/>
+            <access origin="*://giphy.com/*"/>
         <!--Additional Domain-->
     <!--Whitelist Plugin-->
 
