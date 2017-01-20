@@ -18,8 +18,6 @@ define(
                 Backbone.history.start({ pushState: false });
 
                 if (!jt.isOffline()) {
-                    alert("CLEAR");
-
                     for (var key in localStorage){
                         if (key != "show_splash" && key != "push_subscription") {
                             window.localStorage.removeItem(key);

@@ -56,6 +56,8 @@ require(
 	function (Router) {
 		window.BackboneRouter = new Router();
 
+		var isConnected = true;
+
 		$(function () {
 			if (typeof MobileAccessibility != "undefined") {
 				MobileAccessibility.usePreferredTextZoom(false);
@@ -180,12 +182,16 @@ require(
 
 			$(document).on("click", ".app-toggle-searchpanel", function (e) {
 				if (jt.isOffline()) {
-					e.preventDefault();
+					if (isConnected) {
+						e.preventDefault();
 
-					$(".app-refreshed").html("Tidak ada jaringan").fadeIn();
-					setTimeout(function () {
-						$(".app-refreshed").fadeOut();
-					}, 2000);
+						$(".app-refreshed").html("Tidak ada jaringan").fadeIn();
+						setTimeout(function () {
+							$(".app-refreshed").fadeOut();
+						}, 2000);
+
+						isConnected = false;
+					}
 				}
 				else {
 					var _this = $(this);
@@ -682,6 +688,8 @@ require(
 						$(".app-toggle-searchpanel").attr("href", "javascript:void(0)");
 
 						$(".more-article-frame").hide();
+
+						isConnected = false;
 					}
 					else {
 						$(".app-toggle-searchpanel").attr("href", "#app-searchpanel");
@@ -709,6 +717,8 @@ require(
 						$('#app-searchpanel').panel({ disabled: false });
 
 						$(".more-article-frame").show();
+
+						isConnected = true;
 					}
 				}
 			}, 250);

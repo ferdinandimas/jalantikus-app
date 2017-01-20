@@ -24,7 +24,6 @@ define(
 			initialize      : function (_options) {
 				if (jt.isOffline() && this.type != "search") {
 					this.cacheSource = window.localStorage;
-					this.isConnected = false;
 				}
 
 				if (typeof _options != "undefined") {
