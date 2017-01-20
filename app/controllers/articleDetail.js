@@ -406,8 +406,23 @@ define(
 						}
 					});
 
+					$(".app-detail-body script").each(function (index, element) {
+						url = $(element).attr("src");
+						if (typeof url != "undefined" && url != "null") {
+							if (url.indexOf("http") < 0) {
+								url = "http:" + url;
+							}
+
+							$.getScript(url);
+						}
+					});
+
 					$(".app-detail-body iframe").each(function (index, element) {
 						$(element).attr("width", "100%").attr("height", "");
+
+						if ($(element).attr("src").indexOf("http") < 0) {
+							$(element).attr("src", "http:" + $(element).attr("src"));
+						}
 					});
 
 					$("a").each(function (key, val) {
