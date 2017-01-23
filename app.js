@@ -86,7 +86,7 @@ require(
 									"Tutup JalanTikus?",
 									function (confirmation) {
 										if (confirmation == 1) {
-											device.exitApp();
+											navigator.app.exitApp();
 										}
 									},
 									"Keluar",
