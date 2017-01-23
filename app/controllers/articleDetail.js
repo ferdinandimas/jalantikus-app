@@ -467,6 +467,19 @@ define(
 						}
 					});
 
+					$(".share-container a").each(function (key, val) {
+						value  = $(val).attr("href");
+
+						if (value.indexOf("http:") == 0 || value.indexOf("https:") == 0) {
+							$(this).attr("onclick", "window.open('" + value + "', '_system');");
+							$(this).attr("href", "#");
+
+							$(this).click(function (e) {
+								e.preventDefault();
+							});
+						}
+					});
+
 					$("#app-body .app-detail-container a").each(function (key, val) {
 						regExp = /(https?\:\/\/app\.jalantikus\.com\/(gadgets|tips|news|gokil)\/(.*?)(\/|$|\?)|\#)/gim;
 						value  = $(val).attr("href");

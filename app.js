@@ -79,8 +79,11 @@ require(
 
 				document.addEventListener("backbutton", function (e) {
 					window.stop();
+					$.xhrPool.abortAll();
 
-					if (Backbone.history.getFragment() == "" || window.history.length == 1) {
+					fragment = Backbone.history.getFragment();
+
+					if ((fragment == "" && fragment.indexOf("index/") == 0) || window.history.length == 1) {
 						if (typeof navigator.notification != "undefined") {
 							navigator.notification.confirm(
 									"Tutup JalanTikus?",
@@ -219,6 +222,7 @@ require(
 
 			$(document).on("click", ".app-header .app-toggle-back", function (e) {
 				window.stop();
+				$.xhrPool.abortAll();
 
 				e.preventDefault();
 
@@ -226,6 +230,11 @@ require(
 				var _history = setTimeout(function () {
 					window.history.back();
 				}, 250);
+			});
+
+			$(document).on("click", "a", function (e) {
+				window.stop();
+				$.xhrPool.abortAll();
 			});
 
 			var _slideSt, _slideCur, _slideFlag = false, _slideVt, _slideVtCur;
@@ -751,6 +760,26 @@ require(
 							clearInterval(intEvt);
 						}
 					}, 200)
+				}
+			});
+
+			$.xhrPool = []; // array of uncompleted requests
+			$.xhrPool.abortAll = function() { // our abort function
+				$(this).each(function(idx, jqXHR) {
+					jqXHR.abort();
+				});
+				$.xhrPool.length = 0
+			};
+
+			$.ajaxSetup({
+				beforeSend: function(jqXHR) {
+					$.xhrPool.push(jqXHR);
+				},
+				complete: function(jqXHR) {
+					var index = $.xhrPool.indexOf(jqXHR);
+					if (index > -1) {
+						$.xhrPool.splice(index, 1);
+					}
 				}
 			});
 		});

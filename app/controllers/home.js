@@ -134,6 +134,8 @@ define(
 													});
 												},
 												error  : function () {
+													$(".app-content-container .app-load").removeClass("loading");
+
 													dfd.resolve();
 												}
 											});
@@ -208,6 +210,8 @@ define(
 											});
 										},
 										error  : function () {
+											$(".app-content-container .app-load").removeClass("loading");
+
 											$(".recommended-articles").fadeOut();
 											$(".card-placeholder").fadeOut();
 										}
@@ -422,6 +426,8 @@ define(
 						}
 						else {
 							function offlineHandler() {
+								$(".app-content-container .app-load").removeClass("loading");
+
 								$("#app-body .app-content-container").empty().append(
 										'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
 								);
@@ -510,18 +516,6 @@ define(
 									$(".app-content-container .app-loader").fadeOut();
 
 									jtCache.removeItem("list.article" + (Backbone.history.getFragment() != "" ? "." : "") + Backbone.history.getFragment(), null, function () {
-										window.sessionStorage.removeItem(Backbone.history.getFragment());
-										window.sessionStorage.removeItem(Backbone.history.getFragment() + "/page");
-										window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
-										window.sessionStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
-
-										if (that.type != "search") {
-											window.localStorage.removeItem(Backbone.history.getFragment());
-											window.localStorage.removeItem(Backbone.history.getFragment() + "/page");
-											window.localStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
-											window.localStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
-										}
-
 										that.page = 1;
 
 										that.collection = new Timeline({
@@ -539,6 +533,18 @@ define(
 										that.collection.fetch({
 											timeout: 10000,
 											success: function () {
+												window.sessionStorage.removeItem(Backbone.history.getFragment());
+												window.sessionStorage.removeItem(Backbone.history.getFragment() + "/page");
+												window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
+												window.sessionStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
+
+												if (that.type != "search") {
+													window.localStorage.removeItem(Backbone.history.getFragment());
+													window.localStorage.removeItem(Backbone.history.getFragment() + "/page");
+													window.localStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
+													window.localStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
+												}
+
 												setTimeout(function () {
 													$(".header-refresh").removeClass("active");
 
@@ -559,18 +565,12 @@ define(
 													setTimeout(function () {
 														$(".app-refreshed").fadeOut();
 													}, 2000);
-												}, 1500);
+												}, 1000);
 											},
 											error: function() {
-												setTimeout(function () {
-													$(".header-refresh").removeClass("active");
-													$(".app-content-container .app-loader").fadeIn();
-
-													$(".app-refreshed").html("Refresh selesai").fadeIn();
-													setTimeout(function () {
-														$(".app-refreshed").fadeOut();
-													}, 2000);
-												}, 1500);
+												$(".app-content-container .app-load").removeClass("loading");
+												$(".header-refresh").removeClass("active");
+												$(".app-content-container .app-loader").fadeIn();
 											}
 										});
 									});
@@ -765,6 +765,8 @@ define(
 							$(".app-content-container .app-index-card:first-child").css("margin-top", "0px");
 						}
 
+						$(".app-content-container .app-load").removeClass("loading");
+
 						$("#app-body .app-content-container").append(
 								'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
 						);
@@ -901,6 +903,8 @@ define(
 								that.render();
 							},
 							error  : function () {
+								$(".app-content-container .app-load").removeClass("loading");
+
 								// $(".app-load").css("display", "none");
 								// $(".app-retry").css("display", "block");
 								$(".app-loader").addClass("showbtn");
