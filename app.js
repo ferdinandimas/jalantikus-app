@@ -83,7 +83,7 @@ require(
 
 					fragment = Backbone.history.getFragment();
 
-					if ((fragment == "" && fragment.indexOf("index/") == 0) || window.history.length == 1) {
+					if ((fragment == "" || fragment.indexOf("index/") == 0) || window.history.length == 1) {
 						if (typeof navigator.notification != "undefined") {
 							navigator.notification.confirm(
 									"Tutup JalanTikus?",
