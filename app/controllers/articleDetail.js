@@ -359,6 +359,7 @@ define(
 						_this.hide();
 
 						parent.find(".image-refresh").on("click", function () {
+							console.log("HERE");
 							if (!parent.find(".image-refresh").hasClass("active")) {
 								parent.find(".image-refresh").addClass("active");
 							}
@@ -563,7 +564,7 @@ define(
 						$(".app-scroll-button").fadeIn();
 					});
 
-					$("a").on("click", function (e) {
+					$(".app-body a").on("click", function (e) {
 						if (jt.isOffline() && !$(this).hasClass("app-home") && !$(this).hasClass("app-toggle-back")) {
 							e.preventDefault();
 

@@ -428,9 +428,19 @@ define(
 							function offlineHandler() {
 								$(".app-content-container .app-load").removeClass("loading");
 
-								$("#app-body .app-content-container").empty().append(
-										'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
-								);
+								if (that.type != "search") {
+									$("#app-body .app-content-container").empty().append(
+											'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
+									);
+								}
+								else {
+									$("#app-body .app-content-container").empty().append(
+											'<div class="app-search">' +
+											'<span class="app-search-result">Tidak ada hasil untuk </span>' +
+											'<span class="app-search-keyword">"' + that.search + '"</span>' +
+											'</div>'
+									);
+								}
 
 								// $(".app-load").css("display", "none");
 								// $(".app-retry").css("display", "block");
@@ -507,15 +517,19 @@ define(
 								}
 							}
 						}
+						
+						var currentFragment = "";
 
 						$(".header-refresh").on("click", function () {
+							currentFragment = Backbone.history.getFragment();
+							
 							if (!$(".app-content-container .app-load").hasClass("loading") && !$(this).hasClass("active")) {
 								if (!jt.isOffline()) {
 									$(".header-refresh").addClass("active");
 
 									$(".app-content-container .app-loader").fadeOut();
 
-									jtCache.removeItem("list.article" + (Backbone.history.getFragment() != "" ? "." : "") + Backbone.history.getFragment(), null, function () {
+									jtCache.removeItem("list.article" + (currentFragment != "" ? "." : "") + currentFragment, null, function () {
 										that.page = 1;
 
 										that.collection = new Timeline({
@@ -527,44 +541,46 @@ define(
 											limit: typeof that.limit != "undefined" ? that.limit : "",
 											cache: typeof that.cache != "undefined" ? that.cache : "",
 											where: typeof that.where != "undefined" ? that.where : "",
-											page: (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") != null ? that.cacheSource.getItem(Backbone.history.getFragment() + "/page") : 1),
+											page: (that.cacheSource.getItem(currentFragment + "/page") != null ? that.cacheSource.getItem(currentFragment + "/page") : 1),
 										});
 
 										that.collection.fetch({
 											timeout: 10000,
 											success: function () {
-												window.sessionStorage.removeItem(Backbone.history.getFragment());
-												window.sessionStorage.removeItem(Backbone.history.getFragment() + "/page");
-												window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
-												window.sessionStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
+												window.sessionStorage.removeItem(currentFragment);
+												window.sessionStorage.removeItem(currentFragment + "/page");
+												window.sessionStorage.removeItem(currentFragment + "/isLastPage");
+												window.sessionStorage.removeItem(currentFragment + "/lastArticle");
 
 												if (that.type != "search") {
-													window.localStorage.removeItem(Backbone.history.getFragment());
-													window.localStorage.removeItem(Backbone.history.getFragment() + "/page");
-													window.localStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
-													window.localStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
+													window.localStorage.removeItem(currentFragment);
+													window.localStorage.removeItem(currentFragment + "/page");
+													window.localStorage.removeItem(currentFragment + "/isLastPage");
+													window.localStorage.removeItem(currentFragment + "/lastArticle");
 												}
 
 												setTimeout(function () {
 													$(".header-refresh").removeClass("active");
 
-													$(".app-refreshed").html("Refresh selesai").fadeIn();
+													if (currentFragment == Backbone.history.getFragment()) {
+														$(".app-refreshed").html("Refresh selesai").fadeIn();
 
-													$("#app-body .app-content-container").empty();
-													$("#app-body .app-content-container").append('<div class="app-toolbar-placeholder"></div>');
+														$("#app-body .app-content-container").empty();
+														$("#app-body .app-content-container").append('<div class="app-toolbar-placeholder"></div>');
 
-													window.sessionStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
-													if (that.type != "search") {
-														window.localStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
+														window.sessionStorage.removeItem(currentFragment + "/scrollTop");
+														if (that.type != "search") {
+															window.localStorage.removeItem(currentFragment + "/scrollTop");
+														}
+
+														$(".app-content-container").scrollTop(0)
+
+														that.render();
+
+														setTimeout(function () {
+															$(".app-refreshed").fadeOut();
+														}, 2000);
 													}
-
-													$(".app-content-container").scrollTop(0)
-
-													that.render();
-
-													setTimeout(function () {
-														$(".app-refreshed").fadeOut();
-													}, 2000);
 												}, 1000);
 											},
 											error: function() {
