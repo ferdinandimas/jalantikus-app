@@ -445,25 +445,23 @@ define(
 					});
 
 					$("a").each(function (key, val) {
-						regExp = /https?\:\/\/app\.jalantikus\.com\/(gadgets|tips|news|gokil)\/(.*?)(\/|$|\?)/gim;
 						value  = $(val).attr("href");
 
 						if (typeof value != "undefined") {
-							$(val).attr("href", value.replace("https://app.jalantikus.com", "https://jalantikus.com").replace("https://app.jalantikus.com", "http://jalantikus.com"));
-						}
-
-						if (typeof value != "undefined" && value.match(regExp)) {
-							var matches = regExp.exec(value);
-
-							$(this).attr("href", "#article/" + matches[ 2 ]);
+							$(val).attr("href", value.replace("https://app.jalantikus.com", "https://jalantikus.com").replace("http://app.jalantikus.com", "https://jalantikus.com"));
 						}
 					});
 
 					$(".app-detail-body a").each(function (key, val) {
-						regExp = /https?\:\/\/app\.jalantikus\.com\/(gadgets|tips|news|gokil)\/(.*?)(\/|$|\?)/gim;
+						regExp = /https?\:\/\/(app\.)?jalantikus\.com\/(gadgets|tips|news|gokil)\/(.*?)(\/|$|\?)/gim;
 						value  = $(val).attr("href");
 
-						if (typeof value != "undefined" && !value.match(regExp)) {
+						if (typeof value != "undefined" && value.match(regExp)) {
+							var matches = regExp.exec(value);
+
+							$(this).attr("href", "#article/" + matches[ 3 ]);
+						}
+						else if (typeof value != "undefined" && !value.match(regExp)) {
 							$(this).attr("onclick", "window.open('" + value + "', '_system');");
 							$(this).attr("href", "#");
 						}
