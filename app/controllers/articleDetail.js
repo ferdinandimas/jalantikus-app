@@ -425,6 +425,14 @@ define(
 						}
 					});
 
+					setInterval(function () {
+						$(".app-detail-body img").each(function (index, element) {
+							if ($(element).attr("src").indexOf("http:") < 0 && $(element).attr("src").indexOf("https:") < 0) {
+								$(element).attr("src", "http:" + $(element).attr("src"));
+							}
+						});
+					}, 1000);
+
 					$("a").each(function (key, val) {
 						regExp = /https?\:\/\/app\.jalantikus\.com\/(gadgets|tips|news|gokil)\/(.*?)(\/|$|\?)/gim;
 						value  = $(val).attr("href");
