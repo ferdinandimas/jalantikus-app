@@ -457,6 +457,9 @@ define(
 
 							$(this).attr("href", "#article/" + matches[ 2 ]);
 						}
+						else {
+							$(this).attr("target", "_blank");
+						}
 					});
 
 					$("#app-body .app-detail-container a").each(function (key, val) {
