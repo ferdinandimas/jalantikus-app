@@ -457,8 +457,14 @@ define(
 
 							$(this).attr("href", "#article/" + matches[ 2 ]);
 						}
-						else {
-							$(this).attr("onclick", "window.open('" + $(this).attr("href") + "', '_system');");
+					});
+
+					$(".app-detail-body a").each(function (key, val) {
+						regExp = /https?\:\/\/app\.jalantikus\.com\/(gadgets|tips|news|gokil)\/(.*?)(\/|$|\?)/gim;
+						value  = $(val).attr("href");
+
+						if (typeof value != "undefined" && !value.match(regExp)) {
+							$(this).attr("onclick", "window.open('" + value + "', '_system');");
 							$(this).attr("href", "#");
 						}
 					});
