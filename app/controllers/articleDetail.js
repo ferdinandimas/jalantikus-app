@@ -222,6 +222,8 @@ define(
 						}
 					});
 
+					_data.description = _data.description.replace(/([src|href])=([\"|\'])\/\//g, "$1=$2http://");
+
 					$("#app-body").empty().append(that.layout({
 						detail: _data
 					}));
@@ -417,21 +419,30 @@ define(
 						}
 					});
 
+					$(".instagram-media").each(function (index, element) {
+						var _this = $(this);
+
+						_this.html("<div class='image-refresh'>Lihat gambar di Web<a href='" + $(".app-gotoweb.app-goto").attr("href") + "' class='card-link'><div class='ripple'></div></a></div>").attr("style", "").removeClass("instagram-media");
+					});
+
 					$(".app-detail-body iframe").each(function (index, element) {
 						$(element).attr("width", "100%").attr("height", "");
 
 						if ($(element).attr("src").indexOf("http:") < 0 && $(element).attr("src").indexOf("https:") < 0) {
 							$(element).attr("src", "http:" + $(element).attr("src"));
 						}
-					});
 
-					setInterval(function () {
-						$(".app-detail-body img").each(function (index, element) {
-							if ($(element).attr("src").indexOf("http:") < 0 && $(element).attr("src").indexOf("https:") < 0) {
-								$(element).attr("src", "http:" + $(element).attr("src"));
+						if ($(element).attr("src").indexOf("giphy.com") >= 0) {
+							var _this = $(this);
+							var parent = _this.closest("p");
+
+							if (parent.find(".image-refresh").length == 0) {
+								parent.append("<div class='image-refresh'>Lihat gambar di Web<a href='" + $(".app-gotoweb.app-goto").attr("href") + "' class='card-link'><div class='ripple'></div></a></div>");
 							}
-						});
-					}, 1000);
+
+							_this.remove();
+						}
+					});
 
 					$("a").each(function (key, val) {
 						regExp = /https?\:\/\/app\.jalantikus\.com\/(gadgets|tips|news|gokil)\/(.*?)(\/|$|\?)/gim;
