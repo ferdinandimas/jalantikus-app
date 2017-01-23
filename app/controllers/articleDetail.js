@@ -458,7 +458,8 @@ define(
 							$(this).attr("href", "#article/" + matches[ 2 ]);
 						}
 						else {
-							$(this).attr("target", "_blank");
+							$(this).attr("onclick", "window.open('" + $(this).attr("href") + "', '_system');");
+							$(this).attr("href", "#");
 						}
 					});
 
