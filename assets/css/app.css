@@ -2754,6 +2754,11 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	padding-bottom: 20px;
     border-bottom: 1px solid #f0f0f0;
 }
+.app-search ~ .recommended-articles
+{
+	padding-top: 20px;
+	border-top: 1px solid #f0f0f0;
+}
 .recommended-articles:after
 {
 	position: absolute;
@@ -2773,6 +2778,10 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	-webkit-mask-size: 20px;
 	mask-size: 20px;
 	background-color: #c92737;
+}
+.app-search ~ .recommended-articles:after
+{
+	top: 20px;
 }
 /*Kembali ke home*/
 .app-gotohome-description
