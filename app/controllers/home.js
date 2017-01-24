@@ -743,7 +743,6 @@ define(
 				if (_data.length == 0) {
 					that.page = (that.page > 1 ? that.page - 1 : 1);
 
-					console.log("HERE 1", processedFragment, Backbone.history.getFragment());
 					if (processedFragment == Backbone.history.getFragment() || typeof processedFragment == "undefined") {
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
@@ -760,7 +759,6 @@ define(
 					if (_data.length < this.limit) {
 						that.page = (that.page > 1 ? that.page - 1 : 1);
 
-						console.log("HERE 2", processedFragment, Backbone.history.getFragment());
 						if (processedFragment == Backbone.history.getFragment() || typeof processedFragment == "undefined") {
 							window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
 							window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
@@ -783,7 +781,7 @@ define(
 					}
 
 					$.each(_data, function (key, val) {
-						if ((typeof _isUsingCache == "undefined" || typeof _isUsingCache == null) && that._articleList != null && that.page > 1) {
+						if ((typeof _isUsingCache == "undefined" || _isUsingCache == null) && that._articleList != null && that.page > 1) {
 							_buff.push(val);
 						}
 
@@ -807,7 +805,6 @@ define(
 						var dfd = jQuery.Deferred();
 						that._articleList = JSON.stringify(_data);
 						jtCache.setItem("list.article" + (Backbone.history.getFragment() != "" ? "." : "") + Backbone.history.getFragment(), JSON.stringify(_data), null, null, function () {
-							console.log("HERE 3", processedFragment, Backbone.history.getFragment());
 							if (processedFragment == Backbone.history.getFragment() || typeof processedFragment == "undefined") {
 								window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
 
@@ -1010,7 +1007,6 @@ define(
 								}
 
 								if (typeof that.options.type == "undefined" && that.cacheSource.getItem(Backbone.history.getFragment() + "/page") >= 5) {
-									console.log("HERE 3");
 									window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 
 									if (that.type != "search") {
