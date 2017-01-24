@@ -612,18 +612,14 @@ define(
 							}
 						}
 
-						var currentFragment = "";
-
 						$(".header-refresh").on("click", function () {
-							currentFragment = Backbone.history.getFragment();
-
 							if (!$(".app-content-container .app-load").hasClass("loading") && !$(this).hasClass("active")) {
 								if (!jt.isOffline()) {
 									$(".header-refresh").addClass("active");
 
 									$(".app-content-container .app-loader").fadeOut();
 
-									jtCache.removeItem("list.article" + (currentFragment != "" ? "." : "") + currentFragment, null, function () {
+									jtCache.removeItem("list.article" + (Backbone.history.getFragment() != "" ? "." : "") + Backbone.history.getFragment(), null, function () {
 										that.page = 1;
 
 										that.collection = new Timeline({
@@ -637,47 +633,44 @@ define(
 											where: typeof that.where != "undefined" ? that.where : "",
 											page: 1,
 										});
-										
-										window.sessionStorage.removeItem(currentFragment + "/lastArticle");
 
 										that.collection.fetch({
 											timeout: 10000,
 											success: function () {
-												window.sessionStorage.removeItem(currentFragment);
-												window.sessionStorage.removeItem(currentFragment + "/page");
-												window.sessionStorage.removeItem(currentFragment + "/isLastPage");
+												window.sessionStorage.removeItem(Backbone.history.getFragment());
+												window.sessionStorage.removeItem(Backbone.history.getFragment() + "/page");
+												window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
+												window.sessionStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
 
 												if (that.type != "search") {
-													window.localStorage.removeItem(currentFragment);
-													window.localStorage.removeItem(currentFragment + "/page");
-													window.localStorage.removeItem(currentFragment + "/isLastPage");
+													window.localStorage.removeItem(Backbone.history.getFragment());
+													window.localStorage.removeItem(Backbone.history.getFragment() + "/page");
+													window.localStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
 												}
 
 												$(".header-refresh").one('animationiteration webkitAnimationIteration', function() {
 													$(".header-refresh").off("animationiteration webkitAnimationIteration");
 													$(".header-refresh").removeClass("active");
 											    });
+
 												setTimeout(function () {
-													if (currentFragment == Backbone.history.getFragment()) {
+													$(".app-refreshed").html("Refresh selesai").fadeIn();
 
-														$(".app-refreshed").html("Refresh selesai").fadeIn();
-															
-														$("#app-body .app-content-container").empty();
-														$("#app-body .app-content-container").append('<div class="app-toolbar-placeholder"></div>');
+													$("#app-body .app-content-container").empty();
+													$("#app-body .app-content-container").append('<div class="app-toolbar-placeholder"></div>');
 
-														window.sessionStorage.removeItem(currentFragment + "/scrollTop");
-														if (that.type != "search") {
-															window.localStorage.removeItem(currentFragment + "/scrollTop");
-														}
-
-														$(".app-content-container").scrollTop(0)
-
-														that.render(null, Backbone.history.getFragment());
-
-														setTimeout(function () {
-															$(".app-refreshed").fadeOut();
-														}, 2000);
+													window.sessionStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
+													if (that.type != "search") {
+														window.localStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
 													}
+
+													$(".app-content-container").scrollTop(0)
+
+													that.render(null, Backbone.history.getFragment());
+
+													setTimeout(function () {
+														$(".app-refreshed").fadeOut();
+													}, 2000);
 												}, 1000);
 											},
 											error: function() {
