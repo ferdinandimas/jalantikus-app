@@ -438,7 +438,10 @@ define(
 											'<div class="app-search">' +
 											'<span class="app-search-result">Tidak ada hasil untuk </span>' +
 											'<span class="app-search-keyword">"' + that.search + '"</span>' +
-											'</div>'
+											'</div>' +
+											'<div class="recommended-articles">REKOMENDASI UNTUK KAMU</div>' +
+											'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>' +
+											'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>'
 									);
 
 									if (!jt.isOffline()) {
