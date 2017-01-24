@@ -386,7 +386,7 @@ define(
 								window.localStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-content-container").scrollTop());
 							}
 
-							window.sessionStorage.setItem(Backbone.history.getFragment() + "/lastArticle", "");
+							window.sessionStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
 							window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
 						}
 
@@ -543,6 +543,8 @@ define(
 											where: typeof that.where != "undefined" ? that.where : "",
 											page: (that.cacheSource.getItem(currentFragment + "/page") != null ? that.cacheSource.getItem(currentFragment + "/page") : 1),
 										});
+										
+										window.sessionStorage.removeItem(currentFragment + "/lastArticle");
 
 										that.collection.fetch({
 											timeout: 10000,
@@ -550,13 +552,11 @@ define(
 												window.sessionStorage.removeItem(currentFragment);
 												window.sessionStorage.removeItem(currentFragment + "/page");
 												window.sessionStorage.removeItem(currentFragment + "/isLastPage");
-												window.sessionStorage.removeItem(currentFragment + "/lastArticle");
 
 												if (that.type != "search") {
 													window.localStorage.removeItem(currentFragment);
 													window.localStorage.removeItem(currentFragment + "/page");
 													window.localStorage.removeItem(currentFragment + "/isLastPage");
-													window.localStorage.removeItem(currentFragment + "/lastArticle");
 												}
 
 												$(".header-refresh").one('animationiteration webkitAnimationIteration', function() {
@@ -639,7 +639,7 @@ define(
 
 				this.limit = (typeof this.limit == "undefined" ? 6 : this.limit);
 
-				if (_isUsingCache && that._articleList != null && (JSON.parse(that._articleList)).length > 0) {
+				if (_isUsingCache == true && that._articleList != null && (JSON.parse(that._articleList)).length > 0) {
 					_data = JSON.parse(that._articleList);
 				}
 				else {
@@ -650,6 +650,7 @@ define(
 					that.page = (that.page > 1 ? that.page - 1 : 1);
 
 					if (processedFragment == Backbone.history.getFragment() || typeof processedFragment == "undefined") {
+						console.log("HERE 1");
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 
@@ -658,7 +659,7 @@ define(
 							window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 						}
 
-						window.sessionStorage.setItem(Backbone.history.getFragment() + "/lastArticle", "");
+						window.sessionStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
 					}
 				}
 				else {
@@ -666,6 +667,7 @@ define(
 						that.page = (that.page > 1 ? that.page - 1 : 1);
 
 						if (processedFragment == Backbone.history.getFragment() || typeof processedFragment == "undefined") {
+							console.log("HERE 2");
 							window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
 							window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 
@@ -674,7 +676,7 @@ define(
 								window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 							}
 
-							window.sessionStorage.setItem(Backbone.history.getFragment() + "/lastArticle", "");
+							window.sessionStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
 						}
 					}
 
@@ -687,7 +689,7 @@ define(
 					}
 
 					$.each(_data, function (key, val) {
-						if (typeof _isUsingCache == "undefined" && that._articleList != null && that.page > 1) {
+						if ((typeof _isUsingCache == "undefined" || typeof _isUsingCache == null) && that._articleList != null && that.page > 1) {
 							_buff.push(val);
 						}
 
@@ -828,7 +830,7 @@ define(
 						});
 					}
 				}
-				else if (_isUsingCache) {
+				else if (_isUsingCache == true) {
 					jtCache.removeItem("list.article" + (Backbone.history.getFragment() != "" ? "." : "") + Backbone.history.getFragment(), null, function () {
 						window.sessionStorage.removeItem(Backbone.history.getFragment());
 						window.sessionStorage.removeItem(Backbone.history.getFragment() + "/page");
@@ -841,7 +843,6 @@ define(
 							window.localStorage.removeItem(Backbone.history.getFragment() + "/page");
 							window.localStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
 							window.localStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
-							window.localStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
 						}
 
 						Backbone.history.loadUrl();
@@ -914,6 +915,7 @@ define(
 								}
 
 								if (typeof that.options.type == "undefined" && that.cacheSource.getItem(Backbone.history.getFragment() + "/page") >= 5) {
+									console.log("HERE 3");
 									window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 
 									if (that.type != "search") {
