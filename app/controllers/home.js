@@ -757,7 +757,7 @@ define(
 					}
 				}
 				else {
-					if (_data.length < this.limit) {
+					if (_data.length < this.limit && that.type == "search") {
 						that.page = (that.page > 1 ? that.page - 1 : 1);
 
 						if (processedFragment == Backbone.history.getFragment() || typeof processedFragment == "undefined") {
