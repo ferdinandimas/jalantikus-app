@@ -290,18 +290,21 @@ define(
 											$(val).attr("src", nativePath);
 										}
 										else {
-											$(val).attr("src", _placeholder);
+											// $(val).attr("src", _placeholder);
+											$(val).css("background-image", "url("+_placeholder+")").css("background-size", "100%");
 										}
 
 										loadImage();
 									}, function (e) {
-										$(val).attr("src", _placeholder);
+										// $(val).attr("src", _placeholder);
+										$(val).css("background-image", "url("+_placeholder+")").css("background-size", "100%");
 
 										loadImage();
 									});
 								}
 								else {
-									$(val).attr("src", _placeholder);
+									// $(val).attr("src", _placeholder);
+									$(val).css("background-image", "url("+_placeholder+")").css("background-size", "100%");
 
 									loadImage();
 								}
@@ -345,29 +348,31 @@ define(
 						}
 					});
 
-					$(".app-detail-body img").error(function () {
+					$(".app-detail-body p img").one("error", function (e) {
 						var _this = $(this);
 						var parent = _this.closest("p");
-
 						if (parent.find(".image-refresh").length == 0) {
-							parent.append("<div class='image-refresh'>Muat ulang gambar<a href='javascript:void(0);' class='card-link'><div class='ripple'></div></a></div>");
+							parent.append("<div class='image-refresh'>Muat ulang gambar<a href='javascript:void(0);' class='image-refresh-link card-link'><div class='ripple'></div></a></div>");
+							parent.find(".image-refresh").on("click", function () {
+								if (!$(this).hasClass("active")) {
+									$(this).addClass("active");
+								}
+								_this.attr("src", _this.data("src")).load(function () {
+									_this.fadeIn(200);
+									parent.find(".image-refresh").remove();
+								}).error(function(){
+									parent.find(".image-refresh").one('animationiteration webkitAnimationIteration', function() {
+										parent.find(".image-refresh").off("animationiteration webkitAnimationIteration");
+										parent.find(".image-refresh").removeClass("active");
+								    });
+								});
+							})
 						}
 						else {
 							parent.find(".image-refresh").removeClass("active");
 						}
-
 						_this.hide();
-
-						parent.find(".image-refresh").on("click", function () {
-							console.log("HERE");
-							if (!parent.find(".image-refresh").hasClass("active")) {
-								parent.find(".image-refresh").addClass("active");
-							}
-							_this.attr("src", _this.data("src")).load(function () {
-								parent.find(".image-refresh").remove();
-								_this.fadeIn(200);
-							});
-						})
+						_this.attr("src", "");
 					});
 
 					$("#app-toolbar").addClass("detail").addClass("scroll");

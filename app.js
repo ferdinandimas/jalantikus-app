@@ -233,8 +233,11 @@ require(
 			});
 
 			$(document).on("click", "a", function (e) {
-				window.stop();
-				$.xhrPool.abortAll();
+				if(!$(this).hasClass("image-refresh-link"))
+				{
+					window.stop();
+					$.xhrPool.abortAll();
+				}
 			});
 
 			var _slideSt, _slideCur, _slideFlag = false, _slideVt, _slideVtCur;
