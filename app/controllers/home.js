@@ -422,7 +422,7 @@ define(
 							}
 							$("#app-body .app-content-container").append('<div class="app-toolbar-placeholder"></div>');
 
-							that.render(true, Backbone.history.getFragment());
+							that.render(true);
 						}
 						else {
 							function offlineHandler() {
@@ -591,7 +591,7 @@ define(
 
 										that.isConnected = true;
 
-										that.render(null, Backbone.history.getFragment());
+										that.render();
 									},
 									error  : function () {
 										offlineHandler();
@@ -610,7 +610,7 @@ define(
 									}
 									$("#app-body .app-content-container").append('<div class="app-toolbar-placeholder"></div>');
 
-									that.render(null, Backbone.history.getFragment());
+									that.render();
 								}
 							}
 						}
@@ -674,9 +674,7 @@ define(
 
 														$(".app-content-container").scrollTop(0);
 
-														console.log(currentFragment, Backbone.history.getFragment());
-
-														that.render(null, currentFragment);
+														that.render();
 
 														setTimeout(function () {
 															$(".app-refreshed").fadeOut();
@@ -731,7 +729,7 @@ define(
 					});
 				});
 			},
-			render          : function (_isUsingCache, processedFragment) {
+			render          : function (_isUsingCache) {
 				var that = this;
 				var _data = [];
 
@@ -747,7 +745,20 @@ define(
 				if (_data.length == 0) {
 					that.page = (that.page > 1 ? that.page - 1 : 1);
 
-					if (processedFragment == Backbone.history.getFragment() || typeof processedFragment == "undefined") {
+					window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
+					window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+
+					if (that.type != "search") {
+						window.localStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
+						window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+					}
+
+					window.sessionStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
+				}
+				else {
+					if (_data.length < this.limit && that.type == "search") {
+						that.page = (that.page > 1 ? that.page - 1 : 1);
+
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 
@@ -757,23 +768,6 @@ define(
 						}
 
 						window.sessionStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
-					}
-				}
-				else {
-					if (_data.length < this.limit && that.type == "search") {
-						that.page = (that.page > 1 ? that.page - 1 : 1);
-
-						if (processedFragment == Backbone.history.getFragment() || typeof processedFragment == "undefined") {
-							window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
-							window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
-
-							if (that.type != "search") {
-								window.localStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
-								window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
-							}
-
-							window.sessionStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
-						}
 					}
 
 					if (that._articleList != null && this.page > 1) {
@@ -785,7 +779,7 @@ define(
 					}
 
 					$.each(_data, function (key, val) {
-						if ((typeof _isUsingCache == "undefined" || _isUsingCache == null) && that._articleList != null && that.page > 1) {
+						if (typeof _isUsingCache == "undefined"&& that._articleList != null && that.page > 1) {
 							_buff.push(val);
 						}
 
@@ -809,12 +803,10 @@ define(
 						var dfd = jQuery.Deferred();
 						that._articleList = JSON.stringify(_data);
 						jtCache.setItem("list.article" + (Backbone.history.getFragment() != "" ? "." : "") + Backbone.history.getFragment(), JSON.stringify(_data), null, null, function () {
-							if (processedFragment == Backbone.history.getFragment() || typeof processedFragment == "undefined") {
-								window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
+							window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
 
-								if (that.type != "search") {
-									window.localStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
-								}
+							if (that.type != "search") {
+								window.localStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
 							}
 
 							dfd.resolve();
@@ -1025,7 +1017,7 @@ define(
 
 								that.isConnected = true;
 
-								that.render(null, Backbone.history.getFragment());
+								that.render();
 							},
 							error  : function () {
 								$(".app-content-container .app-load").removeClass("loading");
