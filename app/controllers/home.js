@@ -517,12 +517,12 @@ define(
 								}
 							}
 						}
-						
+
 						var currentFragment = "";
 
 						$(".header-refresh").on("click", function () {
 							currentFragment = Backbone.history.getFragment();
-							
+
 							if (!$(".app-content-container .app-load").hasClass("loading") && !$(this).hasClass("active")) {
 								if (!jt.isOffline()) {
 									$(".header-refresh").addClass("active");
@@ -627,7 +627,7 @@ define(
 					});
 				});
 			},
-			render          : function (_isUsingCache) {
+			render          : function (_isUsingCache, processedFragment) {
 				var that = this;
 				var _data = [];
 
@@ -643,20 +643,7 @@ define(
 				if (_data.length == 0) {
 					that.page = (that.page > 1 ? that.page - 1 : 1);
 
-					window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
-					window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
-
-					if (that.type != "search") {
-						window.localStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
-						window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
-					}
-
-					window.sessionStorage.setItem(Backbone.history.getFragment() + "/lastArticle", "");
-				}
-				else {
-					if (_data.length < this.limit) {
-						that.page = (that.page > 1 ? that.page - 1 : 1);
-
+					if (processedFragment == Backbone.history.getFragment() || typeof processedFragment == "undefined") {
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 
@@ -666,6 +653,23 @@ define(
 						}
 
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/lastArticle", "");
+					}
+				}
+				else {
+					if (_data.length < this.limit) {
+						that.page = (that.page > 1 ? that.page - 1 : 1);
+
+						if (processedFragment == Backbone.history.getFragment() || typeof processedFragment == "undefined") {
+							window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
+							window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+
+							if (that.type != "search") {
+								window.localStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
+								window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+							}
+
+							window.sessionStorage.setItem(Backbone.history.getFragment() + "/lastArticle", "");
+						}
 					}
 
 					if (that._articleList != null && this.page > 1) {
@@ -701,10 +705,12 @@ define(
 						var dfd = jQuery.Deferred();
 						that._articleList = JSON.stringify(_data);
 						jtCache.setItem("list.article" + (Backbone.history.getFragment() != "" ? "." : "") + Backbone.history.getFragment(), JSON.stringify(_data), null, null, function () {
-							window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
+							if (processedFragment == Backbone.history.getFragment() || typeof processedFragment == "undefined") {
+								window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
 
-							if (that.type != "search") {
-								window.localStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
+								if (that.type != "search") {
+									window.localStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
+								}
 							}
 
 							dfd.resolve();
@@ -916,7 +922,7 @@ define(
 
 								that.isConnected = true;
 
-								that.render();
+								that.render(null, Backbone.history.getFragment());
 							},
 							error  : function () {
 								$(".app-content-container .app-load").removeClass("loading");
