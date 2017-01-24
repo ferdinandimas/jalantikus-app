@@ -1411,8 +1411,8 @@ div, span, a
 }
 .app-header .header-refresh.active:after
 {
-	-webkit-animation: refresh 1.2s linear 1;
-    animation: refresh 1.2s linear 1;
+	-webkit-animation: refresh 1.2s linear infinite;
+    animation: refresh 1.2s linear infinite;
 }
 .app-header .app-menu-home:after
 {

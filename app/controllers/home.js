@@ -559,12 +559,15 @@ define(
 													window.localStorage.removeItem(currentFragment + "/lastArticle");
 												}
 
-												setTimeout(function () {
+												$(".header-refresh").one('animationiteration webkitAnimationIteration', function() {
+													$(".header-refresh").off("animationiteration webkitAnimationIteration");
 													$(".header-refresh").removeClass("active");
-
+											    });
+												setTimeout(function () {
 													if (currentFragment == Backbone.history.getFragment()) {
-														$(".app-refreshed").html("Refresh selesai").fadeIn();
 
+														$(".app-refreshed").html("Refresh selesai").fadeIn();
+															
 														$("#app-body .app-content-container").empty();
 														$("#app-body .app-content-container").append('<div class="app-toolbar-placeholder"></div>');
 
@@ -585,7 +588,10 @@ define(
 											},
 											error: function() {
 												$(".app-content-container .app-load").removeClass("loading");
-												$(".header-refresh").removeClass("active");
+												$(".header-refresh").one('animationiteration webkitAnimationIteration', function() {
+													$(".header-refresh").off("animationiteration webkitAnimationIteration");
+													$(".header-refresh").removeClass("active");
+											    });
 												$(".app-content-container .app-loader").fadeIn();
 											}
 										});
