@@ -611,15 +611,19 @@ define(
 								}
 							}
 						}
+						
+						var currentFragment = "";
 
 						$(".header-refresh").on("click", function () {
+							currentFragment = Backbone.history.getFragment();
+							
 							if (!$(".app-content-container .app-load").hasClass("loading") && !$(this).hasClass("active")) {
 								if (!jt.isOffline()) {
 									$(".header-refresh").addClass("active");
 
 									$(".app-content-container .app-loader").fadeOut();
 
-									jtCache.removeItem("list.article" + (Backbone.history.getFragment() != "" ? "." : "") + Backbone.history.getFragment(), null, function () {
+									jtCache.removeItem("list.article" + (currentFragment != "" ? "." : "") + currentFragment, null, function () {
 										that.page = 1;
 
 										that.collection = new Timeline({
@@ -637,40 +641,44 @@ define(
 										that.collection.fetch({
 											timeout: 10000,
 											success: function () {
-												window.sessionStorage.removeItem(Backbone.history.getFragment());
-												window.sessionStorage.removeItem(Backbone.history.getFragment() + "/page");
-												window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
-												window.sessionStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
-
-												if (that.type != "search") {
-													window.localStorage.removeItem(Backbone.history.getFragment());
-													window.localStorage.removeItem(Backbone.history.getFragment() + "/page");
-													window.localStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
-												}
-
 												$(".header-refresh").one('animationiteration webkitAnimationIteration', function() {
 													$(".header-refresh").off("animationiteration webkitAnimationIteration");
 													$(".header-refresh").removeClass("active");
-											    });
+												});
 
 												setTimeout(function () {
-													$(".app-refreshed").html("Refresh selesai").fadeIn();
+													if (currentFragment == Backbone.history.getFragment()) {
+														window.sessionStorage.removeItem(currentFragment);
+														window.sessionStorage.removeItem(currentFragment + "/page");
+														window.sessionStorage.removeItem(currentFragment + "/isLastPage");
+														window.sessionStorage.removeItem(currentFragment + "/lastArticle");
 
-													$("#app-body .app-content-container").empty();
-													$("#app-body .app-content-container").append('<div class="app-toolbar-placeholder"></div>');
+														if (that.type != "search") {
+															window.localStorage.removeItem(currentFragment);
+															window.localStorage.removeItem(currentFragment + "/page");
+															window.localStorage.removeItem(currentFragment + "/isLastPage");
+														}
 
-													window.sessionStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
-													if (that.type != "search") {
-														window.localStorage.removeItem(Backbone.history.getFragment() + "/scrollTop");
+														$(".app-refreshed").html("Refresh selesai").fadeIn();
+
+														$("#app-body .app-content-container").empty();
+														$("#app-body .app-content-container").append('<div class="app-toolbar-placeholder"></div>');
+
+														window.sessionStorage.removeItem(currentFragment + "/scrollTop");
+														if (that.type != "search") {
+															window.localStorage.removeItem(currentFragment + "/scrollTop");
+														}
+
+														$(".app-content-container").scrollTop(0);
+
+														console.log(currentFragment, Backbone.history.getFragment());
+
+														that.render(null, currentFragment);
+
+														setTimeout(function () {
+															$(".app-refreshed").fadeOut();
+														}, 2000);
 													}
-
-													$(".app-content-container").scrollTop(0)
-
-													that.render(null, Backbone.history.getFragment());
-
-													setTimeout(function () {
-														$(".app-refreshed").fadeOut();
-													}, 2000);
 												}, 1000);
 											},
 											error: function() {
