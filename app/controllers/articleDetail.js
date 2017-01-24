@@ -290,18 +290,21 @@ define(
 											$(val).attr("src", nativePath);
 										}
 										else {
-											$(val).attr("src", _placeholder);
+											// $(val).attr("src", _placeholder);
+											$(val).css("background-image", "url("+_placeholder+")").css("background-size", "100%");
 										}
 
 										loadImage();
 									}, function (e) {
-										$(val).attr("src", _placeholder);
+										// $(val).attr("src", _placeholder);
+										$(val).css("background-image", "url("+_placeholder+")").css("background-size", "100%");
 
 										loadImage();
 									});
 								}
 								else {
-									$(val).attr("src", _placeholder);
+									// $(val).attr("src", _placeholder);
+									$(val).css("background-image", "url("+_placeholder+")").css("background-size", "100%");
 
 									loadImage();
 								}
