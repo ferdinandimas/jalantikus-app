@@ -422,7 +422,7 @@ define(
 							}
 							$("#app-body .app-content-container").append('<div class="app-toolbar-placeholder"></div>');
 
-							that.render(true);
+							that.render(true, Backbone.history.getFragment());
 						}
 						else {
 							function offlineHandler() {
@@ -588,7 +588,7 @@ define(
 
 										that.isConnected = true;
 
-										that.render();
+										that.render(null, Backbone.history.getFragment());
 									},
 									error  : function () {
 										offlineHandler();
@@ -607,7 +607,7 @@ define(
 									}
 									$("#app-body .app-content-container").append('<div class="app-toolbar-placeholder"></div>');
 
-									that.render();
+									that.render(null, Backbone.history.getFragment());
 								}
 							}
 						}
@@ -635,7 +635,7 @@ define(
 											limit: typeof that.limit != "undefined" ? that.limit : "",
 											cache: typeof that.cache != "undefined" ? that.cache : "",
 											where: typeof that.where != "undefined" ? that.where : "",
-											page: (that.cacheSource.getItem(currentFragment + "/page") != null ? that.cacheSource.getItem(currentFragment + "/page") : 1),
+											page: 1,
 										});
 										
 										window.sessionStorage.removeItem(currentFragment + "/lastArticle");
@@ -672,7 +672,7 @@ define(
 
 														$(".app-content-container").scrollTop(0)
 
-														that.render();
+														that.render(null, Backbone.history.getFragment());
 
 														setTimeout(function () {
 															$(".app-refreshed").fadeOut();
@@ -743,8 +743,8 @@ define(
 				if (_data.length == 0) {
 					that.page = (that.page > 1 ? that.page - 1 : 1);
 
+					console.log("HERE 1", processedFragment, Backbone.history.getFragment());
 					if (processedFragment == Backbone.history.getFragment() || typeof processedFragment == "undefined") {
-						console.log("HERE 1");
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 
@@ -760,8 +760,8 @@ define(
 					if (_data.length < this.limit) {
 						that.page = (that.page > 1 ? that.page - 1 : 1);
 
+						console.log("HERE 2", processedFragment, Backbone.history.getFragment());
 						if (processedFragment == Backbone.history.getFragment() || typeof processedFragment == "undefined") {
-							console.log("HERE 2");
 							window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
 							window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 
@@ -807,6 +807,7 @@ define(
 						var dfd = jQuery.Deferred();
 						that._articleList = JSON.stringify(_data);
 						jtCache.setItem("list.article" + (Backbone.history.getFragment() != "" ? "." : "") + Backbone.history.getFragment(), JSON.stringify(_data), null, null, function () {
+							console.log("HERE 3", processedFragment, Backbone.history.getFragment());
 							if (processedFragment == Backbone.history.getFragment() || typeof processedFragment == "undefined") {
 								window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
 
