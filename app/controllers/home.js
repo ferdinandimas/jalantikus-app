@@ -762,12 +762,6 @@ define(
 				});
 			},
 			render          : function (_isUsingCache, _autoloadFragment) {
-				$("a").each(function (key, val) {
-					if (!$(this).hasClass("disabled")) {
-						$(this).addClass("disabled");
-					}
-				});
-
 				console.log("RENDER", _autoloadFragment == Backbone.history.getFragment(), _autoloadFragment, Backbone.history.getFragment());
 
 				if (_isUsingCache != true) {
@@ -819,9 +813,7 @@ define(
 					console.log("DATA", _data);
 
 					$.each(_data, function (key, val) {
-						console.log("LOOP", _isUsingCache == false && that._articleList != null && typeof _autoloadFragment != "undefined", typeof _isUsingCache, _isUsingCache, that.page);
 						if (_isUsingCache == false && that._articleList != null && typeof _autoloadFragment != "undefined") {
-							console.log("HERE PUSH");
 							_buff.push(val);
 						}
 
@@ -848,10 +840,23 @@ define(
 							console.log("RENDER CACHE", _autoloadFragment == Backbone.history.getFragment(), typeof _autoloadFragment == "undefined" || (typeof _autoloadFragment != "undefined" && _autoloadFragment == Backbone.history.getFragment()), _autoloadFragment, Backbone.history.getFragment(), _data);
 
 							if (typeof _autoloadFragment == "undefined" || (typeof _autoloadFragment != "undefined" && _autoloadFragment == Backbone.history.getFragment())) {
-								window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
+								var isValid = true;
 
-								if (that.type != "search") {
-									window.localStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
+								if (typeof _autoloadFragment != "undefined") {
+									_oldData = JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()));
+									console.log("COMPARE", _oldData[0], _data[0], _autoloadFragment, Backbone.history.getFragment());
+
+									if (_oldData[0].id != _data[0 ].id) {
+										isValid = false;
+									}
+								}
+
+								if (isValid) {
+									window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
+
+									if (that.type != "search") {
+										window.localStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
+									}
 								}
 							}
 						}
@@ -1046,12 +1051,6 @@ define(
 				that.loadImages();
 
 				this.collection.reset();
-
-				$("a").each(function (key, val) {
-					if ($(this).hasClass("disabled")) {
-						$(this).removeClass("disabled");
-					}
-				});
 			},
 			autoload        : function () {
 				var that = this;
@@ -1080,7 +1079,7 @@ define(
 								$(".header-refresh").show();
 								$(".app-content-container .app-loader").remove();
 
-								that.render(null, Backbone.history.getFragment());
+								that.render(null, Backbone.history.getFragment(), that);
 
 								that.page = that.page + 1;
 

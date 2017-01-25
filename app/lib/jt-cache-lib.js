@@ -31,8 +31,6 @@ var errorHandler = function (cacheKey, e) {
 	return false;
 }
 
-var reader = new FileReader();
-
 var jtCache = function () {
 	return {
 		setItem: function (cacheKey, cacheValue, type, ttl, callback) {
@@ -121,7 +119,7 @@ var jtCache = function () {
 									};
 
 									fileWriter.onerror = function (e) {
-										jt.log("Write failed: " + e.toString());
+										console.log("Write failed: " + e.toString(), e);
 									};
 
 									if (data.type == "blob") {
@@ -148,17 +146,14 @@ var jtCache = function () {
 			}
 		},
 		getItem: function (cacheKey, callback, type) {
-			console.log("getItem 1");
 			cacheKey += ".json";
 			cacheKey = cacheKey.replace(/\//g, ".");
 
 			type = (typeof type == "undefined" || type == null ? window.TEMPORARY : type);
 
 			if (typeof window.requestFileSystem == "function") {
-				console.log("getItem 2");
 				_segment = cacheKey.split(".");
 				if (_segment.length > 2) {
-					console.log("getItem 4");
 					window.requestFileSystem(type, 0, function (fs) {
 						if (isSubfoldering = false) {
 							fs.root.getDirectory(_segment[ 0 ], {}, function(fs) {
@@ -170,7 +165,6 @@ var jtCache = function () {
 							});
 						}
 						else {
-							console.log("getItem 6");
 							fs.root.getDirectory("data", {}, function(fs) {
 								readFile(fs);
 							}, function () {
@@ -182,12 +176,10 @@ var jtCache = function () {
 					}, errorHandler.bind(null, cacheKey));
 				}
 				else {
-					console.log("getItem 5");
 					readFile();
 				}
 
 				function readFile(_fs) {
-					console.log("getItem 7");
 					if (typeof _fs == "undefined") {
 						window.requestFileSystem(type, size, function (fs) {
 							read(fs.root);
@@ -198,13 +190,12 @@ var jtCache = function () {
 					}
 
 					function read(fs) {
-						console.log("getItem 8");
 						fs.getFile(cacheKey, {}, function (fileEntry) {
 							fileEntry.file(function (file) {
-								console.log("getItem 9", file);
+								var reader = new FileReader();
+
 								try {
 									reader.onloadend = function (e) {
-										console.log("getItem 10");
 										if (this.result.length > 0) {
 											try {
 												//console.log("Write success: " + cacheKey, buffValue);
@@ -223,7 +214,6 @@ var jtCache = function () {
 											}
 											catch (e) {
 												console.log("Read failed 1: " + e.toString(), e);
-												//jt.log("Read failed: " + e.toString());
 
 												if (typeof callback == "function") {
 													callback(null);
@@ -236,7 +226,6 @@ var jtCache = function () {
 								}
 								catch (e) {
 									console.log("Read failed 2: " + e.toString(), e);
-									//jt.log("Read failed: " + e.toString());
 
 									if (typeof callback == "function") {
 										callback(null);
@@ -252,7 +241,6 @@ var jtCache = function () {
 				}
 			}
 			else {
-				console.log("getItem 3");
 				buff = window.sessionStorage.getItem(cacheKey);
 
 				if (buff != null) {
