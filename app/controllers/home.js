@@ -763,6 +763,13 @@ define(
 			},
 			render          : function (_isUsingCache, _autoloadFragment) {
 				
+				$("a").each(function(key, val){
+					if(!$(this).hasClass("disabled"))
+					{
+						$(this).addClass("disabled");
+					}
+				})
+
 				console.log("RENDER", _autoloadFragment == Backbone.history.getFragment(), _autoloadFragment, Backbone.history.getFragment());
 
 				if (_isUsingCache != true) {
@@ -1041,6 +1048,13 @@ define(
 				that.loadImages();
 
 				this.collection.reset();
+
+				$("a").each(function(key, val){
+					if($(this).hasClass("disabled"))
+					{
+						$(this).removeClass("disabled");
+					}
+				})
 			},
 			autoload        : function () {
 				var that = this;

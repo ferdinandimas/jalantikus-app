@@ -50,6 +50,10 @@ div, span, a
 {
 	text-shadow: 0px 0px 0px transparent
 }
+*.disabled
+{
+	pointer-events: none;
+}
 .clear
 {
 	clear: both;
