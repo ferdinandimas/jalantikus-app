@@ -762,7 +762,7 @@ define(
 				});
 			},
 			render          : function (_isUsingCache, _autoloadFragment) {
-				
+
 				console.log("RENDER", _autoloadFragment == Backbone.history.getFragment(), _autoloadFragment, Backbone.history.getFragment());
 
 				if (_isUsingCache != true) {
