@@ -190,6 +190,8 @@ var jtCache = function () {
 					}
 
 					function read(fs) {
+						var isFired = false;
+
 						fs.getFile(cacheKey, {}, function (fileEntry) {
 							fileEntry.file(function (file) {
 								var reader = new FileReader();
@@ -198,7 +200,6 @@ var jtCache = function () {
 									reader.onloadend = function (e) {
 										if (this.result.length > 0) {
 											try {
-												//console.log("Write success: " + cacheKey, buffValue);
 												jt.log("Load success: " + cacheKey);
 
 												buff       = JSON.parse(this.result);
@@ -221,6 +222,32 @@ var jtCache = function () {
 											}
 										}
 									};
+
+									reader.onerror = function (e) {
+										reader.abort();
+
+										console.log("Read failed 3: " + e.toString(), e);
+
+										if (typeof callback == "function") {
+											callback(null);
+										}
+									};
+
+									reader.onloadstart = function (e) {
+										isFired = true;
+									};
+
+									setTimeout(function () {
+										if (!isFired) {
+											reader.abort();
+
+											console.log("Read failed 3: Reader not fired");
+
+											if (typeof callback == "function") {
+												callback(null);
+											}
+										}
+									}, 500);
 
 									reader.readAsText(file);
 								}

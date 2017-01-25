@@ -1122,15 +1122,30 @@ define(
 						var xhr  = new XMLHttpRequest();
 						xhr.onreadystatechange = function(){
 							if (this.readyState == 4 && this.status == 200){
-								cacheKey = "image.article.";
-								url      = btoa($(that).attr("src"));
+								var cacheKey = "image.article.";
+								var url      = $(that).attr("src");
+								url          = btoa(url);
 
-								jtCache.setItem(cacheKey + url, {
-									"type"     : "blob",
-									"value"    : this.response,
-									"extension": "",
-									"fileType" : this.response.type
-								}, window.TEMPORARY);
+								cache(this);
+
+								function cache(xhr) {
+									var dfd = jQuery.Deferred();
+
+									jtCache.getItem(cacheKey + url, function(_data) {
+										if (_data == null) {
+											jtCache.setItem(cacheKey + url, {
+												"type"     : "blob",
+												"value"    : xhr.response,
+												"extension": "",
+												"fileType" : xhr.response.type
+											}, window.TEMPORARY, null, function () {
+												dfd.resolve();
+											});
+										}
+									}, window.TEMPORARY);
+
+									return dfd.promise();
+								}
 							}
 						}
 						xhr.open('GET', $(this).attr("src"));
@@ -1146,8 +1161,9 @@ define(
 					});
 
 					if (typeof window.resolveLocalFileSystemURL == "function") {
-						window.resolveLocalFileSystemURL("cdvfile://localhost/temporary/image/image.article." + btoa($(val).data("src")) + ".", function (entry) {
+						window.resolveLocalFileSystemURL("cdvfile://localhost/temporary/data/image.article." + btoa($(val).data("src")) + ".", function (entry) {
 							var nativePath = entry.toURL();
+
 							if (typeof nativePath != "undefined") {
 								$(val).attr("src", nativePath);
 							}

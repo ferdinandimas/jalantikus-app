@@ -284,7 +284,7 @@ define(
 								$(val).data("src", _images);
 
 								if (typeof window.resolveLocalFileSystemURL == "function") {
-									window.resolveLocalFileSystemURL("cdvfile://localhost/temporary/image/image.article." + btoa(_placeholder) + ".", function (entry) {
+									window.resolveLocalFileSystemURL("cdvfile://localhost/temporary/data/image.article." + btoa(_placeholder) + ".", function (entry) {
 										var nativePath = entry.toURL();
 										if (typeof nativePath != "undefined") {
 											$(val).attr("src", nativePath);
@@ -330,7 +330,7 @@ define(
 							});
 
 							if (typeof window.resolveLocalFileSystemURL == "function") {
-								window.resolveLocalFileSystemURL("cdvfile://localhost/temporary/image/image.article." + btoa($(val).data("src")) + ".", function (entry) {
+								window.resolveLocalFileSystemURL("cdvfile://localhost/temporary/data/image.article." + btoa($(val).data("src")) + ".", function (entry) {
 									var nativePath = entry.toURL();
 									if (typeof nativePath != "undefined") {
 										$(val).attr("src", nativePath);
