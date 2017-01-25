@@ -31,6 +31,8 @@ var errorHandler = function (cacheKey, e) {
 	return false;
 }
 
+var reader = new FileReader();
+
 var jtCache = function () {
 	return {
 		setItem: function (cacheKey, cacheValue, type, ttl, callback) {
@@ -146,14 +148,17 @@ var jtCache = function () {
 			}
 		},
 		getItem: function (cacheKey, callback, type) {
+			console.log("getItem 1");
 			cacheKey += ".json";
 			cacheKey = cacheKey.replace(/\//g, ".");
 
 			type = (typeof type == "undefined" || type == null ? window.TEMPORARY : type);
 
 			if (typeof window.requestFileSystem == "function") {
+				console.log("getItem 2");
 				_segment = cacheKey.split(".");
 				if (_segment.length > 2) {
+					console.log("getItem 4");
 					window.requestFileSystem(type, 0, function (fs) {
 						if (isSubfoldering = false) {
 							fs.root.getDirectory(_segment[ 0 ], {}, function(fs) {
@@ -165,6 +170,7 @@ var jtCache = function () {
 							});
 						}
 						else {
+							console.log("getItem 6");
 							fs.root.getDirectory("data", {}, function(fs) {
 								readFile(fs);
 							}, function () {
@@ -176,10 +182,12 @@ var jtCache = function () {
 					}, errorHandler.bind(null, cacheKey));
 				}
 				else {
+					console.log("getItem 5");
 					readFile();
 				}
 
 				function readFile(_fs) {
+					console.log("getItem 7");
 					if (typeof _fs == "undefined") {
 						window.requestFileSystem(type, size, function (fs) {
 							read(fs.root);
@@ -190,36 +198,50 @@ var jtCache = function () {
 					}
 
 					function read(fs) {
+						console.log("getItem 8");
 						fs.getFile(cacheKey, {}, function (fileEntry) {
 							fileEntry.file(function (file) {
-								var reader = new FileReader();
+								console.log("getItem 9", file);
+								try {
+									reader.onloadend = function (e) {
+										console.log("getItem 10");
+										if (this.result.length > 0) {
+											try {
+												//console.log("Write success: " + cacheKey, buffValue);
+												jt.log("Load success: " + cacheKey);
 
-								reader.onloadend = function (e) {
-									if (this.result.length > 0) {
-										try {
-											buff       = JSON.parse(this.result);
-											buff.value = JSON.parse(decodeURI(buff.value));
+												buff       = JSON.parse(this.result);
+												buff.value = JSON.parse(decodeURI(buff.value));
 
-											if (typeof buff.ttl == "undefined" || (typeof buff.ttl != "undefined" && Math.floor((new Date()).getTime() / 1000) > buff.ttl)) {
-												buff.expired = "true"
+												if (typeof buff.ttl == "undefined" || (typeof buff.ttl != "undefined" && Math.floor((new Date()).getTime() / 1000) > buff.ttl)) {
+													buff.expired = "true"
+												}
+
+												if (typeof callback == "function") {
+													callback(buff);
+												}
 											}
+											catch (e) {
+												console.log("Read failed 1: " + e.toString(), e);
+												//jt.log("Read failed: " + e.toString());
 
-											if (typeof callback == "function") {
-												callback(buff);
+												if (typeof callback == "function") {
+													callback(null);
+												}
 											}
 										}
-										catch (e) {
-											//console.log("Read failed: " + e.toString(), e);
-											jt.log("Read failed: " + e.toString());
+									};
 
-											if (typeof callback == "function") {
-												callback(null);
-											}
-										}
+									reader.readAsText(file);
+								}
+								catch (e) {
+									console.log("Read failed 2: " + e.toString(), e);
+									//jt.log("Read failed: " + e.toString());
+
+									if (typeof callback == "function") {
+										callback(null);
 									}
-								};
-
-								reader.readAsText(file);
+								}
 							}, errorHandler.bind(null, cacheKey));
 						}, function () {
 							if (typeof callback == "function") {
@@ -230,6 +252,7 @@ var jtCache = function () {
 				}
 			}
 			else {
+				console.log("getItem 3");
 				buff = window.sessionStorage.getItem(cacheKey);
 
 				if (buff != null) {

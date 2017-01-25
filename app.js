@@ -56,6 +56,26 @@ require(
 	function (Router) {
 		window.BackboneRouter = new Router();
 
+		$.xhrPool = [];
+		$.xhrPool.abortAll = function() {
+			$(this).each(function(idx, jqXHR) {
+				jqXHR.abort();
+			});
+			$.xhrPool.length = 0
+		};
+
+		$.ajaxSetup({
+			beforeSend: function(jqXHR) {
+				$.xhrPool.push(jqXHR);
+			},
+			complete: function(jqXHR) {
+				var index = $.xhrPool.indexOf(jqXHR);
+				if (index > -1) {
+					$.xhrPool.splice(index, 1);
+				}
+			}
+		});
+
 		$(function () {
 			if (typeof MobileAccessibility != "undefined") {
 				MobileAccessibility.usePreferredTextZoom(false);
@@ -233,10 +253,11 @@ require(
 			});
 
 			$(document).on("click", "a", function (e) {
-				if(!$(this).hasClass("image-refresh-link"))
-				{
+				if (!$(this).hasClass("image-refresh-link")) {
+					if (!$(this).hasClass("app-retry")) {
+						$.xhrPool.abortAll();
+					}
 					window.stop();
-					$.xhrPool.abortAll();
 				}
 			});
 
@@ -763,26 +784,6 @@ require(
 							clearInterval(intEvt);
 						}
 					}, 200)
-				}
-			});
-
-			$.xhrPool = []; // array of uncompleted requests
-			$.xhrPool.abortAll = function() { // our abort function
-				$(this).each(function(idx, jqXHR) {
-					jqXHR.abort();
-				});
-				$.xhrPool.length = 0
-			};
-
-			$.ajaxSetup({
-				beforeSend: function(jqXHR) {
-					$.xhrPool.push(jqXHR);
-				},
-				complete: function(jqXHR) {
-					var index = $.xhrPool.indexOf(jqXHR);
-					if (index > -1) {
-						$.xhrPool.splice(index, 1);
-					}
 				}
 			});
 		});
