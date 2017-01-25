@@ -66,12 +66,8 @@ define(
 			fetch     : function (options) {
 				var that = this;
 
-				console.log("FETCH ARTICLE");
-
 				jtCache.getItem(Backbone.history.getFragment(), function(_data) {
-					console.log("LOAD ARTICLE");
 					if (typeof _data == "undefined" || _data == null || _data.expired == "true") {
-						console.log("LOAD ARTICLE FROM API");
 						if (!jt.isOffline()) {
 							that.model.fetch({
 								timeout: typeof options != "undefined" && typeof options.timeout != "undefined" ? options.timeout : 5000,

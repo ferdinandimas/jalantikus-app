@@ -66,29 +66,13 @@ require(
 
 		$.ajaxSetup({
 			beforeSend: function(jqXHR) {
-				//$("a").each(function (key, val) {
-				//	if (!$(this).hasClass("disabled")) {
-				//		$(this).addClass("disabled");
-				//	}
-				//});
-
 				$.xhrPool.push(jqXHR);
-
-				console.log("START AJAX");
 			},
 			complete: function(jqXHR) {
-				//$("a").each(function (key, val) {
-				//	if ($(this).hasClass("disabled")) {
-				//		$(this).removeClass("disabled");
-				//	}
-				//});
-
 				var index = $.xhrPool.indexOf(jqXHR);
 				if (index > -1) {
 					$.xhrPool.splice(index, 1);
 				}
-
-				console.log("END AJAX");
 			}
 		});
 
@@ -380,7 +364,7 @@ require(
 						$(".app-rating-subtitle").html(_displayRate[ 4 ]);
 						break;
 					default:
-						console.log("Error Rate");
+						jt.log("Error Rate");
 						break;
 				}
 				stars(rate);

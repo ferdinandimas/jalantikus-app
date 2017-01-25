@@ -433,7 +433,6 @@ define(
 							}
 							$("#app-body .app-content-container").append('<div class="app-toolbar-placeholder"></div>');
 
-							console.log("RENDER TRUE");
 							that.render(true);
 						}
 						else {
@@ -665,7 +664,6 @@ define(
 											that.collection.fetch({
 												timeout: 10000,
 												success: function () {
-													console.log("HERE FETCH");
 													$(".header-refresh").one('animationiteration webkitAnimationIteration', function() {
 														$(".header-refresh").off("animationiteration webkitAnimationIteration");
 														$(".header-refresh").removeClass("active");
@@ -762,8 +760,6 @@ define(
 				});
 			},
 			render          : function (_isUsingCache, _autoloadFragment) {
-				console.log("RENDER", _autoloadFragment == Backbone.history.getFragment(), _autoloadFragment, Backbone.history.getFragment());
-
 				if (_isUsingCache != true) {
 					_isUsingCache = false;
 				}
@@ -802,15 +798,11 @@ define(
 
 					if (that._articleList != null && typeof _autoloadFragment != "undefined") {
 						_buff = JSON.parse(that._articleList);
-
-						console.log("BUFF", _buff);
 					}
 
 					if (this.page == 1) {
 						_data[ 0 ].isFirst = true;
 					}
-
-					console.log("DATA", _data);
 
 					$.each(_data, function (key, val) {
 						if (_isUsingCache == false && that._articleList != null && typeof _autoloadFragment != "undefined") {
@@ -837,14 +829,11 @@ define(
 						that._articleList = JSON.stringify(_data);
 
 						function cache(_data) {
-							console.log("RENDER CACHE", _autoloadFragment == Backbone.history.getFragment(), typeof _autoloadFragment == "undefined" || (typeof _autoloadFragment != "undefined" && _autoloadFragment == Backbone.history.getFragment()), _autoloadFragment, Backbone.history.getFragment(), _data);
-
 							if (typeof _autoloadFragment == "undefined" || (typeof _autoloadFragment != "undefined" && _autoloadFragment == Backbone.history.getFragment())) {
 								var isValid = true;
 
 								if (typeof _autoloadFragment != "undefined") {
 									_oldData = JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()));
-									console.log("COMPARE", _oldData[0], _data[0], _autoloadFragment, Backbone.history.getFragment());
 
 									if (_oldData[0].id != _data[0 ].id) {
 										isValid = false;
@@ -877,11 +866,9 @@ define(
 					}
 
 					if (that._articleList != null && typeof _autoloadFragment != "undefined") {
-						console.log("SOURCE 1");
 						cache(_buff);
 					}
 					else{
-						console.log("SOURCE 2");
 						cache(_data);
 					}
 				}
