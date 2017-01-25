@@ -800,7 +800,7 @@ define(
 						_buff = JSON.parse(that._articleList);
 					}
 
-					if (this.page == 1) {
+					if (typeof _autoloadFragment == "undefined") {
 						_data[ 0 ].isFirst = true;
 					}
 
