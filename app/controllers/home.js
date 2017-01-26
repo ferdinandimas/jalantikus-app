@@ -1173,27 +1173,24 @@ define(
 				});
 
 				$("img:not(.rendered):in-viewport").each(function (key, val) {
-					var img = new Image();
+					if (typeof $(val).data("src") != "undefined") {
+						var img = new Image();
+						
+						_nativePath = "filesystem:" + window.location.origin + "/temporary/data/image.article." + btoa($(val).data("src")) + ".";
+						$(val).data("native", _nativePath).attr("src", _nativePath);
 
-					if (typeof $(val).data("src") == "undefined") {
-						$(val).data("src", $(val).attr("src"));
-						$(val).attr("src", "");
-					}
+						$(val).on("load", function () {
+							$(val).addClass("rendered");
+						}).on("error", function () {
+							img.src = $(val).data("native");
 
-					_nativePath = "filesystem:" + window.location.origin + "/temporary/data/image.article." + btoa($(val).data("src")) + ".";
-					$(val).data("native", _nativePath).attr("src", _nativePath);
-
-					$(val).on("load", function () {
-						$(val).addClass("rendered");
-					}).on("error", function () {
-						img.src = $(val).data("native");
-
-						$(img).on("load", function () {
-							$(val).attr("src", $(val).data("native")).addClass("rendered");
-						}).on("error", img, function () {
-							$(val).attr("src", $(val).data("src"));
+							$(img).on("load", function () {
+								$(val).attr("src", $(val).data("native")).addClass("rendered");
+							}).on("error", img, function () {
+								$(val).attr("src", $(val).data("src"));
+							});
 						});
-					});
+					}
 				});
 			}
 		});
