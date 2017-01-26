@@ -67,7 +67,11 @@ define(
 				var that = this;
 
 				jtCache.getItem(Backbone.history.getFragment(), function(_data) {
-					if (typeof _data == "undefined" || _data == null || _data.expired == "true") {
+					if (typeof _data.value != "undefined" && _data.value != null) {
+						_buff = JSON.parse(_data.value);
+					}
+
+					if (typeof _data == "undefined" || _data == null || _data.expired == "true" || typeof _buff == "undefined" || typeof _buff.id == "undefined" || _buff.id == null) {
 						if (!jt.isOffline()) {
 							that.model.fetch({
 								timeout: typeof options != "undefined" && typeof options.timeout != "undefined" ? options.timeout : 5000,
@@ -165,8 +169,6 @@ define(
 						}
 					}
 					else {
-						_buff = JSON.parse(_data.value);
-
 						if (window.localStorage.getItem("show_splash") === "true") {
 							$(".no-splash").hide();
 
@@ -685,6 +687,26 @@ define(
 
 						$(".app-addtofavorite").addClass("active");
 					}
+				}
+
+				if (window.localStorage.getItem("show_splash") === "true") {
+					$(".no-splash").hide();
+
+					if ($(".splash").length >= 1) {
+						setTimeout(function () {
+							$(".splash").fadeOut("fast", function () {
+								$(this).remove();
+							})
+						}, 2000);
+					}
+				}
+				else {
+					$(".splash").fadeOut(350, function() {
+						$(this).remove();
+					});
+					$(".no-splash").fadeOut(350, function() {
+						$(this).remove();
+					});
 				}
 			},
 			showOffline: function () {

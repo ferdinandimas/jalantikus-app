@@ -268,7 +268,7 @@ define(
 							}
 
 							function finishedRendering() {
-								if (that.cacheSource.getItem("show_splash") === "true") {
+								if (window.localStorage.getItem("show_splash") === "true") {
 									$(".no-splash").hide();
 
 									if ($(".splash").length >= 1) {
@@ -1022,7 +1022,7 @@ define(
 					$(".app-content-container .app-loader").remove();
 				}
 
-				if (that.cacheSource.getItem("show_splash") === "true") {
+				if (window.localStorage.getItem("show_splash") === "true") {
 					$(".no-splash").hide();
 
 					if ($(".splash").length >= 1) {
