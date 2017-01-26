@@ -788,7 +788,7 @@ require(
 			});
 
 			$(".usermenu-lower .container .usermenu-item").click(function (key, val) {
-				if (typeof $(this).attr("href") != "undefined") {
+				if (typeof $(this).attr("href") != "undefined" && !jt.isOffline()) {
 					var _href = $(this).attr("href");
 					_href     = _href.replace("#", "");
 
