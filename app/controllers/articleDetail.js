@@ -69,35 +69,29 @@ define(
 				var isFetched = false;
 
 				function fetch(_data) {
-					alert("fetch");
-
 					if (isFetched == false || $(".app-detail-container .app-loader").length >= 1) {
 						clearTimeout(forceFetch);
 
 						isFetched = true;
-
-						alert("fetch 1");
 
 						if (typeof _data != "undefined" && _data != null && typeof _data.value != "undefined" && _data.value != null) {
 							var _buff = JSON.parse(_data.value);
 						}
 
 						if ((typeof _data == "undefined" || _data == null || typeof _buff == "undefined" || typeof _buff.slug == "undefined" || _buff.slug == null) || (_data.expired == "true" && !jt.isOffline())) {
-							alert("fetch 2");
 							if (!jt.isOffline()) {
-								alert("fetch 4");
 								that.model.fetch({
 									timeout: typeof options != "undefined" && typeof options.timeout != "undefined" ? options.timeout : 5000,
 									success: function () {
-										alert("fetch 5");
 										_buff = _data = that.model.toJSON();
 
-										jtCache.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
+										jtCache.removeItem(Backbone.history.getFragment(), null, function () {
+											jtCache.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
+										});
 
 										that.render(_buff);
 									},
 									error  : function () {
-										alert("fetch 6");
 										// $(".app-load").css("display", "none");
 										// $(".app-retry").css("display", "block");
 
@@ -146,7 +140,6 @@ define(
 								});
 							}
 							else {
-								alert("fetch 7");
 								setTimeout(function () {
 									// $(".app-load").css("display", "none");
 									// $(".app-retry").css("display", "block");
@@ -185,7 +178,6 @@ define(
 							}
 						}
 						else {
-							alert("fetch 3");
 							if (window.localStorage.getItem("show_splash") === "true") {
 								$(".no-splash").hide();
 
@@ -212,10 +204,8 @@ define(
 				}
 
 				var forceFetch = setTimeout(function () {
-					alert("force fetch " + isFetched);
-
 					fetch(null);
-				}, 5000);
+				}, 1500);
 
 				jtCache.getItem(Backbone.history.getFragment(), function (_data) {
 					fetch(_data);
