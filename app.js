@@ -786,6 +786,29 @@ require(
 					}, 200)
 				}
 			});
+
+			$(".usermenu-lower .container .usermenu-item").click(function (key, val) {
+				if (typeof $(this).attr("href") != "undefined") {
+					var _href = $(this).attr("href");
+					_href     = _href.replace("#", "");
+
+					window.sessionStorage.removeItem(_href);
+					window.sessionStorage.removeItem(_href + "/page");
+					window.sessionStorage.removeItem(_href + "/isLastPage");
+					window.sessionStorage.removeItem(_href + "/lastArticle");
+
+					if (that.type != "search") {
+						window.localStorage.removeItem(_href);
+						window.localStorage.removeItem(_href + "/page");
+						window.localStorage.removeItem(_href + "/isLastPage");
+					}
+
+					window.sessionStorage.removeItem(_href + "/scrollTop");
+					if (that.type != "search") {
+						window.localStorage.removeItem(_href + "/scrollTop");
+					}
+				}
+			});
 		});
 	}
 );
