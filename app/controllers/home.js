@@ -596,6 +596,7 @@ define(
 									$(".app-loader").removeClass("showbtn");
 
 									that.autoload();
+									that.loadImages();
 								});
 							}
 
@@ -966,6 +967,7 @@ define(
 							clearTimeout($.data(this, 'scrollTimer'));
 							$.data(this, 'scrollTimer', setTimeout(function () {
 								that.autoload();
+								that.loadImages();
 							}, 250));
 
 							window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-content-container").scrollTop());
@@ -976,8 +978,9 @@ define(
 							}
 						});
 
-						$("#app-body .app-content-container").on("touchend", function () {
+						$("#app-body .app-content-container").on("touchend touchmove", function () {
 							that.autoload();
+							that.loadImages();
 						});
 
 						$(".app-retry").on("click touchend", function () {
@@ -986,6 +989,7 @@ define(
 							$(".app-loader").removeClass("showbtn");
 
 							that.autoload();
+							that.loadImages();
 						});
 					}
 				}
@@ -1048,14 +1052,55 @@ define(
 					$(".app-content-container").scrollTop(parseInt(that.cacheSource.getItem(Backbone.history.getFragment() + "/scrollTop")));
 				}
 
+				$("img:not(.rendered)").error(function () {
+					$(this).attr("src", "").attr("alt", "");
+				}).load(function () {
+					if ($(this).attr("src").indexOf("filesystem") < 0) {
+						var that = this;
+						var xhr  = new XMLHttpRequest();
+						xhr.onreadystatechange = function(){
+							if (this.readyState == 4 && this.status == 200){
+								var cacheKey = "image.article.";
+								var url      = $(that).attr("src");
+								url          = btoa(url);
+
+								cache(this);
+
+								function cache(xhr) {
+									var dfd = jQuery.Deferred();
+
+									jtCache.getItem(cacheKey + url, function(_data) {
+										if (_data == null) {
+											jtCache.setItem(cacheKey + url, {
+												"type"     : "blob",
+												"value"    : xhr.response,
+												"extension": "",
+												"fileType" : xhr.response.type
+											}, window.TEMPORARY, null, function () {
+												dfd.resolve();
+											});
+										}
+										else {
+											dfd.resolve();
+										}
+									}, window.TEMPORARY);
+
+									return dfd.promise();
+								}
+							}
+						}
+						xhr.open('GET', $(this).attr("src"));
+						xhr.responseType = 'blob';
+						xhr.send();
+					}
+				});
+
 				that.loadImages();
 
 				this.collection.reset();
 			},
 			autoload        : function () {
 				var that = this;
-
-				that.loadImages();
 
 				if ($(".app-content-container .app-load").is(":in-viewport") && !$(".app-content-container .app-load").hasClass("loading") && !jt.isOffline()) {
 					$(".app-content-container .app-load").addClass("loading");
@@ -1129,65 +1174,22 @@ define(
 				}
 			},
 			loadImages: function () {
-				$("img:not(.rendered)").error(function () {
-					$(this).attr("src", "").attr("alt", "");
-				}).load(function () {
-					if ($(this).attr("src").indexOf("filesystem") < 0) {
-						var that = this;
-						var xhr  = new XMLHttpRequest();
-						xhr.onreadystatechange = function(){
-							if (this.readyState == 4 && this.status == 200){
-								var cacheKey = "image.article.";
-								var url      = $(that).attr("src");
-								url          = btoa(url);
-
-								cache(this);
-
-								function cache(xhr) {
-									var dfd = jQuery.Deferred();
-
-									jtCache.getItem(cacheKey + url, function(_data) {
-										if (_data == null) {
-											jtCache.setItem(cacheKey + url, {
-												"type"     : "blob",
-												"value"    : xhr.response,
-												"extension": "",
-												"fileType" : xhr.response.type
-											}, window.TEMPORARY, null, function () {
-												dfd.resolve();
-											});
-										}
-										else {
-											dfd.resolve();
-										}
-									}, window.TEMPORARY);
-
-									return dfd.promise();
-								}
-							}
-						}
-						xhr.open('GET', $(this).attr("src"));
-						xhr.responseType = 'blob';
-						xhr.send();
-					}
-				});
-
 				$("img:not(.rendered):in-viewport").each(function (key, val) {
 					if (typeof $(val).data("src") != "undefined") {
-						var img = new Image();
-						
 						_nativePath = "filesystem:" + window.location.origin + "/temporary/data/image.article." + btoa($(val).data("src")) + ".";
 						$(val).data("native", _nativePath).attr("src", _nativePath);
 
-						$(val).on("load", function () {
+						$(val).load(function () {
 							$(val).addClass("rendered");
-						}).on("error", function () {
+						}).error(function () {
+							var img = new Image();
+
 							img.src = $(val).data("native");
 
-							$(img).on("load", function () {
+							$(img).load(function () {
 								$(val).attr("src", $(val).data("native")).addClass("rendered");
-							}).on("error", img, function () {
-								$(val).attr("src", $(val).data("src"));
+							}).error(function () {
+								$(val).attr("src", $(val).data("src")).addClass("rendered");
 							});
 						});
 					}
