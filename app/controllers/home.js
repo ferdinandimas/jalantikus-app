@@ -820,20 +820,22 @@ define(
 							_buff.push(val);
 						}
 
-						jtCache.getItem("article." + val.slug, function(_data) {
-							if (_data == null || _data.expired == "true") {
-								that.articleModel = new Article({
-									slug: val.slug
-								});
+						if (_isUsingCache == false) {
+							jtCache.getItem("article." + val.slug, function(_data) {
+								if (_data == null || _data.expired == "true") {
+									that.articleModel = new Article({
+										slug: val.slug
+									});
 
-								that.articleModel.fetch({
-									timeout: 5000,
-									success: function (_data) {
-										jtCache.setItem("article." + val.slug, JSON.stringify(_data));
-									}
-								});
-							}
-						});
+									that.articleModel.fetch({
+										timeout: 5000,
+										success: function (_data) {
+											jtCache.setItem("article." + val.slug, JSON.stringify(_data));
+										}
+									});
+								}
+							});
+						}
 					});
 
 					cache = function (_data) {
@@ -1053,6 +1055,8 @@ define(
 			autoload        : function () {
 				var that = this;
 
+				that.loadImages();
+
 				if ($(".app-content-container .app-load").is(":in-viewport") && !$(".app-content-container .app-load").hasClass("loading") && !jt.isOffline()) {
 					$(".app-content-container .app-load").addClass("loading");
 
@@ -1168,45 +1172,28 @@ define(
 					}
 				});
 
-				$("img:not(.rendered)").each(function (key, val) {
+				$("img:not(.rendered):in-viewport").each(function (key, val) {
 					var img = new Image();
 
+					if (typeof $(val).data("src") == "undefined") {
+						$(val).data("src", $(val).attr("src"));
+						$(val).attr("src", "");
+					}
+
 					_nativePath = "filesystem:" + window.location.origin + "/temporary/data/image.article." + btoa($(val).data("src")) + ".";
-					$(val).data("native", _nativePath);
+					$(val).data("native", _nativePath).attr("src", _nativePath);
 
-					$(img).on("load", img, function () {
-						console.log("SUCCESS", $(val).data("native"));
-						$(val).attr("src", $(val).data("native")).addClass("rendered");
-					}).on("error", img, function () {
-						$(val).attr("src", $(val).data("src"));
+					$(val).on("load", function () {
+						$(val).addClass("rendered");
+					}).on("error", function () {
+						img.src = $(val).data("native");
+
+						$(img).on("load", function () {
+							$(val).attr("src", $(val).data("native")).addClass("rendered");
+						}).on("error", img, function () {
+							$(val).attr("src", $(val).data("src"));
+						});
 					});
-
-					//if (typeof window.resolveLocalFileSystemURL == "function") {
-					//	window.resolveLocalFileSystemURL("cdvfile://localhost/temporary/data/image.article." + btoa($(val).data("src")) + ".", function (entry) {
-					//		var nativePath = entry.toURL();
-					//
-					//		if (typeof nativePath != "undefined") {
-					//			console.log("HERE", nativePath);
-					//			$(val).attr("src", nativePath);
-					//		}
-					//		else {
-					//			if (typeof $(val).data("src") != "undefined") {
-					//				img.src = $(val).data("src");
-					//			}
-					//		}
-					//	}, function (e) {
-					//		if (typeof $(val).data("src") != "undefined") {
-					//			img.src = $(val).data("src");
-					//		}
-					//	});
-					//}
-					//else {
-					//	if (typeof $(val).data("src") != "undefined") {
-					//		img.src = $(val).data("src");
-					//	}
-					//}
-
-					img.src = "filesystem:" + window.location.origin + "/temporary/data/image.article." + btoa($(val).data("src")) + ".";
 				});
 			}
 		});
