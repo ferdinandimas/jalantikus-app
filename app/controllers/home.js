@@ -557,7 +557,6 @@ define(
 											$(".recommended-articles").fadeOut();
 										}
 									}
-
 								}
 
 								// $(".app-load").css("display", "none");
@@ -1048,49 +1047,6 @@ define(
 					$(".app-content-container").scrollTop(parseInt(that.cacheSource.getItem(Backbone.history.getFragment() + "/scrollTop")));
 				}
 
-				$("img:not(.rendered)").error(function () {
-					$(this).attr("src", "").attr("alt", "");
-				}).load(function () {
-					if ($(this).attr("src").indexOf("filesystem") < 0) {
-						var that = this;
-						var xhr  = new XMLHttpRequest();
-						xhr.onreadystatechange = function(){
-							if (this.readyState == 4 && this.status == 200){
-								var cacheKey = "image.article.";
-								var url      = $(that).attr("src");
-								url          = btoa(url);
-
-								cache(this);
-
-								function cache(xhr) {
-									var dfd = jQuery.Deferred();
-
-									jtCache.getItem(cacheKey + url, function(_data) {
-										if (_data == null) {
-											jtCache.setItem(cacheKey + url, {
-												"type"     : "blob",
-												"value"    : xhr.response,
-												"extension": "",
-												"fileType" : xhr.response.type
-											}, window.TEMPORARY, null, function () {
-												dfd.resolve();
-											});
-										}
-										else {
-											dfd.resolve();
-										}
-									}, window.TEMPORARY);
-
-									return dfd.promise();
-								}
-							}
-						}
-						xhr.open('GET', $(this).attr("src"));
-						xhr.responseType = 'blob';
-						xhr.send();
-					}
-				});
-
 				that.loadImages();
 
 				this.collection.reset();
@@ -1170,24 +1126,69 @@ define(
 				}
 			},
 			loadImages: function () {
+				$("img:not(.rendered)").error(function () {
+					if ($(this).attr("src") != $(this).data("src")) {
+						$(this).attr("src", $(this).data("src"));
+					}
+					else {
+						$(this).attr("src", "").attr("alt", "");
+					}
+				}).load(function () {
+					if ($(this).attr("src").indexOf("filesystem") < 0) {
+						var that = this;
+						var xhr  = new XMLHttpRequest();
+						xhr.onreadystatechange = function(){
+							if (this.readyState == 4 && this.status == 200){
+								var cacheKey = "image.article.";
+								var url      = $(that).attr("src");
+								url          = btoa(url);
+
+								cache(this);
+
+								function cache(xhr) {
+									//var dfd = jQuery.Deferred();
+
+									jtCache.getItem(cacheKey + url, function(_data) {
+										if (_data == null) {
+											jtCache.setItem(cacheKey + url, {
+												"type"     : "blob",
+												"value"    : xhr.response,
+												"extension": "",
+												"fileType" : xhr.response.type
+											}, window.TEMPORARY, null, function () {
+												//dfd.resolve();
+											});
+										}
+										else {
+											//dfd.resolve();
+										}
+									}, window.TEMPORARY);
+
+									//return dfd.promise();
+								}
+							}
+						}
+						xhr.open('GET', $(this).attr("src"));
+						xhr.responseType = 'blob';
+						xhr.send();
+					}
+				});
+
 				$("img:not(.rendered)").each(function (key, val) {
 					if (typeof $(val).data("src") != "undefined") {
 						_nativePath = "filesystem:" + window.location.origin + "/temporary/data/image.article." + btoa($(val).data("src")) + ".";
-						$(val).data("native", _nativePath).attr("src", _nativePath);
+						$(val).data("native", _nativePath);
 
-						$(val).load(function () {
-							$(val).addClass("rendered");
-						}).error(function () {
-							var img = new Image();
-
-							img.src = $(val).data("native");
-
-							$(img).load(function () {
+						if (typeof window.resolveLocalFileSystemURL == "function") {
+							window.resolveLocalFileSystemURL($(val).data("native"), function(_file) {
 								$(val).attr("src", $(val).data("native")).addClass("rendered");
-							}).error(function () {
+							}, function () {
 								$(val).attr("src", $(val).data("src")).addClass("rendered");
 							});
-						});
+						}
+						else {
+							$(val).attr("src", $(val).data("native")).addClass("rendered");
+						}
 					}
 				});
 			}
