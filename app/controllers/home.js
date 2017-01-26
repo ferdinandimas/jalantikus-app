@@ -835,7 +835,7 @@ define(
 								if (typeof _autoloadFragment != "undefined") {
 									_oldData = JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()));
 
-									if (_oldData[0].id != _data[0 ].id) {
+									if ((_oldData[0] != null && _data[0] != null) && _oldData[0].id != _data[0].id) {
 										isValid = false;
 									}
 								}
@@ -1142,6 +1142,9 @@ define(
 												dfd.resolve();
 											});
 										}
+										else {
+											dfd.resolve();
+										}
 									}, window.TEMPORARY);
 
 									return dfd.promise();
@@ -1156,6 +1159,7 @@ define(
 
 				$("img").each(function (key, val) {
 					var img = new Image();
+
 					$(img).on("load", img, function () {
 						$(val).attr("src", $(val).data("src"));
 					});
@@ -1168,14 +1172,20 @@ define(
 								$(val).attr("src", nativePath);
 							}
 							else {
-								img.src = $(val).data("src");
+								if (typeof $(val).data("src") != "undefined") {
+									img.src = $(val).data("src");
+								}
 							}
 						}, function (e) {
-							img.src = $(val).data("src");
+							if (typeof $(val).data("src") != "undefined") {
+								img.src = $(val).data("src");
+							}
 						});
 					}
 					else {
-						img.src = $(val).data("src");
+						if (typeof $(val).data("src") != "undefined") {
+							img.src = $(val).data("src");
+						}
 					}
 				});
 			}

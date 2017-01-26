@@ -198,7 +198,7 @@ var jtCache = function () {
 
 								try {
 									reader.onloadend = function (e) {
-										if (this.result.length > 0) {
+										if (this.result != null && this.result.length > 0) {
 											try {
 												jt.log("Load success: " + cacheKey);
 
