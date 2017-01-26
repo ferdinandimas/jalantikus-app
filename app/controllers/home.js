@@ -1152,7 +1152,7 @@ define(
 						});
 					}
 				}
-				else if (jt.isOffline()) {
+				else if ($(".app-content-container .app-load").is(":in-viewport") && jt.isOffline()) {
 					setTimeout(function () {
 						// $(".app-load").css("display", "none");
 						// $(".app-retry").css("display", "block");

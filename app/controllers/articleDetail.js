@@ -70,15 +70,15 @@ define(
 
 				function fetch(_data) {
 					if (isFetched == false) {
-						console.log(_data);
+						clearTimeout(forceFetch);
 
 						isFetched = true;
 
 						if (typeof _data.value != "undefined" && _data.value != null) {
-							_buff = JSON.parse(_data.value);
+							var _buff = JSON.parse(_data.value);
 						}
 
-						if (typeof _data == "undefined" || _data == null || _data.expired == "true" || typeof _buff == "undefined" || typeof _buff.id == "undefined" || _buff.id == null) {
+						if ((typeof _data == "undefined" || _data == null || typeof _buff == "undefined" || typeof _buff.slug == "undefined" || _buff.slug == null) || (_data.expired == "true" && !jt.isOffline())) {
 							if (!jt.isOffline()) {
 								that.model.fetch({
 									timeout: typeof options != "undefined" && typeof options.timeout != "undefined" ? options.timeout : 5000,
@@ -201,11 +201,11 @@ define(
 					}
 				}
 
-				setTimeout(function () {
+				var forceFetch = setTimeout(function () {
 					alert("force fetch");
 
 					fetch(null);
-				}, 1000);
+				}, 5000);
 
 				jtCache.getItem(Backbone.history.getFragment(), function (_data) {
 					fetch(_data);
