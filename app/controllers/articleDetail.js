@@ -66,38 +66,83 @@ define(
 			fetch     : function (options) {
 				var that = this;
 
-				jtCache.getItem(Backbone.history.getFragment(), function(_data) {
-					if (typeof _data.value != "undefined" && _data.value != null) {
-						_buff = JSON.parse(_data.value);
-					}
+				var isFetched = false;
 
-					if (typeof _data == "undefined" || _data == null || _data.expired == "true" || typeof _buff == "undefined" || typeof _buff.id == "undefined" || _buff.id == null) {
-						if (!jt.isOffline()) {
-							that.model.fetch({
-								timeout: typeof options != "undefined" && typeof options.timeout != "undefined" ? options.timeout : 5000,
-								success: function () {
-									_buff = _data = that.model.toJSON();
+				function fetch(_data) {
+					if (isFetched == false) {
+						console.log(_data);
 
-									jtCache.setItem(Backbone.history.getFragment(), JSON.stringify(_data), null, null, function () {
-										that.render(_buff);
-									});
-								},
-								error  : function () {
+						isFetched = true;
+
+						if (typeof _data.value != "undefined" && _data.value != null) {
+							_buff = JSON.parse(_data.value);
+						}
+
+						if (typeof _data == "undefined" || _data == null || _data.expired == "true" || typeof _buff == "undefined" || typeof _buff.id == "undefined" || _buff.id == null) {
+							if (!jt.isOffline()) {
+								that.model.fetch({
+									timeout: typeof options != "undefined" && typeof options.timeout != "undefined" ? options.timeout : 5000,
+									success: function () {
+										_buff = _data = that.model.toJSON();
+
+										jtCache.setItem(Backbone.history.getFragment(), JSON.stringify(_data), null, null, function () {
+											that.render(_buff);
+										});
+									},
+									error  : function () {
+										// $(".app-load").css("display", "none");
+										// $(".app-retry").css("display", "block");
+
+										$(".app-loader").addClass("showbtn");
+
+										$(".app-retry").on("touchend click", function () {
+											that.isConnected = true;
+
+											// $(".app-load").css("display", "block");
+											// $(".app-retry").css("display", "none");
+
+											$(".app-loader").removeClass("showbtn");
+
+											that.fetch({ timeout: 10000 });
+										});
+
+										if ($(".splash").length >= 1) {
+											if ($(".no-splash").length >= 1) {
+												$(".splash").show().find(".splash-content").fadeIn();
+												$(".no-splash").fadeOut();
+											}
+
+											if (!$(".splash .app-refreshed").hasClass("active")) {
+												$(".splash .app-refreshed").html("Tidak ada jaringan").addClass("active").fadeIn();
+												setTimeout(function () {
+													$(".splash .app-refreshed").removeClass("active").fadeOut();
+												}, 2000);
+											}
+
+											$(".splash-content .app-loader").fadeIn();
+
+											$(".splash-quote").remove();
+											$(".splash-speaker").remove();
+											$(".splash-loading").hide();
+										}
+
+										if (!$(".app-refreshed").hasClass("active")) {
+											$(".app-refreshed").html("Tidak ada jaringan").addClass("active").fadeIn();
+											setTimeout(function () {
+												$(".app-refreshed").removeClass("active").fadeOut();
+											}, 2000);
+
+											that.isConnected = false;
+										}
+									}
+								});
+							}
+							else {
+								setTimeout(function () {
 									// $(".app-load").css("display", "none");
 									// $(".app-retry").css("display", "block");
 
 									$(".app-loader").addClass("showbtn");
-
-									$(".app-retry").on("touchend click", function () {
-										that.isConnected = true;
-
-										// $(".app-load").css("display", "block");
-										// $(".app-retry").css("display", "none");
-
-										$(".app-loader").removeClass("showbtn");
-
-										that.fetch({ timeout: 10000 });
-									});
 
 									if ($(".splash").length >= 1) {
 										if ($(".no-splash").length >= 1) {
@@ -127,70 +172,43 @@ define(
 
 										that.isConnected = false;
 									}
-								}
-							});
-						}
-						else {
-							setTimeout(function () {
-								// $(".app-load").css("display", "none");
-								// $(".app-retry").css("display", "block");
-
-								$(".app-loader").addClass("showbtn");
-
-								if ($(".splash").length >= 1) {
-									if ($(".no-splash").length >= 1) {
-										$(".splash").show().find(".splash-content").fadeIn();
-										$(".no-splash").fadeOut();
-									}
-
-									if (!$(".splash .app-refreshed").hasClass("active")) {
-										$(".splash .app-refreshed").html("Tidak ada jaringan").addClass("active").fadeIn();
-										setTimeout(function () {
-											$(".splash .app-refreshed").removeClass("active").fadeOut();
-										}, 2000);
-									}
-
-									$(".splash-content .app-loader").fadeIn();
-
-									$(".splash-quote").remove();
-									$(".splash-speaker").remove();
-									$(".splash-loading").hide();
-								}
-
-								if (!$(".app-refreshed").hasClass("active")) {
-									$(".app-refreshed").html("Tidak ada jaringan").addClass("active").fadeIn();
-									setTimeout(function () {
-										$(".app-refreshed").removeClass("active").fadeOut();
-									}, 2000);
-
-									that.isConnected = false;
-								}
-							}, 2000);
-						}
-					}
-					else {
-						if (window.localStorage.getItem("show_splash") === "true") {
-							$(".no-splash").hide();
-
-							if ($(".splash").length >= 1) {
-								setTimeout(function () {
-									$(".splash").fadeOut("fast", function () {
-										$(this).remove();
-									})
 								}, 2000);
 							}
 						}
 						else {
-							$(".splash").fadeOut(350, function() {
-								$(this).remove();
-							});
-							$(".no-splash").fadeOut(350, function() {
-								$(this).remove();
-							});
-						}
+							if (window.localStorage.getItem("show_splash") === "true") {
+								$(".no-splash").hide();
 
-						that.render(_buff);
+								if ($(".splash").length >= 1) {
+									setTimeout(function () {
+										$(".splash").fadeOut("fast", function () {
+											$(this).remove();
+										})
+									}, 2000);
+								}
+							}
+							else {
+								$(".splash").fadeOut(350, function() {
+									$(this).remove();
+								});
+								$(".no-splash").fadeOut(350, function() {
+									$(this).remove();
+								});
+							}
+
+							that.render(_buff);
+						}
 					}
+				}
+
+				setTimeout(function () {
+					alert("force fetch");
+
+					fetch(null);
+				}, 1000);
+
+				jtCache.getItem(Backbone.history.getFragment(), function (_data) {
+					fetch(_data);
 				});
 			},
 			render    : function (_data) {

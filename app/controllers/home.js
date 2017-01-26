@@ -596,7 +596,6 @@ define(
 									$(".app-loader").removeClass("showbtn");
 
 									that.autoload();
-									that.loadImages();
 								});
 							}
 
@@ -967,7 +966,6 @@ define(
 							clearTimeout($.data(this, 'scrollTimer'));
 							$.data(this, 'scrollTimer', setTimeout(function () {
 								that.autoload();
-								that.loadImages();
 							}, 250));
 
 							window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-content-container").scrollTop());
@@ -978,9 +976,8 @@ define(
 							}
 						});
 
-						$("#app-body .app-content-container").on("touchend touchmove", function () {
+						$("#app-body .app-content-container").on("touchend", function () {
 							that.autoload();
-							that.loadImages();
 						});
 
 						$(".app-retry").on("click touchend", function () {
@@ -989,7 +986,6 @@ define(
 							$(".app-loader").removeClass("showbtn");
 
 							that.autoload();
-							that.loadImages();
 						});
 					}
 				}
@@ -1174,7 +1170,7 @@ define(
 				}
 			},
 			loadImages: function () {
-				$("img:not(.rendered):in-viewport").each(function (key, val) {
+				$("img:not(.rendered)").each(function (key, val) {
 					if (typeof $(val).data("src") != "undefined") {
 						_nativePath = "filesystem:" + window.location.origin + "/temporary/data/image.article." + btoa($(val).data("src")) + ".";
 						$(val).data("native", _nativePath).attr("src", _nativePath);
