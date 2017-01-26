@@ -776,11 +776,22 @@ define(
 					_data = this.collection.toJSON();
 				}
 
+				if (typeof that.type == "undefined") {
+					if (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") >= 5) {
+						window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+
+						if (that.type != "search") {
+							window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+						}
+						$(".app-loader").remove();
+					}
+				}
+
 				if (_data.length == 0) {
-					window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+					//window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 
 					if (that.type != "search") {
-						window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+						//window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 					}
 
 					window.sessionStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
@@ -1077,10 +1088,10 @@ define(
 								}
 
 								if (typeof that.options.type == "undefined" && that.cacheSource.getItem(Backbone.history.getFragment() + "/page") >= 5) {
-									window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+									//window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 
 									if (that.type != "search") {
-										window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
+										//window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 									}
 								}
 
@@ -1114,7 +1125,7 @@ define(
 				}
 			},
 			loadImages: function () {
-				$("img").error(function () {
+				$("img:not(.rendered)").error(function () {
 					$(this).attr("src", "").attr("alt", "");
 				}).load(function () {
 					if ($(this).attr("src").indexOf("filesystem") < 0) {
@@ -1157,36 +1168,45 @@ define(
 					}
 				});
 
-				$("img").each(function (key, val) {
+				$("img:not(.rendered)").each(function (key, val) {
 					var img = new Image();
 
+					_nativePath = "filesystem:" + window.location.origin + "/temporary/data/image.article." + btoa($(val).data("src")) + ".";
+					$(val).data("native", _nativePath);
+
 					$(img).on("load", img, function () {
+						console.log("SUCCESS", $(val).data("native"));
+						$(val).attr("src", $(val).data("native")).addClass("rendered");
+					}).on("error", img, function () {
 						$(val).attr("src", $(val).data("src"));
 					});
 
-					if (typeof window.resolveLocalFileSystemURL == "function") {
-						window.resolveLocalFileSystemURL("cdvfile://localhost/temporary/data/image.article." + btoa($(val).data("src")) + ".", function (entry) {
-							var nativePath = entry.toURL();
+					//if (typeof window.resolveLocalFileSystemURL == "function") {
+					//	window.resolveLocalFileSystemURL("cdvfile://localhost/temporary/data/image.article." + btoa($(val).data("src")) + ".", function (entry) {
+					//		var nativePath = entry.toURL();
+					//
+					//		if (typeof nativePath != "undefined") {
+					//			console.log("HERE", nativePath);
+					//			$(val).attr("src", nativePath);
+					//		}
+					//		else {
+					//			if (typeof $(val).data("src") != "undefined") {
+					//				img.src = $(val).data("src");
+					//			}
+					//		}
+					//	}, function (e) {
+					//		if (typeof $(val).data("src") != "undefined") {
+					//			img.src = $(val).data("src");
+					//		}
+					//	});
+					//}
+					//else {
+					//	if (typeof $(val).data("src") != "undefined") {
+					//		img.src = $(val).data("src");
+					//	}
+					//}
 
-							if (typeof nativePath != "undefined") {
-								$(val).attr("src", nativePath);
-							}
-							else {
-								if (typeof $(val).data("src") != "undefined") {
-									img.src = $(val).data("src");
-								}
-							}
-						}, function (e) {
-							if (typeof $(val).data("src") != "undefined") {
-								img.src = $(val).data("src");
-							}
-						});
-					}
-					else {
-						if (typeof $(val).data("src") != "undefined") {
-							img.src = $(val).data("src");
-						}
-					}
+					img.src = "filesystem:" + window.location.origin + "/temporary/data/image.article." + btoa($(val).data("src")) + ".";
 				});
 			}
 		});
