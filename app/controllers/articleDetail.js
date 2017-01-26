@@ -92,9 +92,9 @@ define(
 										alert("fetch 5");
 										_buff = _data = that.model.toJSON();
 
-										jtCache.setItem(Backbone.history.getFragment(), JSON.stringify(_data), null, null, function () {
-											that.render(_buff);
-										});
+										jtCache.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
+
+										that.render(_buff);
 									},
 									error  : function () {
 										alert("fetch 6");
