@@ -69,12 +69,12 @@ define(
 				var isFetched = false;
 
 				function fetch(_data) {
-					if (isFetched == false) {
+					if (isFetched == false || $(".app-detail-container .app-loader").length >= 1) {
 						clearTimeout(forceFetch);
 
 						isFetched = true;
 
-						if (typeof _data.value != "undefined" && _data.value != null) {
+						if (typeof _data != "undefined" && _data != null && typeof _data.value != "undefined" && _data.value != null) {
 							var _buff = JSON.parse(_data.value);
 						}
 
@@ -202,7 +202,7 @@ define(
 				}
 
 				var forceFetch = setTimeout(function () {
-					alert("force fetch");
+					alert("force fetch " + isFetched);
 
 					fetch(null);
 				}, 5000);
