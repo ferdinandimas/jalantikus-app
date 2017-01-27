@@ -374,18 +374,23 @@ define(
 						if (parent.find(".image-refresh").length == 0) {
 							parent.append("<div class='image-refresh'>Muat ulang gambar<a href='javascript:void(0);' class='image-refresh-link card-link'><div class='ripple'></div></a></div>");
 							parent.find(".image-refresh").on("click", function () {
-								if (!$(this).hasClass("active")) {
-									$(this).addClass("active");
+								if (!jt.isOffline()) {
+									if (!$(this).hasClass("active")) {
+										$(this).addClass("active");
+									}
+									_this.attr("src", _this.data("src")).load(function () {
+										_this.fadeIn(200);
+										parent.find(".image-refresh").remove();
+									}).error(function(){
+										parent.find(".image-refresh").one('animationiteration webkitAnimationIteration', function() {
+											parent.find(".image-refresh").off("animationiteration webkitAnimationIteration");
+											parent.find(".image-refresh").removeClass("active");
+										});
+									});
 								}
-								_this.attr("src", _this.data("src")).load(function () {
-									_this.fadeIn(200);
-									parent.find(".image-refresh").remove();
-								}).error(function(){
-									parent.find(".image-refresh").one('animationiteration webkitAnimationIteration', function() {
-										parent.find(".image-refresh").off("animationiteration webkitAnimationIteration");
-										parent.find(".image-refresh").removeClass("active");
-								    });
-								});
+								else {
+									setTimeout(that.showOffline(), 2000);
+								}
 							})
 						}
 						else {
