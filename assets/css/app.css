@@ -1573,7 +1573,9 @@ div, span, a
 	text-align: center;
     line-height: 24px;
     font-size: 18px;
-    margin: 15px 0 15px 0;
+    margin-top: 15px;
+    padding-bottom: 15px;
+	border-bottom: 1px solid #f0f0f0;
 }
 .app-search .app-search-keyword
 {
@@ -2751,7 +2753,6 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 .app-search ~ .recommended-articles
 {
 	padding-top: 20px;
-	border-top: 1px solid #f0f0f0;
 }
 .recommended-articles:after
 {
