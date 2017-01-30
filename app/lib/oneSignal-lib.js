@@ -9,7 +9,7 @@ var oneSignal = function () {
 
 				window.plugins.OneSignal
 						.startInit("a92950f8-7bf1-462a-9157-e480802c2ae5", "975487375429")
-						.inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
+						.inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.InAppAlert)
 						.handleNotificationOpened(function (jsonData) {
 							if (typeof jsonData.notification.payload.additionalData.article != "undefined" && jsonData.notification.payload.additionalData.article != "") {
 								window.BackboneRouter.navigate("article/" + jsonData.notification.payload.additionalData.article,
