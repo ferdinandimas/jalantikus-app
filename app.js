@@ -829,8 +829,11 @@ require(
 								"Keluar",
 								[ "Nanti Saja", "Update Sekarang" ]
 							);
+							alert("HERE", version, data.response.version);
 						}
+						alert("HERE 1", version, data.response.version);
 					});
+					alert("HERE 2", data.response.version);
 				}
 			});
 		});
