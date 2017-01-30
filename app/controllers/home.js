@@ -765,14 +765,14 @@ define(
 								if (typeof data.response != "undefined" && typeof data.response.version != "undefined") {
 									cordova.getAppVersion.getVersionNumber(function (version) {
 										if (version != data.response.version) {
-											navigator.notification.confirm(
+											navigator.notification.prompt(
 													"Versi Baru Telah Tersedia!",
 													function (confirmation) {
 														if (confirmation == 2) {
 															cordova.plugins.market.open('com.jalantikus.app');
 														}
 													},
-													"Keluar",
+													"UPDATE",
 													[ "Nanti Saja", "Update Sekarang" ]
 											);
 										}
