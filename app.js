@@ -815,8 +815,23 @@ require(
 				}
 			});
 
-			cordova.getAppVersion.getVersionNumber(function (version) {
-				alert(version);
+			$.getJSON(_config.jtAPI + "live/jtApps", function (data) {
+				if (typeof data.response != "undefined" && typeof data.response.version != "undefined") {
+					cordova.getAppVersion.getVersionNumber(function (version) {
+						if (version != data.response.version) {
+							navigator.notification.confirm(
+								"Versi Baru Telah Tersedia!",
+								function (confirmation) {
+									if (confirmation == 2) {
+										cordova.plugins.market.open('com.jalantikus.app');
+									}
+								},
+								"Keluar",
+								[ "Nanti Saja", "Update Sekarang" ]
+							);
+						}
+					});
+				}
 			});
 		});
 	}
