@@ -815,7 +815,7 @@ require(
 				}
 			});
 
-			$.getJSON(_config.jtAPI + "live/jtApps", function (data) {
+			$.getJSON(_config.jtAPI + "live/jtApp", function (data) {
 				if (typeof data.response != "undefined" && typeof data.response.version != "undefined") {
 					cordova.getAppVersion.getVersionNumber(function (version) {
 						if (version != data.response.version) {
