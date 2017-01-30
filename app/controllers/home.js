@@ -268,35 +268,6 @@ define(
 							}
 
 							function finishedRendering() {
-								alert("HERE 1");
-								setTimeout(function () {
-									alert("HERE 2");
-									if (window.sessionStorage.getItem("showed_update_alert") != "true") {
-										alert("HERE 3");
-										window.sessionStorage.setItem("showed_update_alert", "true");
-
-										$.getJSON(_config.jtAPI + "live/jtApp", function (data) {
-											if (typeof data.response != "undefined" && typeof data.response.version != "undefined") {
-												cordova.getAppVersion.getVersionNumber(function (version) {
-													if (version != data.response.version) {
-														navigator.notification.confirm(
-																"Versi Baru Telah Tersedia!",
-																function (confirmation) {
-																	if (confirmation == 2) {
-																		cordova.plugins.market.open('com.jalantikus.app');
-																	}
-																},
-																"Keluar",
-																[ "Nanti Saja", "Update Sekarang" ]
-														);
-													}
-												});
-											}
-										});
-									}
-									alert("HERE 4");
-								}, 2500);
-
 								if (window.localStorage.getItem("show_splash") === "true") {
 									$(".no-splash").hide();
 
@@ -785,6 +756,34 @@ define(
 							}
 						}
 					});
+
+					setTimeout(function () {
+						alert("HERE 2");
+						if (window.sessionStorage.getItem("showed_update_alert") != "true") {
+							alert("HERE 3");
+							window.sessionStorage.setItem("showed_update_alert", "true");
+
+							$.getJSON(_config.jtAPI + "live/jtApp", function (data) {
+								if (typeof data.response != "undefined" && typeof data.response.version != "undefined") {
+									cordova.getAppVersion.getVersionNumber(function (version) {
+										if (version != data.response.version) {
+											navigator.notification.confirm(
+													"Versi Baru Telah Tersedia!",
+													function (confirmation) {
+														if (confirmation == 2) {
+															cordova.plugins.market.open('com.jalantikus.app');
+														}
+													},
+													"Keluar",
+													[ "Nanti Saja", "Update Sekarang" ]
+											);
+										}
+									});
+								}
+							});
+						}
+						alert("HERE 4");
+					}, 3000);
 				});
 			},
 			render          : function (_isUsingCache, _autoloadFragment) {
