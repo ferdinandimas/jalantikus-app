@@ -294,6 +294,7 @@ define(
 											}
 										});
 									}
+									alert("HERE 4");
 								}, 2500);
 
 								if (window.localStorage.getItem("show_splash") === "true") {
