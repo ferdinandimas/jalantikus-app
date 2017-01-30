@@ -250,6 +250,8 @@ define(
 
 					if (jt.isOffline()) {
 						$(".more-article-frame").hide();
+						$(".app-gotoweb-description").hide();
+						$(".app-gotohome-description").css("margin-top", "5px");
 					}
 
 					$("#app-userpanel").panel("close");
@@ -585,7 +587,7 @@ define(
 					});
 
 					setTimeout(function () {
-						if (_config.environment == "live") {
+						if (_config.environment == "live" && !jt.isOffline()) {
 							$("#iframe-jalantikus").prop("src", $("#iframe-jalantikus").data("src"));
 						}
 					}, 2000);
@@ -595,7 +597,7 @@ define(
 					});
 
 					$(".app-body a").on("click", function (e) {
-						if (jt.isOffline() && !$(this).hasClass("app-home") && !$(this).hasClass("app-toggle-back")) {
+						if ((jt.isOffline() && !$(this).hasClass("share") && !$(this).hasClass("app-goto") && !$(this).hasClass("app-home") && !$(this).hasClass("app-toggle-back")) || $(this).hasClass("app-gotoweb")) {
 							e.preventDefault();
 
 							that.showOffline();
