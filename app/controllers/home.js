@@ -765,7 +765,7 @@ define(
 								if (typeof data.response != "undefined" && typeof data.response.version != "undefined") {
 									cordova.getAppVersion.getVersionNumber(function (version) {
 										if (version != data.response.version) {
-											navigator.notification.prompt(
+											navigator.notification.confirm(
 													"Versi Baru Telah Tersedia!",
 													function (confirmation) {
 														if (confirmation == 2) {
