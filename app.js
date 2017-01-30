@@ -814,6 +814,10 @@ require(
 					}
 				}
 			});
+
+			cordova.getAppVersion.getVersionNumber(function (version) {
+				alert(version);
+			});
 		});
 	}
 );
