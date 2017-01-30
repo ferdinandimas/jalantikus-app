@@ -758,9 +758,7 @@ define(
 					});
 
 					setTimeout(function () {
-						alert("HERE 2");
 						if (window.sessionStorage.getItem("showed_update_alert") != "true") {
-							alert("HERE 3");
 							window.sessionStorage.setItem("showed_update_alert", "true");
 
 							$.getJSON(_config.jtAPI + "live/jtApp", function (data) {
@@ -782,8 +780,7 @@ define(
 								}
 							});
 						}
-						alert("HERE 4");
-					}, 3000);
+					}, 5000);
 				});
 			},
 			render          : function (_isUsingCache, _autoloadFragment) {
