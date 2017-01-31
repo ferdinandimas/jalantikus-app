@@ -725,8 +725,8 @@ div, span, a
 }
 .fadedin .ripple
 {
-	-webkit-transition: opacity 200ms linear, -webkit-transform 200ms linear;
-    transition: opacity 200ms linear, transform 200ms linear;
+	-webkit-transition: opacity 300ms linear, -webkit-transform 300ms linear;
+    transition: opacity 300ms linear, transform 300ms linear;
 	-webkit-transform: scale(0.75);
 	transform: scale(0.75);
 	opacity: 0.7;
@@ -741,13 +741,13 @@ div, span, a
 }
 .rating-link.fadedin .ripple
 {
-	-webkit-transition: opacity 600ms linear, -webkit-transform 600ms linear;
-    transition: opacity 600ms linear, transform 600ms linear;
+	-webkit-transition: opacity 450ms linear, -webkit-transform 450ms linear;
+    transition: opacity 450ms linear, transform 450ms linear;
 }
 .rating-link.fadedin.fadedout .ripple
 {
-	-webkit-transition: opacity 200ms linear, -webkit-transform 200ms linear;
-    transition: opacity 200ms linear, transform 200ms linear;
+	-webkit-transition: opacity 150ms linear, -webkit-transform 150ms linear;
+    transition: opacity 150ms linear, transform 150ms linear;
 }
 .app-loader
 {

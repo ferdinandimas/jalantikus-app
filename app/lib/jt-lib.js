@@ -10,7 +10,7 @@ var jt = function () {
 		},
 		ripple    : function (t, e, sp, sz) {
 			e.preventDefault();
-			var _speed    = [ 200, 100 ];
+			var _speed    = [ 300, 100 ];
 			var _currItem = t;
 			var _href     = t.attr("href");
 			var _ripple   = $(_currItem.children()[ 0 ]);
@@ -31,13 +31,13 @@ var jt = function () {
 			if (typeof sp != "undefined") {
 				switch (sp) {
 					case "slow":
-						_speed[ 0 ] = 400;
-						_speed[ 1 ] = 100;
+						_speed[ 0 ] = 450;
+						_speed[ 1 ] = 150;
 						break;
 					case "instant":
 						ist = true;
 					default:
-						_speed[ 0 ] = 200;
+						_speed[ 0 ] = 300;
 						_speed[ 1 ] = 100;
 						break;
 				}

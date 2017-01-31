@@ -420,6 +420,7 @@ define(
 						}
 
 						if (that._articleList != null) {
+							console.log('null')
 							window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
 
 							if (that.type != "search") {
@@ -492,27 +493,9 @@ define(
 															timelineArticle: _data
 														}));
 
-												function cache(_data) {
-													window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
-
-													if (that.type != "search") {
-														window.localStorage.setItem(Backbone.history.getFragment(),
-																JSON.stringify(_data));
-													}
-
-													that.loadImages();
-												}
-
 												that._articleList = JSON.stringify(_data);
-												if (that.isFromFile) {
-													jtCache.setItem("list.article" + (Backbone.history.getFragment() != "" ? "." : "") + Backbone.history.getFragment(), JSON.stringify(_data), null, null, function () {
-														cache(_data);
-													});
-												}
-												else {
-													cache(_data);
-												}
 
+												that.loadImages();
 											},
 											error  : function () {
 												$(".app-content-container .app-load").removeClass("loading");
@@ -523,39 +506,7 @@ define(
 										});
 									}
 									else {
-										if (that._articleList != null && (JSON.parse(that._articleList)).length > 0) {
-											_data = JSON.parse(that._articleList);
-
-											$.each(_data, function (key, val) {
-												_data[ key ].type = "favorite";
-
-												jtCache.getItem("article." + val.slug, function(_data) {
-													if (_data == null || _data.expired == "true") {
-														that.articleModel = new Article({
-															slug: val.slug
-														});
-
-														that.articleModel.fetch({
-															timeout: 5000,
-															success: function (_data) {
-																jtCache.setItem("article." + val.slug, JSON.stringify(_data));
-															}
-														});
-													}
-												});
-											});
-
-											$("#app-body .app-content-container .card-placeholder").remove();
-											$("#app-body .app-content-container")
-													.append(that.timelineTemplate({
-														timelineArticle: _data
-													}));
-
-											that.loadImages();
-										}
-										else {
-											$(".recommended-articles").fadeOut();
-										}
+										$(".recommended-articles").fadeOut();
 									}
 								}
 
@@ -1229,7 +1180,7 @@ define(
 						}
 
 						if (!$(this).hasClass("hidden")) {
-							$(this).show();
+							$(this).fadeIn("fast", "swing");
 						}
 					});
 				});
