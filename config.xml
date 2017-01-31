@@ -58,6 +58,10 @@
             <allow-navigation href="*://giphy.com/*"/>
             <allow-intent href="*://giphy.com/*"/>
             <access origin="*://giphy.com/*"/>
+
+            <allow-navigation href="*://www.youtube.com/*"/>
+            <allow-intent href="*://www.youtube.com/*"/>
+            <access origin="*://www.youtube.com/*"/>
         <!--Additional Domain-->
     <!--Whitelist Plugin-->
 

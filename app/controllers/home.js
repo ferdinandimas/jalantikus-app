@@ -1231,7 +1231,7 @@ define(
 						}
 
 						if (!$(this).hasClass("hidden")) {
-							$(this).fadeIn("fast", "swing");
+							$(this).show();
 						}
 					});
 				});
