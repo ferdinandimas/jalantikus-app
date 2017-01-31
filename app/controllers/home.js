@@ -756,31 +756,6 @@ define(
 							}
 						}
 					});
-
-					setTimeout(function () {
-						if (window.sessionStorage.getItem("showed_update_alert") != "true") {
-							window.sessionStorage.setItem("showed_update_alert", "true");
-
-							$.getJSON(_config.jtAPI + "live/jtApp", function (data) {
-								if (typeof data.response != "undefined" && typeof data.response.version != "undefined") {
-									cordova.getAppVersion.getVersionNumber(function (version) {
-										if (version != data.response.version) {
-											navigator.notification.confirm(
-													"Versi Baru Telah Tersedia!",
-													function (confirmation) {
-														if (confirmation == 2) {
-															cordova.plugins.market.open('com.jalantikus.app');
-														}
-													},
-													"UPDATE",
-													[ "Nanti Saja", "Update Sekarang" ]
-											);
-										}
-									});
-								}
-							});
-						}
-					}, 5000);
 				});
 			},
 			render          : function (_isUsingCache, _autoloadFragment) {
@@ -1055,13 +1030,23 @@ define(
 						setTimeout(function () {
 							$(".splash").fadeOut("fast", function () {
 								$(this).remove();
+								console.log("HERE 1");
+								that.showUpdate();
 							})
 						}, 2000);
+					}
+					else {
+						that.showUpdate();
 					}
 				}
 				else {
 					$(".splash").fadeOut(350, function() {
 						$(this).remove();
+
+						setTimeout(function () {
+							console.log("HERE 2");
+							that.showUpdate();
+						}, 500);
 					});
 					$(".no-splash").fadeOut(350, function() {
 						$(this).remove();
@@ -1075,6 +1060,32 @@ define(
 				that.loadImages();
 
 				this.collection.reset();
+			},
+			showUpdate      : function () {
+				if (window.sessionStorage.getItem("showed_update_alert") != "true") {
+					window.sessionStorage.setItem("showed_update_alert", "true");
+
+					console.log("Check current version");
+
+					$.getJSON(_config.jtAPI + "live/jtApp", function (data) {
+						if (typeof data.response != "undefined" && typeof data.response.version != "undefined") {
+							cordova.getAppVersion.getVersionNumber(function (version) {
+								if (version != data.response.version) {
+									navigator.notification.confirm(
+											"Versi Baru Telah Tersedia!",
+											function (confirmation) {
+												if (confirmation == 2) {
+													cordova.plugins.market.open('com.jalantikus.app');
+												}
+											},
+											"UPDATE",
+											[ "Nanti Saja", "Update Sekarang" ]
+									);
+								}
+							});
+						}
+					});
+				}
 			},
 			autoload        : function () {
 				var that = this;
