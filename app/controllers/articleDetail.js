@@ -374,7 +374,7 @@ define(
 						var _this = $(this);
 						var parent = _this.closest("p");
 						if (parent.find(".image-refresh").length == 0) {
-							parent.append("<div class='image-refresh'>Muat ulang gambar<a href='javascript:void(0);' class='image-refresh-link card-link'><div class='ripple'></div></a></div>");
+							parent.append("<div class='image-refresh-container'><div class='image-refresh'>Muat ulang gambar<a href='javascript:void(0);' class='image-refresh-link card-link'><div class='ripple'></div></a></div></div>");
 							parent.find(".image-refresh").on("click", function () {
 								if (!jt.isOffline()) {
 									if (!$(this).hasClass("active")) {

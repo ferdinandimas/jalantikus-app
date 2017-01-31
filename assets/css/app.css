@@ -813,6 +813,11 @@ div, span, a
     animation: refresh 1.2s linear infinite;
     box-sizing: border-box;
 }
+.image-refresh-container
+{
+	display: block;
+	width: 100%;
+}
 .image-refresh
 {
     width: auto;
