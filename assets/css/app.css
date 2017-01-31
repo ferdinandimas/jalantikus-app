@@ -225,11 +225,11 @@ div, span, a
     transition: 0.2s linear;
     z-index: 8;
 }
-.app-toolbar.on-top .app-logo 
+/*.app-toolbar.on-top .app-logo 
 {
     left: 50%;
     transform: translate(-50%, 0);
-}
+}*/
 .app-article-more
 {
 	padding: 0
@@ -755,7 +755,7 @@ div, span, a
 	height: 50px;
 	width: 100%;
 }
-.app-toolbar.detail ~ #app-body .app-loader, .app-toolbar.on-top ~ #app-body .app-loader
+.app-toolbar.detail ~ #app-body .app-loader
 {
 	margin-top: 60px;
 }
@@ -1262,10 +1262,10 @@ div, span, a
 {
 	z-index: 7
 }
-.app-toolbar.on-top .app-header:after
+/*.app-toolbar.on-top .app-header:after
 {
 	top: 49px;
-}
+}*/
 .app-header .app-toggle-userpanel
 {
 	width: 100%;
@@ -1463,7 +1463,7 @@ div, span, a
 {
 	opacity: 1
 }
-.quick-search-container .quick-search
+/*.quick-search-container .quick-search
 {
     width: 100%;
     padding: 5px 10px 5px 50px;
@@ -1471,7 +1471,7 @@ div, span, a
     border-radius: 4px;
     height: 35px;
     box-sizing: border-box;
-}
+}*/
 .app-toolbar .quick-search-container
 {
 	position: absolute;
@@ -1486,14 +1486,14 @@ div, span, a
 	overflow: hidden;
 	z-index: 5;
 }
-.app-toolbar.on-top .quick-search-container
+/*.app-toolbar.on-top .quick-search-container
 {
 	top: 50px;
-}
-.app-toolbar.on-top .quick-search-container.active
+}*/
+/*.app-toolbar.on-top .quick-search-container.active
 {
 	z-index: 999
-}
+}*/
 .app-toolbar .quick-search-container #quick-search-form
 {
 	position: absolute;
@@ -1543,14 +1543,14 @@ div, span, a
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
 }
-.on-top.app-toolbar .app-header .app-toggle-searchpanel
+/*.on-top.app-toolbar .app-header .app-toggle-searchpanel
 {
 	right: -60px;
 }
 .on-top.app-toolbar .app-header .app-toggle-refresh
 {
 	right: 0;
-}
+}*/
 .app-panel .searchpanel 
 {
 	position: relative;
