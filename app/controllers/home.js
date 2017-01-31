@@ -1060,7 +1060,7 @@ define(
 				this.collection.reset();
 			},
 			showUpdate      : function () {
-				if (window.sessionStorage.getItem("showed_update_alert") != "true") {
+				if (window.sessionStorage.getItem("showed_update_alert") != "true" && Backbone.history.getFragment() == "") {
 					window.sessionStorage.setItem("showed_update_alert", "true");
 
 					jt.log("Check current version");

@@ -12,8 +12,7 @@ var oneSignal = function () {
 						.inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
 						.handleNotificationOpened(function (jsonData) {
 							if (typeof jsonData.notification.payload.additionalData.article != "undefined" && jsonData.notification.payload.additionalData.article != "") {
-								window.BackboneRouter.navigate("article/" + jsonData.notification.payload.additionalData.article,
-										{ trigger: true });
+								window.BackboneRouter.navigate("article/" + jsonData.notification.payload.additionalData.article, { trigger: true });
 
 								if (!jt.isOffline()) {
 									$(".splash .app-refreshed").hide();
