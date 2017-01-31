@@ -238,6 +238,10 @@ require(
 					$('.usermenu-item').not(_currUI).not(".item-kategori").removeClass("active");
 					_currUI.addClass("active");
 				}
+				else if(_currUI.hasClass("active") && !_currUI.hasClass("app-kategori"))
+				{
+					$(".app-content-container").animate({ scrollTop: 0 }, "slow");
+				}
 			});
 
 			$(document).on("click", ".app-header .app-toggle-back", function (e) {

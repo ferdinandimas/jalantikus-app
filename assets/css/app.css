@@ -509,9 +509,11 @@ div, span, a
 {
 	position: absolute;
 	height: calc(100% + 4px);
-	width: calc(100% + 4px);
+	width: auto;
 	top: -2px;
-	left: -2px;
+	left: 50%;
+	-webkit-transform: translate(-50%, 0);
+	transform: translate(-50%, 0);
 }
 .app-index-card.multi-image .card-image .image-overflow:nth-child(3)
 {
