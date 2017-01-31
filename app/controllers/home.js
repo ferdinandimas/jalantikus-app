@@ -1179,11 +1179,13 @@ define(
 						}
 
 						$(val).error(function () {
+							console.log("ERROR", $(this).attr("src"), $(this).data("src"));
+
 							if ($(this).attr("src") != $(this).data("src")) {
 								$(this).attr("src", $(this).data("src"));
 							}
 							else {
-								$(this).attr("src", "").attr("alt", "");
+								$(this).hide();
 							}
 						});
 					}
