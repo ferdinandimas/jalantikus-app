@@ -1229,6 +1229,10 @@ define(
 							xhr.responseType = 'blob';
 							xhr.send();
 						}
+
+						if (!$(this).hasClass("hidden")) {
+							$(this).fadeIn("fast", "swing");
+						}
 					});
 				});
 			}
