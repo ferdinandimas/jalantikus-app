@@ -597,7 +597,7 @@ define(
 					});
 
 					$(".app-body a").on("click", function (e) {
-						if ((jt.isOffline() && !$(this).hasClass("share") && !$(this).hasClass("app-goto") && !$(this).hasClass("app-home") && !$(this).hasClass("app-toggle-back")) || $(this).hasClass("app-gotoweb")) {
+						if ((jt.isOffline() && !$(this).hasClass("share") && !$(this).hasClass("app-goto") && !$(this).hasClass("app-home") && !$(this).hasClass("app-toggle-back"))) {
 							e.preventDefault();
 
 							that.showOffline();
