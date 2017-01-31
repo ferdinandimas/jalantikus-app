@@ -420,6 +420,7 @@ define(
 						}
 
 						if (that._articleList != null) {
+							console.log('null')
 							window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
 
 							if (that.type != "search") {
@@ -1231,7 +1232,7 @@ define(
 						}
 
 						if (!$(this).hasClass("hidden")) {
-							$(this).show();
+							$(this).fadeIn("fast", "swing");
 						}
 					});
 				});
