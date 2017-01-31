@@ -312,21 +312,18 @@ define(
 											$(val).attr("src", nativePath);
 										}
 										else {
-											// $(val).attr("src", _placeholder);
-											$(val).css("background-image", "url("+_placeholder+")").css("background-size", "100%");
+											$(val).attr("src", _placeholder);
 										}
 
 										loadImage();
 									}, function (e) {
-										// $(val).attr("src", _placeholder);
-										$(val).css("background-image", "url("+_placeholder+")").css("background-size", "100%");
+										$(val).attr("src", _placeholder);
 
 										loadImage();
 									});
 								}
 								else {
-									// $(val).attr("src", _placeholder);
-									$(val).css("background-image", "url("+_placeholder+")").css("background-size", "100%");
+									$(val).attr("src", _placeholder);
 
 									loadImage();
 								}
@@ -400,6 +397,80 @@ define(
 						}
 						_this.hide();
 						_this.attr("src", "");
+					});
+
+					$(".more-article-frame img:not(.rendered), .app-detail-header img:not(.rendered)").each(function (key, val) {
+						if (typeof $(val).data("src") != "undefined") {
+							_nativePath = "filesystem:" + window.location.origin + "/temporary/data/image.article." + btoa($(val).data("src")) + ".";
+							$(val).data("native", _nativePath);
+
+							if (typeof window.resolveLocalFileSystemURL == "function") {
+								window.resolveLocalFileSystemURL($(val).data("native"), function(_file) {
+									$(val).attr("src", $(val).data("native")).addClass("rendered");
+								}, function () {
+									$(val).attr("src", $(val).data("src")).addClass("rendered");
+								});
+							}
+							else {
+								$(val).attr("src", $(val).data("native")).addClass("rendered");
+							}
+
+							$(val).error(function () {
+								console.log("error");
+								if ($(this).attr("src") != $(this).data("src")) {
+									$(this).attr("src", $(this).data("src"));
+								}
+								else {
+									$(this).hide();
+								}
+							});
+						}
+
+						$(val).load(function () {
+							console.log("loaded");
+							if ($(this).attr("src").indexOf("filesystem") < 0) {
+								var that = this;
+								var xhr  = new XMLHttpRequest();
+								xhr.onreadystatechange = function(){
+									if (this.readyState == 4 && this.status == 200){
+										var cacheKey = "image.article.";
+										var url      = $(that).attr("src");
+										url          = btoa(url);
+
+										cache(this);
+
+										function cache(xhr) {
+											//var dfd = jQuery.Deferred();
+
+											jtCache.getItem(cacheKey + url, function(_data) {
+												if (_data == null) {
+													jtCache.setItem(cacheKey + url, {
+														"type"     : "blob",
+														"value"    : xhr.response,
+														"extension": "",
+														"fileType" : xhr.response.type
+													}, window.TEMPORARY, null, function () {
+														//dfd.resolve();
+													});
+												}
+												else {
+													//dfd.resolve();
+												}
+											}, window.TEMPORARY);
+
+											//return dfd.promise();
+										}
+									}
+								}
+								xhr.open('GET', $(this).attr("src"));
+								xhr.responseType = 'blob';
+								xhr.send();
+							}
+
+							if (!$(this).hasClass("hidden")) {
+								$(this).show();
+							}
+						});
 					});
 
 					$("#app-toolbar").addClass("detail").addClass("scroll");
