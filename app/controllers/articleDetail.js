@@ -497,6 +497,10 @@ define(
 						else if (typeof value != "undefined" && !value.match(regExp)) {
 							$(this).attr("onclick", "window.open('" + value + "', '_system');");
 							$(this).attr("href", "#");
+
+							$(this).click(function (e) {
+								e.preventDefault();
+							});
 						}
 					});
 
