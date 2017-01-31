@@ -9,7 +9,7 @@ define(
 		"text!views/header_detail_layout.html",
 		"prettify"
 	],
-	function (_, Backbone, $, Article, App, articleLayout, headerLayout) {
+	function (_, Backbone, $, Article, App, articleLayout, headerDetailLayout) {
 		var articleDetailView = Backbone.View.extend({
 			layout: _.template(articleLayout),
 			model : new Article(),
@@ -26,7 +26,7 @@ define(
 					.removeClass("scroll")
 					.removeClass("on-top")
 					.empty()
-					.append((_.template(headerLayout))());
+					.append((_.template(headerDetailLayout))());
 
 				$("#app-body").empty().append(
 					'<div class="app-detail-container"><div class="app-toolbar-placeholder"></div><div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div></div>'
