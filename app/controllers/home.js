@@ -1030,7 +1030,6 @@ define(
 						setTimeout(function () {
 							$(".splash").fadeOut("fast", function () {
 								$(this).remove();
-								console.log("HERE 1");
 								that.showUpdate();
 							})
 						}, 2000);
@@ -1042,15 +1041,14 @@ define(
 				else {
 					$(".splash").fadeOut(350, function() {
 						$(this).remove();
-
-						setTimeout(function () {
-							console.log("HERE 2");
-							that.showUpdate();
-						}, 500);
 					});
 					$(".no-splash").fadeOut(350, function() {
 						$(this).remove();
 					});
+
+					setTimeout(function () {
+						that.showUpdate();
+					}, 500);
 				}
 
 				if (that.cacheSource.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
@@ -1065,7 +1063,7 @@ define(
 				if (window.sessionStorage.getItem("showed_update_alert") != "true") {
 					window.sessionStorage.setItem("showed_update_alert", "true");
 
-					console.log("Check current version");
+					jt.log("Check current version");
 
 					$.getJSON(_config.jtAPI + "live/jtApp", function (data) {
 						if (typeof data.response != "undefined" && typeof data.response.version != "undefined") {
