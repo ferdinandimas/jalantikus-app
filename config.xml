@@ -70,6 +70,10 @@
             <allow-navigation href="*://*.google.com/*"/>
             <allow-intent href="*://*.google.com/*"/>
             <access origin="*://*.google.com/*"/>
+
+            <allow-navigation href="*://*.googlevideo.com/*"/>
+            <allow-intent href="*://*.googlevideo.com/*"/>
+            <access origin="*://*.googlevideo.com/*"/>
         <!--Additional Domain-->
     <!--Whitelist Plugin-->
 
