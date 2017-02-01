@@ -74,11 +74,8 @@ define(
 					if (typeof _options != "undefined" && typeof _options.type != "undefined" && _options.type == "favorites") {
 						$("#app-toolbar").addClass("disukai");
 
-						alert("debug 1");
 						jtCache.listItem("data", function(_data) {
-							alert("debug 2");
 							if (_data.length > 0) {
-								alert("debug 3");
 								var _buff = [];
 
 								$.each(_data, function (key, val) {
@@ -155,7 +152,6 @@ define(
 								}
 							}
 							else {
-								alert("debug 4");
 								$("#app-body .app-content-container").empty().append(
 										'<div class="favorite-empty">' +
 										'Maaf, belum ada artikel yang kamu sukai' +
@@ -272,7 +268,6 @@ define(
 							}
 
 							function finishedRendering() {
-								alert("debug 5");
 								if (window.localStorage.getItem("show_splash") === "true") {
 									$(".no-splash").hide();
 

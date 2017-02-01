@@ -411,51 +411,41 @@ var jtCache = function () {
 			}
 		},
 		listItem: function (location, callback, type, search, returnList) {
-			// alert("list 1");
 			type = (typeof type == "undefined" || type == null ? window.TEMPORARY : type);
 
 			var size = 1 * 1024 * 1024;
 
 			if (typeof window.requestFileSystem == "function") {
-				// alert("list 3");
 				window.requestFileSystem(type, 0, function (fs) {
-					// alert("list 4");
 					fs.root.getDirectory(location, {}, function (fs) {
-						// alert("list 6");
 						var reader = fs.createReader();
 
 						reader.readEntries(function (entries) {
-							// alert("list 7");
 							var result = [];
 
 							Promise.all(entries.map(function (val) {
-								// alert("list 9");
 								var deferred = $.Deferred();
 
 								var _buff = val;
 
 								if (typeof search == "undefined" || (typeof search == "string" && val.name.indexOf(search) >= 0)) {
-									// alert("list 11");
 									if (returnList) {
 										result.push(_buff);
 
 										deferred.resolve();
 									}
 									else {
-										// alert("list 12");
 										var _isResolved = false;
 
 										setTimeout(function () {
 											if (!_isResolved) {
-												alert("timeout");
+												console.log("timeout");
 												_isResolved = true;
 												deferred.resolve();
 											}
-										}, 5000);
+										}, 500);
 
 										jtCache.getItem(val.name.replace(".json", ""), function (article) {
-											// alert("list 13");
-
 											if (article == null) {
 												result.push(_buff);
 											}
@@ -471,25 +461,21 @@ var jtCache = function () {
 									}
 								}
 								else {
-									// alert("list 12");
 									deferred.resolve();
 								}
 
 								return deferred.promise();
 							})).then(function () {
-								// alert("list 10");
 								if (typeof callback == "function") {
 									callback(result);
 								}
 							});
 						}, function () {
-							// alert("list 8");
 							if (typeof callback == "function") {
 								callback([]);
 							}
 						});
 					}, function () {
-						// alert("list 5");
 						if (typeof callback == "function") {
 							callback([]);
 						}
@@ -497,7 +483,6 @@ var jtCache = function () {
 				});
 			}
 			else {
-				// alert("list 2");
 				if (typeof callback == "function") {
 					callback([]);
 				}
