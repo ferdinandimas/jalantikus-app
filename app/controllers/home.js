@@ -726,7 +726,7 @@ define(
 					_data = this.collection.toJSON();
 				}
 
-				if($("#app-header-beranda").length > 0)
+				if($("#app-header-beranda").length > 0 || that.type == "search")
 				{}
 				else
 				{
@@ -734,7 +734,7 @@ define(
 						.empty()
 						.append((_.template(headerLayout))());
 				}
-				
+
 				if (typeof that.type == "undefined") {
 					if (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") >= 5) {
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
