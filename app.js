@@ -798,10 +798,11 @@ require(
 					var _href = $(this).attr("href");
 					_href     = _href.replace("#", "");
 
-					if (that.isFromFile) {
-						jtCache.removeItem("list.article" + (_href != "" ? "." : "") + _href);
-					}
-					else {
+					if ($(this).attr("href") != "#" + Backbone.history.getFragment()) {
+						if (that.isFromFile) {
+							jtCache.removeItem("list.article" + (_href != "" ? "." : "") + _href);
+						}
+
 						window.sessionStorage.removeItem(_href);
 						window.sessionStorage.removeItem(_href + "/page");
 						window.sessionStorage.removeItem(_href + "/isLastPage");

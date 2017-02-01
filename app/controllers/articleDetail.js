@@ -433,7 +433,6 @@ define(
 							}
 
 							$(val).error(function () {
-								console.log("error");
 								if ($(this).attr("src") != $(this).data("src")) {
 									$(this).attr("src", $(this).data("src"));
 								}
@@ -444,7 +443,6 @@ define(
 						}
 
 						$(val).load(function () {
-							console.log("loaded");
 							if ($(this).attr("src").indexOf("filesystem") < 0) {
 								var that = this;
 								var xhr  = new XMLHttpRequest();
