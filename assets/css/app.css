@@ -851,8 +851,9 @@ div, span, a
     background-color: #c92737;
     -webkit-transform-origin: center;
     transform-origin: center;
+    -webkit-backface-visibility: hidden;
 }
-.image-refresh:after
+.image-refresh.not-support:after
 {
 	-webkit-mask-image: url(../images/openbrowser-icon.svg) ;
 	mask-image: url(../images/openbrowser-icon.svg) ;
@@ -1164,6 +1165,7 @@ div, span, a
 	-webkit-mask-size: 16px 16px;
 	mask-size: 16px 16px;
     background: #fff;
+    -webkit-backface-visibility: hidden;
 }
 .share-container li.line-share 
 {
@@ -1191,6 +1193,7 @@ div, span, a
 	-webkit-mask-size: 16px 16px;
 	mask-size: 16px 16px;
     background: #fff;
+    -webkit-backface-visibility: hidden;
 }
 .share-container li.link-share
 {
@@ -1207,6 +1210,7 @@ div, span, a
 	-webkit-mask-size: 16px 16px;
 	mask-size: 16px 16px;
     background: #fff;
+    -webkit-backface-visibility: hidden;
 }
 .share-container li.more-share
 {
@@ -1223,6 +1227,7 @@ div, span, a
 	-webkit-mask-size: 16px 16px;
 	mask-size: 16px 16px;
     background: #fff;
+    -webkit-backface-visibility: hidden;
 }
 .userpanel-header
 {
@@ -1329,6 +1334,7 @@ div, span, a
 	-webkit-mask-position: center center;
 	mask-position: center center;
     background: #fff;
+    -webkit-backface-visibility: hidden;
 }
 .app-toggle-searchpanel, .detail .app-toggle-searchpanel, .app-header .header-search, .app-header .app-home .app-menu-home, .app-header .header-refresh
 {
@@ -1437,6 +1443,7 @@ div, span, a
 	mask-image: url(../images/home-icon.svg);
     background: #fff;
     background-size: 24px 24px;
+    -webkit-backface-visibility: hidden;
 }
 .app-header .app-toggle-back, .app-header .app-toggle-userpanel
 {
@@ -1547,6 +1554,7 @@ div, span, a
     mask-size: 15px;
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
+    -webkit-backface-visibility: hidden;
 }
 /*.on-top.app-toolbar .app-header .app-toggle-searchpanel
 {
@@ -1908,6 +1916,7 @@ div, span, a
 	transition: 0s;
 	-webkit-transform: translate(0);
 	transform: translate(0);
+    -webkit-backface-visibility: hidden;
 }
 .usermenu-item.active .usermenu-item-detail:after
 {
@@ -1959,6 +1968,7 @@ div, span, a
 	left: 0;
 	height: 40px;
 	width: 70px;
+    -webkit-backface-visibility: hidden;
 }
 .usermenu-item .usermenu-item-detail.tips:after
 {
@@ -1994,11 +2004,13 @@ div, span, a
 	mask-size: 20px 20px;
 	-webkit-mask-image: url(../images/rate-icon.svg);
 	mask-image: url(../images/rate-icon.svg);
+    -webkit-backface-visibility: hidden;
 }
 .usermenu-item .usermenu-item-detail.favorite:after
 {
 	-webkit-mask-image: url(../images/like-icon.png);
 	mask-image: url(../images/like-icon.png);
+    -webkit-backface-visibility: hidden;
 }
 .usermenu-item .usermenu-item-detail.setting:after
 {
@@ -2010,6 +2022,7 @@ div, span, a
 	mask-size: 20px 20px;
 	-webkit-mask-image: url(../images/settings-icon.svg);
 	mask-image: url(../images/settings-icon.svg);
+    -webkit-backface-visibility: hidden;
 }
 .usermenu-item .usermenu-item-detail.notification:after
 {
@@ -2017,11 +2030,13 @@ div, span, a
 	mask-size: 20px 20px;
 	-webkit-mask-image: url(../images/notification-icon.svg);
 	mask-image: url(../images/notification-icon.svg);
+    -webkit-backface-visibility: hidden;
 }
 .usermenu-item .usermenu-item-detail.mutiara:after
 {
 	-webkit-mask-image: url(../images/mutiara-icon.svg);
 	mask-image: url(../images/mutiara-icon.svg);
+    -webkit-backface-visibility: hidden;
 }
 .ui-panel-open ~ .app-body
 {
@@ -2686,6 +2701,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	transform: translate(0) scale(0);
 	-webkit-transition: 0.2s;
 	transition: 0.2s;
+    -webkit-backface-visibility: hidden;
 }
 .app-addtofavorite:before
 {
@@ -2707,6 +2723,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     transition: 0.2s;
     -webkit-mask-size: 24px;
     mask-size: 24px;
+    -webkit-backface-visibility: hidden;
 }
 .app-addtofavorite .app-goto:after
 {
@@ -2756,6 +2773,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	-webkit-mask-size: 64px;
 	mask-size: 64px;
 	background-color: #c92737;
+    -webkit-backface-visibility: hidden;
 }
 .recommended-articles
 {
@@ -2791,6 +2809,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	-webkit-mask-size: 20px;
 	mask-size: 20px;
 	background-color: #c92737;
+    -webkit-backface-visibility: hidden;
 }
 .app-search ~ .recommended-articles:after
 {
@@ -2840,6 +2859,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
 	background-color: #fff;
+    -webkit-backface-visibility: hidden;
 }
 .app-detail-end
 {

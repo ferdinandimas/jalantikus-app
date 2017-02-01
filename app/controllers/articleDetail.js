@@ -638,7 +638,7 @@ define(
 						var _this = $(this);
 						if(_this.attr("src").indexOf("jalantikus.com/") < 0 && _this.attr("src").indexOf("babe.news/") < 0 )
 						{
-							_this.closest("p").append("<div class='image-refresh-container'>Konten Tidak Dapat Dimuat<div class='image-refresh  not-support'>Buka di Web<a href='javascript:void(0);' data-href='" + $(".app-gotoweb.app-goto").data("href") + "' class='card-link'><div class='ripple'></div></a></div></div>").attr("style", "");
+							_this.closest("p").append("<div class='image-refresh-container'>Konten Tidak Dapat Dimuat<br><div class='image-refresh  not-support'>Buka di Web<a href='javascript:void(0);' data-href='" + $(".app-gotoweb.app-goto").data("href") + "' class='card-link'><div class='ripple'></div></a></div></div>").attr("style", "");
 							_this.remove();
 						}
 					});
