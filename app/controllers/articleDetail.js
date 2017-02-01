@@ -376,15 +376,29 @@ define(
 									if (!$(this).hasClass("active")) {
 										$(this).addClass("active");
 									}
-									_this.attr("src", _this.data("src")).load(function () {
+									var tO;
+
+									_this.one("load", function () {
+										clearTimeout(tO);
 										_this.fadeIn(200);
 										parent.find(".image-refresh").remove();
-									}).error(function(){
-										parent.find(".image-refresh").one('animationiteration webkitAnimationIteration', function() {
+									})
+
+									tO = setTimeout(function(){
+										parent.find(".image-refresh").on('animationiteration webkitAnimationIteration', function() {
+											if (!$(".app-refreshed").hasClass("active")) {
+												$(".app-refreshed").html("Gagal memuat ulang").addClass("active").fadeIn();
+												setTimeout(function () {
+													$(".app-refreshed").removeClass("active").fadeOut();
+												}, 2000);
+											}
+											_this.attr("src", "");
 											parent.find(".image-refresh").off("animationiteration webkitAnimationIteration");
 											parent.find(".image-refresh").removeClass("active");
 										});
-									});
+									}, 10000)
+
+									_this.attr("src", _this.data("src"));
 								}
 								else {
 									setTimeout(that.showOffline(), 2000);
