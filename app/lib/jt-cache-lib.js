@@ -446,10 +446,11 @@ var jtCache = function () {
 										var _isResolved = false;
 
 										setTimeout(function () {
-											alert("timeout");
-
-											_isResolved = true;
-											deferred.resolve();
+											if (!_isResolved) {
+												alert("timeout");
+												_isResolved = true;
+												deferred.resolve();
+											}
 										}, 5000);
 
 										jtCache.getItem(val.name.replace(".json", ""), function (article) {
@@ -463,6 +464,7 @@ var jtCache = function () {
 											}
 
 											if (!_isResolved) {
+												_isResolved = true;
 												deferred.resolve();
 											}
 										}, type);
