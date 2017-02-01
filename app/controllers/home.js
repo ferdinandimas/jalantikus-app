@@ -73,7 +73,7 @@ define(
 
 					if (typeof _options != "undefined" && typeof _options.type != "undefined" && _options.type == "favorites") {
 						$("#app-toolbar").addClass("disukai");
-
+						
 						jtCache.listItem("data", function(_data) {
 							if (_data.length > 0) {
 								var _buff = [];
