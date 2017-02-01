@@ -62,6 +62,10 @@
             <allow-navigation href="*://www.youtube.com/*"/>
             <allow-intent href="*://www.youtube.com/*"/>
             <access origin="*://www.youtube.com/*"/>
+
+            <allow-navigation href="*://*.google.com/*"/>
+            <allow-intent href="*://*.google.com/*"/>
+            <access origin="*://*.google.com/*"/>
         <!--Additional Domain-->
     <!--Whitelist Plugin-->
 
