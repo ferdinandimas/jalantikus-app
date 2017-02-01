@@ -369,10 +369,12 @@ define(
 					$(".app-detail-body p img").one("error", function (e) {
 						var _this = $(this);
 						var parent = _this.closest("p");
+						var isRun = false;
 						if (parent.find(".image-refresh").length == 0) {
 							parent.append("<div class='image-refresh-container'><div class='image-refresh'>Muat ulang gambar<a href='javascript:void(0);' class='image-refresh-link card-link'><div class='ripple'></div></a></div></div>");
 							parent.find(".image-refresh").on("click", function () {
-								if (!jt.isOffline()) {
+								if (!jt.isOffline() && !isRun) {
+									isRun	 = true;
 									if (!$(this).hasClass("active")) {
 										$(this).addClass("active");
 									}
@@ -380,22 +382,24 @@ define(
 
 									_this.one("load", function () {
 										clearTimeout(tO);
+										isRun = false;
 										_this.fadeIn(200);
 										parent.find(".image-refresh").remove();
 									})
 
 									tO = setTimeout(function(){
 										parent.find(".image-refresh").on('animationiteration webkitAnimationIteration', function() {
+											parent.find(".image-refresh").removeClass("active");
+											_this.attr("src", "");
 											if (!$(".app-refreshed").hasClass("active")) {
 												$(".app-refreshed").html("Gagal memuat ulang").addClass("active").fadeIn();
 												setTimeout(function () {
 													$(".app-refreshed").removeClass("active").fadeOut();
 												}, 2000);
 											}
-											_this.attr("src", "");
 											parent.find(".image-refresh").off("animationiteration webkitAnimationIteration");
-											parent.find(".image-refresh").removeClass("active");
 										});
+										isRun = false;
 									}, 10000)
 
 									_this.attr("src", _this.data("src"));
