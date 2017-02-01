@@ -633,6 +633,15 @@ define(
 						_this.html("<div class='image-refresh'>Lihat gambar di Web<a href='" + $(".app-gotoweb.app-goto").attr("href") + "' class='card-link'><div class='ripple'></div></a></div>").attr("style", "").removeClass("instagram-media");
 					});
 
+					$("p img").each(function(key, val)
+					{
+						var _this = $(this);
+						if(_this.attr("src").indexOf("jalantikus.com") < 0)
+						{
+							_this.html("<div class='image-refresh'>Tipe gambar tidak didukung<br>Buka di browser<a href='" + $(".app-gotoweb.app-goto").attr("href") + "' class='card-link'><div class='ripple'></div></a></div>").attr("style", "");
+						}
+					});
+
 					$(".apps-detail.horizontal").each(function (key, val) {
 						var _appDetail = $(this).find(".click-target").attr("href");
 						var _that      = this;
