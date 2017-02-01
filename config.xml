@@ -63,6 +63,10 @@
             <allow-intent href="*://www.youtube.com/*"/>
             <access origin="*://www.youtube.com/*"/>
 
+            <allow-navigation href="*://*.ytimg.com/*"/>
+            <allow-intent href="*://*.ytimg.com/*"/>
+            <access origin="*://*.ytimg.com/*"/>
+
             <allow-navigation href="*://*.google.com/*"/>
             <allow-intent href="*://*.google.com/*"/>
             <access origin="*://*.google.com/*"/>
