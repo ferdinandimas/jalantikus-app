@@ -852,11 +852,15 @@ div, span, a
     -webkit-transform-origin: center;
     transform-origin: center;
 }
+.image-refresh:after
+{
+	-webkit-mask-image: url(../images/openbrowser-icon.svg) ;
+	mask-image: url(../images/openbrowser-icon.svg) ;
+}
 .image-refresh.active:after
 {
 	animation: refresh 1s linear infinite;
 }
-
 .app-loader .app-retry, .splash-content .app-retry 
 {
     display: none;
@@ -2713,7 +2717,8 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 .app-addtofavorite.active .app-goto:after
 {
 	animation: grow 0.4s linear;
-	transform: translate(0) scale(1);
+	-webkit-transform: translateZ(0) scale(1);
+	transform: translateZ(0) scale(1);
 }
 .favorite-empty
 {
