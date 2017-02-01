@@ -550,12 +550,6 @@ define(
 						}
 					});
 
-					$(".instagram-media").each(function (index, element) {
-						var _this = $(this);
-
-						_this.html("<div class='image-refresh'>Lihat gambar di Web<a href='" + $(".app-gotoweb.app-goto").attr("href") + "' class='card-link'><div class='ripple'></div></a></div>").attr("style", "").removeClass("instagram-media");
-					});
-
 					$(".app-detail-body iframe").each(function (index, element) {
 						$(element).attr("width", "100%").attr("height", "");
 
@@ -631,6 +625,12 @@ define(
 						if (typeof value != "undefined" && !value.match(regExp) && !$(this).hasClass("share") && !$(this).hasClass("scroll-button") && !$(this).hasClass("download-btn") && !$(this).hasClass("googleplay-btn")) {
 							$(this).attr("href", "#browser/" + encodeURIComponent(value));
 						}
+					});
+
+					$(".instagram-media").each(function (index, element) {
+						var _this = $(this);
+
+						_this.html("<div class='image-refresh'>Lihat gambar di Web<a href='" + $(".app-gotoweb.app-goto").attr("href") + "' class='card-link'><div class='ripple'></div></a></div>").attr("style", "").removeClass("instagram-media");
 					});
 
 					$(".apps-detail.horizontal").each(function (key, val) {
