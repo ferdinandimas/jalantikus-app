@@ -443,9 +443,14 @@ var jtCache = function () {
 									}
 									else {
 										// alert("list 12");
-										//setTimeout(function () {
-										//	deferred.resolve();
-										//}, 1000);
+										var _isResolved = false;
+
+										setTimeout(function () {
+											alert("timeout");
+
+											_isResolved = true;
+											deferred.resolve();
+										}, 5000);
 
 										jtCache.getItem(val.name.replace(".json", ""), function (article) {
 											// alert("list 13");
@@ -457,7 +462,9 @@ var jtCache = function () {
 												result.push(article);
 											}
 
-											deferred.resolve();
+											if (!_isResolved) {
+												deferred.resolve();
+											}
 										}, type);
 									}
 								}
