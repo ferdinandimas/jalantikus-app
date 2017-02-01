@@ -630,18 +630,19 @@ define(
 					$(".instagram-media").each(function (index, element) {
 						var _this = $(this);
 
-						_this.html("<div class='image-refresh'>Lihat gambar di Web<a href='" + $(".app-gotoweb.app-goto").attr("href") + "' class='card-link'><div class='ripple'></div></a></div>").attr("style", "").removeClass("instagram-media");
+						_this.html("<div class='image-refresh-container'><div class='image-refresh not-support'>Lihat gambar di Web<a href='javascript:void(0);' data-href='" + $(".app-gotoweb.app-goto").data("href") + "' class='card-link'><div class='ripple'></div></a></div></div>").attr("style", "").removeClass("instagram-media");
 					});
 
 					$("p img").each(function(key, val)
 					{
 						var _this = $(this);
-						if(_this.attr("src").indexOf("jalantikus.com") < 0)
+						if(_this.attr("src").indexOf("jalantikus.com/") < 0 && _this.attr("src").indexOf("babe.news/") < 0 )
 						{
-							_this.html("<div class='image-refresh'>Tipe gambar tidak didukung<br>Buka di browser<a href='" + $(".app-gotoweb.app-goto").attr("href") + "' class='card-link'><div class='ripple'></div></a></div>").attr("style", "");
+							_this.closest("p").append("<div class='image-refresh-container'>Konten Tidak Dapat Dimuat<div class='image-refresh  not-support'>Buka di Web<a href='javascript:void(0);' data-href='" + $(".app-gotoweb.app-goto").data("href") + "' class='card-link'><div class='ripple'></div></a></div></div>").attr("style", "");
+							_this.remove();
 						}
 					});
-
+					
 					$(".apps-detail.horizontal").each(function (key, val) {
 						var _appDetail = $(this).find(".click-target").attr("href");
 						var _that      = this;

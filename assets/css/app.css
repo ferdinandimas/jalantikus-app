@@ -817,19 +817,18 @@ div, span, a
 {
 	display: block;
 	width: 100%;
+	text-align: center;
 }
 .image-refresh
 {
     width: auto;
     display: inline-block;
     height: 30px;
-    left: 50%;
     padding: 0 15px 0 55px;
     position: relative;
     line-height: 30px;
     border: 1px solid #c92737;
     border-radius: 4px;
-    transform: translate(-50%, 0);
     background-color: transparent;
     cursor: pointer;
 }

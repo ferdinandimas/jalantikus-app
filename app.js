@@ -203,6 +203,12 @@ require(
 				$(".app-content-container").animate({ scrollTop: 0 }, "slow");
 			});
 
+			$(document).on("click", ".image-refresh.not-support .card-link", function(e)
+			{
+				e.preventDefault();
+				window.open($(this).data("href"), '_system');
+			})
+
 			$(document).on("click", ".app-toggle-searchpanel", function (e) {
 				if (jt.isOffline()) {
 					e.preventDefault();
