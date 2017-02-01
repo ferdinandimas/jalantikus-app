@@ -24,7 +24,6 @@ define(
 				$("#app-toolbar")
 					.addClass("detail")
 					.removeClass("scroll")
-					.removeClass("on-top")
 					.empty()
 					.append((_.template(headerDetailLayout))());
 
@@ -370,22 +369,40 @@ define(
 					$(".app-detail-body p img").one("error", function (e) {
 						var _this = $(this);
 						var parent = _this.closest("p");
+						var isRun = false;
 						if (parent.find(".image-refresh").length == 0) {
 							parent.append("<div class='image-refresh-container'><div class='image-refresh'>Muat ulang gambar<a href='javascript:void(0);' class='image-refresh-link card-link'><div class='ripple'></div></a></div></div>");
 							parent.find(".image-refresh").on("click", function () {
-								if (!jt.isOffline()) {
+								if (!jt.isOffline() && !isRun) {
+									isRun	 = true;
 									if (!$(this).hasClass("active")) {
 										$(this).addClass("active");
 									}
-									_this.attr("src", _this.data("src")).load(function () {
+									var tO;
+
+									_this.one("load", function () {
+										clearTimeout(tO);
+										isRun = false;
 										_this.fadeIn(200);
 										parent.find(".image-refresh").remove();
-									}).error(function(){
-										parent.find(".image-refresh").one('animationiteration webkitAnimationIteration', function() {
-											parent.find(".image-refresh").off("animationiteration webkitAnimationIteration");
+									})
+
+									tO = setTimeout(function(){
+										parent.find(".image-refresh").on('animationiteration webkitAnimationIteration', function() {
 											parent.find(".image-refresh").removeClass("active");
+											_this.attr("src", "");
+											if (!$(".app-refreshed").hasClass("active")) {
+												$(".app-refreshed").html("Gagal memuat ulang").addClass("active").fadeIn();
+												setTimeout(function () {
+													$(".app-refreshed").removeClass("active").fadeOut();
+												}, 2000);
+											}
+											parent.find(".image-refresh").off("animationiteration webkitAnimationIteration");
 										});
-									});
+										isRun = false;
+									}, 10000)
+
+									_this.attr("src", _this.data("src"));
 								}
 								else {
 									setTimeout(that.showOffline(), 2000);
@@ -473,6 +490,16 @@ define(
 						});
 					});
 
+					if($("#app-header-detail").length > 0)
+					{
+					}
+					else
+					{
+						$("#app-toolbar")
+						.empty()
+						.append((_.template(headerDetailLayout))());
+					}
+
 					$("#app-toolbar").addClass("detail").addClass("scroll");
 
 					if ($("#app-body .app-refreshed").length == 0) {
@@ -523,11 +550,11 @@ define(
 						}
 					});
 
-					$(".instagram-media").each(function (index, element) {
-						var _this = $(this);
+					// $(".instagram-media").each(function (index, element) {
+					// 	var _this = $(this);
 
-						_this.html("<div class='image-refresh'>Lihat gambar di Web<a href='" + $(".app-gotoweb.app-goto").attr("href") + "' class='card-link'><div class='ripple'></div></a></div>").attr("style", "").removeClass("instagram-media");
-					});
+					// 	_this.html("<div class='image-refresh'>Lihat gambar di Web<a href='" + $(".app-gotoweb.app-goto").attr("href") + "' class='card-link'><div class='ripple'></div></a></div>").attr("style", "").removeClass("instagram-media");
+					// });
 
 					$(".app-detail-body iframe").each(function (index, element) {
 						$(element).attr("width", "100%").attr("height", "");

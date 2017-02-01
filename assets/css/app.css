@@ -855,7 +855,7 @@ div, span, a
 }
 .image-refresh.active:after
 {
-	animation: refresh 1s linear 1;
+	animation: refresh 1s linear infinite;
 }
 
 .app-loader .app-retry, .splash-content .app-retry 
