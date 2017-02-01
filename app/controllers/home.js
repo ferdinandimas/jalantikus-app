@@ -807,7 +807,7 @@ define(
 								if (typeof _autoloadFragment != "undefined") {
 									_oldData = JSON.parse(window.sessionStorage.getItem(Backbone.history.getFragment()));
 
-									if (_oldData.length > 0 && (_oldData[0] != null && _data[0] != null) && _oldData[0].id != _data[0].id) {
+									if (_oldData != null && _oldData.length > 0 && (_oldData[0] != null && _data[0] != null) && _oldData[0].id != _data[0].id) {
 										isValid = false;
 									}
 								}
