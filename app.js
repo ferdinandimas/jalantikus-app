@@ -762,10 +762,6 @@ require(
 				}
 			}, 250);
 
-			setInterval(function () {
-				$(".app-toolbar").removeClass("on-top");
-			}, 50);
-
 			if ($(window).height() < 620) {
 				$(".userpanel-body").innerHeight($(window).height() - 120);
 			}

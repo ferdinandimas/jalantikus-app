@@ -24,7 +24,6 @@ define(
 				$("#app-toolbar")
 					.addClass("detail")
 					.removeClass("scroll")
-					.removeClass("on-top")
 					.empty()
 					.append((_.template(headerDetailLayout))());
 
@@ -472,6 +471,16 @@ define(
 							}
 						});
 					});
+
+					if($("#app-header-detail").length > 0)
+					{
+					}
+					else
+					{
+						$("#app-toolbar")
+						.empty()
+						.append((_.template(headerDetailLayout))());
+					}
 
 					$("#app-toolbar").addClass("detail").addClass("scroll");
 

@@ -726,6 +726,15 @@ define(
 					_data = this.collection.toJSON();
 				}
 
+				if($("#app-header-beranda").length > 0)
+				{}
+				else
+				{
+					$("#app-toolbar")
+						.empty()
+						.append((_.template(headerLayout))());
+				}
+				
 				if (typeof that.type == "undefined") {
 					if (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") >= 5) {
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
@@ -902,7 +911,6 @@ define(
 								}));
 
 						if (Backbone.history.getFragment().trim() != "") {
-							$(".app-toolbar").removeClass("on-top");
 							$(".app-content-container .app-index-card:first-child").css("margin-top", "0px");
 						}
 
