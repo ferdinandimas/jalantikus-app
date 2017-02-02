@@ -414,6 +414,14 @@ require(
 			$(document).on("click", ".kategori-close", function () {
 				$(".app-kategori-overlay").removeClass("active")
 				$(".app-kategori-overlay").fadeOut(200);
+				$(".app-kategori").removeClass("active")
+				if (Backbone.history.getFragment().trim() != "") {
+					$("a[href='#"+Backbone.history.getFragment()+"']").addClass("active")
+				}
+				else
+				{
+					$(".terbaik").closest("a").addClass("active")
+				}
 			});
 			$(document).on("click", ".userpanel-close", function () {
 				$(".popup-userpanel").removeClass("active")
