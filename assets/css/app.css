@@ -127,7 +127,7 @@ div, span, a
 	left: 0;
 	bottom: 0;
 	background-color: #fff;
-	height: 100vh;
+	height: 100%;
 }
 .app-content-container
 {
@@ -2093,7 +2093,7 @@ div, span, a
 }
 .ui-panel-open ~ .app-body
 {
-	height: 100vh;
+	height: 100%;
 	overflow: hidden;;
 }
 .app-scroll-button
