@@ -779,6 +779,8 @@ require(
 			if ($(window).height() < 620) {
 				$(".userpanel-body").innerHeight($(window).height() - 120);
 			}
+
+			$("#app-root").innerHeight($(window).height());
 			var supportsOrientationChange = "onorientationchange" in window,
 			    orientationEvent          = supportsOrientationChange ? "orientationchange" : "resize";
 			var orientationChanged        = false;
@@ -791,6 +793,7 @@ require(
 					var intEvt    = setInterval(function () {
 						if ($(window).height() != evtHeight) {
 							evtHeight = $(window).height();
+							$("#app-root").innerHeight(evtHeight)
 						}
 						else {
 							$(".userpanel-body").innerHeight($(window).height() - 120);
