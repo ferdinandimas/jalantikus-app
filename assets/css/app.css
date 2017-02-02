@@ -1847,8 +1847,8 @@ div, span, a
     box-sizing: border-box;
 	-webkit-transform-origin: 155px 210px ;
     transform-origin: 155px 210px;
-    -webkit-transition:  0.3s;
-    transition: 0.3s;
+    -webkit-transition:  0.12s;
+    transition: 0.12s;
     -webkit-transform: scale(0);
 	transform: scale(0);
 }
@@ -2002,6 +2002,17 @@ div, span, a
 	left: 0;
 	height: 40px;
 	width: 70px;
+	background-color: transparent;
+	-webkit-background-repeat: no-repeat;
+	background-repeat: no-repeat;
+	-webkit-background-size: 24px 24px;
+	background-size: 24px 24px;
+	-webkit-background-position: center center;
+	background-position: center center;
+	-webkit-transition: 0s;
+	transition: 0s;
+	-webkit-transform: translate(0);
+	transform: translate(0);
     -webkit-backface-visibility: hidden; 
     -webkit-transform-style: preserve-3d;
     backface-visibility: hidden; 
@@ -2009,27 +2020,23 @@ div, span, a
 }
 .usermenu-item .usermenu-item-detail.tips:after
 {
-	background-color: #00a8ff;
-	-webkit-mask-image: url(../images/tips-icon.svg);
-	mask-image: url(../images/tips-icon.svg);
+	-webkit-background-image: url(../images/tips-icon.png);
+	background-image: url(../images/tips-icon.png);
 }
 .usermenu-item .usermenu-item-detail.gokil:after
 {
-	background-color: #91ce29;
-	-webkit-mask-image: url(../images/gokil-icon.svg);
-	mask-image: url(../images/gokil-icon.svg);
+	-webkit-background-image: url(../images/gokil-icon.png);
+	background-image: url(../images/gokil-icon.png);
 }
 .usermenu-item .usermenu-item-detail.gadget:after
 {
-	background-color: #fa1571;
-	-webkit-mask-image: url(../images/gadgets-icon.svg);
-	mask-image: url(../images/gadgets-icon.svg);
+	-webkit-background-image: url(../images/gadgets-icon.png);
+	background-image: url(../images/gadgets-icon.png);
 }
 .usermenu-item .usermenu-item-detail.news:after
 {
-	background-color: #fa9300;
-	-webkit-mask-image: url(../images/news-icon.svg);
-	mask-image: url(../images/news-icon.svg);
+	-webkit-background-image: url(../images/news-icon.png);
+	background-image: url(../images/news-icon.png);
 }
 .usermenu-item .usermenu-item-detail.rate:after
 {
@@ -3130,18 +3137,12 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 @keyframes grow
 {
 	0% {
-		/*-webkit-transform: translateZ(0) scale(0);
-		transform: translateZ(0) scale(0);*/
 		background-size: 0px;
 	}
 	60%, 65% {
-		/*-webkit-transform: translateZ(0) scale(2);
-		transform: translateZ(0) scale(2);*/
 		background-size: 40px;
 	}
 	100% {
-		/*-webkit-transform: translateZ(0)  scale(1);
-		transform: translateZ(0)  scale(1);*/
 		background-size: 24px;
 	}
 }
