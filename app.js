@@ -230,7 +230,7 @@ require(
 
 					var _focus = setTimeout(function () {
 						$(".searchbar").focus();
-						alert($(".ui-panel-dismiss").height());
+						setTimeout(function () {alert($(".ui-panel-dismiss").height());}, 2000);
 					}, 500);
 				}
 			});
