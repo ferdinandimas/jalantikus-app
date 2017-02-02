@@ -586,17 +586,24 @@ define(
 								that.collection.fetch({
 									timeout: 5000,
 									success: function () {
-										$(".header-refresh").show();
+										var _data = that.collection.toJSON();
 
-										if (that.type != "search") {
-											$("#app-body .app-content-container").empty();
+										if (_data.length > 0) {
+											$(".header-refresh").show();
+
+											if (that.type != "search") {
+												$("#app-body .app-content-container").empty();
+											}
+											$("#app-body .app-content-container")
+													.append('<div class="app-toolbar-placeholder"></div>');
+
+											that.isConnected = true;
+
+											that.render();
 										}
-										$("#app-body .app-content-container")
-											.append('<div class="app-toolbar-placeholder"></div>');
-
-										that.isConnected = true;
-
-										that.render();
+										else {
+											offlineHandler();
+										}
 									},
 									error  : function () {
 										offlineHandler();

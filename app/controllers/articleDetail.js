@@ -203,8 +203,9 @@ define(
 				}
 
 				var forceFetch = setTimeout(function () {
+					console.log("Force");
 					fetch(null);
-				}, 1500);
+				}, 250);
 
 				jtCache.getItem(Backbone.history.getFragment(), function (_data) {
 					fetch(_data);
