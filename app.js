@@ -230,10 +230,14 @@ require(
 
 					var _focus = setTimeout(function () {
 						$(".searchbar").focus();
-						setTimeout(function () {alert($(".ui-panel-dismiss").height());}, 2000);
 					}, 500);
 				}
 			});
+
+			$(window).resize(function(){
+				var min = parseInt($("#app-root").css("min-height"),10);
+				$(".ui-panel-dismiss").css("height", min);
+			})
 
 			$(document).on("click", ".usermenu-item", function (e) {
 				var _currUI = $(this);
