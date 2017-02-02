@@ -775,16 +775,18 @@ require(
 					}
 				}
 			}, 250);
-
-			if ($(window).height() < 620) {
-				$(".userpanel-body").innerHeight($(window).height() - 120);
+			var cWidth = $(window).width();
+			var cHeight = $(window).height();
+			if (cHeight < 620) {
+				$(".userpanel-body").innerHeight(cHeight - 120);
 			}
+			$("#app-root").innerHeight(cHeight);
 
-			$("#app-root").innerHeight($(window).height());
 			var supportsOrientationChange = "onorientationchange" in window,
 			    orientationEvent          = supportsOrientationChange ? "orientationchange" : "resize";
 			var orientationChanged        = false;
 			$(window).on(orientationEvent, function () {
+				alert(orientationEvent)
 				if (!orientationChanged) {
 					orientationChanged = true;
 					$("#app-userpanel").panel("close");
@@ -793,11 +795,11 @@ require(
 					var intEvt    = setInterval(function () {
 						if ($(window).height() != evtHeight) {
 							evtHeight = $(window).height();
-							$("#app-root").innerHeight(evtHeight)
 						}
 						else {
 							$(".userpanel-body").innerHeight($(window).height() - 120);
 							orientationChanged = false;
+							$("#app-root").innerHeight(evtHeight)
 							clearInterval(intEvt);
 						}
 					}, 200)
