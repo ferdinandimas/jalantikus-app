@@ -44,8 +44,8 @@ var jt = function () {
 			}
 			if (!ist) {
 				if (!_currItem.hasClass("fadedin") && !_currItem.hasClass("fadedout")) {
-					_ripple.css('top', rY);
-					_ripple.css('left', rX);
+					// _ripple.css('top', rY);
+					// _ripple.css('left', rX);
 					_currItem.addClass("fadedin");
 					var fdCurr = setTimeout(function () {
 						_currItem.addClass("fadedout");
