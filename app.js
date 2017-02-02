@@ -230,6 +230,7 @@ require(
 
 					var _focus = setTimeout(function () {
 						$(".searchbar").focus();
+						alert($(".ui-panel-dismiss").height());
 					}, 500);
 				}
 			});
@@ -786,7 +787,6 @@ require(
 			    orientationEvent          = supportsOrientationChange ? "orientationchange" : "resize";
 			var orientationChanged        = false;
 			$(window).on(orientationEvent, function () {
-				alert(orientationEvent)
 				if (!orientationChanged) {
 					orientationChanged = true;
 					$("#app-userpanel").panel("close");
