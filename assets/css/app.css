@@ -723,8 +723,8 @@ div, span, a
 }
 .fadedin .ripple
 {
-	-webkit-transition: opacity 300ms linear;
-    transition: opacity 300ms linear;
+	-webkit-transition: opacity 200ms linear;
+    transition: opacity 200ms linear;
 	opacity: 0.8;
 }
 .fadedin.fadedout .ripple
@@ -1841,10 +1841,11 @@ div, span, a
     box-sizing: border-box;
 	-webkit-transform-origin: 155px 210px ;
     transform-origin: 155px 210px;
-    -webkit-transition:  0.12s;
-    transition: 0.12s;
-    -webkit-transform: scale(0);
-	transform: scale(0);
+    -webkit-transition:  0.2s;
+    transition: 0.2s;
+    opacity: 0;
+    /*-webkit-transform: scale(0);*/
+	/*transform: scale(0);*/
 }
 .popup-kategori .usermenu-item
 {
@@ -1876,8 +1877,9 @@ div, span, a
 }
 .app-kategori-overlay.active .popup-kategori
 {
-	-webkit-transform: scale(1);
-	transform: scale(1);
+	opacity: 1;
+	/*-webkit-transform: scale(1);*/
+	/*transform: scale(1);*/
 }
 .app-kategori-overlay .kategori-close
 {
