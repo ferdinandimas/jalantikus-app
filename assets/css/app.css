@@ -1404,7 +1404,7 @@ div, span, a
 {
 	display: none; 
     position: fixed;
-    top: 200px;
+    top: 135px;
     text-align: center;
     padding: 10px 20px;
     margin: auto;
@@ -2749,8 +2749,8 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	-webkit-mask-repeat: no-repeat;
 	mask-repeat: no-repeat;
 	transform-origin: center;
-	-webkit-transform: translate(0) scale(0);
-	transform: translate(0) scale(0);
+	-webkit-transform: translateZ(0) scale(0);
+	transform: translateZ(0) scale(0);
 	-webkit-transition: 0.2s;
 	transition: 0.2s;
     -webkit-backface-visibility: hidden; 
