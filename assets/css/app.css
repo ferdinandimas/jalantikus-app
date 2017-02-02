@@ -2737,20 +2737,20 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 .app-addtofavorite .app-goto:after
 {
 	position: absolute;
-	width: 30px;
-	height: 30px;
+	width: 40px;
+	height: 40px;
 	content: "";
-	top: 4px;
-	right: 15px;
-	-webkit-mask-image: url(../images/user-favorited-icon.svg);
-	mask-image: url(../images/user-favorited-icon.svg);
-	-webkit-mask-position: center center;
-	mask-position: center center;
-	-webkit-mask-repeat: no-repeat;
-	mask-repeat: no-repeat;
+	top: 0;
+	right: 6px;
+	-webkit-background-image: url(../images/user-favorited-icon.png);
+	background-image: url(../images/user-favorited-icon.png);
+	-webkit-background-position: center center;
+	background-position: center center;
+	-webkit-background-repeat: no-repeat;
+	background-repeat: no-repeat;
 	transform-origin: center;
-	-webkit-transform: translateZ(0) scale(0);
-	transform: translateZ(0) scale(0);
+	-webkit-background-size: 0;
+	background-size: 0;
 	-webkit-transition: 0.2s;
 	transition: 0.2s;
     -webkit-backface-visibility: hidden; 
@@ -2761,11 +2761,11 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 .app-addtofavorite:before
 {
     position: absolute;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     content: "";
-    top: 4px;
-    right: 15px;
+    top: 0;
+    right: 6px;
     background-color: #c92737;
     -webkit-mask-image: url(../images/user-favorite-icon.svg);
     mask-image: url(../images/user-favorite-icon.svg);
@@ -2783,17 +2783,11 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     backface-visibility: hidden; 
     transform-style: preserve-3d;
 }
-.app-addtofavorite .app-goto:after
-{
-	-webkit-mask-size: 24px;
-	mask-size: 24px;
-	background-color: #c92737;
-}
 .app-addtofavorite.active .app-goto:after
 {
 	animation: grow 0.4s linear;
-	-webkit-transform: translateZ(0) scale(1);
-	transform: translateZ(0) scale(1);
+	-webkit-background-size: 24px;
+	background-size: 24px;
 }
 .favorite-empty
 {
@@ -3136,17 +3130,19 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 @keyframes grow
 {
 	0% {
-		-webkit-transform: translateZ(0) scale(0);
-		transform: translateZ(0) scale(0);
+		/*-webkit-transform: translateZ(0) scale(0);
+		transform: translateZ(0) scale(0);*/
+		background-size: 0px;
 	}
 	60%, 65% {
-		-webkit-transform: translateZ(0) scale(2);
-		transform: translateZ(0) scale(2);
-    	
+		/*-webkit-transform: translateZ(0) scale(2);
+		transform: translateZ(0) scale(2);*/
+		background-size: 40px;
 	}
 	100% {
-		-webkit-transform: translateZ(0)  scale(1);
-		transform: translateZ(0)  scale(1);
+		/*-webkit-transform: translateZ(0)  scale(1);
+		transform: translateZ(0)  scale(1);*/
+		background-size: 24px;
 	}
 }
 
