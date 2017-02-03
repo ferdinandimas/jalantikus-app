@@ -76,21 +76,17 @@ define(
 						$("#app-toolbar").addClass("disukai");
 
 						jtCache.listItem("data", function (_data) {
-							alert("CALLBACK " + _data.length);
 							if (_data.length > 0) {
 								var _buff = [];
 
 								$.each(_data, function (key, val) {
-									alert(val.value);
 									if (val != null && typeof val.value != "undefined") {
-										alert("BUFF PUSH");
 										_buff.push(val);
 									}
 								});
 
 								key = 0;
 								Promise.all(_buff.map(function (val) {
-									alert("PROMISE START");
 									article = JSON.parse(val.value);
 
 									if (typeof article != "object") {
@@ -98,18 +94,14 @@ define(
 									}
 
 									if (val.expired == "true" && !jt.isOffline() && typeof article.slug != "undefined") {
-										alert("UPDATE FAVORITE START");
 										updateFavoriteArticle(article.slug);
-										alert("UPDATE FAVORITE FINISH");
 									}
 
 									_buff[ key ]      = article;
 									_buff[ key ].type = "favorite";
 
 									key++;
-									alert("PROMISE END");
 								})).then(function () {
-									alert("PROMISE FINISH");
 									$("#app-body .app-content-container .card-placeholder").remove();
 									$("#app-body .app-content-container").empty()
 										.append('<div class="app-toolbar-placeholder"></div>')
@@ -127,13 +119,10 @@ define(
 								});
 
 								function updateFavoriteArticle(_slug) {
-									alert("UPDATING START");
 									var dfd = jQuery.Deferred();
 
 									jtCache.getItem("article." + _slug, function (_data) {
-										alert("UPDATING CALLBACK");
 										if (_data == null || _data.expired == "true") {
-											alert("UPDATING CALLBACK 1");
 											that.articleModel = new Article({
 												slug: _slug
 											});
@@ -141,7 +130,6 @@ define(
 											that.articleModel.fetch({
 												timeout: 5000,
 												success: function (_data) {
-													alert("UPDATING SUCCESS");
 													jtCache.setItem("article." + _slug,
 														JSON.stringify(_data),
 														null,
@@ -152,14 +140,13 @@ define(
 																window.PERSISTENT,
 																null,
 																function () {
-																	//dfd.resolve();
+																	dfd.resolve();
 																});
 														});
 
 													dfd.resolve();
 												},
 												error  : function () {
-													alert("UPDATING ERROR");
 													$(".app-content-container .app-load").removeClass("loading");
 
 													dfd.resolve();
@@ -167,17 +154,13 @@ define(
 											});
 										}
 										else {
-											alert("UPDATING CALLBACK 2");
-
 											jtCache.setItem("favorite/article." + _slug,
 												_data.value,
 												window.PERSISTENT,
 												null,
 												function () {
-													//dfd.resolve();
+													dfd.resolve();
 												});
-
-											dfd.resolve();
 										}
 									});
 
