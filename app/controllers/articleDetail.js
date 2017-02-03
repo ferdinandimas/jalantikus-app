@@ -203,7 +203,6 @@ define(
 				}
 
 				var forceFetch = setTimeout(function () {
-					console.log("Force");
 					fetch(null);
 				}, 250);
 

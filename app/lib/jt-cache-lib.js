@@ -435,15 +435,15 @@ var jtCache = function () {
 										deferred.resolve();
 									}
 									else {
-										var _isResolved = false;
-
-										setTimeout(function () {
-											if (!_isResolved) {
-												console.log("timeout");
-												_isResolved = true;
-												deferred.resolve();
-											}
-										}, 500);
+										//var _isResolved = false;
+										//
+										//setTimeout(function () {
+										//	if (!_isResolved) {
+										//		console.log("timeout");
+										//		_isResolved = true;
+										//		deferred.resolve();
+										//	}
+										//}, 500);
 
 										jtCache.getItem(val.name.replace(".json", ""), function (article) {
 											if (article == null) {
@@ -453,10 +453,10 @@ var jtCache = function () {
 												result.push(article);
 											}
 
-											if (!_isResolved) {
-												_isResolved = true;
+											//if (!_isResolved) {
+											//	_isResolved = true;
 												deferred.resolve();
-											}
+											//}
 										}, type);
 									}
 								}
