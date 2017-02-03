@@ -605,7 +605,7 @@ require(
 
 				if (!$(that).parent().hasClass("active")) {
 					if (window.sessionStorage.getItem("currentArticle") != null) {
-						jtCache.setItem("favorite/" + Backbone.history.getFragment(), _data.value, window.PERSISTENT, null, function () {
+						jtCache.setItem("favorite/" + Backbone.history.getFragment(), window.sessionStorage.getItem("currentArticle"), window.PERSISTENT, null, function () {
 							$(that).parent().addClass("active");
 
 							$(".app-refreshed").html("Anda menyukai artikel ini").fadeIn();
