@@ -139,6 +139,7 @@ define(
 											that.articleModel.fetch({
 												timeout: 5000,
 												success: function (_data) {
+													alert("UPDATING SUCCESS");
 													jtCache.setItem("article." + _slug,
 														JSON.stringify(_data),
 														null,
@@ -149,11 +150,14 @@ define(
 																window.PERSISTENT,
 																null,
 																function () {
-																	dfd.resolve();
+																	//dfd.resolve();
 																});
 														});
+
+													dfd.resolve();
 												},
 												error  : function () {
+													alert("UPDATING ERROR");
 													$(".app-content-container .app-load").removeClass("loading");
 
 													dfd.resolve();
@@ -166,8 +170,10 @@ define(
 												window.PERSISTENT,
 												null,
 												function () {
-													dfd.resolve();
+													//dfd.resolve();
 												});
+
+											dfd.resolve();
 										}
 									});
 
