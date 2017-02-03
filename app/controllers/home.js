@@ -84,29 +84,29 @@ define(
 									_buff.push(val);
 								});
 
-								key = 0;
-								Promise.all(_buff.map(function (val) {
-									alert("PROMISE START");
-									if (typeof val != "undefined" && val != null) {
-										article = JSON.parse(val.value);
-
-										if (typeof article != "object") {
-											article = JSON.parse(article);
-										}
-
-										if ((val.expired == "true" && !jt.isOffline() && typeof article.slug != "undefined") || 1 == 1) {
-											alert("UPDATE FAVORITE START");
-											updateFavoriteArticle(article.slug);
-											alert("UPDATE FAVORITE FINISH");
-										}
-
-										_buff[ key ]      = article;
-										_buff[ key ].type = "favorite";
-
-										key++;
-									}
-									alert("PROMISE END");
-								})).then(function () {
+								//key = 0;
+								//Promise.all(_buff.map(function (val) {
+								//	alert("PROMISE START");
+								//	if (typeof val != "undefined" && val != null) {
+								//		article = JSON.parse(val.value);
+								//
+								//		if (typeof article != "object") {
+								//			article = JSON.parse(article);
+								//		}
+								//
+								//		if ((val.expired == "true" && !jt.isOffline() && typeof article.slug != "undefined") || 1 == 1) {
+								//			alert("UPDATE FAVORITE START");
+								//			updateFavoriteArticle(article.slug);
+								//			alert("UPDATE FAVORITE FINISH");
+								//		}
+								//
+								//		_buff[ key ]      = article;
+								//		_buff[ key ].type = "favorite";
+								//
+								//		key++;
+								//	}
+								//	alert("PROMISE END");
+								//})).then(function () {
 									alert("PROMISE FINISH");
 									$("#app-body .app-content-container .card-placeholder").remove();
 									$("#app-body .app-content-container").empty()
@@ -122,7 +122,7 @@ define(
 									}
 
 									finishedRendering();
-								});
+								//});
 
 								function updateFavoriteArticle(_slug) {
 									alert("UPDATING START");
