@@ -472,7 +472,9 @@ var jtCache = function () {
 
 								return deferred.promise();
 							})).then(function () {
+								alert("RESOLVED FINISH");
 								if (typeof callback == "function") {
+									alert("CALLBACK");
 									callback(result);
 								}
 							});
