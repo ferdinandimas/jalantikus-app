@@ -605,7 +605,7 @@ require(
 
 				if (!$(that).parent().hasClass("active")) {
 					if (window.sessionStorage.getItem("currentArticle") != null) {
-						jtCache.setItem("favorite/" + Backbone.history.getFragment(), _data.value, window.PERSISTENT, null);
+						jtCache.setItem("favorite/" + Backbone.history.getFragment(), window.sessionStorage.getItem("currentArticle"), window.PERSISTENT, null);
 
 						$(that).parent().addClass("active");
 
@@ -623,7 +623,7 @@ require(
 				}
 				else {
 					jtCache.removeItem("favorite/" + Backbone.history.getFragment(), window.PERSISTENT);
-					
+
 					$(that).parent().removeClass("active");
 				}
 			});
