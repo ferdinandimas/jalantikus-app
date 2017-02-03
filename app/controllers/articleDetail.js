@@ -74,6 +74,8 @@ define(
 						isFetched = true;
 
 						if (typeof _data != "undefined" && _data != null && typeof _data.value != "undefined" && _data.value != null) {
+							window.sessionStorage.setItem("currentArticle", _data.value);
+
 							var _buff = JSON.parse(_data.value);
 						}
 
@@ -84,8 +86,11 @@ define(
 									success: function () {
 										_buff = _data = that.model.toJSON();
 
+										window.sessionStorage.setItem("currentArticle", JSON.stringify(_data));
+
 										jtCache.removeItem(Backbone.history.getFragment(), null, function () {
 											jtCache.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
+											console.log("LIVE", JSON.stringify(_data));
 										});
 
 										that.render(_buff);

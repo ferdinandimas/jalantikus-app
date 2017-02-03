@@ -604,29 +604,27 @@ require(
 				var that = this;
 
 				if (!$(that).parent().hasClass("active")) {
-					jtCache.getItem(Backbone.history.getFragment(), function(_data) {
-						if (_data != null) {
-							jtCache.setItem("favorite/" + Backbone.history.getFragment(), _data.value, window.PERSISTENT, null, function () {
-								$(that).parent().addClass("active");
+					if (window.sessionStorage.getItem("currentArticle") != null) {
+						jtCache.setItem("favorite/" + Backbone.history.getFragment(), _data.value, window.PERSISTENT, null);
 
-								$(".app-refreshed").html("Anda menyukai artikel ini").fadeIn();
-								setTimeout(function () {
-									$(".app-refreshed").fadeOut();
-								}, 2000);
-							});
-						}
-						else {
-							$(".app-refreshed").html("Artikel tidak berhasil disukai").fadeIn();
-							setTimeout(function () {
-								$(".app-refreshed").fadeOut();
-							}, 2000);
-						}
-					});
+						$(that).parent().addClass("active");
+
+						$(".app-refreshed").html("Anda menyukai artikel ini").fadeIn();
+						setTimeout(function () {
+							$(".app-refreshed").fadeOut();
+						}, 2000);
+					}
+					else {
+						$(".app-refreshed").html("Artikel tidak berhasil disukai").fadeIn();
+						setTimeout(function () {
+							$(".app-refreshed").fadeOut();
+						}, 2000);
+					}
 				}
 				else {
-					jtCache.removeItem("favorite/" + Backbone.history.getFragment(), window.PERSISTENT, function () {
-						$(that).parent().removeClass("active");
-					});
+					jtCache.removeItem("favorite/" + Backbone.history.getFragment(), window.PERSISTENT);
+					
+					$(that).parent().removeClass("active");
 				}
 			});
 
