@@ -121,13 +121,13 @@ div, span, a
 
 .app-body
 {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	right: 0;
 	left: 0;
 	bottom: 0;
 	background-color: #fff;
-	height: 100%;
+	height: 100vh;
 }
 .app-content-container
 {
@@ -2040,10 +2040,12 @@ div, span, a
 	left: 0;
 	height: 32px;
 	width: 50px;
-	-webkit-mask-size: 20px 20px;
-	mask-size: 20px 20px;
-	-webkit-mask-image: url(../images/rate-icon.svg);
-	mask-image: url(../images/rate-icon.svg);
+	-webkit-background-size: 20px 20px;
+	background-size: 20px 20px;
+	background-color: transparent;
+	background-image: url(../images/rate-icon.png);
+    background-position: center;
+    background-repeat: no-repeat;
     -webkit-backface-visibility: hidden; 
     -webkit-transform-style: preserve-3d;
     backface-visibility: hidden; 
@@ -2064,10 +2066,12 @@ div, span, a
 	left: 0;
 	width: 50px;
 	height: 36px;
-	-webkit-mask-size: 20px 20px;
-	mask-size: 20px 20px;
-	-webkit-mask-image: url(../images/settings-icon.svg);
-	mask-image: url(../images/settings-icon.svg);
+	-webkit-background-size: 20px 20px;
+	background-size: 20px 20px;
+	background-color: transparent;
+	background-image: url(../images/settings-icon.png);
+    background-position: center;
+    background-repeat: no-repeat;
     -webkit-backface-visibility: hidden; 
     -webkit-transform-style: preserve-3d;
     backface-visibility: hidden; 
@@ -2095,8 +2099,16 @@ div, span, a
 }
 .ui-panel-open ~ .app-body
 {
-	height: 100%;
+	height: 100vh;
 	overflow: hidden;;
+}
+.ui-panel-open ~ .usermenu-lower
+{
+	bottom: -50px;
+}
+.ui-panel-open ~ .app-body .app-content-container
+{
+	height: calc(100% - 50px)
 }
 .app-scroll-button
 {
