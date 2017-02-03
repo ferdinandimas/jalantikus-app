@@ -2109,7 +2109,6 @@ div, span, a
 .ui-panel-open ~ .app-body .app-content-container
 {
 	height: 100%;
-	margin-top: 0;
 }
 .app-scroll-button
 {
