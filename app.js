@@ -98,7 +98,7 @@ require(
 				}
 
 				document.addEventListener("backbutton", function (e) {
-					window.stop();
+					//window.stop();
 					$.xhrPool.abortAll();
 
 					fragment = Backbone.history.getFragment();
@@ -251,7 +251,7 @@ require(
 			});
 
 			$(document).on("click", ".app-header .app-toggle-back", function (e) {
-				window.stop();
+				//window.stop();
 				$.xhrPool.abortAll();
 
 				e.preventDefault();
@@ -267,7 +267,7 @@ require(
 					if (!$(this).hasClass("app-retry")) {
 						$.xhrPool.abortAll();
 					}
-					window.stop();
+					//window.stop();
 				}
 			});
 
@@ -605,14 +605,14 @@ require(
 
 				if (!$(that).parent().hasClass("active")) {
 					if (window.sessionStorage.getItem("currentArticle") != null) {
-						jtCache.setItem("favorite/" + Backbone.history.getFragment(), window.sessionStorage.getItem("currentArticle"), window.PERSISTENT, null);
+						jtCache.setItem("favorite/" + Backbone.history.getFragment(), _data.value, window.PERSISTENT, null, function () {
+							$(that).parent().addClass("active");
 
-						$(that).parent().addClass("active");
-
-						$(".app-refreshed").html("Anda menyukai artikel ini").fadeIn();
-						setTimeout(function () {
-							$(".app-refreshed").fadeOut();
-						}, 2000);
+							$(".app-refreshed").html("Anda menyukai artikel ini").fadeIn();
+							setTimeout(function () {
+								$(".app-refreshed").fadeOut();
+							}, 2000);
+						});
 					}
 					else {
 						$(".app-refreshed").html("Artikel tidak berhasil disukai").fadeIn();
@@ -622,9 +622,9 @@ require(
 					}
 				}
 				else {
-					jtCache.removeItem("favorite/" + Backbone.history.getFragment(), window.PERSISTENT);
-
-					$(that).parent().removeClass("active");
+					jtCache.removeItem("favorite/" + Backbone.history.getFragment(), window.PERSISTENT, function () {
+						$(that).parent().removeClass("active");
+					});
 				}
 			});
 
