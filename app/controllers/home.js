@@ -82,7 +82,7 @@ define(
 
 								$.each(_data, function (key, val) {
 									alert(val.value);
-									if (typeof val != "undefined") {
+									if (val != null && typeof val.value != "undefined") {
 										alert("BUFF PUSH");
 										_buff.push(val);
 									}
