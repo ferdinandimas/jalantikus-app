@@ -82,33 +82,31 @@ define(
 
 								$.each(_data, function (key, val) {
 									alert(val.value);
-									_buff.push(val);
+									if (typeof val != "undefined") {
+										alert("BUFF PUSH");
+										_buff.push(val);
+									}
 								});
 
 								key = 0;
 								Promise.all(_buff.map(function (val) {
 									alert("PROMISE START");
-									if (typeof val != "undefined" && val != null) {
-										article = JSON.parse(val.value);
+									article = JSON.parse(val.value);
 
-										if (typeof article != "object") {
-											article = JSON.parse(article);
-										}
-
-										if (val.expired == "true" && !jt.isOffline() && typeof article.slug != "undefined") {
-											alert("UPDATE FAVORITE START");
-											updateFavoriteArticle(article.slug);
-											alert("UPDATE FAVORITE FINISH");
-										}
-
-										_buff[ key ]      = article;
-										_buff[ key ].type = "favorite";
-
-										key++;
+									if (typeof article != "object") {
+										article = JSON.parse(article);
 									}
-									else {
-										_buff.splice(key, 1);
+
+									if (val.expired == "true" && !jt.isOffline() && typeof article.slug != "undefined") {
+										alert("UPDATE FAVORITE START");
+										updateFavoriteArticle(article.slug);
+										alert("UPDATE FAVORITE FINISH");
 									}
+
+									_buff[ key ]      = article;
+									_buff[ key ].type = "favorite";
+
+									key++;
 									alert("PROMISE END");
 								})).then(function () {
 									alert("PROMISE FINISH");
