@@ -82,6 +82,10 @@ var jtCache = function () {
 						if (isSubfoldering = false) {
 							fs.root.getDirectory(_segment[ 0 ], {create: true, exclusive: false}, function(fs) {
 								createFile(fs);
+
+								if (typeof callback == "function") {
+									callback();
+								}
 							}, function () {
 								if (typeof callback == "function") {
 									callback();
@@ -91,6 +95,10 @@ var jtCache = function () {
 						else {
 							fs.root.getDirectory("data", {create: true, exclusive: false}, function(fs) {
 								createFile(fs);
+
+								if (typeof callback == "function") {
+									callback();
+								}
 							}, function () {
 								if (typeof callback == "function") {
 									callback();
@@ -105,23 +113,33 @@ var jtCache = function () {
 				}
 				else {
 					createFile();
+
+					if (typeof callback == "function") {
+						callback();
+					}
 				}
 
 				function createFile(_fs) {
+					var dfd = jQuery.Deferred();
+
 					if (typeof _fs == "undefined") {
 						window.requestFileSystem(type, size, function (fs) {
 							create(fs.root);
+
+							dfd.resolve();
 						}, function () {
-							if (typeof callback == "function") {
-								callback();
-							}
+							dfd.resolve();
 						});
 					}
 					else {
 						create(_fs);
+
+						dfd.resolve();
 					}
 
 					function create(fs) {
+						var dfd = jQuery.Deferred();
+
 						jtCache.removeItem(_cacheKey, type, function () {
 							fs.getFile(cacheKey, { create: true }, function (fileEntry) {
 								fileEntry.createWriter(function (fileWriter) {
@@ -130,17 +148,13 @@ var jtCache = function () {
 											//console.log("Write success: " + cacheKey, buffValue);
 											jt.log("Write success: " + cacheKey);
 
-											if (typeof callback == "function") {
-												callback();
-											}
+											dfd.resolve();
 										};
 
 										fileWriter.onerror = function (e) {
 											console.log("Write failed: " + e.toString(), e);
 
-											if (typeof callback == "function") {
-												callback();
-											}
+											dfd.resolve();
 										};
 
 										if (data.type == "blob") {
@@ -156,22 +170,20 @@ var jtCache = function () {
 									catch (e) {
 										console.log("Write failed 2: " + e.toString(), e);
 
-										if (typeof callback == "function") {
-											callback();
-										}
+										dfd.resolve();
 									}
 								}, function () {
-									if (typeof callback == "function") {
-										callback();
-									}
+									dfd.resolve();
 								});
 							}, function () {
-								if (typeof callback == "function") {
-									callback();
-								}
+								dfd.resolve();
 							});
 						});
+
+						return dfd.promise();
 					}
+
+					return dfd.promise();
 				}
 			}
 			else {
@@ -358,6 +370,10 @@ var jtCache = function () {
 						if (isSubfoldering = false) {
 							fs.root.getDirectory(_segment[ 0 ], {}, function(fs) {
 								removeFile(fs);
+
+								if (typeof callback == "function") {
+									callback();
+								}
 							}, function () {
 								if (typeof callback == "function") {
 									callback();
@@ -367,6 +383,10 @@ var jtCache = function () {
 						else {
 							fs.root.getDirectory("data", {}, function(fs) {
 								removeFile(fs);
+
+								if (typeof callback == "function") {
+									callback();
+								}
 							}, function () {
 								if (typeof callback == "function") {
 									callback();
@@ -381,43 +401,51 @@ var jtCache = function () {
 				}
 				else {
 					removeFile();
+
+					if (typeof callback == "function") {
+						callback();
+					}
 				}
 
 				function removeFile(_fs) {
+					var dfd = jQuery.Deferred();
+
 					if (typeof _fs == "undefined") {
 						window.requestFileSystem(type, size, function (fs) {
 							remove(fs.root);
+
+							dfd.resolve();
 						}, function () {
-							if (typeof callback == "function") {
-								callback();
-							}
+							dfd.resolve();
 						});
 					}
 					else {
 						remove(_fs);
+
+						dfd.resolve();
 					}
 
 					function remove(fs) {
+						var dfd = jQuery.Deferred();
+
 						fs.getFile(cacheKey, {}, function (fileEntry) {
 
 							fileEntry.remove(function (file) {
 								jt.log("Remove success: " + cacheKey);
 
-								if (typeof callback == "function") {
-									callback();
-								}
+								dfd.resolve();
 							}, function () {
-								if (typeof callback == "function") {
-									callback();
-								}
+								dfd.resolve();
 							});
 
 						}, function () {
-							if (typeof callback == "function") {
-								callback();
-							}
+							dfd.resolve();
 						});
+
+						return dfd.promise();
 					}
+
+					return dfd.promise();
 				}
 			}
 			else {
@@ -453,16 +481,6 @@ var jtCache = function () {
 										deferred.resolve();
 									}
 									else {
-										//var _isResolved = false;
-										//
-										//setTimeout(function () {
-										//	if (!_isResolved) {
-										//		console.log("timeout");
-										//		_isResolved = true;
-										//		deferred.resolve();
-										//	}
-										//}, 500);
-
 										jtCache.getItem(val.name.replace(".json", ""), function (article) {
 											if (article == null) {
 												result.push(_buff);
@@ -471,11 +489,7 @@ var jtCache = function () {
 												result.push(article);
 											}
 
-											//if (!_isResolved) {
-											//	_isResolved = true;
-
-												deferred.resolve();
-											//}
+											deferred.resolve();
 										}, type);
 									}
 								}

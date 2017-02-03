@@ -580,7 +580,7 @@ define(
 
 									$(".app-loader").removeClass("showbtn");
 
-									that.autoload("");
+									that.autoload("retry");
 								});
 							}
 
@@ -823,7 +823,8 @@ define(
 						_buff = JSON.parse(that._articleList);
 					}
 
-					if (typeof _autoloadFragment == "undefined" || _autoloadFragment == "") {
+					if (typeof _autoloadFragment == "undefined" || _autoloadFragment == "retry") {
+						console.log("HERE");
 						_data[ 0 ].isFirst = true;
 					}
 
@@ -1004,7 +1005,7 @@ define(
 
 							$(".app-loader").removeClass("showbtn");
 
-							that.autoload("");
+							that.autoload("retry");
 						});
 					}
 				}
@@ -1136,8 +1137,7 @@ define(
 								$(".header-refresh").show();
 								$(".app-content-container .app-loader").remove();
 
-								that.render(null,
-									typeof _autoloadFragment != "undefined" ? _autoloadFragment : Backbone.history.getFragment());
+								that.render(null, typeof _autoloadFragment != "undefined" ? _autoloadFragment : Backbone.history.getFragment());
 
 								that.page = that.page + 1;
 
