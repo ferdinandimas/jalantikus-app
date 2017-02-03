@@ -81,7 +81,6 @@ define(
 								var _buff = [];
 
 								$.each(_data, function (key, val) {
-									alert(val.title);
 									_buff.push(val);
 								});
 
@@ -132,6 +131,7 @@ define(
 									jtCache.getItem("article." + _slug, function (_data) {
 										alert("UPDATING CALLBACK");
 										if (_data == null || _data.expired == "true") {
+											alert("UPDATING CALLBACK 1");
 											that.articleModel = new Article({
 												slug: _slug
 											});
@@ -165,6 +165,8 @@ define(
 											});
 										}
 										else {
+											alert("UPDATING CALLBACK 2");
+
 											jtCache.setItem("favorite/article." + _slug,
 												_data.value,
 												window.PERSISTENT,

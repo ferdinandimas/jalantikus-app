@@ -441,11 +441,8 @@ var jtCache = function () {
 						reader.readEntries(function (entries) {
 							var result = [];
 
-							alert("START LIST");
 							Promise.all(entries.map(function (val) {
 								var deferred = $.Deferred();
-
-								alert("LIST");
 
 								var _buff = val;
 
@@ -466,7 +463,6 @@ var jtCache = function () {
 										//	}
 										//}, 500);
 
-										alert("LIST GET " + val.name.replace(".json", ""));
 										jtCache.getItem(val.name.replace(".json", ""), function (article) {
 											if (article == null) {
 												result.push(_buff);
@@ -478,7 +474,6 @@ var jtCache = function () {
 											//if (!_isResolved) {
 											//	_isResolved = true;
 
-												alert("LIST RESOLVED " + val.name.replace(".json", ""));
 												deferred.resolve();
 											//}
 										}, type);
@@ -490,9 +485,7 @@ var jtCache = function () {
 
 								return deferred.promise();
 							})).then(function () {
-								alert("RESOLVED FINISH");
 								if (typeof callback == "function") {
-									alert("CALLBACK");
 									callback(result);
 								}
 							});
