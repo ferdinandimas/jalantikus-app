@@ -253,6 +253,11 @@ var jtCache = function () {
 												}
 											}
 										}
+										else {
+											if (typeof callback == "function") {
+												callback(null);
+											}
+										}
 									};
 
 									reader.onerror = function (e) {
@@ -448,7 +453,7 @@ var jtCache = function () {
 										//	}
 										//}, 500);
 
-										alert("LIST GET");
+										alert("LIST GET " + val.name.replace(".json", ""));
 										jtCache.getItem(val.name.replace(".json", ""), function (article) {
 											if (article == null) {
 												result.push(_buff);
@@ -460,7 +465,7 @@ var jtCache = function () {
 											//if (!_isResolved) {
 											//	_isResolved = true;
 
-												alert("LIST RESOLVED");
+												alert("LIST RESOLVED " + val.name.replace(".json", ""));
 												deferred.resolve();
 											//}
 										}, type);
