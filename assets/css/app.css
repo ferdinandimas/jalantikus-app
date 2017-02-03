@@ -2098,6 +2098,14 @@ div, span, a
 	height: 100%;
 	overflow: hidden;;
 }
+.ui-panel-open ~ .usermenu-lower
+{
+	bottom: -50px;
+}
+.ui-panel-open ~ .app-body .app-content-container
+{
+	height: calc(100% - 50px)
+}
 .app-scroll-button
 {
 	display: none;

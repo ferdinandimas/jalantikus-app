@@ -777,6 +777,7 @@ require(
 			}, 250);
 			var cWidth = $(window).width();
 			var cHeight = $(window).height();
+
 			if (cHeight < 620) {
 				$(".userpanel-body").innerHeight(cHeight - 120);
 			}
