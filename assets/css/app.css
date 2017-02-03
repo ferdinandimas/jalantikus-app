@@ -134,8 +134,8 @@ div, span, a
 	margin-top: 50px;
 	height: calc(100% - 100px);
 	overflow-y: scroll;
-	/*-webkit-transition: 0.2s linear;*/
-	/*transition: 0.2s linear;*/
+	-webkit-transition: 0.2s linear;
+	transition: 0.2s linear;
 	box-sizing: border-box;
 }
 .app-index-card
