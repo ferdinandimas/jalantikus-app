@@ -703,9 +703,9 @@ define(
 						}
 					}, 2000);
 
-					$("#iframe-jalantikus").on("load", function () {
-						$(".app-scroll-button").fadeIn();
-					});
+					// $("#iframe-jalantikus").on("load", function () {
+					// 	$(".app-scroll-button").fadeIn();
+					// });
 
 					$(".app-body a").on("click", function (e) {
 						if ((jt.isOffline() && !$(this).hasClass("share") && !$(this).hasClass("app-goto") && !$(this).hasClass("app-home") && !$(this).hasClass("app-toggle-back"))) {
