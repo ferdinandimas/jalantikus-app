@@ -84,7 +84,7 @@ var jtCache = function () {
 								createFile(fs);
 							}, function () {
 								if (typeof callback == "function") {
-									callback(null);
+									callback();
 								}
 							});
 						}
@@ -93,13 +93,13 @@ var jtCache = function () {
 								createFile(fs);
 							}, function () {
 								if (typeof callback == "function") {
-									callback(null);
+									callback();
 								}
 							});
 						}
 					}, function () {
 						if (typeof callback == "function") {
-							callback(null);
+							callback();
 						}
 					});
 				}
@@ -113,7 +113,7 @@ var jtCache = function () {
 							create(fs.root);
 						}, function () {
 							if (typeof callback == "function") {
-								callback(null);
+								callback();
 							}
 						});
 					}
@@ -157,17 +157,17 @@ var jtCache = function () {
 										console.log("Write failed 2: " + e.toString(), e);
 
 										if (typeof callback == "function") {
-											callback(null);
+											callback();
 										}
 									}
 								}, function () {
 									if (typeof callback == "function") {
-										callback(null);
+										callback();
 									}
 								});
 							}, function () {
 								if (typeof callback == "function") {
-									callback(null);
+									callback();
 								}
 							});
 						});
@@ -178,7 +178,7 @@ var jtCache = function () {
 				window.sessionStorage.setItem(cacheKey, cacheValue);
 
 				if (typeof callback == "function") {
-					callback(null);
+					callback();
 				}
 			}
 		},
@@ -360,7 +360,7 @@ var jtCache = function () {
 								removeFile(fs);
 							}, function () {
 								if (typeof callback == "function") {
-									callback(null);
+									callback();
 								}
 							});
 						}
@@ -369,13 +369,13 @@ var jtCache = function () {
 								removeFile(fs);
 							}, function () {
 								if (typeof callback == "function") {
-									callback(null);
+									callback();
 								}
 							});
 						}
 					}, function () {
 						if (typeof callback == "function") {
-							callback(null);
+							callback();
 						}
 					});
 				}
@@ -389,7 +389,7 @@ var jtCache = function () {
 							remove(fs.root);
 						}, function () {
 							if (typeof callback == "function") {
-								callback(null);
+								callback();
 							}
 						});
 					}
@@ -408,13 +408,13 @@ var jtCache = function () {
 								}
 							}, function () {
 								if (typeof callback == "function") {
-									callback(null);
+									callback();
 								}
 							});
 
 						}, function () {
 							if (typeof callback == "function") {
-								callback(null);
+								callback();
 							}
 						});
 					}
