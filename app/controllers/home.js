@@ -76,15 +76,15 @@ define(
 						$("#app-toolbar").addClass("disukai");
 
 						jtCache.listItem("data", function (_data) {
-							if (_data.length > 0) {
-								var _buff = [];
+							var _buff = [];
 
-								$.each(_data, function (key, val) {
-									if (val != null && typeof val.value != "undefined") {
-										_buff.push(val);
-									}
-								});
+							$.each(_data, function (key, val) {
+								if (val != null && typeof val.value != "undefined") {
+									_buff.push(val);
+								}
+							});
 
+							if (_buff.length > 0) {
 								key = 0;
 								Promise.all(_buff.map(function (val) {
 									article = JSON.parse(val.value);
