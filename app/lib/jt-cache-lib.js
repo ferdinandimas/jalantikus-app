@@ -125,28 +125,41 @@ var jtCache = function () {
 						jtCache.removeItem(_cacheKey, type, function () {
 							fs.getFile(cacheKey, { create: true }, function (fileEntry) {
 								fileEntry.createWriter(function (fileWriter) {
-									fileWriter.onwriteend = function (e) {
-										//console.log("Write success: " + cacheKey, buffValue);
-										jt.log("Write success: " + cacheKey);
+									try {
+										fileWriter.onwriteend = function (e) {
+											//console.log("Write success: " + cacheKey, buffValue);
+											jt.log("Write success: " + cacheKey);
+
+											if (typeof callback == "function") {
+												callback();
+											}
+										};
+
+										fileWriter.onerror = function (e) {
+											console.log("Write failed: " + e.toString(), e);
+
+											if (typeof callback == "function") {
+												callback();
+											}
+										};
+
+										if (data.type == "blob") {
+											//var blob = new Blob([ cacheValue ], { type: data.fileType });
+											var blob = cacheValue;
+										}
+										else {
+											var blob = new Blob([ cacheValue ], { type: "application/json" });
+										}
+
+										fileWriter.write(blob);
+									}
+									catch (e) {
+										console.log("Write failed 2: " + e.toString(), e);
 
 										if (typeof callback == "function") {
-											callback();
+											callback(null);
 										}
-									};
-
-									fileWriter.onerror = function (e) {
-										console.log("Write failed: " + e.toString(), e);
-									};
-
-									if (data.type == "blob") {
-										//var blob = new Blob([ cacheValue ], { type: data.fileType });
-										var blob = cacheValue;
 									}
-									else {
-										var blob = new Blob([ cacheValue ], { type: "application/json" });
-									}
-
-									fileWriter.write(blob);
 								}, function () {
 									if (typeof callback == "function") {
 										callback(null);

@@ -76,15 +76,18 @@ define(
 						$("#app-toolbar").addClass("disukai");
 
 						jtCache.listItem("data", function (_data) {
+							alert("CALLBACK " + _data.length);
 							if (_data.length > 0) {
 								var _buff = [];
 
 								$.each(_data, function (key, val) {
+									alert(val.title);
 									_buff.push(val);
 								});
 
 								key = 0;
 								Promise.all(_buff.map(function (val) {
+									alert("PROMISE START");
 									if (typeof val != "undefined" && val != null) {
 										article = JSON.parse(val.value);
 
@@ -93,7 +96,9 @@ define(
 										}
 
 										if ((val.expired == "true" && !jt.isOffline() && typeof article.slug != "undefined") || 1 == 1) {
+											alert("UPDATE FAVORITE START");
 											updateFavoriteArticle(article.slug);
+											alert("UPDATE FAVORITE FINISH");
 										}
 
 										_buff[ key ]      = article;
@@ -101,7 +106,9 @@ define(
 
 										key++;
 									}
+									alert("PROMISE END");
 								})).then(function () {
+									alert("PROMISE FINISH");
 									$("#app-body .app-content-container .card-placeholder").remove();
 									$("#app-body .app-content-container").empty()
 										.append('<div class="app-toolbar-placeholder"></div>')
