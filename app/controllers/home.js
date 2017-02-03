@@ -126,9 +126,11 @@ define(
 								});
 
 								function updateFavoriteArticle(_slug) {
+									alert("UPDATING START");
 									var dfd = jQuery.Deferred();
 
 									jtCache.getItem("article." + _slug, function (_data) {
+										alert("UPDATING CALLBACK");
 										if (_data == null || _data.expired == "true") {
 											that.articleModel = new Article({
 												slug: _slug
