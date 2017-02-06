@@ -643,7 +643,7 @@ require(
 							$(that).parent().addClass("active");
 
 							if (!$(".app-refreshed").hasClass("active")) {
-								$(".app-refreshed").html("Anda menyimpan artikel ini").fadeIn();
+								$(".app-refreshed").html("Artikel berhasil disimpan").fadeIn();
 								setTimeout(function () {
 									$(".app-refreshed").fadeOut();
 								}, 2000);
