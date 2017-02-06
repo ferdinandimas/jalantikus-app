@@ -485,10 +485,12 @@ require(
 										}
 
 										$("#app-userpanel").panel("close");
-										$(".app-refreshed").html("Notifikasi berhasil dimatikan").fadeIn();
-										setTimeout(function () {
-											$(".app-refreshed").fadeOut();
-										}, 2000);
+										if (!$(".app-refreshed").hasClass("active")) {
+											$(".app-refreshed").html("Notifikasi berhasil dimatikan").fadeIn();
+											setTimeout(function () {
+												$(".app-refreshed").fadeOut();
+											}, 2000);
+										}
 									}
 								},
 								"",
@@ -608,17 +610,21 @@ require(
 						jtCache.setItem("favorite/" + Backbone.history.getFragment(), window.sessionStorage.getItem("currentArticle"), window.PERSISTENT, null, function () {
 							$(that).parent().addClass("active");
 
-							$(".app-refreshed").html("Anda menyukai artikel ini").fadeIn();
-							setTimeout(function () {
-								$(".app-refreshed").fadeOut();
-							}, 2000);
+							if (!$(".app-refreshed").hasClass("active")) {
+								$(".app-refreshed").html("Anda menyukai artikel ini").fadeIn();
+								setTimeout(function () {
+									$(".app-refreshed").fadeOut();
+								}, 2000);
+							}
 						});
 					}
 					else {
-						$(".app-refreshed").html("Artikel tidak berhasil disukai").fadeIn();
-						setTimeout(function () {
-							$(".app-refreshed").fadeOut();
-						}, 2000);
+						if (!$(".app-refreshed").hasClass("active")) {
+							$(".app-refreshed").html("Artikel tidak berhasil disukai").fadeIn();
+							setTimeout(function () {
+								$(".app-refreshed").fadeOut();
+							}, 2000);
+						}
 					}
 				}
 				else {
@@ -636,10 +642,12 @@ require(
 						// jtCache.setItem("favorite/" + Backbone.history.getFragment(), window.sessionStorage.getItem("currentArticle"), window.PERSISTENT, null, function () {
 							$(that).parent().addClass("active");
 
-							$(".app-refreshed").html("Anda menyimpan artikel ini").fadeIn();
-							setTimeout(function () {
-								$(".app-refreshed").fadeOut();
-							}, 2000);
+							if (!$(".app-refreshed").hasClass("active")) {
+								$(".app-refreshed").html("Anda menyimpan artikel ini").fadeIn();
+								setTimeout(function () {
+									$(".app-refreshed").fadeOut();
+								}, 2000);
+							}
 						// });
 					// }
 					// else {
