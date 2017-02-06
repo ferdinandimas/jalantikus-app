@@ -2739,7 +2739,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     position: relative;
     height: 40px;
     border: 1px solid #c6c6c6;
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 16px;
     line-height: 16px;
     padding-right: 40px;
