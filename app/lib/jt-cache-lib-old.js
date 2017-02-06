@@ -78,18 +78,33 @@ var jtCache = function () {
 			if (typeof window.requestFileSystem == "function") {
 				_segment = cacheKey.split(".");
 				if (_segment.length > 2) {
-					if (isSubfoldering = true) {
-						_segment[ 0 ] = "data";
-					}
-
 					window.requestFileSystem(type, 0, function (fs) {
-						fs.root.getDirectory(_segment[ 0 ], {create: true, exclusive: false}, function(fs) {
-							createFile(fs);
-						}, function () {
-							if (typeof callback == "function") {
-								callback();
-							}
-						});
+						if (isSubfoldering = false) {
+							fs.root.getDirectory(_segment[ 0 ], {create: true, exclusive: false}, function(fs) {
+								createFile(fs);
+
+								if (typeof callback == "function") {
+									callback();
+								}
+							}, function () {
+								if (typeof callback == "function") {
+									callback();
+								}
+							});
+						}
+						else {
+							fs.root.getDirectory("data", {create: true, exclusive: false}, function(fs) {
+								createFile(fs);
+
+								if (typeof callback == "function") {
+									callback();
+								}
+							}, function () {
+								if (typeof callback == "function") {
+									callback();
+								}
+							});
+						}
 					}, function () {
 						if (typeof callback == "function") {
 							callback();
@@ -98,90 +113,77 @@ var jtCache = function () {
 				}
 				else {
 					createFile();
+
+					if (typeof callback == "function") {
+						callback();
+					}
 				}
 
 				function createFile(_fs) {
+					var dfd = jQuery.Deferred();
+
 					if (typeof _fs == "undefined") {
 						window.requestFileSystem(type, size, function (fs) {
-							remove(fs.root);
+							create(fs.root);
+
+							dfd.resolve();
 						}, function () {
-							if (typeof callback == "function") {
-								callback();
-							}
+							dfd.resolve();
 						});
 					}
 					else {
-						remove(_fs);
+						create(_fs);
+
+						dfd.resolve();
 					}
-				}
 
-				function remove(fs) {
-					fs.getFile(cacheKey, {}, function (fileEntry) {
-						fileEntry.remove(function (file) {
-							jt.log("Remove success: " + cacheKey);
+					function create(fs) {
+						var dfd = jQuery.Deferred();
 
-							create(fs);
-						}, function () {
-							create(fs);
-						});
-					}, function () {
-						create(fs);
-					});
-				}
+						jtCache.removeItem(_cacheKey, type, function () {
+							fs.getFile(cacheKey, { create: true }, function (fileEntry) {
+								fileEntry.createWriter(function (fileWriter) {
+									try {
+										fileWriter.onwriteend = function (e) {
+											//console.log("Write success: " + cacheKey, buffValue);
+											jt.log("Write success: " + cacheKey);
 
-				function create(fs) {
-					var isFired = false;
+											dfd.resolve();
+										};
 
-					fs.getFile(cacheKey, { create: true }, function (fileEntry) {
-						fileEntry.createWriter(function (fileWriter) {
-							fileWriter.onwriteend = function (e) {
-								jt.log("Write success: " + cacheKey);
+										fileWriter.onerror = function (e) {
+											console.log("Write failed: " + e.toString(), e);
 
-								if (typeof callback == "function") {
-									callback();
-								}
-							};
+											dfd.resolve();
+										};
 
-							fileWriter.onerror = function (e) {
-								if (typeof callback == "function") {
-									callback();
-								}
-							};
+										if (data.type == "blob") {
+											//var blob = new Blob([ cacheValue ], { type: data.fileType });
+											var blob = cacheValue;
+										}
+										else {
+											var blob = new Blob([ cacheValue ], { type: "application/json" });
+										}
 
-							fileWriter.onwritestart = function (e) {
-								isFired = true;
-							};
-
-							setTimeout(function () {
-								if (!isFired) {
-									fileWriter.abort();
-
-									console.log("Write failed: Writer not fired");
-
-									if (typeof callback == "function") {
-										callback();
+										fileWriter.write(blob);
 									}
-								}
-							}, 500);
+									catch (e) {
+										console.log("Write failed 2: " + e.toString(), e);
 
-							if (data.type == "blob") {
-								var blob = cacheValue;
-							}
-							else {
-								var blob = new Blob([ cacheValue ], { type: "application/json" });
-							}
-
-							fileWriter.write(blob);
-						}, function () {
-							if (typeof callback == "function") {
-								callback();
-							}
+										dfd.resolve();
+									}
+								}, function () {
+									dfd.resolve();
+								});
+							}, function () {
+								dfd.resolve();
+							});
 						});
-					}, function () {
-						if (typeof callback == "function") {
-							callback();
-						}
-					});
+
+						return dfd.promise();
+					}
+
+					return dfd.promise();
 				}
 			}
 			else {
@@ -201,18 +203,25 @@ var jtCache = function () {
 			if (typeof window.requestFileSystem == "function") {
 				_segment = cacheKey.split(".");
 				if (_segment.length > 2) {
-					if (isSubfoldering = true) {
-						_segment[ 0 ] = "data";
-					}
-
 					window.requestFileSystem(type, 0, function (fs) {
-						fs.root.getDirectory(_segment[ 0 ], {}, function(fs) {
-							readFile(fs);
-						}, function () {
-							if (typeof callback == "function") {
-								callback(null);
-							}
-						});
+						if (isSubfoldering = false) {
+							fs.root.getDirectory(_segment[ 0 ], {}, function(fs) {
+								readFile(fs);
+							}, function () {
+								if (typeof callback == "function") {
+									callback(null);
+								}
+							});
+						}
+						else {
+							fs.root.getDirectory("data", {}, function(fs) {
+								readFile(fs);
+							}, function () {
+								if (typeof callback == "function") {
+									callback(null);
+								}
+							});
+						}
 					}, function () {
 						if (typeof callback == "function") {
 							callback(null);
@@ -236,74 +245,92 @@ var jtCache = function () {
 					else {
 						read(_fs);
 					}
-				}
 
-				function read(fs) {
-					var isFired = false;
+					function read(fs) {
+						var isFired = false;
 
-					fs.getFile(cacheKey, {}, function (fileEntry) {
-						fileEntry.file(function (file) {
-							var reader = new FileReader();
+						fs.getFile(cacheKey, {}, function (fileEntry) {
+							fileEntry.file(function (file) {
+								var reader = new FileReader();
 
-							reader.onloadend = function (e) {
-								if (this.result != null && this.result.length > 0) {
-									jt.log("Load success: " + cacheKey);
+								try {
+									reader.onloadend = function (e) {
+										if (this.result != null && this.result.length > 0) {
+											try {
+												jt.log("Load success: " + cacheKey);
 
-									buff       = JSON.parse(this.result);
-									buff.value = JSON.parse(decodeURI(buff.value));
+												buff       = JSON.parse(this.result);
+												buff.value = JSON.parse(decodeURI(buff.value));
 
-									if (typeof buff.ttl == "undefined" || (typeof buff.ttl != "undefined" && Math.floor((new Date()).getTime() / 1000) > buff.ttl)) {
-										buff.expired = "true"
-									}
+												if (typeof buff.ttl == "undefined" || (typeof buff.ttl != "undefined" && Math.floor((new Date()).getTime() / 1000) > buff.ttl)) {
+													buff.expired = "true"
+												}
 
-									if (typeof callback == "function") {
-										callback(buff);
-									}
+												if (typeof callback == "function") {
+													callback(buff);
+												}
+											}
+											catch (e) {
+												console.log("Read failed 1: " + e.toString(), e);
+
+												if (typeof callback == "function") {
+													callback(null);
+												}
+											}
+										}
+										else {
+											if (typeof callback == "function") {
+												callback(null);
+											}
+										}
+									};
+
+									reader.onerror = function (e) {
+										reader.abort();
+
+										console.log("Read failed 3: " + e.toString(), e);
+
+										if (typeof callback == "function") {
+											callback(null);
+										}
+									};
+
+									reader.onloadstart = function (e) {
+										isFired = true;
+									};
+
+									setTimeout(function () {
+										if (!isFired) {
+											reader.abort();
+
+											console.log("Read failed 3: Reader not fired");
+
+											if (typeof callback == "function") {
+												callback(null);
+											}
+										}
+									}, 500);
+
+									reader.readAsText(file);
 								}
-								else {
+								catch (e) {
+									console.log("Read failed 2: " + e.toString(), e);
+
 									if (typeof callback == "function") {
 										callback(null);
 									}
 								}
-							};
-
-							reader.onerror = function (e) {
-								reader.abort();
-
-								console.log("Read failed: " + e.toString(), e);
-
+							}, function () {
 								if (typeof callback == "function") {
 									callback(null);
 								}
-							};
-
-							reader.onloadstart = function (e) {
-								isFired = true;
-							};
-
-							setTimeout(function () {
-								if (!isFired) {
-									reader.abort();
-
-									console.log("Read failed: Reader not fired");
-
-									if (typeof callback == "function") {
-										callback(null);
-									}
-								}
-							}, 500);
-
-							reader.readAsText(file);
+							});
 						}, function () {
 							if (typeof callback == "function") {
 								callback(null);
 							}
 						});
-					}, function () {
-						if (typeof callback == "function") {
-							callback(null);
-						}
-					});
+					}
 				}
 			}
 			else {
@@ -339,18 +366,33 @@ var jtCache = function () {
 			if (typeof window.requestFileSystem == "function") {
 				_segment = cacheKey.split(".");
 				if (_segment.length > 2) {
-					if (isSubfoldering = true) {
-						_segment[ 0 ] = "data";
-					}
-
 					window.requestFileSystem(type, 0, function (fs) {
-						fs.root.getDirectory(_segment[ 0 ], {}, function(fs) {
-							removeFile(fs);
-						}, function () {
-							if (typeof callback == "function") {
-								callback();
-							}
-						});
+						if (isSubfoldering = false) {
+							fs.root.getDirectory(_segment[ 0 ], {}, function(fs) {
+								removeFile(fs);
+
+								if (typeof callback == "function") {
+									callback();
+								}
+							}, function () {
+								if (typeof callback == "function") {
+									callback();
+								}
+							});
+						}
+						else {
+							fs.root.getDirectory("data", {}, function(fs) {
+								removeFile(fs);
+
+								if (typeof callback == "function") {
+									callback();
+								}
+							}, function () {
+								if (typeof callback == "function") {
+									callback();
+								}
+							});
+						}
 					}, function () {
 						if (typeof callback == "function") {
 							callback();
@@ -359,41 +401,51 @@ var jtCache = function () {
 				}
 				else {
 					removeFile();
+
+					if (typeof callback == "function") {
+						callback();
+					}
 				}
 
 				function removeFile(_fs) {
+					var dfd = jQuery.Deferred();
+
 					if (typeof _fs == "undefined") {
 						window.requestFileSystem(type, size, function (fs) {
 							remove(fs.root);
+
+							dfd.resolve();
 						}, function () {
-							if (typeof callback == "function") {
-								callback();
-							}
+							dfd.resolve();
 						});
 					}
 					else {
 						remove(_fs);
+
+						dfd.resolve();
 					}
-				}
 
-				function remove(fs) {
-					fs.getFile(cacheKey, {}, function (fileEntry) {
-						fileEntry.remove(function () {
-							jt.log("Remove success: " + cacheKey);
+					function remove(fs) {
+						var dfd = jQuery.Deferred();
 
-							if (typeof callback == "function") {
-								callback();
-							}
+						fs.getFile(cacheKey, {}, function (fileEntry) {
+
+							fileEntry.remove(function (file) {
+								jt.log("Remove success: " + cacheKey);
+
+								dfd.resolve();
+							}, function () {
+								dfd.resolve();
+							});
+
 						}, function () {
-							if (typeof callback == "function") {
-								callback();
-							}
+							dfd.resolve();
 						});
-					}, function () {
-						if (typeof callback == "function") {
-							callback();
-						}
-					});
+
+						return dfd.promise();
+					}
+
+					return dfd.promise();
 				}
 			}
 			else {
@@ -418,9 +470,7 @@ var jtCache = function () {
 							var result = [];
 
 							Promise.all(entries.map(function (val) {
-								var dfd = $.Deferred();
-
-								console.log("FAVORITE GET");
+								var deferred = $.Deferred();
 
 								var _buff = val;
 
@@ -428,26 +478,27 @@ var jtCache = function () {
 									if (returnList) {
 										result.push(_buff);
 
-										dfd.resolve();
+										deferred.resolve();
 									}
 									else {
 										jtCache.getItem(val.name.replace(".json", ""), function (article) {
-											if (article != null) {
+											if (article == null) {
+												result.push(_buff);
+											}
+											else {
 												result.push(article);
 											}
 
-											dfd.resolve();
+											deferred.resolve();
 										}, type);
 									}
 								}
 								else {
-									dfd.resolve();
+									deferred.resolve();
 								}
 
-								return dfd.promise();
+								return deferred.promise();
 							})).then(function () {
-								console.log("FAVORITE RESULT");
-
 								if (typeof callback == "function") {
 									callback(result);
 								}
@@ -462,10 +513,6 @@ var jtCache = function () {
 							callback([]);
 						}
 					});
-				}, function () {
-					if (typeof callback == "function") {
-						callback([]);
-					}
 				});
 			}
 			else {
@@ -473,7 +520,7 @@ var jtCache = function () {
 					callback([]);
 				}
 			}
-		}
+		},
 	}
 }
 var jtCache = jtCache();
