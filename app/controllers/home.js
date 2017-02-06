@@ -824,7 +824,6 @@ define(
 					}
 
 					if (typeof _autoloadFragment == "undefined" || _autoloadFragment == "retry") {
-						console.log("HERE");
 						_data[ 0 ].isFirst = true;
 					}
 
@@ -1192,16 +1191,7 @@ define(
 								val).data("src")) + ".";
 						$(val).data("native", _nativePath);
 
-						if (typeof window.resolveLocalFileSystemURL == "function") {
-							window.resolveLocalFileSystemURL($(val).data("native"), function (_file) {
-								$(val).attr("src", $(val).data("native")).addClass("rendered");
-							}, function () {
-								$(val).attr("src", $(val).data("src")).addClass("rendered");
-							});
-						}
-						else {
-							$(val).attr("src", $(val).data("native")).addClass("rendered");
-						}
+						$(val).attr("src", $(val).data("native")).addClass("rendered");
 
 						$(val).error(function () {
 							if ($(this).attr("src") != $(this).data("src")) {
@@ -1211,52 +1201,39 @@ define(
 								$(this).hide();
 							}
 						});
-					}
 
-					$(val).load(function () {
-						if ($(this).attr("src").indexOf("filesystem") < 0) {
-							var that               = this;
-							var xhr  = new XMLHttpRequest();
-							xhr.onreadystatechange = function () {
-								if (this.readyState == 4 && this.status == 200) {
-									var cacheKey = "image.article.";
-									var url      = $(that).attr("src");
-									url          = btoa(url);
+						$(val).load(function () {
+							if ($(this).attr("src").indexOf("filesystem") < 0) {
+								var that = this;
+								var xhr  = new XMLHttpRequest();
+								xhr.onreadystatechange = function () {
+									if (this.readyState == 4 && this.status == 200) {
+										var cacheKey = "image.article.";
+										var url      = $(that).attr("src");
+										url          = btoa(url);
 
-									cache(this);
+										cache(this);
 
-									function cache(xhr) {
-										//var dfd = jQuery.Deferred();
-
-										jtCache.getItem(cacheKey + url, function (_data) {
-											if (_data == null) {
-												jtCache.setItem(cacheKey + url, {
-													"type"     : "blob",
-													"value": xhr.response,
-													"extension": "",
-													"fileType" : xhr.response.type
-												}, window.TEMPORARY, null, function () {
-													//dfd.resolve();
-												});
-											}
-											else {
-												//dfd.resolve();
-											}
-										}, window.TEMPORARY);
-
-										//return dfd.promise();
+										function cache(xhr) {
+											jtCache.setItem(cacheKey + url, {
+												"type"     : "blob",
+												"value"    : xhr.response,
+												"extension": "",
+												"fileType" : xhr.response.type
+											}, window.TEMPORARY, null);
+										}
 									}
 								}
+								xhr.open('GET', $(this).attr("src"));
+								xhr.responseType = 'blob';
+								xhr.send();
 							}
-							xhr.open('GET', $(this).attr("src"));
-							xhr.responseType = 'blob';
-							xhr.send();
-						}
 
-						if (!$(this).hasClass("hidden")) {
-							$(this).show();
-						}
-					});
+							if (!$(this).hasClass("hidden")) {
+								$(this).show();
+							}
+						});
+					}
 				});
 			}
 		});
