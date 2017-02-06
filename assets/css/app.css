@@ -2761,8 +2761,8 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 }
 .app-addtofavorite.active
 {
-	border: 1px solid #aeaeae;
-	color: #6b6b6b;
+	border: 1px solid #c92737;
+	color: #c92737;
 }
 .app-addtooffline.active
 {
@@ -2827,7 +2827,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 {
 	bottom: 8px;
 }
-.app-addtofavorite:before
+.app-addtofavorite .app-goto:before
 {
     position: absolute;
     width: 40px;
@@ -2854,7 +2854,8 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 }
 .app-addtofavorite.active .app-goto:after
 {
-	animation: grow 0.4s linear;
+	-webkit-animation: grow 0.3s linear;
+	animation: grow 0.3s linear;
 	-webkit-background-size: 24px;
 	background-size: 24px;
 }
@@ -3523,8 +3524,12 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 		font-size: 14px;
 		padding-left: 0;
 	}
-	.app-addtofavorite .app-goto:after, .app-addtofavorite .app-goto:before, .app-addtooffline .app-goto:after
+	.app-addtofavorite .app-goto:after, .app-addtofavorite .app-goto:before
 	{
 		right: 6px;
+	}
+	.app-addtooffline .app-goto:after, .app-addtooffline .app-goto:before
+	{
+		right: 12px;
 	}
 }
