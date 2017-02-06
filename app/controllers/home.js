@@ -21,7 +21,6 @@ define(
 			options         : "",
 			cacheSource     : window.sessionStorage,
 			articleList     : null,
-			isFromFile      : false,
 			initialize      : function (_options) {
 				if (jt.isOffline() && this.type != "search") {
 					this.cacheSource = window.localStorage;
@@ -34,22 +33,7 @@ define(
 				var those = that = this;
 
 				var _articleList = function (_data) {
-					var dfd = jQuery.Deferred();
-					if (that.isFromFile) {
-						jtCache.getItem("list.article" + (Backbone.history.getFragment() != "" ? "." : "") + Backbone.history.getFragment(),
-							function (result) {
-								if (result != null && typeof result.value != "undefined") {
-									dfd.resolve(result.value);
-								}
-								else {
-									dfd.resolve(null);
-								}
-							});
-					}
-					else {
-						dfd.resolve(that.cacheSource.getItem(Backbone.history.getFragment()));
-					}
-					return dfd.promise();
+					that.cacheSource.getItem(Backbone.history.getFragment())
 				}
 
 				$.when(_articleList()).then(function (_result) {
@@ -121,46 +105,21 @@ define(
 								function updateFavoriteArticle(_slug) {
 									var dfd = jQuery.Deferred();
 
-									jtCache.getItem("article." + _slug, function (_data) {
-										if (_data == null || _data.expired == "true") {
-											that.articleModel = new Article({
-												slug: _slug
-											});
+									that.articleModel = new Article({
+										slug: _slug
+									});
 
-											that.articleModel.fetch({
-												timeout: 5000,
-												success: function (_data) {
-													jtCache.setItem("article." + _slug,
-														JSON.stringify(_data),
-														null,
-														null,
-														function () {
-															jtCache.setItem("favorite/article." + _slug,
-																JSON.stringify(_data),
-																window.PERSISTENT,
-																null,
-																function () {
-																	dfd.resolve();
-																});
-														});
+									that.articleModel.fetch({
+										timeout: 5000,
+										success: function (_data) {
+											jtCache.setItem("favorite/article." + _slug, JSON.stringify(_data), window.PERSISTENT, null);
 
-													dfd.resolve();
-												},
-												error  : function () {
-													$(".app-content-container .app-load").removeClass("loading");
+											dfd.resolve();
+										},
+										error  : function () {
+											$(".app-content-container .app-load").removeClass("loading");
 
-													dfd.resolve();
-												}
-											});
-										}
-										else {
-											jtCache.setItem("favorite/article." + _slug,
-												_data.value,
-												window.PERSISTENT,
-												null,
-												function () {
-													dfd.resolve();
-												});
+											dfd.resolve();
 										}
 									});
 
@@ -192,22 +151,6 @@ define(
 
 											$.each(_data, function (key, val) {
 												_data[ key ].type = "favorite";
-
-												jtCache.getItem("article." + val.slug, function (_data) {
-													if (_data == null || _data.expired == "true") {
-														that.articleModel = new Article({
-															slug: val.slug
-														});
-
-														that.articleModel.fetch({
-															timeout: 5000,
-															success: function (_data) {
-																jtCache.setItem("article." + val.slug,
-																	JSON.stringify(_data));
-															}
-														});
-													}
-												});
 											});
 
 											$("#app-body .app-content-container .card-placeholder").remove();
@@ -217,30 +160,18 @@ define(
 												}));
 
 											function cache(_data) {
-												window.sessionStorage.setItem(Backbone.history.getFragment(),
-													JSON.stringify(_data));
+												window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
 
 												if (that.type != "search") {
-													window.localStorage.setItem(Backbone.history.getFragment(),
-														JSON.stringify(_data));
+													window.localStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
 												}
 
 												that.loadImages();
 											}
 
 											that._articleList = JSON.stringify(_data);
-											if (that.isFromFile) {
-												jtCache.setItem("list.article" + (Backbone.history.getFragment() != "" ? "." : "") + Backbone.history.getFragment(),
-													JSON.stringify(_data),
-													null,
-													null,
-													function () {
-														cache(_data);
-													});
-											}
-											else {
-												cache(_data);
-											}
+
+											cache(_data);
 										},
 										error  : function () {
 											$(".app-content-container .app-load").removeClass("loading");
@@ -256,22 +187,6 @@ define(
 
 										$.each(_data, function (key, val) {
 											_data[ key ].type = "favorite";
-
-											jtCache.getItem("article." + val.slug, function (_data) {
-												if (_data == null || _data.expired == "true") {
-													that.articleModel = new Article({
-														slug: val.slug
-													});
-
-													that.articleModel.fetch({
-														timeout: 5000,
-														success: function (_data) {
-															jtCache.setItem("article." + val.slug,
-																JSON.stringify(_data));
-														}
-													});
-												}
-											});
 										});
 
 										$("#app-body .app-content-container .card-placeholder").remove();
@@ -312,8 +227,7 @@ define(
 								}
 
 								if (that.cacheSource.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
-									$(".app-content-container")
-										.scrollTop(parseInt(that.cacheSource.getItem(Backbone.history.getFragment() + "/scrollTop")));
+									$(".app-content-container").scrollTop(parseInt(that.cacheSource.getItem(Backbone.history.getFragment() + "/scrollTop")));
 								}
 
 								$(".app-toggle-refresh").remove();
@@ -379,7 +293,6 @@ define(
 							that.order  = "6hour";
 							that.limit  = 12;
 							that.cache  = 300;
-							//this.where   = "published>=" + date('Y-m-d H:00:00', strtotime('-1 month'));
 
 							$("#search-form [name='search']").val("");
 
@@ -396,7 +309,7 @@ define(
 						if (!jt.isOffline()) {
 							that.collection = new Timeline({
 								order   : typeof that.order != "undefined" ? that.order : "",
-								orderBy: typeof that.orderBy != "undefined" ? that.orderBy : "",
+								orderBy : typeof that.orderBy != "undefined" ? that.orderBy : "",
 								category: typeof that.category != "undefined" ? that.category : "",
 								search  : typeof that.search != "undefined" ? that.search : "",
 								filter  : typeof that.filter != "undefined" ? that.filter : "",
@@ -499,26 +412,6 @@ define(
 											success: function () {
 												var _data = that.collection.toJSON();
 
-												$.each(_data, function (key, val) {
-													_data[ key ].type = "favorite";
-
-													jtCache.getItem("article." + val.slug, function (_data) {
-														if (_data == null || _data.expired == "true") {
-															that.articleModel = new Article({
-																slug: val.slug
-															});
-
-															that.articleModel.fetch({
-																timeout: 5000,
-																success: function (_data) {
-																	jtCache.setItem("article." + val.slug,
-																		JSON.stringify(_data));
-																}
-															});
-														}
-													});
-												});
-
 												$("#app-body .app-content-container .card-placeholder").remove();
 												$("#app-body .app-content-container")
 													.append(that.timelineTemplate({
@@ -542,8 +435,6 @@ define(
 									}
 								}
 
-								// $(".app-load").css("display", "none");
-								// $(".app-retry").css("display", "block");
 								$(".app-loader").addClass("showbtn");
 
 								if ($(".no-splash").length >= 1) {
@@ -564,7 +455,6 @@ define(
 
 									$(".splash-content .app-loader").fadeIn();
 
-									// $(".app-load").css("display", "none");
 									$(".app-loader").addClass("showbtn");
 
 									$(".splash-quote").remove();
@@ -574,9 +464,6 @@ define(
 
 								$(".app-retry").on("click touchend", function () {
 									that.isConnected = true;
-
-									// $(".app-load").css("display", "block");
-									// $(".app-retry").css("display", "none");
 
 									$(".app-loader").removeClass("showbtn");
 
@@ -716,16 +603,7 @@ define(
 										}, 250);
 									}
 
-									if (that.isFromFile) {
-										jtCache.removeItem("list.article" + (currentFragment != "" ? "." : "") + currentFragment,
-											null,
-											function () {
-												refresh();
-											});
-									}
-									else {
-										refresh();
-									}
+									refresh();
 								}
 								else {
 									if (!$(".app-refreshed").hasClass("active")) {
@@ -781,6 +659,7 @@ define(
 				}
 
 				if ($("#app-header-beranda").length > 0 || that.type == "search") {
+
 				}
 				else {
 					$("#app-toolbar")
@@ -800,12 +679,6 @@ define(
 				}
 
 				if (_data.length == 0) {
-					//window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
-
-					if (that.type != "search") {
-						//window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
-					}
-
 					window.sessionStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
 				}
 				else {
@@ -830,23 +703,6 @@ define(
 					$.each(_data, function (key, val) {
 						if (_isUsingCache == false && that._articleList != null && typeof _autoloadFragment != "undefined") {
 							_buff.push(val);
-						}
-
-						if (_isUsingCache == false) {
-							jtCache.getItem("article." + val.slug, function (_data) {
-								if (_data == null || _data.expired == "true") {
-									that.articleModel = new Article({
-										slug: val.slug
-									});
-
-									that.articleModel.fetch({
-										timeout: 5000,
-										success: function (_data) {
-											jtCache.setItem("article." + val.slug, JSON.stringify(_data));
-										}
-									});
-								}
-							});
 						}
 					});
 
@@ -877,23 +733,7 @@ define(
 							}
 						}
 
-						if (that.isFromFile) {
-							var dfd           = jQuery.Deferred();
-							that._articleList = JSON.stringify(_data);
-							jtCache.setItem("list.article" + (Backbone.history.getFragment() != "" ? "." : "") + Backbone.history.getFragment(),
-								JSON.stringify(_data),
-								null,
-								null,
-								function () {
-									cache(_data);
-
-									dfd.resolve();
-								});
-							return dfd.promise();
-						}
-						else {
-							cache(_data);
-						}
+						cache(_data);
 					}
 
 					if (that._articleList != null && typeof _autoloadFragment != "undefined") {
@@ -922,16 +762,7 @@ define(
 							Backbone.history.loadUrl();
 						}
 
-						if (that.isFromFile) {
-							jtCache.removeItem("list.article" + (Backbone.history.getFragment() != "" ? "." : "") + Backbone.history.getFragment(),
-								null,
-								function () {
-									removeCache();
-								});
-						}
-						else {
-							removeCache();
-						}
+						removeCache();
 					}
 					else {
 						$.each(_data, function (key, value) {
@@ -1026,16 +857,7 @@ define(
 						Backbone.history.loadUrl();
 					}
 
-					if (that.isFromFile) {
-						jtCache.removeItem("list.article" + (Backbone.history.getFragment() != "" ? "." : "") + Backbone.history.getFragment(),
-							null,
-							function () {
-								removeCache();
-							});
-					}
-					else {
-						removeCache();
-					}
+					removeCache();
 				}
 				else {
 					$("#app-body .app-content-container .card-placeholder").remove();
@@ -1118,7 +940,7 @@ define(
 					if (!jt.isOffline()) {
 						this.collection = new Timeline({
 							order   : typeof this.order != "undefined" ? this.order : "",
-							orderBy: typeof this.orderBy != "undefined" ? this.orderBy : "",
+							orderBy : typeof this.orderBy != "undefined" ? this.orderBy : "",
 							category: typeof this.category != "undefined" ? this.category : "",
 							search  : typeof this.search != "undefined" ? this.search : "",
 							filter  : typeof this.filter != "undefined" ? this.filter : "",
@@ -1160,8 +982,6 @@ define(
 							error  : function () {
 								$(".app-content-container .app-load").removeClass("loading");
 
-								// $(".app-load").css("display", "none");
-								// $(".app-retry").css("display", "block");
 								$(".app-loader").addClass("showbtn");
 							}
 						});
@@ -1169,8 +989,6 @@ define(
 				}
 				else if ($(".app-content-container .app-load").is(":in-viewport") && jt.isOffline()) {
 					setTimeout(function () {
-						// $(".app-load").css("display", "none");
-						// $(".app-retry").css("display", "block");
 						$(".app-loader").addClass("showbtn");
 
 						if (!$(".app-refreshed").hasClass("active")) {
@@ -1186,81 +1004,13 @@ define(
 			},
 			loadImages      : function () {
 				$("img:not(.rendered)").each(function (key, val) {
-					if (typeof $(val).data("src") != "undefined") {
-						_nativePath = "filesystem:" + window.location.origin + "/temporary/data/image.article." + btoa($(
-								val).data("src")) + ".";
-						$(val).data("native", _nativePath);
+					$(val).error(function () {
+						$(this).hide();
+					});
 
-						$(val).error(function () {
-							if ($(this).attr("src") != $(this).data("native")) {
-								$(val).attr("src", $(val).data("native")).addClass("rendered");
-							}
-							else {
-								if ($(this).attr("src") != $(this).data("src")) {
-									$(this).attr("src", $(this).data("src"));
-									$(this).data("native", $(this).data("src"));
-								}
-								else {
-									$(this).hide();
-								}
-							}
-						});
-
-						$(val).load(function () {
-							if ($(this).attr("src").indexOf("filesystem") < 0) {
-								var that = this;
-
-								var cacheKey = "image.article.";
-								var url      = $(this).attr("src");
-								url          = btoa(url);
-
-								window.requestFileSystem(window.TEMPORARY, 0, function (fs) {
-									fs.root.getDirectory('data', {}, function (fs) {
-										fs.getFile(cacheKey + url + ".", {}, function () {
-											/*
-											 Using cached image
-											 */
-										}, function () {
-											cache();
-										});
-									}, function () {
-										cache();
-									});
-								}, function () {
-									cache();
-								});
-
-								function cache() {
-									var xhr = new XMLHttpRequest();
-
-									xhr.onreadystatechange = function () {
-										if (this.readyState == 4 && this.status == 200) {
-											/*
-											 Caching image
-											 */
-
-											jtCache.setItem(cacheKey + url, {
-												"type"     : "blob",
-												"value": xhr.response,
-												"extension": "",
-												"fileType" : xhr.response.type
-											}, window.TEMPORARY, null);
-										}
-									}
-
-									xhr.open('GET', $(that).attr("src"));
-									xhr.responseType = 'blob';
-									xhr.send();
-								}
-							}
-
-							if (!$(this).hasClass("hidden")) {
-								$(this).show();
-							}
-
-							$(this).addClass("rendered");
-						});
-					}
+					$(val).load(function () {
+						$(this).addClass("rendered");
+					});
 				});
 			}
 		});

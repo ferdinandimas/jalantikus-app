@@ -98,23 +98,27 @@ require(
 				}
 
 				document.addEventListener("backbutton", function (e) {
-					//window.stop();
 					$.xhrPool.abortAll();
 
 					fragment = Backbone.history.getFragment();
 
 					if ((fragment == "" || fragment.indexOf("index/") == 0) || window.history.length == 1) {
-						if (typeof navigator.notification != "undefined") {
-							navigator.notification.confirm(
-									"Tutup JalanTikus?",
-									function (confirmation) {
-										if (confirmation == 1) {
-											navigator.app.exitApp();
-										}
-									},
-									"Keluar",
-									[ "Ya", "Tidak" ]
-							);
+						if (fragment.indexOf("index/") == 0) {
+							window.location.href = "#";
+						}
+						else {
+							if (typeof navigator.notification != "undefined") {
+								navigator.notification.confirm(
+										"Tutup JalanTikus?",
+										function (confirmation) {
+											if (confirmation == 1) {
+												navigator.app.exitApp();
+											}
+										},
+										"Keluar",
+										[ "Ya", "Tidak" ]
+								);
+							}
 						}
 					}
 					else {
@@ -251,7 +255,6 @@ require(
 			});
 
 			$(document).on("click", ".app-header .app-toggle-back", function (e) {
-				//window.stop();
 				$.xhrPool.abortAll();
 
 				e.preventDefault();
@@ -267,7 +270,6 @@ require(
 					if (!$(this).hasClass("app-retry")) {
 						$.xhrPool.abortAll();
 					}
-					//window.stop();
 				}
 			});
 
@@ -432,7 +434,6 @@ require(
 				setTimeout(function () {
 					$(".app-rating").fadeOut(300);
 					cordova.plugins.market.open('com.jalantikus.app')
-					// window.open('market://details?id=com.jalantikus.app', '_system');
 				}, 500);
 
 				jt.ripple($(this), e, "slow");
@@ -638,29 +639,17 @@ require(
 				var that = this;
 
 				if (!$(that).parent().hasClass("active")) {
-					// if (window.sessionStorage.getItem("currentArticle") != null) {
-						// jtCache.setItem("favorite/" + Backbone.history.getFragment(), window.sessionStorage.getItem("currentArticle"), window.PERSISTENT, null, function () {
-							$(that).parent().addClass("active");
+					$(that).parent().addClass("active");
 
-							if (!$(".app-refreshed").hasClass("active")) {
-								$(".app-refreshed").html("Artikel berhasil disimpan").fadeIn();
-								setTimeout(function () {
-									$(".app-refreshed").fadeOut();
-								}, 2000);
-							}
-						// });
-					// }
-					// else {
-						// $(".app-refreshed").html("Artikel tidak berhasil disukai").fadeIn();
-						// setTimeout(function () {
-						// 	$(".app-refreshed").fadeOut();
-						// }, 2000);
-					// }
+					if (!$(".app-refreshed").hasClass("active")) {
+						$(".app-refreshed").html("Artikel berhasil disimpan").fadeIn();
+						setTimeout(function () {
+							$(".app-refreshed").fadeOut();
+						}, 2000);
+					}
 				}
 				else {
-					// jtCache.removeItem("favorite/" + Backbone.history.getFragment(), window.PERSISTENT, function () {
-						$(that).parent().removeClass("active");
-					// });
+					$(that).parent().removeClass("active");
 				}
 			});
 
@@ -812,11 +801,6 @@ require(
 			var cWidth = $(window).width();
 			var cHeight = $(window).height();
 
-			// if (cHeight < 620) {
-				// $(".userpanel-body").innerHeight(cHeight - 120);
-			// }
-			// $("#app-root").innerHeight(cHeight);
-
 			var supportsOrientationChange = "onorientationchange" in window,
 			    orientationEvent          = supportsOrientationChange ? "orientationchange" : "resize";
 			var orientationChanged        = false;
@@ -833,7 +817,6 @@ require(
 						else {
 							$(".userpanel-body").innerHeight($(window).height() - 120);
 							orientationChanged = false;
-							// $("#app-root").innerHeight(evtHeight)
 							clearInterval(intEvt);
 						}
 					}, 200)

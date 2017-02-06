@@ -40,9 +40,6 @@ define(
 				$(".app-retry").on("touchend click", function () {
 					that.isConnected = true;
 
-					// $(".app-load").css("display", "block");
-					// $(".app-retry").css("display", "none");
-
 					$(".app-loader").removeClass("showbtn");
 
 					that.fetch({ timeout: 10000 });
@@ -65,90 +62,34 @@ define(
 			fetch     : function (options) {
 				var that = this;
 
-				var isFetched = false;
+				if ($(".app-detail-container .app-loader").length >= 1) {
+					if (typeof _data != "undefined" && _data != null && typeof _data.value != "undefined" && _data.value != null) {
+						window.sessionStorage.setItem("currentArticle", _data.value);
 
-				function fetch(_data) {
-					if (isFetched == false || $(".app-detail-container .app-loader").length >= 1) {
-						clearTimeout(forceFetch);
+						var _buff = JSON.parse(_data.value);
+					}
 
-						isFetched = true;
+					if ((typeof _data == "undefined" || _data == null || typeof _buff == "undefined" || typeof _buff.slug == "undefined" || _buff.slug == null) || (_data.expired == "true" && !jt.isOffline())) {
+						if (!jt.isOffline()) {
+							that.model.fetch({
+								timeout: typeof options != "undefined" && typeof options.timeout != "undefined" ? options.timeout : 5000,
+								success: function () {
+									_buff = _data = that.model.toJSON();
 
-						if (typeof _data != "undefined" && _data != null && typeof _data.value != "undefined" && _data.value != null) {
-							window.sessionStorage.setItem("currentArticle", _data.value);
+									window.sessionStorage.setItem("currentArticle", JSON.stringify(_data));
 
-							var _buff = JSON.parse(_data.value);
-						}
-
-						if ((typeof _data == "undefined" || _data == null || typeof _buff == "undefined" || typeof _buff.slug == "undefined" || _buff.slug == null) || (_data.expired == "true" && !jt.isOffline())) {
-							if (!jt.isOffline()) {
-								that.model.fetch({
-									timeout: typeof options != "undefined" && typeof options.timeout != "undefined" ? options.timeout : 5000,
-									success: function () {
-										_buff = _data = that.model.toJSON();
-
-										window.sessionStorage.setItem("currentArticle", JSON.stringify(_data));
-
-										jtCache.removeItem(Backbone.history.getFragment(), null, function () {
-											jtCache.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
-											console.log("LIVE", JSON.stringify(_data));
-										});
-
-										that.render(_buff);
-									},
-									error  : function () {
-										// $(".app-load").css("display", "none");
-										// $(".app-retry").css("display", "block");
-
-										$(".app-loader").addClass("showbtn");
-
-										$(".app-retry").on("touchend click", function () {
-											that.isConnected = true;
-
-											// $(".app-load").css("display", "block");
-											// $(".app-retry").css("display", "none");
-
-											$(".app-loader").removeClass("showbtn");
-
-											that.fetch({ timeout: 10000 });
-										});
-
-										if ($(".splash").length >= 1) {
-											if ($(".no-splash").length >= 1) {
-												$(".splash").show().find(".splash-content").fadeIn();
-												$(".no-splash").fadeOut();
-											}
-
-											if (!$(".splash .app-refreshed").hasClass("active")) {
-												$(".splash .app-refreshed").html("Tidak ada jaringan").addClass("active").fadeIn();
-												setTimeout(function () {
-													$(".splash .app-refreshed").removeClass("active").fadeOut();
-												}, 2000);
-											}
-
-											$(".splash-content .app-loader").fadeIn();
-
-											$(".splash-quote").remove();
-											$(".splash-speaker").remove();
-											$(".splash-loading").hide();
-										}
-
-										if (!$(".app-refreshed").hasClass("active")) {
-											$(".app-refreshed").html("Tidak ada jaringan").addClass("active").fadeIn();
-											setTimeout(function () {
-												$(".app-refreshed").removeClass("active").fadeOut();
-											}, 2000);
-
-											that.isConnected = false;
-										}
-									}
-								});
-							}
-							else {
-								setTimeout(function () {
-									// $(".app-load").css("display", "none");
-									// $(".app-retry").css("display", "block");
-
+									that.render(_buff);
+								},
+								error  : function () {
 									$(".app-loader").addClass("showbtn");
+
+									$(".app-retry").on("touchend click", function () {
+										that.isConnected = true;
+
+										$(".app-loader").removeClass("showbtn");
+
+										that.fetch({ timeout: 10000 });
+									});
 
 									if ($(".splash").length >= 1) {
 										if ($(".no-splash").length >= 1) {
@@ -178,42 +119,70 @@ define(
 
 										that.isConnected = false;
 									}
+								}
+							});
+						}
+						else {
+							setTimeout(function () {
+								$(".app-loader").addClass("showbtn");
+
+								if ($(".splash").length >= 1) {
+									if ($(".no-splash").length >= 1) {
+										$(".splash").show().find(".splash-content").fadeIn();
+										$(".no-splash").fadeOut();
+									}
+
+									if (!$(".splash .app-refreshed").hasClass("active")) {
+										$(".splash .app-refreshed").html("Tidak ada jaringan").addClass("active").fadeIn();
+										setTimeout(function () {
+											$(".splash .app-refreshed").removeClass("active").fadeOut();
+										}, 2000);
+									}
+
+									$(".splash-content .app-loader").fadeIn();
+
+									$(".splash-quote").remove();
+									$(".splash-speaker").remove();
+									$(".splash-loading").hide();
+								}
+
+								if (!$(".app-refreshed").hasClass("active")) {
+									$(".app-refreshed").html("Tidak ada jaringan").addClass("active").fadeIn();
+									setTimeout(function () {
+										$(".app-refreshed").removeClass("active").fadeOut();
+									}, 2000);
+
+									that.isConnected = false;
+								}
+							}, 2000);
+						}
+					}
+					else {
+						if (window.localStorage.getItem("show_splash") === "true") {
+							$(".no-splash").hide();
+
+							if ($(".splash").length >= 1) {
+								setTimeout(function () {
+									$(".splash").fadeOut("fast", function () {
+										$(this).remove();
+									})
 								}, 2000);
 							}
 						}
 						else {
-							if (window.localStorage.getItem("show_splash") === "true") {
-								$(".no-splash").hide();
-
-								if ($(".splash").length >= 1) {
-									setTimeout(function () {
-										$(".splash").fadeOut("fast", function () {
-											$(this).remove();
-										})
-									}, 2000);
-								}
-							}
-							else {
-								$(".splash").fadeOut(350, function() {
-									$(this).remove();
-								});
-								$(".no-splash").fadeOut(350, function() {
-									$(this).remove();
-								});
-							}
-
-							that.render(_buff);
+							$(".splash").fadeOut(350, function() {
+								$(this).remove();
+							});
+							$(".no-splash").fadeOut(350, function() {
+								$(this).remove();
+							});
 						}
+
+						that.render(_buff);
 					}
 				}
 
-				var forceFetch = setTimeout(function () {
-					fetch(null);
-				}, 250);
-
-				jtCache.getItem(Backbone.history.getFragment(), function (_data) {
-					fetch(_data);
-				});
+				fetch(null);
 			},
 			render    : function (_data) {
 				var that    = this;
@@ -266,31 +235,7 @@ define(
 					});
 
 					$("img").each(function (key, val) {
-						var that = this;
-
 						$(val).attr("alt", "");
-
-						$(val).load(function () {
-							if ($(that).attr("src").indexOf("filesystem") < 0) {
-								var xhr  = new XMLHttpRequest();
-								xhr.onreadystatechange = function(){
-									if (this.readyState == 4 && this.status == 200) {
-										cacheKey = "image.article.";
-										url      = btoa($(that).attr("src"));
-
-										jtCache.setItem(cacheKey + url, {
-											"type"     : "blob",
-											"value"    : this.response,
-											"extension": "",
-											"fileType" : this.response.type
-										}, window.TEMPORARY);
-									}
-								}
-								xhr.open('GET', $(this).attr("src"));
-								xhr.responseType = 'blob';
-								xhr.send();
-							}
-						});
 
 						/*
 						 Using Placeholder
@@ -334,7 +279,6 @@ define(
 							}
 							else if (typeof value != "undefined") {
 								$(val).data("src", $(val).attr("src"));
-								//$(val).attr("src", "");
 
 								loadImage();
 							}
@@ -446,61 +390,12 @@ define(
 								}
 							});
 						}
-
-						$(val).load(function () {
-							if ($(this).attr("src").indexOf("filesystem") < 0) {
-								var that = this;
-								var xhr  = new XMLHttpRequest();
-								xhr.onreadystatechange = function(){
-									if (this.readyState == 4 && this.status == 200){
-										var cacheKey = "image.article.";
-										var url      = $(that).attr("src");
-										url          = btoa(url);
-
-										cache(this);
-
-										function cache(xhr) {
-											//var dfd = jQuery.Deferred();
-
-											jtCache.getItem(cacheKey + url, function(_data) {
-												if (_data == null) {
-													jtCache.setItem(cacheKey + url, {
-														"type"     : "blob",
-														"value"    : xhr.response,
-														"extension": "",
-														"fileType" : xhr.response.type
-													}, window.TEMPORARY, null, function () {
-														//dfd.resolve();
-													});
-												}
-												else {
-													//dfd.resolve();
-												}
-											}, window.TEMPORARY);
-
-											//return dfd.promise();
-										}
-									}
-								}
-								xhr.open('GET', $(this).attr("src"));
-								xhr.responseType = 'blob';
-								xhr.send();
-							}
-
-							if (!$(this).hasClass("hidden")) {
-								$(this).show();
-							}
-						});
 					});
 
-					if($("#app-header-detail").length > 0)
-					{
-					}
-					else
-					{
+					if ($("#app-header-detail").length < 0) {
 						$("#app-toolbar")
-						.empty()
-						.append((_.template(headerDetailLayout))());
+								.empty()
+								.append((_.template(headerDetailLayout))());
 					}
 
 					$("#app-toolbar").addClass("detail").addClass("scroll");
@@ -651,10 +546,6 @@ define(
 						var _that      = this;
 						var _appSlug;
 
-						//$(this).find("a").attr("href", "javascript:void()").click(function (e) {
-						//	e.preventDefault()
-						//});
-
 						$(this)
 								.find(".info-container .info h3")
 								.replaceWith(
@@ -707,10 +598,6 @@ define(
 						}
 					}, 2000);
 
-					// $("#iframe-jalantikus").on("load", function () {
-					// 	$(".app-scroll-button").fadeIn();
-					// });
-
 					$(".app-body a").on("click", function (e) {
 						if ((jt.isOffline() && !$(this).hasClass("share") && !$(this).hasClass("app-goto") && !$(this).hasClass("app-home") && !$(this).hasClass("app-toggle-back"))) {
 							e.preventDefault();
@@ -721,9 +608,6 @@ define(
 
 					$(".app-retry").on("touchend click", function () {
 						that.isConnected = true;
-
-						// $(".app-load").css("display", "block");
-						// $(".app-retry").css("display", "none");
 
 						$(".app-loader").removeClass("showbtn");
 
