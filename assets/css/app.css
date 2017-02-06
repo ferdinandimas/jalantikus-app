@@ -674,7 +674,7 @@ div, span, a
 	left: 50px;
 	width: 20px;
 }
-.card-link, .rating-link, .app-gotohome, .app-gotoweb, .app-addtofavorite .app-goto
+.card-link, .rating-link, .app-gotohome, .app-gotoweb, .app-addtofavorite .app-goto, .app-addtooffline .app-goto
 {
 	position: absolute;
 	top: 0;
@@ -946,7 +946,7 @@ div, span, a
 	padding: 0px 15px 5px 15px;
 	color: #454545;
 	font-size: 16px;
-	line-height: 26px;
+	line-height: 28px;
 	font-weight: 500;
 	overflow: hidden;
     border-top: 1px solid #ddd;
@@ -1398,7 +1398,7 @@ div, span, a
 {
 	display: none; 
     position: fixed;
-    top: 135px;
+    top: 80px;
     text-align: center;
     padding: 10px 20px;
     margin: auto;
@@ -2171,6 +2171,7 @@ div, span, a
 {
 	position: relative;
     display: inline-block;
+    margin-top: 15px;
 }
 .bacajuga .title {
     background-color: #fff;
@@ -2720,32 +2721,55 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	background-position:  center center;
 	background-repeat: no-repeat;
 }
-.app-addtofavorite
+.app-addto-container
 {
+	display: block;
+	margin: auto;
+	width: calc(100% - 30px);
+}
+.app-addtofavorite, .app-addtooffline
+{
+	display: inline-block;
+	float: left;
     margin: auto;
     margin-top: 5px;
     margin-bottom: 20px;
     padding-top: 12px;
     padding-bottom: 12px;
     position: relative;
-    width: 120px;
     height: 40px;
     border: 1px solid #c6c6c6;
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 16px;
     line-height: 16px;
-    padding-left: 20px;
+    padding-right: 40px;
+    padding-left: 10px;
     box-sizing: border-box;
     color: #9d9d9d;
     -webkit-transition: 0.2s;
     transition: 0.2s;
+    text-align: center;
+}
+.app-addtofavorite
+{
+	width: 35%;
+}
+.app-addtooffline
+{
+	width: calc(65% - 15px);
+	margin-left: 15px;
 }
 .app-addtofavorite.active
 {
 	border: 1px solid #aeaeae;
 	color: #6b6b6b;
 }
-.app-addtofavorite .app-goto
+.app-addtooffline.active
+{
+	border: 1px solid #2196F3;
+	color: #2196F3;
+}
+.app-addtofavorite .app-goto, .app-addtooffline .app-goto
 {
 	border-radius: 20px;
 }
@@ -2756,15 +2780,11 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	height: 40px;
 	content: "";
 	top: 0;
-	right: 6px;
-	-webkit-background-image: url(../images/user-favorited-icon.png);
+	right: 8px;
 	background-image: url(../images/user-favorited-icon.png);
-	-webkit-background-position: center center;
 	background-position: center center;
-	-webkit-background-repeat: no-repeat;
 	background-repeat: no-repeat;
 	transform-origin: center;
-	-webkit-background-size: 0;
 	background-size: 0;
 	-webkit-transition: 0.2s;
 	transition: 0.2s;
@@ -2773,6 +2793,40 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     backface-visibility: hidden; 
     transform-style: preserve-3d;
 }
+.app-addtooffline .app-goto:after, .app-addtooffline .app-goto:before
+{
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	content: "";
+	right: 16px;
+	background-color: #aaa;
+	-webkit-mask-image: url(../images/save-offline-icon.svg);
+    mask-image: url(../images/save-offline-icon.svg);
+    -webkit-mask-position: center center;
+    mask-position: center center;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    transform-origin: center;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+    -webkit-mask-size: 24px;
+    mask-size: 24px;
+    -webkit-backface-visibility: hidden; 
+    -webkit-transform-style: preserve-3d;
+    backface-visibility: hidden; 
+    transform-style: preserve-3d;
+}
+.app-addtooffline .app-goto:after
+{
+	top: 8px;
+	height: 0;
+	background-color: #2196F3;
+}
+.app-addtooffline .app-goto:before
+{
+	bottom: 8px;
+}
 .app-addtofavorite:before
 {
     position: absolute;
@@ -2780,7 +2834,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     height: 40px;
     content: "";
     top: 0;
-    right: 6px;
+    right: 8px;
     background-color: #c92737;
     -webkit-mask-image: url(../images/user-favorite-icon.svg);
     mask-image: url(../images/user-favorite-icon.svg);
@@ -2803,6 +2857,14 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	animation: grow 0.4s linear;
 	-webkit-background-size: 24px;
 	background-size: 24px;
+}
+.app-addtooffline.active .app-goto:before
+{
+	height: 0;
+}
+.app-addtooffline.active .app-goto:after
+{
+	height: 24px;
 }
 .favorite-empty
 {
@@ -3407,6 +3469,20 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 		margin-right: 20px;
 	}
 }
+@media(min-width: 480px){
+	.app-addto-container
+	{
+		width: 380px;
+	}
+	.app-addtofavorite
+	{
+		width: 120px;
+	}
+	.app-addtooffline
+	{
+		width: 240px;
+	}
+}
 @media (max-width:480px) {
 	.app-detail-body .bacajuga-special {
 		padding: 0
@@ -3439,5 +3515,16 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	}
 	.app-detail-body .bacajuga-special .baca-special {
 		top: 100px
+	}
+}
+@media (max-width:360px) {
+	.app-addtofavorite, .app-addtooffline
+	{
+		font-size: 14px;
+		padding-left: 0;
+	}
+	.app-addtofavorite .app-goto:after, .app-addtofavorite .app-goto:before, .app-addtooffline .app-goto:after
+	{
+		right: 6px;
 	}
 }

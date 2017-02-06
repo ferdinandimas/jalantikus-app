@@ -485,10 +485,12 @@ require(
 										}
 
 										$("#app-userpanel").panel("close");
-										$(".app-refreshed").html("Notifikasi berhasil dimatikan").fadeIn();
-										setTimeout(function () {
-											$(".app-refreshed").fadeOut();
-										}, 2000);
+										if (!$(".app-refreshed").hasClass("active")) {
+											$(".app-refreshed").html("Notifikasi berhasil dimatikan").fadeIn();
+											setTimeout(function () {
+												$(".app-refreshed").fadeOut();
+											}, 2000);
+										}
 									}
 								},
 								"",
@@ -608,23 +610,57 @@ require(
 						jtCache.setItem("favorite/" + Backbone.history.getFragment(), window.sessionStorage.getItem("currentArticle"), window.PERSISTENT, null, function () {
 							$(that).parent().addClass("active");
 
-							$(".app-refreshed").html("Anda menyukai artikel ini").fadeIn();
-							setTimeout(function () {
-								$(".app-refreshed").fadeOut();
-							}, 2000);
+							if (!$(".app-refreshed").hasClass("active")) {
+								$(".app-refreshed").html("Anda menyukai artikel ini").fadeIn();
+								setTimeout(function () {
+									$(".app-refreshed").fadeOut();
+								}, 2000);
+							}
 						});
 					}
 					else {
-						$(".app-refreshed").html("Artikel tidak berhasil disukai").fadeIn();
-						setTimeout(function () {
-							$(".app-refreshed").fadeOut();
-						}, 2000);
+						if (!$(".app-refreshed").hasClass("active")) {
+							$(".app-refreshed").html("Artikel tidak berhasil disukai").fadeIn();
+							setTimeout(function () {
+								$(".app-refreshed").fadeOut();
+							}, 2000);
+						}
 					}
 				}
 				else {
 					jtCache.removeItem("favorite/" + Backbone.history.getFragment(), window.PERSISTENT, function () {
 						$(that).parent().removeClass("active");
 					});
+				}
+			});
+
+			$(document).on("click", ".app-addtooffline .app-goto", function (e) {
+				var that = this;
+
+				if (!$(that).parent().hasClass("active")) {
+					// if (window.sessionStorage.getItem("currentArticle") != null) {
+						// jtCache.setItem("favorite/" + Backbone.history.getFragment(), window.sessionStorage.getItem("currentArticle"), window.PERSISTENT, null, function () {
+							$(that).parent().addClass("active");
+
+							if (!$(".app-refreshed").hasClass("active")) {
+								$(".app-refreshed").html("Artikel berhasil disimpan").fadeIn();
+								setTimeout(function () {
+									$(".app-refreshed").fadeOut();
+								}, 2000);
+							}
+						// });
+					// }
+					// else {
+						// $(".app-refreshed").html("Artikel tidak berhasil disukai").fadeIn();
+						// setTimeout(function () {
+						// 	$(".app-refreshed").fadeOut();
+						// }, 2000);
+					// }
+				}
+				else {
+					// jtCache.removeItem("favorite/" + Backbone.history.getFragment(), window.PERSISTENT, function () {
+						$(that).parent().removeClass("active");
+					// });
 				}
 			});
 
