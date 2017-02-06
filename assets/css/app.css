@@ -2808,8 +2808,8 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     transform-origin: center;
-    -webkit-transition: 0.2s;
-    transition: 0.2s;
+    -webkit-transition: 0.2s linear;
+    transition: 0.2s linear;
     -webkit-mask-size: 24px;
     mask-size: 24px;
     -webkit-backface-visibility: hidden; 
