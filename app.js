@@ -628,6 +628,34 @@ require(
 				}
 			});
 
+			$(document).on("click", ".app-addtooffline .app-goto", function (e) {
+				var that = this;
+
+				if (!$(that).parent().hasClass("active")) {
+					// if (window.sessionStorage.getItem("currentArticle") != null) {
+						// jtCache.setItem("favorite/" + Backbone.history.getFragment(), window.sessionStorage.getItem("currentArticle"), window.PERSISTENT, null, function () {
+							$(that).parent().addClass("active");
+
+							$(".app-refreshed").html("Anda menyimpan artikel ini").fadeIn();
+							setTimeout(function () {
+								$(".app-refreshed").fadeOut();
+							}, 2000);
+						// });
+					// }
+					// else {
+						// $(".app-refreshed").html("Artikel tidak berhasil disukai").fadeIn();
+						// setTimeout(function () {
+						// 	$(".app-refreshed").fadeOut();
+						// }, 2000);
+					// }
+				}
+				else {
+					// jtCache.removeItem("favorite/" + Backbone.history.getFragment(), window.PERSISTENT, function () {
+						$(that).parent().removeClass("active");
+					// });
+				}
+			});
+
 			$(document).on("touchend click", ".app-index-card a.disabled", function (e) {
 				e.preventDefault();
 			});
