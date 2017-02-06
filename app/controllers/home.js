@@ -1191,47 +1191,74 @@ define(
 								val).data("src")) + ".";
 						$(val).data("native", _nativePath);
 
-						$(val).attr("src", $(val).data("native")).addClass("rendered");
-
 						$(val).error(function () {
-							if ($(this).attr("src") != $(this).data("src")) {
-								$(this).attr("src", $(this).data("src"));
+							if ($(this).attr("src") != $(this).data("native")) {
+								$(val).attr("src", $(val).data("native")).addClass("rendered");
 							}
 							else {
-								$(this).hide();
+								if ($(this).attr("src") != $(this).data("src")) {
+									$(this).attr("src", $(this).data("src"));
+									$(this).data("native", $(this).data("src"));
+								}
+								else {
+									$(this).hide();
+								}
 							}
 						});
 
 						$(val).load(function () {
 							if ($(this).attr("src").indexOf("filesystem") < 0) {
 								var that = this;
-								var xhr  = new XMLHttpRequest();
-								xhr.onreadystatechange = function () {
-									if (this.readyState == 4 && this.status == 200) {
-										var cacheKey = "image.article.";
-										var url      = $(that).attr("src");
-										url          = btoa(url);
 
-										cache(this);
+								var cacheKey = "image.article.";
+								var url      = $(this).attr("src");
+								url          = btoa(url);
 
-										function cache(xhr) {
+								window.requestFileSystem(window.TEMPORARY, 0, function (fs) {
+									fs.root.getDirectory('data', {}, function (fs) {
+										fs.getFile(cacheKey + url + ".", {}, function () {
+											/*
+											 Using cached image
+											 */
+										}, function () {
+											cache();
+										});
+									}, function () {
+										cache();
+									});
+								}, function () {
+									cache();
+								});
+
+								function cache() {
+									var xhr = new XMLHttpRequest();
+
+									xhr.onreadystatechange = function () {
+										if (this.readyState == 4 && this.status == 200) {
+											/*
+											 Caching image
+											 */
+
 											jtCache.setItem(cacheKey + url, {
 												"type"     : "blob",
-												"value"    : xhr.response,
+												"value": xhr.response,
 												"extension": "",
 												"fileType" : xhr.response.type
 											}, window.TEMPORARY, null);
 										}
 									}
+
+									xhr.open('GET', $(that).attr("src"));
+									xhr.responseType = 'blob';
+									xhr.send();
 								}
-								xhr.open('GET', $(this).attr("src"));
-								xhr.responseType = 'blob';
-								xhr.send();
 							}
 
 							if (!$(this).hasClass("hidden")) {
 								$(this).show();
 							}
+
+							$(this).addClass("rendered");
 						});
 					}
 				});

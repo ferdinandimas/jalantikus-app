@@ -193,7 +193,9 @@ var jtCache = function () {
 			}
 		},
 		getItem: function (cacheKey, callback, type) {
-			cacheKey += ".json";
+			if (cacheKey.substr(cacheKey.length - 1) != ".") {
+				cacheKey += ".json";
+			}
 			cacheKey = cacheKey.replace(/\//g, ".");
 
 			type = (typeof type == "undefined" || type == null ? window.TEMPORARY : type);
@@ -420,8 +422,6 @@ var jtCache = function () {
 							Promise.all(entries.map(function (val) {
 								var dfd = $.Deferred();
 
-								console.log("FAVORITE GET");
-
 								var _buff = val;
 
 								if (typeof search == "undefined" || (typeof search == "string" && val.name.indexOf(search) >= 0)) {
@@ -446,8 +446,6 @@ var jtCache = function () {
 
 								return dfd.promise();
 							})).then(function () {
-								console.log("FAVORITE RESULT");
-
 								if (typeof callback == "function") {
 									callback(result);
 								}
