@@ -2743,7 +2743,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     font-size: 16px;
     line-height: 16px;
     padding-right: 40px;
-    padding-left: 20px;
+    padding-left: 10px;
     box-sizing: border-box;
     color: #9d9d9d;
     -webkit-transition: 0.2s;
@@ -2759,10 +2759,15 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	width: calc(65% - 15px);
 	margin-left: 15px;
 }
-.app-addtofavorite.active, .app-addtooffline.active
+.app-addtofavorite.active
 {
 	border: 1px solid #aeaeae;
 	color: #6b6b6b;
+}
+.app-addtooffline.active
+{
+	border: 1px solid #2196F3;
+	color: #2196F3;
 }
 .app-addtofavorite .app-goto, .app-addtooffline .app-goto
 {
@@ -2775,7 +2780,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	height: 40px;
 	content: "";
 	top: 0;
-	right: 6px;
+	right: 8px;
 	background-image: url(../images/user-favorited-icon.png);
 	background-position: center center;
 	background-repeat: no-repeat;
@@ -2795,7 +2800,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	height: 40px;
 	content: "";
 	top: 0;
-	right: 6px;
+	right: 8px;
 	background-color: #aaa;
 	-webkit-mask-image: url(../images/save-offline-icon.svg);
     mask-image: url(../images/save-offline-icon.svg);
@@ -2820,7 +2825,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     height: 40px;
     content: "";
     top: 0;
-    right: 6px;
+    right: 8px;
     background-color: #c92737;
     -webkit-mask-image: url(../images/user-favorite-icon.svg);
     mask-image: url(../images/user-favorite-icon.svg);
@@ -3500,12 +3505,13 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	}
 }
 @media (max-width:360px) {
-	.app-addtofavorite
+	.app-addtofavorite, .app-addtooffline
 	{
 		font-size: 14px;
+		padding-left: 0;
 	}
-	.app-addtooffline
+	.app-addtofavorite .app-goto:after, .app-addtofavorite .app-goto:before, .app-addtooffline .app-goto:after
 	{
-		font-size: 14px;
+		right: 6px;
 	}
 }
