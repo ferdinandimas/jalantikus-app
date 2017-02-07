@@ -259,7 +259,10 @@ define(
 						 Mode Offline
 						 */
 						$("#app-toolbar").addClass("disukai");
-
+						if(Backbone.history.getFragment() == "")
+						{
+							$("#app-toolbar").addClass("beranda");
+						}
 						jtCache.listItem("data", function (_data) {
 							var _buff = [];
 
@@ -365,7 +368,6 @@ define(
 												$(".app-content-container").scrollTop());
 									}
 								});
-								$(".app-toolbar").removeClass("beranda");
 
 								that.loadImages();
 							}

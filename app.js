@@ -467,16 +467,38 @@ require(
 			})
 
 			$(document).on("click", ".usermenu-item", function (e) {
-				if (!$(this).hasClass("item-pass")) {
-					jt.ripple($(this), e, "instant", "s");
+				if(!jt.isOffline())
+				{
+					if (!$(this).hasClass("item-pass")) {
+						jt.ripple($(this), e, "instant", "s");
+					}
+					else {
+						jt.ripple($(this), e, "", "");
+					}
+					if (!$(this).hasClass("app-kategori") && !$(this).hasClass("item-kategori") && $(".app-kategori-overlay").hasClass("active")) {
+						$(".item-kategori").removeClass("active");
+						$(".app-kategori-overlay").removeClass("active");
+						$(".app-kategori-overlay").fadeOut(200);
+					}
 				}
-				else {
-					jt.ripple($(this), e, "", "");
-				}
-				if (!$(this).hasClass("app-kategori") && !$(this).hasClass("item-kategori") && $(".app-kategori-overlay").hasClass("active")) {
-					$(".item-kategori").removeClass("active");
-					$(".app-kategori-overlay").removeClass("active");
-					$(".app-kategori-overlay").fadeOut(200);
+				else
+				{
+					if($(this).find(".terbaik").length > 0 || $(this).find(".favorit").length > 0)
+					{
+						jt.ripple($(this), e, "instant", "s");
+					}
+					else
+					{
+						e.preventDefault();
+						$(".usermenu-item").removeClass("active");
+						$("a[href='#"+Backbone.history.getFragment()+"']").addClass("active")
+						if (!$(".app-refreshed").hasClass("active")) {
+							$(".app-refreshed").html("Tidak ada jaringan").addClass("active").fadeIn();
+							setTimeout(function () {
+								$(".app-refreshed").removeClass("active").fadeOut();
+							}, 2000);
+						}
+					}
 				}
 			});
 
@@ -591,16 +613,19 @@ require(
 			});
 
 			$(document).on("click", ".app-kategori", function (e) {
-				var _this = $(this);
-				if (!$(".app-kategori-overlay").hasClass("active")) {
-					$(".app-kategori-overlay").show(0, function () {
-						$(".app-kategori-overlay").addClass("active")
-					})
-					_this.addClass("active");
-				}
-				else {
-					$(".app-kategori-overlay").removeClass("active");
-					$(".app-kategori-overlay").fadeOut(200);
+				if(!jt.isOffline())
+				{
+					var _this = $(this);
+					if (!$(".app-kategori-overlay").hasClass("active")) {
+						$(".app-kategori-overlay").show(0, function () {
+							$(".app-kategori-overlay").addClass("active")
+						})
+						_this.addClass("active");
+					}
+					else {
+						$(".app-kategori-overlay").removeClass("active");
+						$(".app-kategori-overlay").fadeOut(200);
+					}
 				}
 			});
 
@@ -949,7 +974,7 @@ require(
 				}
 			});
 
-			$(".usermenu-lower .container .usermenu-item").click(function (key, val) {
+			$(document).on("click", ".usermenu-lower .container .usermenu-item", function (e) {
 				if (typeof $(this).attr("href") != "undefined" && !jt.isOffline()) {
 					var _href = $(this).attr("href");
 					_href     = _href.replace("#", "");
