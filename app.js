@@ -620,16 +620,16 @@ require(
 
 					if (!$(that).hasClass("active")) {
 						if (window.sessionStorage.getItem("currentArticle") != null) {
+							$(that).addClass("active");
+
+							if (!$(".app-refreshed").hasClass("active")) {
+								$(".app-refreshed").html("Anda menyukai artikel ini").fadeIn();
+								setTimeout(function () {
+									$(".app-refreshed").fadeOut();
+								}, 2000);
+							}
+
 							jtCache.setItem("favorite/" + Backbone.history.getFragment(), window.sessionStorage.getItem("currentArticle"), window.PERSISTENT, null, function () {
-								$(that).addClass("active");
-
-								if (!$(".app-refreshed").hasClass("active")) {
-									$(".app-refreshed").html("Anda menyukai artikel ini").fadeIn();
-									setTimeout(function () {
-										$(".app-refreshed").fadeOut();
-									}, 2000);
-								}
-
 								setTimeout(function() {
 									cacheImage();
 
@@ -647,9 +647,9 @@ require(
 						}
 					}
 					else {
-						jtCache.removeItem("favorite/" + Backbone.history.getFragment(), window.PERSISTENT, function () {
-							$(that).removeClass("active");
+						$(that).removeClass("active");
 
+						jtCache.removeItem("favorite/" + Backbone.history.getFragment(), window.PERSISTENT, function () {
 							jtCache.getItem("offline/" + Backbone.history.getFragment(), function (_data) {
 								if (_data == null) {
 									jtCache.listItem("data", function (_list) {
@@ -679,16 +679,16 @@ require(
 
 					if (!$(that).hasClass("active")) {
 						if (window.sessionStorage.getItem("currentArticle") != null) {
+							$(that).addClass("active");
+
+							if (!$(".app-refreshed").hasClass("active")) {
+								$(".app-refreshed").html("Artikel berhasil disimpan").fadeIn();
+								setTimeout(function () {
+									$(".app-refreshed").fadeOut();
+								}, 2000);
+							}
+
 							jtCache.setItem("offline/" + Backbone.history.getFragment(), window.sessionStorage.getItem("currentArticle"), window.PERSISTENT, null, function () {
-								$(that).addClass("active");
-
-								if (!$(".app-refreshed").hasClass("active")) {
-									$(".app-refreshed").html("Artikel berhasil disimpan").fadeIn();
-									setTimeout(function () {
-										$(".app-refreshed").fadeOut();
-									}, 2000);
-								}
-
 								setTimeout(function() {
 									cacheImage();
 
@@ -706,9 +706,9 @@ require(
 						}
 					}
 					else {
-						jtCache.removeItem("offline/" + Backbone.history.getFragment(), window.PERSISTENT, function () {
-							$(that).removeClass("active");
+						$(that).removeClass("active");
 
+						jtCache.removeItem("offline/" + Backbone.history.getFragment(), window.PERSISTENT, function () {
 							jtCache.getItem("favorite/" + Backbone.history.getFragment(), function (_data) {
 								if (_data == null) {
 									jtCache.listItem("data", function (_list) {

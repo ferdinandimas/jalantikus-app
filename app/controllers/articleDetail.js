@@ -237,31 +237,31 @@ define(
 						detail: _data
 					}));
 
-					if (jt.isOffline()) {
-						$(".more-article-frame").hide();
-						$(".app-gotoweb-description").hide();
-						$(".app-gotohome-description").css("margin-top", "5px");
-					}
-
 					jtCache.getItem("favorite/" + Backbone.history.getFragment(), function (_data) {
 						if (_data != null) {
+							$(".app-addtofavorite").addClass("active");
+
 							jtCache.setItem("favorite/" + Backbone.history.getFragment(), window.sessionStorage.getItem("currentArticle"), window.PERSISTENT);
 
 							cachePreviewImage()
-
-							$(".app-addtofavorite").addClass("active");
 						}
 					}, window.PERSISTENT);
 
 					jtCache.getItem("offline/" + Backbone.history.getFragment(), function (_data) {
 						if (_data != null) {
+							$(".app-addtooffline").addClass("active");
+
 							jtCache.setItem("offline/" + Backbone.history.getFragment(), window.sessionStorage.getItem("currentArticle"), window.PERSISTENT);
 
 							cachePreviewImage();
-
-							$(".app-addtooffline").addClass("active");
 						}
 					}, window.PERSISTENT);
+
+					if (jt.isOffline()) {
+						$(".more-article-frame").hide();
+						$(".app-gotoweb-description").hide();
+						$(".app-gotohome-description").css("margin-top", "5px");
+					}
 
 					function cachePreviewImage() {
 						/*
