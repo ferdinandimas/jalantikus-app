@@ -460,6 +460,7 @@ define(
 
 					if ($("#app-header-detail").length < 0) {
 						$("#app-toolbar")
+								.addClass("detail")
 								.empty()
 								.append((_.template(headerDetailLayout))());
 					}
