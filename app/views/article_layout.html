@@ -54,7 +54,7 @@
                 <% _.each(detail.related.article, function(value) { %><div class="app-index-card">
                         <div class="card-image">
                             <div class="image-overflow">
-                                <img data-src="<%= value.image.baseUrl %>168/100<%= value.image.file %>" alt="<%= value.title %>">
+                                <img class="more-banner" src="<%= value.image.baseUrl %>168/100<%= value.image.file %>">
                            </div>
                         </div>
                         <div class="card-description">
@@ -100,6 +100,15 @@
         <a href="javascript:void(0)" class="scroll-button scroll-down" data-direction="down">
         </a>
     </div>
+
+    <img class="hidden for-preview" style="display: none" data-src="<%= detail.image.baseUrl %>360/0<%= detail.image.file %>" />
+    <img class="hidden for-preview" style="display: none" data-src="<%= detail.image.baseUrl %>120/120<%= detail.image.file %>" />
+
+    <img class="hidden for-preview" style="display: none" data-src="<%= detail.image.baseUrl %>115/81<%= detail.image.file %>" />
+    <% if(typeof detail.description_images != "undefined" && typeof detail.description_images[1] != "undefined") { %>
+        <img class="hidden for-preview" style="display: none" data-src="<%= detail.description_images[0].baseUrl %>115/81/<%= detail.description_images[0].file %>" data-src="<%= detail.description_images[0].baseUrl %>115/81/<%= detail.description_images[0].file %>" />
+        <img class="hidden for-preview" style="display: none" data-src="<%= detail.description_images[1].baseUrl %>115/81/<%= detail.description_images[1].file %>" />
+    <% } %>
 </div>
 
 <iframe id="iframe-jalantikus" data-src="<%= detail.links.detail %>?utm_source=JT%20Apps&utm_medium=Android&utm_campaign=Apps" data-detail="<%= detail.links.detail %>" width="1" height="1" frameborder="0" style="display: none !important; width: 100% !important; height: 0px !important;;"></iframe>

@@ -331,7 +331,9 @@ var jtCache = function () {
 			}
 		},
 		removeItem: function (cacheKey, type, callback) {
-			cacheKey += ".json";
+			if (cacheKey.substr(cacheKey.length - 1) != ".") {
+				cacheKey += ".json";
+			}
 			cacheKey = cacheKey.replace(/\//g, ".");
 
 			type = (typeof type == "undefined" || type == null ? window.TEMPORARY : type);

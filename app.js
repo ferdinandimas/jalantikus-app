@@ -605,13 +605,15 @@ require(
 				jt.ripple($(this), e);
 			});
 
-			$(document).on("click", ".app-addtofavorite .app-goto", function (e) {
+			$(document).on("click", ".app-addtofavorite", function (e) {
 				var that = this;
 
-				if (!$(that).parent().hasClass("active")) {
+				if (!$(that).hasClass("active")) {
 					if (window.sessionStorage.getItem("currentArticle") != null) {
 						jtCache.setItem("favorite/" + Backbone.history.getFragment(), window.sessionStorage.getItem("currentArticle"), window.PERSISTENT, null, function () {
-							$(that).parent().addClass("active");
+							$(that).addClass("active");
+
+							cacheImage();
 
 							if (!$(".app-refreshed").hasClass("active")) {
 								$(".app-refreshed").html("Anda menyukai artikel ini").fadeIn();
@@ -632,28 +634,104 @@ require(
 				}
 				else {
 					jtCache.removeItem("favorite/" + Backbone.history.getFragment(), window.PERSISTENT, function () {
-						$(that).parent().removeClass("active");
+						jtCache.getItem("offline/" + Backbone.history.getFragment(), function (_data) {
+							if (_data == null) {
+								jtCache.listItem("data", function (_list) {
+									if (_list.length > 0) {
+										$.each(_list, function (key, val) {
+											jtCache.removeItem(val.name, window.PERSISTENT);
+										});
+									}
+								}, window.PERSISTENT, "image." + Backbone.history.getFragment().replace("/", "."), true);
+							}
+						}, window.PERSISTENT);
+
+						$(that).removeClass("active");
 					});
 				}
 			});
 
-			$(document).on("click", ".app-addtooffline .app-goto", function (e) {
+			$(document).on("click", ".app-addtooffline", function (e) {
 				var that = this;
 
-				if (!$(that).parent().hasClass("active")) {
-					$(that).parent().addClass("active");
+				if (!$(that).hasClass("active")) {
+					if (window.sessionStorage.getItem("currentArticle") != null) {
+						jtCache.setItem("offline/" + Backbone.history.getFragment(), window.sessionStorage.getItem("currentArticle"), window.PERSISTENT, null, function () {
+							$(that).addClass("active");
 
-					if (!$(".app-refreshed").hasClass("active")) {
-						$(".app-refreshed").html("Artikel berhasil disimpan").fadeIn();
-						setTimeout(function () {
-							$(".app-refreshed").fadeOut();
-						}, 2000);
+							cacheImage();
+
+							if (!$(".app-refreshed").hasClass("active")) {
+								$(".app-refreshed").html("Artikel berhasil disimpan").fadeIn();
+								setTimeout(function () {
+									$(".app-refreshed").fadeOut();
+								}, 2000);
+							}
+						});
+					}
+					else {
+						if (!$(".app-refreshed").hasClass("active")) {
+							$(".app-refreshed").html("Artikel tidak berhasil disimpan").fadeIn();
+							setTimeout(function () {
+								$(".app-refreshed").fadeOut();
+							}, 2000);
+						}
 					}
 				}
 				else {
-					$(that).parent().removeClass("active");
+					jtCache.removeItem("offline/" + Backbone.history.getFragment(), window.PERSISTENT, function () {
+						jtCache.getItem("favorite/" + Backbone.history.getFragment(), function (_data) {
+							if (_data == null) {
+								jtCache.listItem("data", function (_list) {
+									if (_list.length > 0) {
+										$.each(_list, function (key, val) {
+											jtCache.removeItem(val.name, window.PERSISTENT);
+										});
+									}
+								}, window.PERSISTENT, "image." + Backbone.history.getFragment().replace("/", "."), true);
+							}
+						}, window.PERSISTENT);
+
+						$(that).removeClass("active");
+					});
 				}
 			});
+
+			function cacheImage() {
+				$("img").each(function (key, val) {
+					if (typeof $(val).data("src") == "undefined") {
+						$(val).data("src", $(val).attr("src"));
+					}
+
+					if (typeof window.resolveLocalFileSystemURL == "function" && $(val).data("src").indexOf("http") >= 0 && $(val).data("src").indexOf("filesystem:") < 0) {
+						window.resolveLocalFileSystemURL("filesystem:" + window.location.origin + "/persistent/data/image." + Backbone.history.getFragment().replace("/", ".") + "." + btoa($(val).data("src")) + ".", function () {
+
+						}, function () {
+							setTimeout(function () {
+								var xhr = new XMLHttpRequest();
+
+								xhr.onreadystatechange = function () {
+									if (this.readyState == 4 && this.status == 200) {
+										/*
+										 Caching image
+										 */
+										jtCache.setItem("image." + Backbone.history.getFragment() + "." + btoa($(val).data("src")), {
+											"type"     : "blob",
+											"value"    : xhr.response,
+											"extension": "",
+											"fileType" : xhr.response.type
+										}, window.PERSISTENT, null);
+									}
+								}
+
+								xhr.open('GET', $(val).data("src"));
+								xhr.responseType = 'blob';
+								xhr.send();
+							}, 500);
+						});
+					}
+				});
+			}
 
 			$(document).on("touchend click", ".app-index-card a.disabled", function (e) {
 				e.preventDefault();
@@ -768,6 +846,9 @@ require(
 						$(".more-article-frame").hide();
 						$(".app-gotoweb-description").hide();
 						$(".app-gotohome-description").css("margin-top", "5px");
+
+						$(".usermenu-item-detail.terbaru, .usermenu-item-detail.hot, .usermenu-item-detail.kategori").fadeTo("fast", 0.3);
+						$(".usermenu-item-detail.terbaru, .usermenu-item-detail.hot, .usermenu-item-detail.kategori").addClass("disabled");
 					}
 					else {
 						$(".app-toggle-searchpanel").attr("href", "#app-searchpanel");
@@ -797,6 +878,9 @@ require(
 						$(".more-article-frame").show();
 						$(".app-gotoweb-description").show();
 						$(".app-gotohome-description").css("margin-top", "");
+
+						$(".usermenu-item-detail.terbaru, .usermenu-item-detail.hot, .usermenu-item-detail.kategori").fadeTo("fast", 1);
+						$(".usermenu-item-detail.terbaru, .usermenu-item-detail.hot, .usermenu-item-detail.kategori").removeClass("disabled");
 					}
 				}
 			}, 250);

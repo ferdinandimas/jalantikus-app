@@ -62,34 +62,70 @@ define(
 			fetch     : function (options) {
 				var that = this;
 
-				if ($(".app-detail-container .app-loader").length >= 1) {
-					if (typeof _data != "undefined" && _data != null && typeof _data.value != "undefined" && _data.value != null) {
-						window.sessionStorage.setItem("currentArticle", _data.value);
+				function fetch(_data) {
+					if ($(".app-detail-container .app-loader").length >= 1) {
+						if (typeof _data != "undefined" && _data != null && typeof _data.value != "undefined" && _data.value != null) {
+							window.sessionStorage.setItem("currentArticle", _data.value);
 
-						var _buff = JSON.parse(_data.value);
-					}
+							var _buff = JSON.parse(_data.value);
+						}
 
-					if ((typeof _data == "undefined" || _data == null || typeof _buff == "undefined" || typeof _buff.slug == "undefined" || _buff.slug == null) || (_data.expired == "true" && !jt.isOffline())) {
-						if (!jt.isOffline()) {
-							that.model.fetch({
-								timeout: typeof options != "undefined" && typeof options.timeout != "undefined" ? options.timeout : 5000,
-								success: function () {
-									_buff = _data = that.model.toJSON();
+						if ((typeof _data == "undefined" || _data == null || typeof _buff == "undefined" || typeof _buff.slug == "undefined" || _buff.slug == null) || (_data.expired == "true" && !jt.isOffline())) {
+							if (!jt.isOffline()) {
+								that.model.fetch({
+									timeout: typeof options != "undefined" && typeof options.timeout != "undefined" ? options.timeout : 5000,
+									success: function () {
+										_buff = _data = that.model.toJSON();
 
-									window.sessionStorage.setItem("currentArticle", JSON.stringify(_data));
+										window.sessionStorage.setItem("currentArticle", JSON.stringify(_data));
 
-									that.render(_buff);
-								},
-								error  : function () {
+										that.render(_buff);
+									},
+									error  : function () {
+										$(".app-loader").addClass("showbtn");
+
+										$(".app-retry").on("touchend click", function () {
+											that.isConnected = true;
+
+											$(".app-loader").removeClass("showbtn");
+
+											that.fetch({ timeout: 10000 });
+										});
+
+										if ($(".splash").length >= 1) {
+											if ($(".no-splash").length >= 1) {
+												$(".splash").show().find(".splash-content").fadeIn();
+												$(".no-splash").fadeOut();
+											}
+
+											if (!$(".splash .app-refreshed").hasClass("active")) {
+												$(".splash .app-refreshed").html("Tidak ada jaringan").addClass("active").fadeIn();
+												setTimeout(function () {
+													$(".splash .app-refreshed").removeClass("active").fadeOut();
+												}, 2000);
+											}
+
+											$(".splash-content .app-loader").fadeIn();
+
+											$(".splash-quote").remove();
+											$(".splash-speaker").remove();
+											$(".splash-loading").hide();
+										}
+
+										if (!$(".app-refreshed").hasClass("active")) {
+											$(".app-refreshed").html("Tidak ada jaringan").addClass("active").fadeIn();
+											setTimeout(function () {
+												$(".app-refreshed").removeClass("active").fadeOut();
+											}, 2000);
+
+											that.isConnected = false;
+										}
+									}
+								});
+							}
+							else {
+								setTimeout(function () {
 									$(".app-loader").addClass("showbtn");
-
-									$(".app-retry").on("touchend click", function () {
-										that.isConnected = true;
-
-										$(".app-loader").removeClass("showbtn");
-
-										that.fetch({ timeout: 10000 });
-									});
 
 									if ($(".splash").length >= 1) {
 										if ($(".no-splash").length >= 1) {
@@ -119,70 +155,50 @@ define(
 
 										that.isConnected = false;
 									}
-								}
-							});
-						}
-						else {
-							setTimeout(function () {
-								$(".app-loader").addClass("showbtn");
-
-								if ($(".splash").length >= 1) {
-									if ($(".no-splash").length >= 1) {
-										$(".splash").show().find(".splash-content").fadeIn();
-										$(".no-splash").fadeOut();
-									}
-
-									if (!$(".splash .app-refreshed").hasClass("active")) {
-										$(".splash .app-refreshed").html("Tidak ada jaringan").addClass("active").fadeIn();
-										setTimeout(function () {
-											$(".splash .app-refreshed").removeClass("active").fadeOut();
-										}, 2000);
-									}
-
-									$(".splash-content .app-loader").fadeIn();
-
-									$(".splash-quote").remove();
-									$(".splash-speaker").remove();
-									$(".splash-loading").hide();
-								}
-
-								if (!$(".app-refreshed").hasClass("active")) {
-									$(".app-refreshed").html("Tidak ada jaringan").addClass("active").fadeIn();
-									setTimeout(function () {
-										$(".app-refreshed").removeClass("active").fadeOut();
-									}, 2000);
-
-									that.isConnected = false;
-								}
-							}, 2000);
-						}
-					}
-					else {
-						if (window.localStorage.getItem("show_splash") === "true") {
-							$(".no-splash").hide();
-
-							if ($(".splash").length >= 1) {
-								setTimeout(function () {
-									$(".splash").fadeOut("fast", function () {
-										$(this).remove();
-									})
 								}, 2000);
 							}
 						}
 						else {
-							$(".splash").fadeOut(350, function() {
-								$(this).remove();
-							});
-							$(".no-splash").fadeOut(350, function() {
-								$(this).remove();
-							});
-						}
+							if (window.localStorage.getItem("show_splash") === "true") {
+								$(".no-splash").hide();
 
-						that.render(_buff);
+								if ($(".splash").length >= 1) {
+									setTimeout(function () {
+										$(".splash").fadeOut("fast", function () {
+											$(this).remove();
+										})
+									}, 2000);
+								}
+							}
+							else {
+								$(".splash").fadeOut(350, function() {
+									$(this).remove();
+								});
+								$(".no-splash").fadeOut(350, function() {
+									$(this).remove();
+								});
+							}
+
+							that.render(_buff);
+						}
 					}
 				}
 
-				fetch(null);
+				jtCache.getItem("offline/" + Backbone.history.getFragment(), function (_data) {
+					if (_data != null) {
+						fetch(_data);
+					}
+					else {
+						jtCache.getItem("favorite/" + Backbone.history.getFragment(), function (_data) {
+							if (_data != null) {
+								fetch(_data);
+							}
+							else {
+								fetch(null);
+							}
+						}, window.PERSISTENT);
+					}
+				}, window.PERSISTENT);
 			},
 			render    : function (_data) {
 				var that    = this;
@@ -227,6 +243,62 @@ define(
 						$(".app-gotohome-description").css("margin-top", "5px");
 					}
 
+					jtCache.getItem("favorite/" + Backbone.history.getFragment(), function (_data) {
+						if (_data != null) {
+							jtCache.setItem("favorite/" + Backbone.history.getFragment(), window.sessionStorage.getItem("currentArticle"), window.PERSISTENT);
+
+							cachePreviewImage()
+
+							$(".app-addtofavorite").addClass("active");
+						}
+					}, window.PERSISTENT);
+
+					jtCache.getItem("offline/" + Backbone.history.getFragment(), function (_data) {
+						if (_data != null) {
+							jtCache.setItem("offline/" + Backbone.history.getFragment(), window.sessionStorage.getItem("currentArticle"), window.PERSISTENT);
+
+							cachePreviewImage();
+
+							$(".app-addtooffline").addClass("active");
+						}
+					}, window.PERSISTENT);
+
+					function cachePreviewImage() {
+						/*
+						 Cache preview image
+						 */
+						$("img.for-preview:not(.rendered)").each(function (key, val) {
+							if (typeof window.resolveLocalFileSystemURL == "function") {
+								window.resolveLocalFileSystemURL("filesystem:" + window.location.origin + "/persistent/data/image." + Backbone.history.getFragment().replace("/", ".") + "." + btoa($(val).data("src")) + ".", function () {
+
+								}, function () {
+									var xhr = new XMLHttpRequest();
+
+									xhr.onreadystatechange = function () {
+										if (this.readyState == 4 && this.status == 200) {
+											/*
+											 Caching image
+											 */
+
+											jtCache.setItem("image." + Backbone.history.getFragment() + "." + btoa($(val).data("src")), {
+												"type"     : "blob",
+												"value"    : xhr.response,
+												"extension": "",
+												"fileType" : xhr.response.type
+											}, window.PERSISTENT, null);
+
+											$(val).addClass("rendered");
+										}
+									}
+
+									xhr.open('GET', $(val).data("src"));
+									xhr.responseType = 'blob';
+									xhr.send();
+								});
+							}
+						});
+					}
+
 					$("#app-userpanel").panel("close");
 					$("#app-searchpanel").panel("close");
 
@@ -234,83 +306,98 @@ define(
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop", $(".app-detail-container").scrollTop());
 					});
 
-					$("img").each(function (key, val) {
-						$(val).attr("alt", "");
+					$("img:not(.for-preview):not(.rendered)").each(function (key, val) {
+						if (typeof $(val).attr("src") != "undefined" && $(val).attr("src").indexOf("http") >= 0) {
+							$(val).attr("alt", "");
 
-						/*
-						 Using Placeholder
-						 */
-						if (isUsingPlaceholder = true) {
-							regExp = /(https?\:\/\/(.*?\.)?(jalantikus\.com|babe\.news)\/assets\/cache\/)(.*?\/.*?)(\/.*?)$/g;
-							value  = $(val).attr("src");
+							/*
+							 Using Placeholder
+							 */
+							if (isUsingPlaceholder = true) {
+								regExp = /(https?\:\/\/(.*?\.)?(jalantikus\.com|babe\.news)\/assets\/cache\/)(.*?\/.*?)(\/.*?)$/g;
+								value  = $(val).attr("src");
 
-							var _placeholder = "";
+								var _placeholder = "";
 
-							if (typeof value != "undefined" && value.match(regExp) && !$(val).hasClass("banner")) {
-								var matches = regExp.exec(value);
+								if (typeof value != "undefined" && value.match(regExp)) {
+									var matches = regExp.exec(value);
 
-								_images = matches[ 1 ] + $(".app-detail-body").width() + "/0" + matches[ 5 ];
-								_placeholder = matches[ 1 ] + Math.ceil($(".app-detail-body").width() / 100) + "/0" + matches[ 5 ];
+									_placeholder = matches[ 1 ] + Math.ceil($(".app-detail-body").width() / 100) + "/0" + matches[ 5 ];
 
-								$(val).data("src", _images);
+									if (!$(val).hasClass("banner") && !$(val).hasClass("more-banner")) {
+										_images = matches[ 1 ] + $(".app-detail-body").width() + "/0" + matches[ 5 ];
+									}
+									else {
+										_images = $(val).attr("src");
+									}
+
+									$(val).data("src", _images);
+									$(val).attr("src", _placeholder);
+
+									loadImage();
+								}
+								else if (typeof value != "undefined") {
+									$(val).data("src", $(val).attr("src"));
+
+									loadImage();
+								}
+							}
+							else {
+								$(val).data("src", $(val).attr("src"));
+
+								loadImage();
+							}
+							/*
+							 Using Placeholder
+							 */
+
+							function loadImage() {
+								var img = new Image();
+
+								$(img).on("load", function () {
+									$(val).attr("src", $(img).attr("src")).addClass("rendered");
+								});
 
 								if (typeof window.resolveLocalFileSystemURL == "function") {
-									window.resolveLocalFileSystemURL("cdvfile://localhost/temporary/data/image.article." + btoa(_placeholder) + ".", function (entry) {
+									window.resolveLocalFileSystemURL("filesystem:" + window.location.origin + "/persistent/data/image." + Backbone.history.getFragment().replace("/", ".") + "." + btoa($(val).data("src")) + ".", function (entry) {
 										var nativePath = entry.toURL();
 										if (typeof nativePath != "undefined") {
 											$(val).attr("src", nativePath);
 										}
 										else {
-											$(val).attr("src", _placeholder);
+											img.src = $(val).data("src");
 										}
-
-										loadImage();
 									}, function (e) {
-										$(val).attr("src", _placeholder);
+										jtCache.getItem("offline/" + Backbone.history.getFragment(), function (_data) {
+											if (_data != null) {
+												var xhr = new XMLHttpRequest();
 
-										loadImage();
+												xhr.onreadystatechange = function () {
+													if (this.readyState == 4 && this.status == 200) {
+														/*
+														 Caching image
+														 */
+														jtCache.setItem("image." + Backbone.history.getFragment() + "." + btoa($(val).data("src")), {
+															"type"     : "blob",
+															"value"    : xhr.response,
+															"extension": "",
+															"fileType" : xhr.response.type
+														}, window.PERSISTENT, null);
+													}
+												}
+
+												xhr.open('GET', $(val).data("src"));
+												xhr.responseType = 'blob';
+												xhr.send();
+											}
+										}, window.PERSISTENT);
+
+										img.src = $(val).data("src");
 									});
 								}
 								else {
-									$(val).attr("src", _placeholder);
-
-									loadImage();
-								}
-							}
-							else if (typeof value != "undefined") {
-								$(val).data("src", $(val).attr("src"));
-
-								loadImage();
-							}
-						}
-						else {
-							loadImage();
-						}
-						/*
-						 Using Placeholder
-						 */
-
-						function loadImage() {
-							var img = new Image();
-							$(img).on("load", function () {
-								$(val).attr("src", $(img).attr("src"));
-							});
-
-							if (typeof window.resolveLocalFileSystemURL == "function") {
-								window.resolveLocalFileSystemURL("cdvfile://localhost/temporary/data/image.article." + btoa($(val).data("src")) + ".", function (entry) {
-									var nativePath = entry.toURL();
-									if (typeof nativePath != "undefined") {
-										$(val).attr("src", nativePath);
-									}
-									else {
-										img.src = $(val).data("src");
-									}
-								}, function (e) {
 									img.src = $(val).data("src");
-								});
-							}
-							else {
-								img.src = $(val).data("src");
+								}
 							}
 						}
 					});
@@ -320,10 +407,11 @@ define(
 						var parent = _this.closest("p");
 						var isRun = false;
 						if (parent.find(".image-refresh").length == 0) {
-							parent.append("<div class='image-refresh-container'><div class='image-refresh'>Muat ulang gambar<a href='javascript:void(0);' class='image-refresh-link card-link'><div class='ripple'></div></a></div></div>");
+							parent.append(
+									"<div class='image-refresh-container'><div class='image-refresh'>Muat ulang gambar<a href='javascript:void(0);' class='image-refresh-link card-link'><div class='ripple'></div></a></div></div>");
 							parent.find(".image-refresh").on("click", function () {
 								if (!jt.isOffline() && !isRun) {
-									isRun	 = true;
+									isRun = true;
 									if (!$(this).hasClass("active")) {
 										$(this).addClass("active");
 									}
@@ -336,18 +424,23 @@ define(
 										parent.find(".image-refresh").remove();
 									})
 
-									tO = setTimeout(function(){
-										parent.find(".image-refresh").on('animationiteration webkitAnimationIteration', function() {
-											parent.find(".image-refresh").removeClass("active");
-											_this.attr("src", "");
-											if (!$(".app-refreshed").hasClass("active")) {
-												$(".app-refreshed").html("Gagal memuat ulang").addClass("active").fadeIn();
-												setTimeout(function () {
-													$(".app-refreshed").removeClass("active").fadeOut();
-												}, 2000);
-											}
-											parent.find(".image-refresh").off("animationiteration webkitAnimationIteration");
-										});
+									tO = setTimeout(function () {
+										parent.find(".image-refresh")
+												.on('animationiteration webkitAnimationIteration', function () {
+													parent.find(".image-refresh").removeClass("active");
+													_this.attr("src", "");
+													if (!$(".app-refreshed").hasClass("active")) {
+														$(".app-refreshed")
+																.html("Gagal memuat ulang")
+																.addClass("active")
+																.fadeIn();
+														setTimeout(function () {
+															$(".app-refreshed").removeClass("active").fadeOut();
+														}, 2000);
+													}
+													parent.find(".image-refresh")
+															.off("animationiteration webkitAnimationIteration");
+												});
 										isRun = false;
 									}, 10000)
 
@@ -363,33 +456,6 @@ define(
 						}
 						_this.hide();
 						_this.attr("src", "");
-					});
-
-					$(".more-article-frame img:not(.rendered), .app-detail-header img:not(.rendered)").each(function (key, val) {
-						if (typeof $(val).data("src") != "undefined") {
-							_nativePath = "filesystem:" + window.location.origin + "/temporary/data/image.article." + btoa($(val).data("src")) + ".";
-							$(val).data("native", _nativePath);
-
-							if (typeof window.resolveLocalFileSystemURL == "function") {
-								window.resolveLocalFileSystemURL($(val).data("native"), function(_file) {
-									$(val).attr("src", $(val).data("native")).addClass("rendered");
-								}, function () {
-									$(val).attr("src", $(val).data("src")).addClass("rendered");
-								});
-							}
-							else {
-								$(val).attr("src", $(val).data("native")).addClass("rendered");
-							}
-
-							$(val).error(function () {
-								if ($(this).attr("src") != $(this).data("src")) {
-									$(this).attr("src", $(this).data("src"));
-								}
-								else {
-									$(this).hide();
-								}
-							});
-						}
 					});
 
 					if ($("#app-header-detail").length < 0) {
@@ -693,18 +759,6 @@ define(
 					if (window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
 						$(".app-detail-container").scrollTop(parseInt(window.sessionStorage.getItem(Backbone.history.getFragment() + "/scrollTop")));
 					}
-
-					jtCache.getItem("favorite/" + Backbone.history.getFragment(), function(_data) {
-						if (_data != null) {
-							jtCache.getItem(Backbone.history.getFragment(), function(_data) {
-								if (_data != null) {
-									jtCache.setItem("favorite/" + Backbone.history.getFragment(), JSON.stringify(_data.value), window.PERSISTENT);
-								}
-							});
-
-							$(".app-addtofavorite").addClass("active");
-						}
-					}, window.PERSISTENT);
 
 					if (window.localStorage.getItem("favorite/" + Backbone.history.getFragment()) != null) {
 						window.localStorage.setItem("favorite/" + Backbone.history.getFragment(), window.sessionStorage.getItem(Backbone.history.getFragment()));
