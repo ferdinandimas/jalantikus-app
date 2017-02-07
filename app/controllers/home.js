@@ -132,7 +132,9 @@ define(
 							else {
 								$("#app-body .app-content-container").empty().append(
 									'<div class="favorite-empty">' +
-									'Maaf, belum ada artikel yang kamu sukai' +
+									'<img class="emoji" src="assets/images/cry-icon.png">' +
+									'Maaf, belum ada artikel yang disukai' +
+									'<img src="assets/images/favorit.png">' +
 									'</div>' +
 									'<div class="recommended-articles">REKOMENDASI UNTUK KAMU</div>' +
 									'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>' +
@@ -203,7 +205,9 @@ define(
 									else {
 										$("#app-body .app-content-container").empty().append(
 												'<div class="favorite-empty">' +
-												'Maaf, belum ada artikel yang kamu sukai' +
+												'<img class="emoji" src="assets/images/cry-icon.png">' +
+												'Maaf, belum ada artikel yang disukai' +
+												'<img src="assets/images/favorit.png">' +
 												'</div>'
 										);
 									}
@@ -306,7 +310,9 @@ define(
 							else {
 								$("#app-body .app-content-container").empty().append(
 										'<div class="favorite-empty">' +
+										'<img class="emoji" src="assets/images/afraid-icon.png">' +
 										'Maaf, belum ada artikel yang kamu simpan' +
+										'<img src="assets/images/simpan-offline.png">' +
 										'</div>'
 								);
 
