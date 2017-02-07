@@ -133,7 +133,7 @@ define(
 								$("#app-body .app-content-container").empty().append(
 									'<div class="favorite-empty">' +
 									'<img class="emoji" src="assets/images/cry-icon.png">' +
-									'Maaf, belum ada artikel yang disukai' +
+									'Maaf, Belum Ada Artikel yang Disukai.' +
 									'<img src="assets/images/favorit.png">' +
 									'</div>' +
 									'<div class="recommended-articles">REKOMENDASI UNTUK KAMU</div>' +
@@ -206,7 +206,7 @@ define(
 										$("#app-body .app-content-container").empty().append(
 												'<div class="favorite-empty">' +
 												'<img class="emoji" src="assets/images/cry-icon.png">' +
-												'Maaf, belum ada artikel yang disukai' +
+												'Maaf, Belum Ada Artikel yang Disukai.' +
 												'<img src="assets/images/favorit.png">' +
 												'</div>'
 										);
@@ -311,7 +311,7 @@ define(
 								$("#app-body .app-content-container").empty().append(
 										'<div class="favorite-empty">' +
 										'<img class="emoji" src="assets/images/afraid-icon.png">' +
-										'Maaf, belum ada artikel yang kamu simpan' +
+										'Maaf, Belum Ada Artikel yang Kamu Simpan' +
 										'<img src="assets/images/simpan-offline.png">' +
 										'</div>'
 								);
