@@ -615,92 +615,118 @@ require(
 			$(document).on("click", ".app-addtofavorite", function (e) {
 				var that = this;
 
-				if (!$(that).hasClass("active")) {
-					if (window.sessionStorage.getItem("currentArticle") != null) {
-						jtCache.setItem("favorite/" + Backbone.history.getFragment(), window.sessionStorage.getItem("currentArticle"), window.PERSISTENT, null, function () {
-							$(that).addClass("active");
+				if (!$(that).hasClass("processing")) {
+					$(that).addClass("processing");
 
-							cacheImage();
+					if (!$(that).hasClass("active")) {
+						if (window.sessionStorage.getItem("currentArticle") != null) {
+							jtCache.setItem("favorite/" + Backbone.history.getFragment(), window.sessionStorage.getItem("currentArticle"), window.PERSISTENT, null, function () {
+								$(that).addClass("active");
 
+								if (!$(".app-refreshed").hasClass("active")) {
+									$(".app-refreshed").html("Anda menyukai artikel ini").fadeIn();
+									setTimeout(function () {
+										$(".app-refreshed").fadeOut();
+									}, 2000);
+								}
+
+								setTimeout(function() {
+									cacheImage();
+
+									$(that).removeClass("processing");
+								}, 500);
+							});
+						}
+						else {
 							if (!$(".app-refreshed").hasClass("active")) {
-								$(".app-refreshed").html("Anda menyukai artikel ini").fadeIn();
+								$(".app-refreshed").html("Artikel tidak berhasil disukai").fadeIn();
 								setTimeout(function () {
 									$(".app-refreshed").fadeOut();
 								}, 2000);
 							}
-						});
-					}
-					else {
-						if (!$(".app-refreshed").hasClass("active")) {
-							$(".app-refreshed").html("Artikel tidak berhasil disukai").fadeIn();
-							setTimeout(function () {
-								$(".app-refreshed").fadeOut();
-							}, 2000);
 						}
 					}
-				}
-				else {
-					jtCache.removeItem("favorite/" + Backbone.history.getFragment(), window.PERSISTENT, function () {
-						jtCache.getItem("offline/" + Backbone.history.getFragment(), function (_data) {
-							if (_data == null) {
-								jtCache.listItem("data", function (_list) {
-									if (_list.length > 0) {
-										$.each(_list, function (key, val) {
-											jtCache.removeItem(val.name, window.PERSISTENT);
-										});
-									}
-								}, window.PERSISTENT, "image." + Backbone.history.getFragment().replace("/", "."), true);
-							}
-						}, window.PERSISTENT);
+					else {
+						jtCache.removeItem("favorite/" + Backbone.history.getFragment(), window.PERSISTENT, function () {
+							$(that).removeClass("active");
 
-						$(that).removeClass("active");
-					});
+							jtCache.getItem("offline/" + Backbone.history.getFragment(), function (_data) {
+								if (_data == null) {
+									jtCache.listItem("data", function (_list) {
+										if (_list.length > 0) {
+											$.each(_list, function (key, val) {
+												jtCache.removeItem(val.name, window.PERSISTENT);
+											});
+										}
+
+										$(that).removeClass("processing");
+									}, window.PERSISTENT, "image." + Backbone.history.getFragment().replace("/", "."), true);
+								}
+								else {
+									$(that).removeClass("processing");
+								}
+							}, window.PERSISTENT);
+						});
+					}
 				}
 			});
 
 			$(document).on("click", ".app-addtooffline", function (e) {
 				var that = this;
 
-				if (!$(that).hasClass("active")) {
-					if (window.sessionStorage.getItem("currentArticle") != null) {
-						jtCache.setItem("offline/" + Backbone.history.getFragment(), window.sessionStorage.getItem("currentArticle"), window.PERSISTENT, null, function () {
-							$(that).addClass("active");
+				if (!$(that).hasClass("processing")) {
+					$(that).addClass("processing");
 
-							cacheImage();
+					if (!$(that).hasClass("active")) {
+						if (window.sessionStorage.getItem("currentArticle") != null) {
+							jtCache.setItem("offline/" + Backbone.history.getFragment(), window.sessionStorage.getItem("currentArticle"), window.PERSISTENT, null, function () {
+								$(that).addClass("active");
 
+								if (!$(".app-refreshed").hasClass("active")) {
+									$(".app-refreshed").html("Artikel berhasil disimpan").fadeIn();
+									setTimeout(function () {
+										$(".app-refreshed").fadeOut();
+									}, 2000);
+								}
+
+								setTimeout(function() {
+									cacheImage();
+
+									$(that).removeClass("processing");
+								}, 500);
+							});
+						}
+						else {
 							if (!$(".app-refreshed").hasClass("active")) {
-								$(".app-refreshed").html("Artikel berhasil disimpan").fadeIn();
+								$(".app-refreshed").html("Artikel tidak berhasil disimpan").fadeIn();
 								setTimeout(function () {
 									$(".app-refreshed").fadeOut();
 								}, 2000);
 							}
-						});
-					}
-					else {
-						if (!$(".app-refreshed").hasClass("active")) {
-							$(".app-refreshed").html("Artikel tidak berhasil disimpan").fadeIn();
-							setTimeout(function () {
-								$(".app-refreshed").fadeOut();
-							}, 2000);
 						}
 					}
-				}
-				else {
-					jtCache.removeItem("offline/" + Backbone.history.getFragment(), window.PERSISTENT, function () {
-						jtCache.getItem("favorite/" + Backbone.history.getFragment(), function (_data) {
-							if (_data == null) {
-								jtCache.listItem("data", function (_list) {
-									if (_list.length > 0) {
-										$.each(_list, function (key, val) {
-											jtCache.removeItem(val.name, window.PERSISTENT);
-										});
-									}
-								}, window.PERSISTENT, "image." + Backbone.history.getFragment().replace("/", "."), true);
-							}
-						}, window.PERSISTENT);
+					else {
+						jtCache.removeItem("offline/" + Backbone.history.getFragment(), window.PERSISTENT, function () {
+							$(that).removeClass("active");
 
-						$(that).removeClass("active");
-					});
+							jtCache.getItem("favorite/" + Backbone.history.getFragment(), function (_data) {
+								if (_data == null) {
+									jtCache.listItem("data", function (_list) {
+										if (_list.length > 0) {
+											$.each(_list, function (key, val) {
+												jtCache.removeItem(val.name, window.PERSISTENT);
+											});
+										}
+
+										$(that).removeClass("processing");
+									}, window.PERSISTENT, "image." + Backbone.history.getFragment().replace("/", "."), true);
+								}
+								else {
+									$(that).removeClass("processing");
+								}
+							}, window.PERSISTENT);
+						});
+					}
 				}
 			});
 
