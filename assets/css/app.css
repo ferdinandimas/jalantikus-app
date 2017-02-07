@@ -944,7 +944,7 @@ div, span, a
 .app-detail-body
 {
 	padding: 0px 15px 5px 15px;
-	color: #666;
+	color: #555;
 	font-size: 16px;
 	line-height: 28px;
 	font-weight: 500;
@@ -1736,6 +1736,10 @@ div, span, a
 .usermenu-lower .container .usermenu-item.item-kategori.active
 {
 	background-color: #f3f3f3
+}
+.offline ~ .usermenu-lower .container .usermenu-item
+{
+	opacity: 0.5;
 }
 .usermenu-lower .container .popup-kategori .usermenu-item
 {

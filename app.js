@@ -104,27 +104,34 @@ require(
 					{
 						$(".kategori-close").click()
 					}
-					if ((fragment == "" || fragment.indexOf("index/") == 0) || window.history.length == 1) {
-						if (fragment.indexOf("index/") == 0) {
-							window.location.href = "#";
-						}
-						else {
-							if (typeof navigator.notification != "undefined") {
-								navigator.notification.confirm(
-										"Tutup JalanTikus?",
-										function (confirmation) {
-											if (confirmation == 1) {
-												navigator.app.exitApp();
-											}
-										},
-										"Keluar",
-										[ "Ya", "Tidak" ]
-								);
+					else if($(".popup-userpanel").hasClass("active"))
+					{
+						$(".userpanel-close").click()
+					}
+					else
+					{
+						if ((fragment == "" || fragment.indexOf("index/") == 0) || window.history.length == 1) {
+							if (fragment.indexOf("index/") == 0) {
+								window.location.href = "#";
+							}
+							else {
+								if (typeof navigator.notification != "undefined") {
+									navigator.notification.confirm(
+											"Tutup JalanTikus?",
+											function (confirmation) {
+												if (confirmation == 1) {
+													navigator.app.exitApp();
+												}
+											},
+											"Keluar",
+											[ "Ya", "Tidak" ]
+									);
+								}
 							}
 						}
-					}
-					else {
-						window.history.back();
+						else {
+							window.history.back();
+						}
 					}
 				});
 			});
