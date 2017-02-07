@@ -99,9 +99,11 @@ require(
 
 				document.addEventListener("backbutton", function (e) {
 					$.xhrPool.abortAll();
-
 					fragment = Backbone.history.getFragment();
-
+					if($(".app-kategori-overlay").hasClass("active"))
+					{
+						$(".kategori-close").click()
+					}
 					if ((fragment == "" || fragment.indexOf("index/") == 0) || window.history.length == 1) {
 						if (fragment.indexOf("index/") == 0) {
 							window.location.href = "#";
