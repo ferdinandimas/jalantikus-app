@@ -840,8 +840,6 @@ require(
 
 			setInterval(function () {
 				if (isOnline != !jt.isOffline()) {
-					isOnline = !jt.isOffline();
-
 					if (jt.isOffline()) {
 						lastFragment = Backbone.history.getFragment();
 
@@ -856,6 +854,13 @@ require(
 
 						$(".usermenu-item-detail.terbaru, .usermenu-item-detail.hot, .usermenu-item-detail.kategori").fadeTo("fast", 0.3);
 						$(".usermenu-item-detail.terbaru, .usermenu-item-detail.hot, .usermenu-item-detail.kategori").addClass("disabled");
+
+						if (Backbone.history.getFragment() == "") {
+							Backbone.history.loadUrl();
+						}
+						else if (Backbone.history.getFragment().indexOf("index/") >= 0) {
+							window.location.href = "#";
+						}
 					}
 					else {
 						$(".app-toggle-searchpanel").attr("href", "#app-searchpanel");
@@ -875,7 +880,7 @@ require(
 							window.StatusBar.backgroundColorByHexString("#8f1f1f");
 						}
 
-						if (lastFragment != Backbone.history.getFragment()) {
+						if (lastFragment != Backbone.history.getFragment() || (isOnline == jt.isOffline() && Backbone.history.getFragment() == "")) {
 							Backbone.history.loadUrl();
 						}
 
@@ -889,6 +894,8 @@ require(
 						$(".usermenu-item-detail.terbaru, .usermenu-item-detail.hot, .usermenu-item-detail.kategori").fadeTo("fast", 1);
 						$(".usermenu-item-detail.terbaru, .usermenu-item-detail.hot, .usermenu-item-detail.kategori").removeClass("disabled");
 					}
+
+					isOnline = !jt.isOffline();
 				}
 			}, 250);
 			var cWidth = $(window).width();
