@@ -238,7 +238,7 @@ define(
 								$(".app-content-container").scrollTop(parseInt(that.cacheSource.getItem(Backbone.history.getFragment() + "/scrollTop")));
 							}
 
-							$(".app-toggle-refresh").remove();
+							// $(".app-toggle-refresh").remove();
 
 							$("#app-body .app-content-container").scroll(function () {
 								window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
@@ -360,7 +360,7 @@ define(
 								$(".app-content-container").scrollTop(parseInt(that.cacheSource.getItem(Backbone.history.getFragment() + "/scrollTop")));
 							}
 
-							$(".app-toggle-refresh").remove();
+							// $(".app-toggle-refresh").remove();
 
 							$("#app-body .app-content-container").scroll(function () {
 								window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
