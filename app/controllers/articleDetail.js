@@ -517,23 +517,38 @@ define(
 					});
 
 					$(".app-detail-body iframe").each(function (index, element) {
-						$(element).attr("width", "100%").attr("height", "");
+						if(!jt.isOffline())
+						{
+							$(element).attr("width", "100%").attr("height", "");
 
-						if ($(element).attr("src").indexOf("http:") < 0 && $(element).attr("src").indexOf("https:") < 0) {
-							$(element).attr("src", "http:" + $(element).attr("src"));
-						}
-
-						if ($(element).attr("src").indexOf("giphy.com") >= 0) {
-							var _this = $(this);
-							var parent = _this.closest("p");
-
-							if (parent.find(".image-refresh").length == 0) {
-								parent.append("<div class='image-refresh'>Lihat gambar di Web<a href='" + $(".app-gotoweb.app-goto").attr("href") + "' class='card-link'><div class='ripple'></div></a></div>");
+							if ($(element).attr("src").indexOf("http:") < 0 && $(element).attr("src").indexOf("https:") < 0) {
+								$(element).attr("src", "http:" + $(element).attr("src"));
 							}
 
-							_this.remove();
+							if ($(element).attr("src").indexOf("giphy.com") >= 0) {
+								var _this = $(this);
+								var parent = _this.closest("p");
+
+								if (parent.find(".image-refresh").length == 0) {
+									parent.append("<div class='image-refresh'>Lihat gambar di Web<a href='" + $(".app-gotoweb.app-goto").attr("href") + "' class='card-link'><div class='ripple'></div></a></div>");
+								}
+
+								_this.remove();
+							}
+						}
+						else
+						{
+							var _this = $(this);
+							_this.html("<div class='image-refresh-container'>Konten Tidak Dapat Dimuat<br><div class='image-refresh not-support'>Lihat Konten di Web<a href='javascript:void(0);' data-href='" + $(".app-gotoweb.app-goto").data("href") + "' class='card-link'><div class='ripple'></div></a></div></div>").attr("style", "").removeClass("instagram-media");
 						}
 					});
+
+					$(".app-detail-body iframe").one("error", function (index, element) {
+						var _this = $(this);
+						_this.html("<div class='image-refresh-container'>Konten Tidak Dapat Dimuat<br><div class='image-refresh not-support'>Lihat Konten di Web<a href='javascript:void(0);' data-href='" + $(".app-gotoweb.app-goto").data("href") + "' class='card-link'><div class='ripple'></div></a></div></div>").attr("style", "").removeClass("instagram-media");
+					});
+
+	
 
 					$("a").each(function (key, val) {
 						value  = $(val).attr("href");
