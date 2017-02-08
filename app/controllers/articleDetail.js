@@ -24,6 +24,7 @@ define(
 				$("#app-toolbar")
 					.addClass("detail")
 					.removeClass("scroll")
+					.removeClass("beranda")
 					.empty()
 					.append((_.template(headerDetailLayout))());
 

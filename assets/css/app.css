@@ -1398,9 +1398,13 @@ div, span, a
 {
 	right: 50px;
 }
-.detail .app-toggle-refresh, .detail .app-toggle-searchpanel, .search .app-toggle-refresh, .search .app-toggle-searchpanel
+.detail .app-toggle-refresh, .detail .app-toggle-userpanel, .search .app-toggle-refresh, .search .app-toggle-userpanel, .app-toggle-back, .beranda .header-description, .search .app-logo, .detail .app-logo, .app-home
 {
 	display: none;
+}
+.detail .app-toggle-back, .search .app-toggle-back, .detail .app-home, .search .app-home
+{
+	display: block;
 }
 .app-body .app-refreshed, .splash .app-refreshed
 {
