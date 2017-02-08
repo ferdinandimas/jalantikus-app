@@ -532,7 +532,7 @@ define(
 								if (parent.find(".image-refresh").length == 0) {
 									parent.append("<div class='image-refresh'>Lihat gambar di Web<a href='" + $(".app-gotoweb.app-goto").attr("href") + "' class='card-link'><div class='ripple'></div></a></div>");
 								}
-
+								parent.css("padding", 0).css("height", "auto")
 								_this.remove();
 							}
 						}
