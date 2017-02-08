@@ -260,8 +260,7 @@ define(
 					 Mode Offline
 					 */
 					$("#app-toolbar").addClass("disukai");
-					if(Backbone.history.getFragment() == "")
-					{
+					if (Backbone.history.getFragment() == "") {
 						$("#app-toolbar").addClass("beranda");
 					}
 					jtCache.listItem("data", function (_data) {
@@ -313,26 +312,26 @@ define(
 									'</div>'
 							);
 
-							if (that._articleList != null && (JSON.parse(that._articleList)).length > 0) {
-								_data = JSON.parse(that._articleList);
-
-								$.each(_data, function (key, val) {
-									_data[ key ].type = "favorite";
-								});
-
-								$("#app-body .app-content-container .card-placeholder").remove();
-								$("#app-body .app-content-container")
-										.append(that.timelineTemplate({
-											timelineArticle: _data
-										}));
-
-								that.loadImages();
-							}
-							else {
-								$(".recommended-articles").fadeOut();
-							}
-
-							finishedRendering();
+							//if (that._articleList != null && (JSON.parse(that._articleList)).length > 0) {
+							//	_data = JSON.parse(that._articleList);
+							//
+							//	$.each(_data, function (key, val) {
+							//		_data[ key ].type = "favorite";
+							//	});
+							//
+							//	$("#app-body .app-content-container .card-placeholder").remove();
+							//	$("#app-body .app-content-container")
+							//			.append(that.timelineTemplate({
+							//				timelineArticle: _data
+							//			}));
+							//
+							//	that.loadImages();
+							//}
+							//else {
+							//	$(".recommended-articles").fadeOut();
+							//}
+							//
+							//finishedRendering();
 						}
 
 						function finishedRendering() {
