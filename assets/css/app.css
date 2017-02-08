@@ -1627,6 +1627,7 @@ div, span, a
     font-size: 18px;
     margin-top: 15px;
     padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
 }
 .app-search .app-search-keyword
 {
@@ -2892,6 +2893,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     border-radius: 5px;
     box-sizing: border-box;
     text-align: center;
+    border-bottom: 1px solid #f0f0f0;
 }
 .favorite-empty .emoji, .favorite-empty img
 {
@@ -2935,7 +2937,6 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 	font-size: 15px;
 	line-height: 20px;
 	padding-bottom: 20px;
-    border-top: 1px solid #f0f0f0;
     border-bottom: 1px solid #f0f0f0;
 	padding-top: 20px;
 }
