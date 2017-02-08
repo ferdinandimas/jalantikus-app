@@ -314,7 +314,9 @@ define(
 							/*
 							 Using Placeholder
 							 */
-							if (isUsingPlaceholder = true) {
+							isUsingPlaceholder = true;
+
+							if (!$(val).hasClass("banner") && isUsingPlaceholder == true) {
 								regExp = /(https?\:\/\/(.*?\.)?(jalantikus\.com|babe\.news)\/assets\/cache\/)(.*?\/.*?)(\/.*?)$/g;
 								value  = $(val).attr("src");
 
@@ -371,27 +373,38 @@ define(
 									}, function (e) {
 										jtCache.getItem("offline/" + Backbone.history.getFragment(), function (_data) {
 											if (_data != null) {
-												var xhr = new XMLHttpRequest();
-
-												xhr.onreadystatechange = function () {
-													if (this.readyState == 4 && this.status == 200) {
-														/*
-														 Caching image
-														 */
-														jtCache.setItem("image." + Backbone.history.getFragment() + "." + btoa($(val).data("src")), {
-															"type"     : "blob",
-															"value"    : xhr.response,
-															"extension": "",
-															"fileType" : xhr.response.type
-														}, window.PERSISTENT, null);
+												renderImage();
+											}
+											else {
+												jtCache.getItem("favorite/" + Backbone.history.getFragment(), function (_data) {
+													if (_data != null) {
+														renderImage();
 													}
-												}
-
-												xhr.open('GET', $(val).data("src"));
-												xhr.responseType = 'blob';
-												xhr.send();
+												}, window.PERSISTENT);
 											}
 										}, window.PERSISTENT);
+
+										function renderImage() {
+											var xhr = new XMLHttpRequest();
+
+											xhr.onreadystatechange = function () {
+												if (this.readyState == 4 && this.status == 200) {
+													/*
+													 Caching image
+													 */
+													jtCache.setItem("image." + Backbone.history.getFragment() + "." + btoa($(val).data("src")), {
+														"type"     : "blob",
+														"value"    : xhr.response,
+														"extension": "",
+														"fileType" : xhr.response.type
+													}, window.PERSISTENT, null);
+												}
+											}
+
+											xhr.open('GET', $(val).data("src"));
+											xhr.responseType = 'blob';
+											xhr.send();
+										}
 
 										img.src = $(val).data("src");
 									});
