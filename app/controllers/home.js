@@ -34,14 +34,9 @@ define(
 
 				var those = that = this;
 
-				var _articleList = function (_data) {
-					that.cacheSource.getItem(Backbone.history.getFragment())
-				}
+				that._articleList = that.cacheSource.getItem(Backbone.history.getFragment());
 
-				$.when(_articleList()).then(function (_result) {
-					that._articleList = _result;
-
-					$("#app-toolbar")
+				$("#app-toolbar")
 						.removeClass("detail")
 						.removeClass("search")
 						.removeClass("beranda")
@@ -50,89 +45,89 @@ define(
 						.empty()
 						.append((_.template(headerLayout))());
 
-					$("#app-body").empty().append(that.layout());
+				$("#app-body").empty().append(that.layout());
 
-					if ($("#app-body .app-refreshed").length == 0) {
-						$("#app-body").append(
+				if ($("#app-body .app-refreshed").length == 0) {
+					$("#app-body").append(
 							'<div class="app-refreshed"></div>'
-						);
-					}
+					);
+				}
 
-					if (typeof _options != "undefined" && typeof _options.type != "undefined" && _options.type == "favorites") {
-						/*
-						 Mode Favorite
-						 */
-						$("#app-toolbar").addClass("disukai");
+				if (typeof _options != "undefined" && typeof _options.type != "undefined" && _options.type == "favorites") {
+					/*
+					 Mode Favorite
+					 */
+					$("#app-toolbar").addClass("disukai");
 
-						jtCache.listItem("data", function (_data) {
-							var _buff = [];
+					jtCache.listItem("data", function (_data) {
+						var _buff = [];
 
-							$.each(_data, function (key, val) {
-								if (val != null && typeof val.value != "undefined") {
-									_buff.push(val);
+						$.each(_data, function (key, val) {
+							if (val != null && typeof val.value != "undefined") {
+								_buff.push(val);
+							}
+						});
+
+						if (_buff.length > 0) {
+							key = 0;
+							Promise.all(_buff.map(function (val) {
+								article = JSON.parse(val.value);
+
+								if (typeof article != "object") {
+									article = JSON.parse(article);
 								}
-							});
 
-							if (_buff.length > 0) {
-								key = 0;
-								Promise.all(_buff.map(function (val) {
-									article = JSON.parse(val.value);
+								if (val.expired == "true" && !jt.isOffline() && typeof article.slug != "undefined") {
+									updateFavoriteArticle(article.slug);
+								}
 
-									if (typeof article != "object") {
-										article = JSON.parse(article);
-									}
+								_buff[ key ]      = article;
+								_buff[ key ].type = "favorite";
 
-									if (val.expired == "true" && !jt.isOffline() && typeof article.slug != "undefined") {
-										updateFavoriteArticle(article.slug);
-									}
-
-									_buff[ key ]      = article;
-									_buff[ key ].type = "favorite";
-
-									key++;
-								})).then(function () {
-									$("#app-body .app-content-container .card-placeholder").remove();
-									$("#app-body .app-content-container").empty()
+								key++;
+							})).then(function () {
+								$("#app-body .app-content-container .card-placeholder").remove();
+								$("#app-body .app-content-container").empty()
 										.append('<div class="app-toolbar-placeholder"></div>')
 										.append(those.timelineTemplate({
 											timelineArticle: _buff
 										}));
 
-									if (Backbone.history.getFragment().trim() != "") {
-										$(".app-toolbar").removeClass("beranda");
-										$(".app-content-container .app-index-card:first-child")
+								if (Backbone.history.getFragment().trim() != "") {
+									$(".app-toolbar").removeClass("beranda");
+									$(".app-content-container .app-index-card:first-child")
 											.css("margin-top", "0px");
-									}
+								}
 
-									finishedRendering();
+								finishedRendering();
+							});
+
+							function updateFavoriteArticle(_slug) {
+								var dfd = jQuery.Deferred();
+
+								that.articleModel = new Article({
+									slug: _slug
 								});
 
-								function updateFavoriteArticle(_slug) {
-									var dfd = jQuery.Deferred();
+								that.articleModel.fetch({
+									timeout: 5000,
+									success: function (_data) {
+										jtCache.setItem("favorite/article." + _slug, JSON.stringify(_data), window.PERSISTENT, null);
 
-									that.articleModel = new Article({
-										slug: _slug
-									});
+										dfd.resolve();
+									},
+									error  : function () {
+										$(".app-content-container .app-load").removeClass("loading");
 
-									that.articleModel.fetch({
-										timeout: 5000,
-										success: function (_data) {
-											jtCache.setItem("favorite/article." + _slug, JSON.stringify(_data), window.PERSISTENT, null);
+										dfd.resolve();
+									}
+								});
 
-											dfd.resolve();
-										},
-										error  : function () {
-											$(".app-content-container .app-load").removeClass("loading");
-
-											dfd.resolve();
-										}
-									});
-
-									return dfd.promise();
-								}
+								return dfd.promise();
 							}
-							else {
-								$("#app-body .app-content-container").empty().append(
+						}
+						else {
+							$("#app-body .app-content-container").empty().append(
 									'<div class="favorite-empty">' +
 									'<img class="emoji" src="assets/images/cry-icon.png">' +
 									'Maaf, Belum Ada Artikel yang Disukai.' +
@@ -141,56 +136,20 @@ define(
 									'<div class="recommended-articles">REKOMENDASI UNTUK KAMU</div>' +
 									'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>' +
 									'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>'
-								);
+							);
 
-								if (!jt.isOffline()) {
-									that.collection = new Timeline({
-										order: "24hour",
-										limit: 10,
-										where: "views_last_24hour>=4000&&published>=" + date('Y-m-d H:00:00',
+							if (!jt.isOffline()) {
+								that.collection = new Timeline({
+									order: "24hour",
+									limit: 10,
+									where: "views_last_24hour>=4000&&published>=" + date('Y-m-d H:00:00',
 											strtotime('-1 month')),
-									});
+								});
 
-									that.collection.fetch({
-										timeout: 5000,
-										success: function () {
-											var _data = that.collection.toJSON();
-
-											$.each(_data, function (key, val) {
-												_data[ key ].type = "favorite";
-											});
-
-											$("#app-body .app-content-container .card-placeholder").remove();
-											$("#app-body .app-content-container")
-												.append(that.timelineTemplate({
-													timelineArticle: _data
-												}));
-
-											function cache(_data) {
-												window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
-
-												if (that.type != "search") {
-													window.localStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
-												}
-
-												that.loadImages();
-											}
-
-											that._articleList = JSON.stringify(_data);
-
-											cache(_data);
-										},
-										error  : function () {
-											$(".app-content-container .app-load").removeClass("loading");
-
-											$(".recommended-articles").fadeOut();
-											$(".card-placeholder").fadeOut();
-										}
-									});
-								}
-								else {
-									if (that._articleList != null && (JSON.parse(that._articleList)).length > 0) {
-										_data = JSON.parse(that._articleList);
+								that.collection.fetch({
+									timeout: 5000,
+									success: function () {
+										var _data = that.collection.toJSON();
 
 										$.each(_data, function (key, val) {
 											_data[ key ].type = "favorite";
@@ -198,126 +157,33 @@ define(
 
 										$("#app-body .app-content-container .card-placeholder").remove();
 										$("#app-body .app-content-container")
-											.append(that.timelineTemplate({
-												timelineArticle: _data
-											}));
+												.append(that.timelineTemplate({
+													timelineArticle: _data
+												}));
 
-										that.loadImages();
+										function cache(_data) {
+											window.sessionStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
+
+											if (that.type != "search") {
+												window.localStorage.setItem(Backbone.history.getFragment(), JSON.stringify(_data));
+											}
+
+											that.loadImages();
+										}
+
+										that._articleList = JSON.stringify(_data);
+
+										cache(_data);
+									},
+									error  : function () {
+										$(".app-content-container .app-load").removeClass("loading");
+
+										$(".recommended-articles").fadeOut();
+										$(".card-placeholder").fadeOut();
 									}
-									else {
-										$("#app-body .app-content-container").empty().append(
-												'<div class="favorite-empty">' +
-												'<img class="emoji" src="assets/images/cry-icon.png">' +
-												'Maaf, Belum Ada Artikel yang Disukai.' +
-												'<img src="assets/images/favorit.png">' +
-												'</div>'
-										);
-									}
-								}
-
-								finishedRendering();
-							}
-
-							function finishedRendering() {
-								if (window.localStorage.getItem("show_splash") === "true") {
-									$(".no-splash").hide();
-
-									if ($(".splash").length >= 1) {
-										setTimeout(function () {
-											$(".splash").fadeOut("fast", function () {
-												$(this).remove();
-											})
-										}, 2000);
-									}
-								}
-								else {
-									$(".splash").fadeOut(350, function () {
-										$(this).remove();
-									});
-									$(".no-splash").fadeOut(350, function () {
-										$(this).remove();
-									});
-								}
-
-								if (that.cacheSource.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
-									$(".app-content-container").scrollTop(parseInt(that.cacheSource.getItem(Backbone.history.getFragment() + "/scrollTop")));
-								}
-
-								$(".app-toggle-refresh").remove();
-
-								$("#app-body .app-content-container").scroll(function () {
-									window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
-										$(".app-content-container").scrollTop());
-
-									if (that.type != "search") {
-										window.localStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
-											$(".app-content-container").scrollTop());
-									}
-								});
-								$(".app-toolbar").removeClass("beranda");
-
-								that.loadImages();
-							}
-						}, window.PERSISTENT, "favorite.article.");
-					}
-					else if ((typeof _options == "undefined" || typeof _options.type == "undefined") && jt.isOffline()) {
-						/*
-						 Mode Offline
-						 */
-						$("#app-toolbar").addClass("disukai");
-						if(Backbone.history.getFragment() == "")
-						{
-							$("#app-toolbar").addClass("beranda");
-						}
-						jtCache.listItem("data", function (_data) {
-							var _buff = [];
-
-							$.each(_data, function (key, val) {
-								if (val != null && typeof val.value != "undefined") {
-									_buff.push(val);
-								}
-							});
-
-							if (_buff.length > 0) {
-								key = 0;
-								Promise.all(_buff.map(function (val) {
-									article = JSON.parse(val.value);
-
-									if (typeof article != "object") {
-										article = JSON.parse(article);
-									}
-
-									_buff[ key ]       = article;
-									_buff[ key ].type  = "favorite";
-									_buff[ key ].label = "offline";
-
-									key++;
-								})).then(function () {
-									$("#app-body .app-content-container .card-placeholder").remove();
-									$("#app-body .app-content-container").empty()
-											.append('<div class="app-toolbar-placeholder"></div>')
-											.append(those.timelineTemplate({
-												timelineArticle: _buff
-											}));
-
-									if (Backbone.history.getFragment().trim() != "") {
-										$(".app-toolbar").removeClass("beranda");
-										$(".app-content-container .app-index-card:first-child")
-												.css("margin-top", "0px");
-									}
-
-									finishedRendering();
 								});
 							}
 							else {
-								$("#app-body .app-content-container").empty().append(
-										'<div class="favorite-empty">' +
-										'<img class="emoji" src="assets/images/afraid-icon.png">' +
-										'Maaf, Belum Ada Artikel yang Kamu Simpan' +
-										'<img src="assets/images/simpan-offline.png">' +
-										'</div>'
-								);
-
 								if (that._articleList != null && (JSON.parse(that._articleList)).length > 0) {
 									_data = JSON.parse(that._articleList);
 
@@ -334,81 +200,210 @@ define(
 									that.loadImages();
 								}
 								else {
-									$(".recommended-articles").fadeOut();
+									$("#app-body .app-content-container").empty().append(
+											'<div class="favorite-empty">' +
+											'<img class="emoji" src="assets/images/cry-icon.png">' +
+											'Maaf, Belum Ada Artikel yang Disukai.' +
+											'<img src="assets/images/favorit.png">' +
+											'</div>'
+									);
+								}
+							}
+
+							finishedRendering();
+						}
+
+						function finishedRendering() {
+							if (window.localStorage.getItem("show_splash") === "true") {
+								$(".no-splash").hide();
+
+								if ($(".splash").length >= 1) {
+									setTimeout(function () {
+										$(".splash").fadeOut("fast", function () {
+											$(this).remove();
+										})
+									}, 2000);
+								}
+							}
+							else {
+								$(".splash").fadeOut(350, function () {
+									$(this).remove();
+								});
+								$(".no-splash").fadeOut(350, function () {
+									$(this).remove();
+								});
+							}
+
+							if (that.cacheSource.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
+								$(".app-content-container").scrollTop(parseInt(that.cacheSource.getItem(Backbone.history.getFragment() + "/scrollTop")));
+							}
+
+							$(".app-toggle-refresh").remove();
+
+							$("#app-body .app-content-container").scroll(function () {
+								window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
+										$(".app-content-container").scrollTop());
+
+								if (that.type != "search") {
+									window.localStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
+											$(".app-content-container").scrollTop());
+								}
+							});
+							$(".app-toolbar").removeClass("beranda");
+
+							that.loadImages();
+						}
+					}, window.PERSISTENT, "favorite.article.");
+				}
+				else if ((typeof _options == "undefined" || typeof _options.type == "undefined") && jt.isOffline()) {
+					/*
+					 Mode Offline
+					 */
+					$("#app-toolbar").addClass("disukai");
+					if(Backbone.history.getFragment() == "")
+					{
+						$("#app-toolbar").addClass("beranda");
+					}
+					jtCache.listItem("data", function (_data) {
+						var _buff = [];
+
+						$.each(_data, function (key, val) {
+							if (val != null && typeof val.value != "undefined") {
+								_buff.push(val);
+							}
+						});
+
+						if (_buff.length > 0) {
+							key = 0;
+							Promise.all(_buff.map(function (val) {
+								article = JSON.parse(val.value);
+
+								if (typeof article != "object") {
+									article = JSON.parse(article);
+								}
+
+								_buff[ key ]       = article;
+								_buff[ key ].type  = "favorite";
+								_buff[ key ].label = "offline";
+
+								key++;
+							})).then(function () {
+								$("#app-body .app-content-container .card-placeholder").remove();
+								$("#app-body .app-content-container").empty()
+										.append('<div class="app-toolbar-placeholder"></div>')
+										.append(those.timelineTemplate({
+											timelineArticle: _buff
+										}));
+
+								if (Backbone.history.getFragment().trim() != "") {
+									$(".app-toolbar").removeClass("beranda");
+									$(".app-content-container .app-index-card:first-child")
+											.css("margin-top", "0px");
 								}
 
 								finishedRendering();
-							}
+							});
+						}
+						else {
+							$("#app-body .app-content-container").empty().append(
+									'<div class="favorite-empty">' +
+									'<img class="emoji" src="assets/images/afraid-icon.png">' +
+									'Maaf, Belum Ada Artikel yang Kamu Simpan' +
+									'<img src="assets/images/simpan-offline.png">' +
+									'</div>'
+							);
 
-							function finishedRendering() {
-								if (window.localStorage.getItem("show_splash") === "true") {
-									$(".no-splash").hide();
+							if (that._articleList != null && (JSON.parse(that._articleList)).length > 0) {
+								_data = JSON.parse(that._articleList);
 
-									if ($(".splash").length >= 1) {
-										setTimeout(function () {
-											$(".splash").fadeOut("fast", function () {
-												$(this).remove();
-											})
-										}, 2000);
-									}
-								}
-								else {
-									$(".splash").fadeOut(350, function () {
-										$(this).remove();
-									});
-									$(".no-splash").fadeOut(350, function () {
-										$(this).remove();
-									});
-								}
-
-								if (that.cacheSource.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
-									$(".app-content-container").scrollTop(parseInt(that.cacheSource.getItem(Backbone.history.getFragment() + "/scrollTop")));
-								}
-
-								$(".app-toggle-refresh").remove();
-
-								$("#app-body .app-content-container").scroll(function () {
-									window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
-											$(".app-content-container").scrollTop());
-
-									if (that.type != "search") {
-										window.localStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
-												$(".app-content-container").scrollTop());
-									}
+								$.each(_data, function (key, val) {
+									_data[ key ].type = "favorite";
 								});
+
+								$("#app-body .app-content-container .card-placeholder").remove();
+								$("#app-body .app-content-container")
+										.append(that.timelineTemplate({
+											timelineArticle: _data
+										}));
 
 								that.loadImages();
 							}
-						}, window.PERSISTENT, "offline.article.");
-					}
-					else {
-						if (typeof _options != "undefined" && typeof _options.type != "undefined") {
-							that.type = _options.type;
+							else {
+								$(".recommended-articles").fadeOut();
+							}
 
-							switch (_options.type) {
-								case "home1":
-									that.order = "published";
-									break;
-								case "home2":
-									that.orderBy = "[[views_last_24hour,desc]]";
-									that.where   = "published>=" + date('Y-m-d H:00:00', strtotime('-3 days'));
-									break;
-								case "home3":
-									that.category = "tips";
-									break;
-								case "home4":
-									that.category = "gokil";
-									break;
-								case "home5":
-									that.category = "gadgets";
-									break;
-								case "home6":
-									that.category = "news";
-									break;
-								case "search":
-									that.search = _options.search;
+							finishedRendering();
+						}
 
-									$("#app-toolbar")
+						function finishedRendering() {
+							if (window.localStorage.getItem("show_splash") === "true") {
+								$(".no-splash").hide();
+
+								if ($(".splash").length >= 1) {
+									setTimeout(function () {
+										$(".splash").fadeOut("fast", function () {
+											$(this).remove();
+										})
+									}, 2000);
+								}
+							}
+							else {
+								$(".splash").fadeOut(350, function () {
+									$(this).remove();
+								});
+								$(".no-splash").fadeOut(350, function () {
+									$(this).remove();
+								});
+							}
+
+							if (that.cacheSource.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
+								$(".app-content-container").scrollTop(parseInt(that.cacheSource.getItem(Backbone.history.getFragment() + "/scrollTop")));
+							}
+
+							$(".app-toggle-refresh").remove();
+
+							$("#app-body .app-content-container").scroll(function () {
+								window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
+										$(".app-content-container").scrollTop());
+
+								if (that.type != "search") {
+									window.localStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
+											$(".app-content-container").scrollTop());
+								}
+							});
+
+							that.loadImages();
+						}
+					}, window.PERSISTENT, "offline.article.");
+				}
+				else {
+					if (typeof _options != "undefined" && typeof _options.type != "undefined") {
+						that.type = _options.type;
+
+						switch (_options.type) {
+							case "home1":
+								that.order = "published";
+								break;
+							case "home2":
+								that.orderBy = "[[views_last_24hour,desc]]";
+								that.where   = "published>=" + date('Y-m-d H:00:00', strtotime('-3 days'));
+								break;
+							case "home3":
+								that.category = "tips";
+								break;
+							case "home4":
+								that.category = "gokil";
+								break;
+							case "home5":
+								that.category = "gadgets";
+								break;
+							case "home6":
+								that.category = "news";
+								break;
+							case "search":
+								that.search = _options.search;
+
+								$("#app-toolbar")
 										.removeClass("detail")
 										.removeClass("scroll")
 										.removeClass("disukai")
@@ -417,69 +412,69 @@ define(
 										.empty()
 										.append((_.template(headerDetailLayout))());
 
-									$("#search-form [name='search']").val(_options.search);
-									$("#app-toolbar .header-description").html("Hasil Pencarian");
-									break;
-							}
+								$("#search-form [name='search']").val(_options.search);
+								$("#app-toolbar .header-description").html("Hasil Pencarian");
+								break;
 						}
-						else {
-							that.filter = "shuffle";
-							that.order  = "6hour";
-							that.limit  = 12;
-							that.cache  = 300;
+					}
+					else {
+						that.filter = "shuffle";
+						that.order  = "6hour";
+						that.limit  = 12;
+						that.cache  = 300;
 
-							$("#search-form [name='search']").val("");
+						$("#search-form [name='search']").val("");
 
-							if (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") >= 5) {
-								window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
-
-								if (that.type != "search") {
-									window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
-								}
-								$(".app-loader").remove();
-							}
-						}
-
-						if (!jt.isOffline()) {
-							that.collection = new Timeline({
-								order   : typeof that.order != "undefined" ? that.order : "",
-								orderBy : typeof that.orderBy != "undefined" ? that.orderBy : "",
-								category: typeof that.category != "undefined" ? that.category : "",
-								search  : typeof that.search != "undefined" ? that.search : "",
-								filter  : typeof that.filter != "undefined" ? that.filter : "",
-								limit   : typeof that.limit != "undefined" ? that.limit : "",
-								cache   : typeof that.cache != "undefined" ? that.cache : "",
-								where   : typeof that.where != "undefined" ? that.where : "",
-								page    : (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") != null ? that.cacheSource.getItem(
-									Backbone.history.getFragment() + "/page") : 1),
-							});
-						}
-
-						if (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") != null) {
-							that.page = parseInt(that.cacheSource.getItem(Backbone.history.getFragment() + "/page"));
-						}
-						else {
-							that.page = 1;
-
-							window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
-							window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
-								$(".app-content-container").scrollTop());
+						if (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") >= 5) {
+							window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 
 							if (that.type != "search") {
-								window.localStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
-								window.localStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
-									$(".app-content-container").scrollTop());
+								window.localStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 							}
+							$(".app-loader").remove();
+						}
+					}
 
-							window.sessionStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
-							window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
+					if (!jt.isOffline()) {
+						that.collection = new Timeline({
+							order   : typeof that.order != "undefined" ? that.order : "",
+							orderBy : typeof that.orderBy != "undefined" ? that.orderBy : "",
+							category: typeof that.category != "undefined" ? that.category : "",
+							search  : typeof that.search != "undefined" ? that.search : "",
+							filter  : typeof that.filter != "undefined" ? that.filter : "",
+							limit   : typeof that.limit != "undefined" ? that.limit : "",
+							cache   : typeof that.cache != "undefined" ? that.cache : "",
+							where   : typeof that.where != "undefined" ? that.where : "",
+							page    : (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") != null ? that.cacheSource.getItem(
+									Backbone.history.getFragment() + "/page") : 1),
+						});
+					}
+
+					if (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") != null) {
+						that.page = parseInt(that.cacheSource.getItem(Backbone.history.getFragment() + "/page"));
+					}
+					else {
+						that.page = 1;
+
+						window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
+						window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
+								$(".app-content-container").scrollTop());
+
+						if (that.type != "search") {
+							window.localStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
+							window.localStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
+									$(".app-content-container").scrollTop());
 						}
 
-						if (typeof _options == "undefined") {
+						window.sessionStorage.removeItem(Backbone.history.getFragment() + "/lastArticle");
+						window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
+					}
 
-						}
-						else if (that.type == "search") {
-							$("#app-body .app-content-container").empty().append(
+					if (typeof _options == "undefined") {
+
+					}
+					else if (that.type == "search") {
+						$("#app-body .app-content-container").empty().append(
 								'<div class="app-search">' +
 								'<span class="app-search-result">Hasil pencarian dari: </span>' +
 								'<span class="app-search-keyword">"' + that.search + '"</span>' +
@@ -487,43 +482,43 @@ define(
 								'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>' +
 								'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>' +
 								'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>'
-							);
-						}
-						else {
-							$(".app-toggle-refresh").show();
+						);
+					}
+					else {
+						$(".app-toggle-refresh").show();
+					}
+
+					if (that._articleList != null) {
+						window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
+
+						if (that.type != "search") {
+							window.localStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
 						}
 
-						if (that._articleList != null) {
-							window.sessionStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
+						$(".header-refresh").show();
+
+						if (that.type != "search") {
+							$("#app-body .app-content-container").empty();
+						}
+						$("#app-body .app-content-container").append('<div class="app-toolbar-placeholder"></div>');
+
+						that.render(true);
+					}
+					else {
+						function offlineHandler() {
+							$(".app-content-container .app-load").removeClass("loading");
 
 							if (that.type != "search") {
-								window.localStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
-							}
+								that.page = that.page - 1;
 
-							$(".header-refresh").show();
-
-							if (that.type != "search") {
-								$("#app-body .app-content-container").empty();
-							}
-							$("#app-body .app-content-container").append('<div class="app-toolbar-placeholder"></div>');
-
-							that.render(true);
-						}
-						else {
-							function offlineHandler() {
-								$(".app-content-container .app-load").removeClass("loading");
-
-								if (that.type != "search") {
-									that.page = that.page - 1;
-
-									$("#app-body .app-content-container").empty().append(
+								$("#app-body .app-content-container").empty().append(
 										'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
-									).append(
+								).append(
 										'<div class="app-toolbar-placeholder"></div>'
-									);
-								}
-								else {
-									$("#app-body .app-content-container").empty().append(
+								);
+							}
+							else {
+								$("#app-body .app-content-container").empty().append(
 										'<div class="app-search">' +
 										'<span class="app-search-result">Tidak ada hasil untuk </span>' +
 										'<span class="app-search-keyword">"' + that.search + '"</span>' +
@@ -531,250 +526,249 @@ define(
 										'<div class="recommended-articles">REKOMENDASI UNTUK KAMU</div>' +
 										'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>' +
 										'<div class="app-index-card card-placeholder"> <div class="card-description"> <div class="card-title"> </div> <div class="card-note"> </div> </div> <div class="card-image"></div> </div>'
-									);
+								);
 
-									if (!jt.isOffline()) {
-										that.collection = new Timeline({
-											order: "24hour",
-											limit: 10,
-											where: "views_last_24hour>=4000&&published>=" + date('Y-m-d H:00:00',
+								if (!jt.isOffline()) {
+									that.collection = new Timeline({
+										order: "24hour",
+										limit: 10,
+										where: "views_last_24hour>=4000&&published>=" + date('Y-m-d H:00:00',
 												strtotime('-1 month')),
-										});
+									});
 
-										that.collection.fetch({
-											timeout: 5000,
-											success: function () {
-												var _data = that.collection.toJSON();
+									that.collection.fetch({
+										timeout: 5000,
+										success: function () {
+											var _data = that.collection.toJSON();
 
-												$("#app-body .app-content-container .card-placeholder").remove();
-												$("#app-body .app-content-container")
+											$("#app-body .app-content-container .card-placeholder").remove();
+											$("#app-body .app-content-container")
 													.append(that.timelineTemplate({
 														timelineArticle: _data
 													}));
 
-												that._articleList = JSON.stringify(_data);
+											that._articleList = JSON.stringify(_data);
 
-												that.loadImages();
-											},
-											error  : function () {
-												$(".app-content-container .app-load").removeClass("loading");
+											that.loadImages();
+										},
+										error  : function () {
+											$(".app-content-container .app-load").removeClass("loading");
 
-												$(".recommended-articles").fadeOut();
-												$(".card-placeholder").fadeOut();
-											}
-										});
-									}
-									else {
-										$(".recommended-articles").fadeOut();
-									}
+											$(".recommended-articles").fadeOut();
+											$(".card-placeholder").fadeOut();
+										}
+									});
 								}
+								else {
+									$(".recommended-articles").fadeOut();
+								}
+							}
 
-								$(".app-loader").addClass("showbtn");
+							$(".app-loader").addClass("showbtn");
 
-								if ($(".no-splash").length >= 1) {
-									$(".splash").show().find(".splash-content").fadeIn();
-									$(".no-splash").fadeOut();
+							if ($(".no-splash").length >= 1) {
+								$(".splash").show().find(".splash-content").fadeIn();
+								$(".no-splash").fadeOut();
 
-									if (!$(".splash .app-refreshed").hasClass("active")) {
-										$(".splash .app-refreshed")
+								if (!$(".splash .app-refreshed").hasClass("active")) {
+									$(".splash .app-refreshed")
 											.html("Tidak ada jaringan")
 											.addClass("active")
 											.fadeIn();
-										setTimeout(function () {
-											$(".splash .app-refreshed").removeClass("active").fadeOut();
-										}, 2000);
+									setTimeout(function () {
+										$(".splash .app-refreshed").removeClass("active").fadeOut();
+									}, 2000);
 
-										that.isConnected = false;
-									}
-
-									$(".splash-content .app-loader").fadeIn();
-
-									$(".app-loader").addClass("showbtn");
-
-									$(".splash-quote").remove();
-									$(".splash-speaker").remove();
-									$(".splash-loading").hide();
+									that.isConnected = false;
 								}
 
-								$(".app-retry").on("click touchend", function () {
-									that.isConnected = true;
+								$(".splash-content .app-loader").fadeIn();
 
-									$(".app-loader").removeClass("showbtn");
+								$(".app-loader").addClass("showbtn");
 
-									that.autoload("retry");
-								});
+								$(".splash-quote").remove();
+								$(".splash-speaker").remove();
+								$(".splash-loading").hide();
 							}
 
-							if (!jt.isOffline()) {
-								that.collection.fetch({
-									timeout: 5000,
-									success: function () {
-										var _data = that.collection.toJSON();
+							$(".app-retry").on("click touchend", function () {
+								that.isConnected = true;
 
-										if (_data.length > 0) {
-											$(".header-refresh").show();
+								$(".app-loader").removeClass("showbtn");
 
-											if (that.type != "search") {
-												$("#app-body .app-content-container").empty();
-											}
-											$("#app-body .app-content-container")
-													.append('<div class="app-toolbar-placeholder"></div>');
-
-											that.isConnected = true;
-
-											that.render();
-										}
-										else {
-											offlineHandler();
-										}
-									},
-									error  : function () {
-										offlineHandler();
-									}
-								});
-							}
-							else {
-								if (that._articleList == null) {
-									offlineHandler();
-								}
-								else {
-									$(".header-refresh").show();
-
-									if (that.type != "search") {
-										$("#app-body .app-content-container").empty();
-									}
-									$("#app-body .app-content-container")
-										.append('<div class="app-toolbar-placeholder"></div>');
-
-									that.render();
-								}
-							}
+								that.autoload("retry");
+							});
 						}
 
-						var currentFragment = "";
+						if (!jt.isOffline()) {
+							that.collection.fetch({
+								timeout: 5000,
+								success: function () {
+									var _data = that.collection.toJSON();
 
-						$(".header-refresh").on("click", function () {
-							currentFragment = Backbone.history.getFragment();
+									if (_data.length > 0) {
+										$(".header-refresh").show();
 
-							if (!$(".app-content-container .app-load").hasClass("loading") && !$(this)
-									.hasClass("active")) {
-								if (!jt.isOffline()) {
-									$(".header-refresh").addClass("active");
+										if (that.type != "search") {
+											$("#app-body .app-content-container").empty();
+										}
+										$("#app-body .app-content-container")
+												.append('<div class="app-toolbar-placeholder"></div>');
 
-									$(".app-content-container .app-loader").fadeOut();
+										that.isConnected = true;
 
-									function refresh() {
-										that.collection = new Timeline({
-											order   : typeof that.order != "undefined" ? that.order : "",
-											orderBy : typeof that.orderBy != "undefined" ? that.orderBy : "",
-											category: typeof that.category != "undefined" ? that.category : "",
-											search  : typeof that.search != "undefined" ? that.search : "",
-											filter  : typeof that.filter != "undefined" ? that.filter : "",
-											limit   : typeof that.limit != "undefined" ? that.limit : "",
-											cache   : typeof that.cache != "undefined" ? that.cache : "",
-											where   : typeof that.where != "undefined" ? that.where : "",
-											page    : 1,
-										});
-
-										setTimeout(function () {
-											that.collection.fetch({
-												timeout: 10000,
-												success: function () {
-													$(".header-refresh")
-														.one('animationiteration webkitAnimationIteration',
-															function () {
-																$(".header-refresh")
-																	.off("animationiteration webkitAnimationIteration");
-																$(".header-refresh").removeClass("active");
-															});
-
-													setTimeout(function () {
-														if (currentFragment == Backbone.history.getFragment()) {
-															window.sessionStorage.removeItem(currentFragment);
-															window.sessionStorage.removeItem(currentFragment + "/page");
-															window.sessionStorage.removeItem(currentFragment + "/isLastPage");
-															window.sessionStorage.removeItem(currentFragment + "/lastArticle");
-
-															if (that.type != "search") {
-																window.localStorage.removeItem(currentFragment);
-																window.localStorage.removeItem(currentFragment + "/page");
-																window.localStorage.removeItem(currentFragment + "/isLastPage");
-															}
-
-															that.page = 1;
-
-															$(".app-refreshed").html("Refresh selesai").fadeIn();
-
-															$("#app-body .app-content-container").empty();
-															$("#app-body .app-content-container")
-																.append('<div class="app-toolbar-placeholder"></div>');
-
-															window.sessionStorage.removeItem(currentFragment + "/scrollTop");
-															if (that.type != "search") {
-																window.localStorage.removeItem(currentFragment + "/scrollTop");
-															}
-
-															$(".app-content-container").scrollTop(0);
-
-															that.render();
-
-															setTimeout(function () {
-																$(".app-refreshed").fadeOut();
-															}, 2000);
-														}
-													}, 1000);
-												},
-												error  : function () {
-													$(".app-content-container .app-load").removeClass("loading");
-													$(".header-refresh")
-														.one('animationiteration webkitAnimationIteration',
-															function () {
-																$(".header-refresh")
-																	.off("animationiteration webkitAnimationIteration");
-																$(".header-refresh").removeClass("active");
-															});
-													$(".app-content-container .app-loader").fadeIn();
-												}
-											});
-										}, 250);
+										that.render();
 									}
-
-									refresh();
-								}
-								else {
-									if (!$(".app-refreshed").hasClass("active")) {
-										$(".app-refreshed").html("Tidak ada jaringan").addClass("active").fadeIn();
-										setTimeout(function () {
-											$(".app-refreshed").removeClass("active").fadeOut();
-										}, 2000);
-
-										that.isConnected = false;
+									else {
+										offlineHandler();
 									}
+								},
+								error  : function () {
+									offlineHandler();
 								}
-							}
-						});
-					}
-
-					$("a.usermenu-item").removeClass("active").each(function () {
-						if ($(this).attr("href") == "#" + Backbone.history.getFragment()) {
-							var isKategori = $(this).attr("href").split("/")[ 1 ];
-							if ($(this).find(".usermenu-item-detail").html().trim() != "Beranda") {
-								$(".app-header .header-description").html($(this).find(".usermenu-item-detail").html());
-								if (isKategori == "favorites") {
-									$(".app-header .header-description").html("Artikel Favorit");
-								}
-								$(".app-logo").hide();
+							});
+						}
+						else {
+							if (that._articleList == null) {
+								offlineHandler();
 							}
 							else {
-								$(".app-logo").show();
-								$(".app-toolbar").addClass("beranda");
+								$(".header-refresh").show();
+
+								if (that.type != "search") {
+									$("#app-body .app-content-container").empty();
+								}
+								$("#app-body .app-content-container")
+										.append('<div class="app-toolbar-placeholder"></div>');
+
+								that.render();
 							}
-							$(this).addClass("active");
-							if (isKategori == "home3" || isKategori == "home4" || isKategori == "home5" || isKategori == "home6") {
-								$(".app-kategori").addClass("active");
+						}
+					}
+
+					var currentFragment = "";
+
+					$(".header-refresh").on("click", function () {
+						currentFragment = Backbone.history.getFragment();
+
+						if (!$(".app-content-container .app-load").hasClass("loading") && !$(this)
+										.hasClass("active")) {
+							if (!jt.isOffline()) {
+								$(".header-refresh").addClass("active");
+
+								$(".app-content-container .app-loader").fadeOut();
+
+								function refresh() {
+									that.collection = new Timeline({
+										order   : typeof that.order != "undefined" ? that.order : "",
+										orderBy : typeof that.orderBy != "undefined" ? that.orderBy : "",
+										category: typeof that.category != "undefined" ? that.category : "",
+										search  : typeof that.search != "undefined" ? that.search : "",
+										filter  : typeof that.filter != "undefined" ? that.filter : "",
+										limit   : typeof that.limit != "undefined" ? that.limit : "",
+										cache   : typeof that.cache != "undefined" ? that.cache : "",
+										where   : typeof that.where != "undefined" ? that.where : "",
+										page    : 1,
+									});
+
+									setTimeout(function () {
+										that.collection.fetch({
+											timeout: 10000,
+											success: function () {
+												$(".header-refresh")
+														.one('animationiteration webkitAnimationIteration',
+																function () {
+																	$(".header-refresh")
+																			.off("animationiteration webkitAnimationIteration");
+																	$(".header-refresh").removeClass("active");
+																});
+
+												setTimeout(function () {
+													if (currentFragment == Backbone.history.getFragment()) {
+														window.sessionStorage.removeItem(currentFragment);
+														window.sessionStorage.removeItem(currentFragment + "/page");
+														window.sessionStorage.removeItem(currentFragment + "/isLastPage");
+														window.sessionStorage.removeItem(currentFragment + "/lastArticle");
+
+														if (that.type != "search") {
+															window.localStorage.removeItem(currentFragment);
+															window.localStorage.removeItem(currentFragment + "/page");
+															window.localStorage.removeItem(currentFragment + "/isLastPage");
+														}
+
+														that.page = 1;
+
+														$(".app-refreshed").html("Refresh selesai").fadeIn();
+
+														$("#app-body .app-content-container").empty();
+														$("#app-body .app-content-container")
+																.append('<div class="app-toolbar-placeholder"></div>');
+
+														window.sessionStorage.removeItem(currentFragment + "/scrollTop");
+														if (that.type != "search") {
+															window.localStorage.removeItem(currentFragment + "/scrollTop");
+														}
+
+														$(".app-content-container").scrollTop(0);
+
+														that.render();
+
+														setTimeout(function () {
+															$(".app-refreshed").fadeOut();
+														}, 2000);
+													}
+												}, 1000);
+											},
+											error  : function () {
+												$(".app-content-container .app-load").removeClass("loading");
+												$(".header-refresh")
+														.one('animationiteration webkitAnimationIteration',
+																function () {
+																	$(".header-refresh")
+																			.off("animationiteration webkitAnimationIteration");
+																	$(".header-refresh").removeClass("active");
+																});
+												$(".app-content-container .app-loader").fadeIn();
+											}
+										});
+									}, 250);
+								}
+
+								refresh();
+							}
+							else {
+								if (!$(".app-refreshed").hasClass("active")) {
+									$(".app-refreshed").html("Tidak ada jaringan").addClass("active").fadeIn();
+									setTimeout(function () {
+										$(".app-refreshed").removeClass("active").fadeOut();
+									}, 2000);
+
+									that.isConnected = false;
+								}
 							}
 						}
 					});
+				}
+
+				$("a.usermenu-item").removeClass("active").each(function () {
+					if ($(this).attr("href") == "#" + Backbone.history.getFragment()) {
+						var isKategori = $(this).attr("href").split("/")[ 1 ];
+						if ($(this).find(".usermenu-item-detail").html().trim() != "Beranda") {
+							$(".app-header .header-description").html($(this).find(".usermenu-item-detail").html());
+							if (isKategori == "favorites") {
+								$(".app-header .header-description").html("Artikel Favorit");
+							}
+							$(".app-logo").hide();
+						}
+						else {
+							$(".app-logo").show();
+							$(".app-toolbar").addClass("beranda");
+						}
+						$(this).addClass("active");
+						if (isKategori == "home3" || isKategori == "home4" || isKategori == "home5" || isKategori == "home6") {
+							$(".app-kategori").addClass("active");
+						}
+					}
 				});
 			},
 			render          : function (_isUsingCache, _autoloadFragment) {
