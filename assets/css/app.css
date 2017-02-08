@@ -1398,6 +1398,10 @@ div, span, a
 {
 	right: 50px;
 }
+.detail .app-toggle-refresh, .detail .app-toggle-searchpanel, .search .app-toggle-refresh, .search .app-toggle-searchpanel
+{
+	display: none;
+}
 .app-body .app-refreshed, .splash .app-refreshed
 {
 	display: none; 
