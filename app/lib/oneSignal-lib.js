@@ -5,7 +5,7 @@ var oneSignal = function () {
 	return {
 		init: function () {
 			if (typeof window.plugins != "undefined" && !jt.isOffline()) {
-				window.plugins.OneSignal.setLogLevel({ logLevel: 2, visualLevel: 2 });
+				window.plugins.OneSignal.setLogLevel({ logLevel: 4, visualLevel: 4 });
 
 				window.plugins.OneSignal
 						.startInit("a92950f8-7bf1-462a-9157-e480802c2ae5", "975487375429")
