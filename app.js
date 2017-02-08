@@ -155,7 +155,7 @@ require(
 						$("#app-body .app-content-container").empty().append(
 								'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
 						);
-						$(".header-refresh").hide();
+						// $(".header-refresh").hide();
 
 						$(".app-load").css("display", "none");
 						$(".splash .app-loader").addClass("showbtn");
@@ -593,20 +593,34 @@ require(
 			});
 
 			$(document).on("click", ".app-header .app-toggle-userpanel", function (e) {
-				var _this = $(this);
-				if (!$(".popup-userpanel").hasClass("active")) {
-					$(".popup-userpanel-container").fadeIn(0, function () {
-						$(".popup-userpanel").addClass("active")
-					})
+				if(!jt.isOffline)
+				{
+					var _this = $(this);
+					if (!$(".popup-userpanel").hasClass("active")) {
+						$(".popup-userpanel-container").fadeIn(0, function () {
+							$(".popup-userpanel").addClass("active")
+						})
+					}
+					else {
+						$(".popup-userpanel-container").fadeOut();
+						$(".popup-userpanel").removeClass("active")
+					}
+					_this.addClass("active");
+					var _userpanel = setTimeout(function () {
+						_this.removeClass("active");
+					}, 300);
 				}
-				else {
-					$(".popup-userpanel-container").fadeOut();
-					$(".popup-userpanel").removeClass("active")
+				else
+				{
+					e.preventDefault();
+
+					if (!$(".app-refreshed").hasClass("active")) {
+						$(".app-refreshed").html("Tidak ada jaringan").addClass("active").fadeIn();
+						setTimeout(function () {
+							$(".app-refreshed").removeClass("active").fadeOut();
+						}, 2000);
+					}
 				}
-				_this.addClass("active");
-				var _userpanel = setTimeout(function () {
-					_this.removeClass("active");
-				}, 300);
 			});
 
 			$(document).on("click", ".app-kategori", function (e) {
