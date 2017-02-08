@@ -330,8 +330,8 @@ define(
 							//else {
 							//	$(".recommended-articles").fadeOut();
 							//}
-							//
-							//finishedRendering();
+
+							finishedRendering();
 						}
 
 						function finishedRendering() {
@@ -797,7 +797,7 @@ define(
 				}
 
 				if (typeof that.type == "undefined") {
-					if (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") >= 4) {
+					if (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") >= 10 && 1 == 2) {
 						window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 
 						if (that.type != "search") {
