@@ -100,16 +100,13 @@ require(
 				document.addEventListener("backbutton", function (e) {
 					$.xhrPool.abortAll();
 					fragment = Backbone.history.getFragment();
-					if($(".app-kategori-overlay").hasClass("active"))
-					{
+					if ($(".app-kategori-overlay").hasClass("active")) {
 						$(".kategori-close").click()
 					}
-					else if($(".popup-userpanel").hasClass("active"))
-					{
+					else if ($(".popup-userpanel").hasClass("active")) {
 						$(".userpanel-close").click()
 					}
-					else
-					{
+					else {
 						if ((fragment == "" || fragment.indexOf("index/") == 0) || window.history.length == 1) {
 							if (fragment.indexOf("index/") == 0) {
 								window.location.href = "#";
@@ -909,7 +906,7 @@ require(
 						if (Backbone.history.getFragment() == "") {
 							Backbone.history.loadUrl();
 						}
-						else if (Backbone.history.getFragment().indexOf("index/") >= 0) {
+						else if (Backbone.history.getFragment().indexOf("index/") >= 0 && Backbone.history.getFragment().indexOf("index/favorites") < 0) {
 							window.location.href = "#";
 						}
 					}
