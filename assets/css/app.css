@@ -2895,6 +2895,10 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     text-align: center;
     border-bottom: 1px solid #f0f0f0;
 }
+.favorite-empty:last-child
+{
+	border: 0;
+}
 .favorite-empty .emoji, .favorite-empty img
 {
 	margin: 10px auto 10px;
