@@ -22,6 +22,8 @@ define(
 			cacheSource     : window.sessionStorage,
 			articleList     : null,
 			initialize      : function (_options) {
+				window.sessionStorage.removeItem(Backbone.history.getFragment() + "/isLastPage");
+
 				if (jt.isOffline() && this.type != "search") {
 					this.cacheSource = window.localStorage;
 				}
@@ -664,7 +666,7 @@ define(
 									function refresh() {
 										that.collection = new Timeline({
 											order   : typeof that.order != "undefined" ? that.order : "",
-											orderBy: typeof that.orderBy != "undefined" ? that.orderBy : "",
+											orderBy : typeof that.orderBy != "undefined" ? that.orderBy : "",
 											category: typeof that.category != "undefined" ? that.category : "",
 											search  : typeof that.search != "undefined" ? that.search : "",
 											filter  : typeof that.filter != "undefined" ? that.filter : "",
@@ -698,6 +700,8 @@ define(
 																window.localStorage.removeItem(currentFragment + "/page");
 																window.localStorage.removeItem(currentFragment + "/isLastPage");
 															}
+
+															that.page = 1;
 
 															$(".app-refreshed").html("Refresh selesai").fadeIn();
 
