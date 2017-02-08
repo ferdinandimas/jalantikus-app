@@ -425,7 +425,7 @@ define(
 
 						$("#search-form [name='search']").val("");
 
-						if (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") >= 5) {
+						if ((that.cacheSource.getItem(Backbone.history.getFragment() + "/page") >= 10 && 1 == 2)) {
 							window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 
 							if (that.type != "search") {
@@ -1098,7 +1098,8 @@ define(
 									window.localStorage.setItem(Backbone.history.getFragment() + "/page", that.page);
 								}
 
-								if (typeof that.options.type == "undefined" && that.cacheSource.getItem(Backbone.history.getFragment() + "/page") >= 5) {
+								isUnlimited = true
+								if (typeof that.options.type == "undefined" && (that.cacheSource.getItem(Backbone.history.getFragment() + "/page") >= 10 && 1 == 2)) {
 									window.sessionStorage.setItem(Backbone.history.getFragment() + "/isLastPage", true);
 
 									if (that.type != "search") {
