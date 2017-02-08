@@ -111,7 +111,7 @@
 
     <gap:plugin name="onesignal-cordova-plugin" spec="^2.0.6" source="npm" />
     <gap:plugin name="phonegap-plugin-mobile-accessibility" spec="~1.0.5" source="npm"/>
-    <gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />
+    <gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" source="npm"/>
 
     <plugin name="cordova-plugin-whitelist" spec="~1.2.1" source="npm"/>
     <plugin name="cordova-plugin-splashscreen" spec="~3.2.1" source="npm"/>
