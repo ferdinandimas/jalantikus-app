@@ -484,6 +484,10 @@ require(
 					{
 						jt.ripple($(this), e, "instant", "s");
 					}
+					else if($(this).hasClass("item-pass"))
+					{
+						jt.ripple($(this), e, "", "");
+					}
 					else
 					{
 						e.preventDefault();
