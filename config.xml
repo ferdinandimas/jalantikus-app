@@ -49,7 +49,6 @@
         <allow-intent href="whatsapp:*"/>
         <allow-intent href="line:*"/>
         <allow-intent href="bbmi:*"/>
-        <allow-intent href="fb:*"/>
 
         <!--Additional Domain-->
             <allow-navigation href="*://*.playbuzz.com/*"/>
