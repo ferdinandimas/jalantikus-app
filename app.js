@@ -484,6 +484,10 @@ require(
 					{
 						jt.ripple($(this), e, "instant", "s");
 					}
+					else if($(this).hasClass("item-pass"))
+					{
+						jt.ripple($(this), e, "", "");
+					}
 					else
 					{
 						e.preventDefault();
@@ -593,34 +597,20 @@ require(
 			});
 
 			$(document).on("click", ".app-header .app-toggle-userpanel", function (e) {
-				if(!jt.isOffline)
-				{
-					var _this = $(this);
-					if (!$(".popup-userpanel").hasClass("active")) {
-						$(".popup-userpanel-container").fadeIn(0, function () {
-							$(".popup-userpanel").addClass("active")
-						})
-					}
-					else {
-						$(".popup-userpanel-container").fadeOut();
-						$(".popup-userpanel").removeClass("active")
-					}
-					_this.addClass("active");
-					var _userpanel = setTimeout(function () {
-						_this.removeClass("active");
-					}, 300);
+				var _this = $(this);
+				if (!$(".popup-userpanel").hasClass("active")) {
+					$(".popup-userpanel-container").fadeIn(0, function () {
+						$(".popup-userpanel").addClass("active")
+					})
 				}
-				else
-				{
-					e.preventDefault();
-
-					if (!$(".app-refreshed").hasClass("active")) {
-						$(".app-refreshed").html("Tidak ada jaringan").addClass("active").fadeIn();
-						setTimeout(function () {
-							$(".app-refreshed").removeClass("active").fadeOut();
-						}, 2000);
-					}
+				else {
+					$(".popup-userpanel-container").fadeOut();
+					$(".popup-userpanel").removeClass("active")
 				}
+				_this.addClass("active");
+				var _userpanel = setTimeout(function () {
+					_this.removeClass("active");
+				}, 300);
 			});
 
 			$(document).on("click", ".app-kategori", function (e) {
