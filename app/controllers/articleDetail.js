@@ -545,7 +545,6 @@ define(
 								if (parent.find(".image-refresh").length == 0) {
 									parent.append("<div class='image-refresh'>Lihat gambar di Web<a href='" + $(".app-gotoweb.app-goto").attr("href") + "' class='card-link'><div class='ripple'></div></a></div>");
 								}
-								parent.css("padding", 0).css("height", "auto")
 								_this.remove();
 							}
 						}
@@ -556,7 +555,7 @@ define(
 							if (parent.find(".image-refresh").length == 0) {
 								parent.html("<div class='image-refresh-container'>Konten Tidak Dapat Dimuat<br><div class='image-refresh not-support'>Lihat Konten di Web<a href='javascript:void(0);' data-href='" + $(".app-gotoweb.app-goto").data("href") + "' class='card-link'><div class='ripple'></div></a></div></div>").attr("style", "");
 							}
-
+							parent.css("padding", 0).css("height", "auto")
 							_this.remove()
 						}
 					});
