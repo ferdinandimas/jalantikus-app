@@ -560,6 +560,15 @@ define(
 						}
 					});
 
+					$(".pb_feed").each(function (index, element) {
+						if(jt.isOffline())
+						{
+							var _this = $(this);
+							_this.html("<p><div class='image-refresh-container'>Konten Tidak Dapat Dimuat<br><div class='image-refresh not-support'>Lihat Konten di Web<a href='javascript:void(0);' data-href='" + $(".app-gotoweb.app-goto").data("href") + "' class='card-link'><div class='ripple'></div></a></div></div></p>").attr("style", "");
+						
+						}
+					});
+
 					$(".app-detail-body iframe").one("error", function (index, element) {
 						var _this = $(this);
 						var parent = _this.parent();
