@@ -256,7 +256,7 @@ define(
 					}, window.PERSISTENT, "favorite.article.");
 				}
 				else if ((typeof _options == "undefined" || typeof _options.type == "undefined") && jt.isOffline()) {
-					that.offlineMode;
+					that.offlineMode();
 				}
 				else {
 					if (typeof _options != "undefined" && typeof _options.type != "undefined") {
