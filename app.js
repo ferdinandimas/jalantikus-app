@@ -401,9 +401,6 @@ require(
 					$("#app-userpanel").panel("close");
 					$(".popup-userpanel").removeClass("active")
 					$(".popup-userpanel-container").fadeOut();
-					if (typeof window.StatusBar != "undefined") {
-						window.StatusBar.backgroundColorByHexString("#6d151e");
-					}
 				}, 150);
 			});
 
@@ -413,23 +410,14 @@ require(
 					$("#app-userpanel").panel("close");
 					$(".popup-userpanel").removeClass("active")
 					$(".popup-userpanel-container").fadeOut();
-					if (typeof window.StatusBar != "undefined") {
-						window.StatusBar.backgroundColorByHexString("#6d151e");
-					}
 				}, 150);
 			});
 
 			$(document).on("click", ".rating-close", function () {
 				$(".app-rating").fadeOut();
-				if (typeof window.StatusBar != "undefined") {
-					window.StatusBar.backgroundColorByHexString("#8f1f1f");
-				}
 			});
 			$(document).on("click", ".settings-close", function () {
 				$(".app-settings").fadeOut();
-				if (typeof window.StatusBar != "undefined") {
-					window.StatusBar.backgroundColorByHexString("#8f1f1f");
-				}
 			});
 			$(document).on("click", ".kategori-close", function () {
 				$(".app-kategori-overlay").removeClass("active")
@@ -450,15 +438,10 @@ require(
 
 			$(document).on("click", ".app-rating-submit .rating-link", function (e) {
 				setTimeout(function () {
-					if (typeof window.StatusBar != "undefined") {
-						window.StatusBar.backgroundColorByHexString("#8f1f1f");
-					}
 					$(".app-rating").fadeOut(300);
 					cordova.plugins.market.open('com.jalantikus.app')
 				}, 500);
-				if (typeof window.StatusBar != "undefined") {
-					window.StatusBar.backgroundColorByHexString("#8f1f1f");
-				}
+
 				jt.ripple($(this), e, "slow");
 			});
 
