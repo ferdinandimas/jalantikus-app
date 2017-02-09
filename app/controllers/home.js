@@ -117,6 +117,7 @@ define(
 										dfd.resolve();
 									},
 									error  : function () {
+										console.log("HERE 1");
 										$(".app-content-container .app-load").removeClass("loading");
 
 										dfd.resolve();
@@ -176,6 +177,7 @@ define(
 										cache(_data);
 									},
 									error  : function () {
+										console.log("HERE 2");
 										$(".app-content-container .app-load").removeClass("loading");
 
 										$(".recommended-articles").fadeOut();
@@ -256,124 +258,7 @@ define(
 					}, window.PERSISTENT, "favorite.article.");
 				}
 				else if ((typeof _options == "undefined" || typeof _options.type == "undefined") && jt.isOffline()) {
-					/*
-					 Mode Offline
-					 */
-					$("#app-toolbar").addClass("disukai");
-					if (Backbone.history.getFragment() == "") {
-						$("#app-toolbar").addClass("beranda");
-					}
-					jtCache.listItem("data", function (_data) {
-						var _buff = [];
-
-						$.each(_data, function (key, val) {
-							if (val != null && typeof val.value != "undefined") {
-								_buff.push(val);
-							}
-						});
-
-						if (_buff.length > 0) {
-							key = 0;
-							Promise.all(_buff.map(function (val) {
-								article = JSON.parse(val.value);
-
-								if (typeof article != "object") {
-									article = JSON.parse(article);
-								}
-
-								_buff[ key ]       = article;
-								_buff[ key ].type  = "favorite";
-								_buff[ key ].label = "offline";
-
-								key++;
-							})).then(function () {
-								$("#app-body .app-content-container .card-placeholder").remove();
-								$("#app-body .app-content-container").empty()
-										.append('<div class="app-toolbar-placeholder"></div>')
-										.append(those.timelineTemplate({
-											timelineArticle: _buff
-										}));
-
-								if (Backbone.history.getFragment().trim() != "") {
-									$(".app-toolbar").removeClass("beranda");
-									$(".app-content-container .app-index-card:first-child")
-											.css("margin-top", "0px");
-								}
-
-								finishedRendering();
-							});
-						}
-						else {
-							$("#app-body .app-content-container").empty().append(
-									'<div class="favorite-empty">' +
-									'<img class="emoji" src="assets/images/afraid-icon.png">' +
-									'Maaf, Belum Ada Artikel yang Kamu Simpan' +
-									'<img src="assets/images/simpan-offline.png">' +
-									'</div>'
-							);
-
-							//if (that._articleList != null && (JSON.parse(that._articleList)).length > 0) {
-							//	_data = JSON.parse(that._articleList);
-							//
-							//	$.each(_data, function (key, val) {
-							//		_data[ key ].type = "favorite";
-							//	});
-							//
-							//	$("#app-body .app-content-container .card-placeholder").remove();
-							//	$("#app-body .app-content-container")
-							//			.append(that.timelineTemplate({
-							//				timelineArticle: _data
-							//			}));
-							//
-							//	that.loadImages();
-							//}
-							//else {
-							//	$(".recommended-articles").fadeOut();
-							//}
-
-							finishedRendering();
-						}
-
-						function finishedRendering() {
-							if (window.localStorage.getItem("show_splash") === "true") {
-								$(".no-splash").hide();
-
-								if ($(".splash").length >= 1) {
-									setTimeout(function () {
-										$(".splash").fadeOut("fast", function () {
-											$(this).remove();
-										})
-									}, 2000);
-								}
-							}
-							else {
-								$(".splash").fadeOut(350, function () {
-									$(this).remove();
-								});
-								$(".no-splash").fadeOut(350, function () {
-									$(this).remove();
-								});
-							}
-
-							if (that.cacheSource.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
-								$(".app-content-container").scrollTop(parseInt(that.cacheSource.getItem(Backbone.history.getFragment() + "/scrollTop")));
-							}
-
-							// $(".app-toggle-refresh").remove();
-
-							$("#app-body .app-content-container").scroll(function () {
-								window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
-										$(".app-content-container").scrollTop());
-
-								if (that.type != "search") {
-									window.localStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
-											$(".app-content-container").scrollTop());
-								}
-							});
-
-							that.loadImages();
-						}
-					}, window.PERSISTENT, "offline.article.");
+					that.offlineMode;
 				}
 				else {
 					if (typeof _options != "undefined" && typeof _options.type != "undefined") {
@@ -510,11 +395,52 @@ define(
 							if (that.type != "search") {
 								that.page = that.page - 1;
 
-								$("#app-body .app-content-container").empty().append(
-										'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
-								).append(
-										'<div class="app-toolbar-placeholder"></div>'
-								);
+								if (typeof _options == "undefined" || typeof _options.type == "undefined") {
+									console.log("HERE");
+									that.offlineMode();
+								}
+								else {
+									$("#app-body .app-content-container").empty().append(
+											'<div class="app-loader"><a href="javascript:void(0)" class="app-retry">Gagal memuat. Coba lagi?</a><div class="app-load"></div></div>'
+									).append(
+											'<div class="app-toolbar-placeholder"></div>'
+									);
+
+									$(".app-loader").addClass("showbtn");
+
+									if ($(".no-splash").length >= 1 || $(".splash").length >= 1) {
+										$(".splash").show().find(".splash-content").fadeIn();
+										$(".no-splash").fadeOut();
+
+										if (!$(".splash .app-refreshed").hasClass("active")) {
+											$(".splash .app-refreshed")
+													.html("Jaringan tidak stabil")
+													.addClass("active")
+													.fadeIn();
+											setTimeout(function () {
+												$(".splash .app-refreshed").removeClass("active").fadeOut();
+											}, 2000);
+
+											that.isConnected = false;
+										}
+
+										$(".splash-content .app-loader").fadeIn();
+
+										$(".app-loader").addClass("showbtn");
+
+										$(".splash-quote").remove();
+										$(".splash-speaker").remove();
+										$(".splash-loading").hide();
+									}
+
+									$(".app-retry").on("click touchend", function () {
+										that.isConnected = true;
+
+										$(".app-loader").removeClass("showbtn");
+
+										that.autoload("retry");
+									});
+								}
 							}
 							else {
 								$("#app-body .app-content-container").empty().append(
@@ -551,6 +477,7 @@ define(
 											that.loadImages();
 										},
 										error  : function () {
+											console.log("HERE 3");
 											$(".app-content-container .app-load").removeClass("loading");
 
 											$(".recommended-articles").fadeOut();
@@ -561,42 +488,10 @@ define(
 								else {
 									$(".recommended-articles").fadeOut();
 								}
+
+								$(".splash").fadeOut().remove();
+								$(".no-splash").fadeOut().remove();
 							}
-
-							$(".app-loader").addClass("showbtn");
-
-							if ($(".no-splash").length >= 1) {
-								$(".splash").show().find(".splash-content").fadeIn();
-								$(".no-splash").fadeOut();
-
-								if (!$(".splash .app-refreshed").hasClass("active")) {
-									$(".splash .app-refreshed")
-											.html("Tidak ada jaringan")
-											.addClass("active")
-											.fadeIn();
-									setTimeout(function () {
-										$(".splash .app-refreshed").removeClass("active").fadeOut();
-									}, 2000);
-
-									that.isConnected = false;
-								}
-
-								$(".splash-content .app-loader").fadeIn();
-
-								$(".app-loader").addClass("showbtn");
-
-								$(".splash-quote").remove();
-								$(".splash-speaker").remove();
-								$(".splash-loading").hide();
-							}
-
-							$(".app-retry").on("click touchend", function () {
-								that.isConnected = true;
-
-								$(".app-loader").removeClass("showbtn");
-
-								that.autoload("retry");
-							});
 						}
 
 						if (!jt.isOffline()) {
@@ -623,6 +518,7 @@ define(
 									}
 								},
 								error  : function () {
+									console.log("HERE 4");
 									offlineHandler();
 								}
 							});
@@ -1131,6 +1027,110 @@ define(
 						}
 					}, 2000);
 				}
+			},
+			offlineMode     : function () {
+				var those = that = this;
+
+				console.log("offline mode");
+				/*
+				 Mode Offline
+				 */
+				$("#app-toolbar").addClass("disukai");
+				if (Backbone.history.getFragment() == "") {
+					$("#app-toolbar").addClass("beranda");
+				}
+				jtCache.listItem("data", function (_data) {
+					var _buff = [];
+
+					$.each(_data, function (key, val) {
+						if (val != null && typeof val.value != "undefined") {
+							_buff.push(val);
+						}
+					});
+
+					if (_buff.length > 0) {
+						key = 0;
+						Promise.all(_buff.map(function (val) {
+							article = JSON.parse(val.value);
+
+							if (typeof article != "object") {
+								article = JSON.parse(article);
+							}
+
+							_buff[ key ]       = article;
+							_buff[ key ].type  = "favorite";
+							_buff[ key ].label = "offline";
+
+							key++;
+						})).then(function () {
+							$("#app-body .app-content-container .card-placeholder").remove();
+							$("#app-body .app-content-container").empty()
+									.append('<div class="app-toolbar-placeholder"></div>')
+									.append(those.timelineTemplate({
+										timelineArticle: _buff
+									}));
+
+							if (Backbone.history.getFragment().trim() != "") {
+								$(".app-toolbar").removeClass("beranda");
+								$(".app-content-container .app-index-card:first-child")
+										.css("margin-top", "0px");
+							}
+
+							finishedRendering();
+						});
+					}
+					else {
+						$("#app-body .app-content-container").empty().append(
+								'<div class="favorite-empty">' +
+								'<img class="emoji" src="assets/images/afraid-icon.png">' +
+								'Maaf, Belum Ada Artikel yang Kamu Simpan' +
+								'<img src="assets/images/simpan-offline.png">' +
+								'</div>'
+						);
+
+						finishedRendering();
+					}
+
+					function finishedRendering() {
+						if (window.localStorage.getItem("show_splash") === "true") {
+							$(".no-splash").hide();
+
+							if ($(".splash").length >= 1) {
+								setTimeout(function () {
+									$(".splash").fadeOut("fast", function () {
+										$(this).remove();
+									})
+								}, 2000);
+							}
+						}
+						else {
+							$(".splash").fadeOut(350, function () {
+								$(this).remove();
+							});
+							$(".no-splash").fadeOut(350, function () {
+								$(this).remove();
+							});
+						}
+
+						if (that.cacheSource.getItem(Backbone.history.getFragment() + "/scrollTop") != null) {
+							$(".app-content-container").scrollTop(parseInt(that.cacheSource.getItem(Backbone.history.getFragment() + "/scrollTop")));
+						}
+
+						// $(".app-toggle-refresh").remove();
+
+						$("#app-body .app-content-container").scroll(function () {
+							window.sessionStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
+									$(".app-content-container").scrollTop());
+
+							if (that.type != "search") {
+								window.localStorage.setItem(Backbone.history.getFragment() + "/scrollTop",
+										$(".app-content-container").scrollTop());
+							}
+						});
+
+						that.loadImages();
+					}
+				}, window.PERSISTENT, "offline.article.");
 			},
 			loadImages      : function () {
 				$("img:not(.rendered)").each(function (key, val) {
