@@ -117,7 +117,6 @@ define(
 										dfd.resolve();
 									},
 									error  : function () {
-										console.log("HERE 1");
 										$(".app-content-container .app-load").removeClass("loading");
 
 										dfd.resolve();
@@ -177,7 +176,6 @@ define(
 										cache(_data);
 									},
 									error  : function () {
-										console.log("HERE 2");
 										$(".app-content-container .app-load").removeClass("loading");
 
 										$(".recommended-articles").fadeOut();
@@ -396,7 +394,6 @@ define(
 								that.page = that.page - 1;
 
 								if (typeof _options == "undefined" || typeof _options.type == "undefined") {
-									console.log("HERE");
 									that.offlineMode();
 								}
 								else {
@@ -477,7 +474,6 @@ define(
 											that.loadImages();
 										},
 										error  : function () {
-											console.log("HERE 3");
 											$(".app-content-container .app-load").removeClass("loading");
 
 											$(".recommended-articles").fadeOut();
@@ -518,7 +514,6 @@ define(
 									}
 								},
 								error  : function () {
-									console.log("HERE 4");
 									offlineHandler();
 								}
 							});
@@ -1029,12 +1024,12 @@ define(
 				}
 			},
 			offlineMode     : function () {
-				var those = that = this;
-
-				console.log("offline mode");
 				/*
 				 Mode Offline
 				 */
+
+				var those = that = this;
+
 				$("#app-toolbar").addClass("disukai");
 				if (Backbone.history.getFragment() == "") {
 					$("#app-toolbar").addClass("beranda");
