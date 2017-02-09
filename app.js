@@ -131,6 +131,16 @@ require(
 						}
 					}
 				});
+
+				$.each(Object.keys(localStorage), function(key, val) {
+					if (val.indexOf("favorite/") != -1) {
+						if (window.localStorage.getItem(val) != null) {
+							jtCache.setItem(val, window.localStorage.getItem(val), window.PERSISTENT, null, function () {
+								window.localStorage.removeItem(val);
+							});
+						}
+					}
+				});
 			});
 
 			$.mobile.loading().hide();

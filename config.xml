@@ -120,4 +120,5 @@
     <plugin name="cordova-plugin-dialogs" spec="^1" source="npm"/>
     <plugin name="cordova-plugin-inappbrowser" spec="^1" source="npm"/>
     <plugin name="cordova-plugin-app-version" spec="~0.1.9" source="npm"/>
+    <plugin name="cordova-plugin-appavailability" spec="~0.4.2" source="npm" />
 </widget>

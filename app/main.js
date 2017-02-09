@@ -19,7 +19,7 @@ define(
 
                 if (!jt.isOffline()) {
                     for (var key in localStorage){
-                        if (key != "show_splash" && key != "push_subscription") {
+                        if (key != "show_splash" && key != "push_subscription" && key.indexOf("favorite/") < 0) {
                             window.localStorage.removeItem(key);
                         }
                     }

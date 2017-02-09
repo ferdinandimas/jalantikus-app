@@ -608,16 +608,74 @@ define(
 						}
 					});
 
-					$(".share-container a").each(function (key, val) {
+					$(".share").each(function (key, val) {
 						value  = $(val).attr("href");
 
 						if (value.indexOf("http:") == 0 || value.indexOf("https:") == 0) {
-							$(this).attr("onclick", "window.open('" + value + "', '_system');");
-							$(this).attr("href", "#");
+							$(val).attr("onclick", "window.open('" + value + "', '_system');");
+							$(val).attr("href", "#");
 
-							$(this).click(function (e) {
+							$(val).click(function (e) {
 								e.preventDefault();
 							});
+						}
+
+						if (value.indexOf("whatsapp:") == 0) {
+							if (typeof appAvailability != "undefined") {
+								appAvailability.check(
+										"com.whatsapp",
+										function() {
+
+										},
+										function() {
+											$(val).attr("href", "#");
+
+											$(val).click(function (e) {
+												e.preventDefault();
+
+												cordova.plugins.market.open('com.whatsapp')
+											});
+										}
+								);
+							}
+						}
+						else if (value.indexOf("line:") == 0) {
+							if (typeof appAvailability != "undefined") {
+								appAvailability.check(
+										"jp.naver.line.android",
+										function() {
+
+										},
+										function() {
+											$(val).attr("href", "#");
+
+											$(val).click(function (e) {
+												e.preventDefault();
+
+												cordova.plugins.market.open('jp.naver.line.android')
+											});
+										}
+								);
+							}
+						}
+						else if (value.indexOf("bbmi:") == 0) {
+							if (typeof appAvailability != "undefined") {
+								appAvailability.check(
+										"com.bbm",
+										function() {
+
+										},
+										function() {
+											$(val).attr("href", "#");
+
+											$(val).click(function (e) {
+												e.preventDefault();
+
+												cordova.plugins.market.open('com.bbm')
+											});
+										}
+								);
+							}
 						}
 					});
 
