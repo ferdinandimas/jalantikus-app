@@ -3286,7 +3286,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     left: 0;
     bottom: 0;
     right: 0;
-    background: rgba(0,0,0,0.46);
+    background: rgba(0,0,0,0.28);
     z-index: 1005;
     display: none;
 }
