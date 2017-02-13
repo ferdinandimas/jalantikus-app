@@ -767,13 +767,8 @@ define(
 					setTimeout(function () {
 						if (_config.environment == "live" && !jt.isOffline()) {
 							$("#iframe-jalantikus").prop("src", $("#iframe-jalantikus").data("src"));
-							alert("LOAD JT IFRAME " + $("#iframe-jalantikus").prop("src"));
 						}
 					}, 2000);
-
-					$("#iframe-jalantikus").load(function () {
-						alert("IFRAME LOADED");
-					});
 
 					$(".app-body a").on("click", function (e) {
 						if ((jt.isOffline() && !$(this).hasClass("share") && !$(this).hasClass("app-goto") && !$(this).hasClass("app-home") && !$(this).hasClass("app-toggle-back"))) {

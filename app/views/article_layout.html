@@ -86,7 +86,6 @@
             </div>
         </div>
     <% } %>
-    <iframe id="iframe-jalantikus" data-src="<%= detail.links.detail %>?utm_source=JT%20Apps2&utm_medium=Android&utm_campaign=<%= _config.version %>" data-detail="<%= detail.links.detail %>" frameborder="0" style="display: block !important; width: 100% !important; height: 200px !important;"></iframe>
     <div class="app-gotohome-description">
         KEMBALI KE BERANDA
         <a class="app-gotohome app-goto" href="#">
@@ -112,8 +111,4 @@
     <% } %>
 </div>
 
-<script>
-    console.log("HERE <%= detail.links.detail %>?utm_source=JT%20Apps&utm_medium=Android&utm_campaign=<%= _config.version %>");
-</script>
-
-<!--<iframe id="iframe-jalantikus" data-src="<%= detail.links.detail %>?utm_source=JT%20Apps&utm_medium=Android&utm_campaign=<%= _config.version %>" data-detail="<%= detail.links.detail %>" width="1" height="1" frameborder="0" style="display: none !important; width: 100% !important; height: 0px !important;"></iframe>-->
+<iframe id="iframe-jalantikus" data-src="<%= detail.links.detail %>?utm_source=JT%20Apps&utm_medium=Android&utm_campaign=<%= _config.version %>" data-detail="<%= detail.links.detail %>" width="1" height="1" frameborder="0" style="display: none !important; width: 100% !important; height: 0px !important;"></iframe>
